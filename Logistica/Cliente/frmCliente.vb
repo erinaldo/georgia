@@ -11,7 +11,7 @@ Public Class frmCliente
     Public NUEVO_PROSPECTO As Boolean = False
     Public CONVERTIR As Boolean = False
     Public BUSCAR As Boolean = False
-    Private mail As New CorreoElectronico
+    Private oMail As New CorreoElectronico
 
     'Private puc As PadronAfip
 
@@ -345,12 +345,16 @@ Public Class frmCliente
             Application.DoEvents()
 
             If txtCodigoCliente.Text.Trim = "" Then
+
                 txtCodigoCliente.Text = ProponerSiguienteCodigo(cboFamilia2.SelectedValue.ToString)
                 'Pasar codigo a sucursales
                 For Each suc As Sucursal In bpc.Sucursales
                     suc.Codigo = txtCodigoCliente.Text
                     suc.NombreCliente = txtNombre.Text
                 Next
+
+
+
             End If
 
             If txtCodigoPagador.Text.Trim = "" AndAlso bpc.Tipo = 1 Then
@@ -428,13 +432,15 @@ Public Class frmCliente
             Application.DoEvents()
 
             EstadoControles()
+
             If CerrarAlGrabar Then Me.Close()
-            If usr.PermisoAltaCliente = 3 Then EnviarMail()
+            'If usr.PermisoAltaCliente = 3 Then EnviarMail()
+
         End If
 
     End Sub
     Private Sub EnviarMail()
-        With mail
+        With oMail
             .Nuevo()
             .Remitente("noreply@matafuegosgeorgia.com", "Matafuegos Georgia")
             .AgregarDestinatarioArchivo("mails\CreacionCliente.txt", 0)

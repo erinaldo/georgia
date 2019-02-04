@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Collections
 
 Public Class frmVencimientos '2034
+    Private oMail As New CorreoElectronico
     Private dMin As Date
     Private dtVencimientos As New DataTable
     Private dtDetalle As New DataTable
@@ -109,14 +110,31 @@ Public Class frmVencimientos '2034
         da1.SelectCommand.Parameters.Add("usr_0", OracleType.VarChar).Value = usr.Codigo
 
         'Consulto vencimientos
-        Sql = "SELECT DISTINCT mac.bpcnum_0, bpcnam_0, fcyitn_0, bpaaddlig_0, tsccod_1, bpcpyr_0, (SELECT bpcnam_0 FROM bpcustomer WHERE bpcnum_0 = bpc.bpcpyr_0) AS admin_0, rep_0, mac.xitn_0, xabo_0 "
-        Sql &= "FROM (((machines mac INNER JOIN ymacitm ymc ON (mac.macnum_0 = ymc.macnum_0)) INNER JOIN bomd bmd ON (macpdtcod_0 = itmref_0 AND ymc.cpnitmref_0 = bmd.cpnitmref_0)) INNER JOIN bpcustomer bpc ON (mac.bpcnum_0 = bpc.bpcnum_0)) INNER JOIN bpaddress bpa ON (mac.bpcnum_0 = bpa.bpanum_0 AND mac.fcyitn_0 = bpa.bpaadd_0) "
+        Sql = "SELECT DISTINCT mac.bpcnum_0, "
+        Sql &= "	   			bpcnam_0, "
+        Sql &= "				fcyitn_0, "
+        Sql &= "				bpaaddlig_0, "
+        Sql &= "				tsccod_1, "
+        Sql &= "				bpcpyr_0, "
+        Sql &= "				pyr.bpcnam_0 AS admin_0, "
+        Sql &= "				rep_0, "
+        Sql &= "				mac.xitn_0, "
+        Sql &= "				xabo_0, "
+        Sql &= "				bpay.web_0 "
+        Sql &= "FROM machines mac INNER JOIN "
+        Sql &= "	 ymacitm ymc ON (mac.macnum_0 = ymc.macnum_0) INNER JOIN "
+        Sql &= "	 bomd bmd ON (macpdtcod_0 = itmref_0 AND ymc.cpnitmref_0 = bmd.cpnitmref_0) INNER JOIN "
+        Sql &= "	 bpcustomer bpc ON (mac.bpcnum_0 = bpc.bpcnum_0) INNER JOIN "
+        Sql &= " 	 bpaddress bpa ON (mac.bpcnum_0 = bpa.bpanum_0 AND mac.fcyitn_0 = bpa.bpaadd_0) INNER JOIN "
+        Sql &= "	 bpcustomer pyr ON (bpc.bpcpyr_0 = pyr.bpcnum_0) INNER JOIN "
+        Sql &= "	 bpartner bpr ON (pyr.bpcnum_0 = bpr.bprnum_0) INNER JOIN "
+        Sql &= " 	 bpaddress bpay ON (bpr.bpaadd_0 = bpay.bpaadd_0 AND bpr.bprnum_0 = bpay.bpanum_0) "
         Sql &= "WHERE bomalt_0 = 99 AND "
-        Sql &= "      bomseq_0 = 10 AND "
-        Sql &= "      macitntyp_0 = 1 AND "
-        Sql &= "      datnext_0 >= to_date(:datnext_0, 'dd/mm/yyyy') AND "
-        Sql &= "      datnext_0 < to_date(:datnext_1, 'dd/mm/yyyy') AND "
-        Sql &= "      mac.xitn_0 IN (' ', 'X0') "
+        Sql &= "	  bomseq_0 = 10 AND "
+        Sql &= "	  macitntyp_0 = 1 AND "
+        Sql &= "	  datnext_0 >= to_date(:datnext_0, 'dd/mm/yyyy') AND "
+        Sql &= "	  datnext_0 < to_date(:datnext_1, 'dd/mm/yyyy') AND "
+        Sql &= "	  mac.xitn_0 IN (' ', 'X0') "
         Sql &= "ORDER BY bpcnum_0, fcyitn_0"
         da2 = New OracleDataAdapter(Sql, cn)
         da2.SelectCommand.Parameters.Add("datnext_0", OracleType.VarChar).Value = dMin.ToString("dd/MM/yyyy")
@@ -234,6 +252,12 @@ Public Class frmVencimientos '2034
 
             With tNode.Nodes.Add(dv2(i).Item(0).ToString & "/" & dv2(i).Item(2).ToString, dv2(i).Item(2).ToString & " - " & dv2(i).Item(3).ToString)
                 .Tag = dv2(i).Item(1).ToString
+
+                '04/02/2019 MARTI MIÑO
+                'Si sucursal default del tercerp pagador no tiene mail, marco en violeta
+                If Not oMail.ValidarMail(dv2(i).Item(10).ToString.Trim) Then
+                    .BackColor = Drawing.Color.YellowGreen
+                End If
 
                 'Si es abonado pongo color azul
                 If CInt(dv2(i).Item(9)) = 2 Then
@@ -463,7 +487,7 @@ Public Class frmVencimientos '2034
                 For Each dr In dtVencimientos.Rows
                     If dr("cpnitmref_0").ToString.StartsWith("55301") OrElse _
                        dr("cpnitmref_0").ToString.StartsWith("504") OrElse _
-                       dr("cpnitmref_0").ToString.StartsWith("505")
+                       dr("cpnitmref_0").ToString.StartsWith("505") Then
 
                     Else
                         dr.Delete()
@@ -1132,7 +1156,7 @@ Public Class frmVencimientos '2034
             Next
             f.AgregarSustitutos()
         End If
-        
+
 
         'Pongo fecha minima si el mes no es el actual
         If dtp.Value.Month <> Date.Today.Month AndAlso lstTipos.SelectedValue.ToString <> "F1" Then
