@@ -11,9 +11,9 @@ Public Class frmCliente
     Public NUEVO_PROSPECTO As Boolean = False
     Public CONVERTIR As Boolean = False
     Public BUSCAR As Boolean = False
-    Private oMail As New CorreoElectronico
-
-    'Private puc As PadronAfip
+    'Si True envía mail avisando que se dio de alta un nuevo cliente (inactivo)
+    'y que se deben terminar e completar los datos
+    Private EnviarMailNuevoCliente As Boolean = False
 
     Public Sub New()
         ' Llamada necesaria para el Diseñador de Windows Forms.
@@ -116,11 +116,8 @@ Public Class frmCliente
 
         EstadoControles()
 
-        If usr.PermisoAltaCliente = 3 Then
-            chkActivo.Enabled = False
-        Else
-            chkActivo.Enabled = True
-        End If
+        'Desactivo el control si el usuario no tiene permiso para cambiar el estado del cliente
+        chkActivo.Enabled = (usr.PermisoAltaCliente <> 3)
 
     End Sub
     Private Sub AbrirCliente(ByVal Codigo As String)
@@ -166,19 +163,21 @@ Public Class frmCliente
 
     End Sub
     Private Sub Nuevo(ByVal TipoCliente As Integer)
-        'puc = Nothing
-
         bpc = New Cliente(cn)
         bpc.Nuevo(TipoCliente)
         bpc.Tipo = TipoCliente
         bpc.EsCliente = TipoCliente = 1
         bpc.EsProspecto = TipoCliente = 4
-        bpc.Activo = bpc.Tipo = 4
+        bpc.Activo = usr.PermisoAltaCliente <> 3
 
         EstadoControles()
         MostrarDatosCliente()
 
         lblIb.Text = "IIBB"
+
+        'Se activa flag para enviar aviso de nuevo cliente creado de forma parcial
+        EnviarMailNuevoCliente = (TipoCliente = 1 And usr.PermisoAltaCliente = 3)
+
     End Sub
     'Function
     Private Function ProponerSiguienteCodigo(ByVal Tipo As String) As String
@@ -434,12 +433,14 @@ Public Class frmCliente
             EstadoControles()
 
             If CerrarAlGrabar Then Me.Close()
-            'If usr.PermisoAltaCliente = 3 Then EnviarMail()
+            If EnviarMailNuevoCliente Then EnviarMail()
 
         End If
 
     End Sub
     Private Sub EnviarMail()
+        Dim oMail As New CorreoElectronico
+
         With oMail
             .Nuevo()
             .Remitente("noreply@matafuegosgeorgia.com", "Matafuegos Georgia")
@@ -449,6 +450,9 @@ Public Class frmCliente
             .Cuerpo = usr.Nombre & " creo un nuevo cliente: " & bpc.Codigo & " - " & bpc.Nombre & ", el mismo no esta activo, por favor, completar y activar."
             .Enviar()
         End With
+
+        EnviarMailNuevoCliente = False
+
     End Sub
     Private Sub txtCodigoCliente_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtCodigoCliente.Validating
         Dim txt As TextBox = CType(sender, TextBox)
@@ -873,6 +877,11 @@ Public Class frmCliente
     End Sub
     Private Sub btnConvertir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnConvertir.Click
         bpc.ConvetirEnCliente()
+        bpc.Activo = usr.PermisoAltaCliente <> 3
+        'Si el usuario tiene permiso para crear clientes de forma parcial
+        'activo flag para enviar mail con aviso de nuevo cliente creado.
+        EnviarMailNuevoCliente = (usr.PermisoAltaCliente = 3)
+
         EstadoControles()
     End Sub
     Private Sub btnBuscar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBuscar.Click
