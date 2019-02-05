@@ -614,7 +614,6 @@ Public Class frmCliente
             bpa = CType(dgv.SelectedRows(0).DataBoundItem, Sucursal)
 
             f = New frmSucursal(bpc, bpa)
-            f.btnAuto.Visible = False
 
             f.ShowDialog(Me)
 

@@ -5,7 +5,6 @@ Imports System.IO
 Public Class frmSucursal
     Private bpc As Cliente
     Private bpa As Sucursal
-    Private puc As PadronAfip = Nothing
 
     'Array de Provincia
     Private Provincias(24) As String
@@ -32,8 +31,6 @@ Public Class frmSucursal
 
         bpa = New Sucursal(cn)
         bpa.Nuevo(bpc.Codigo)
-
-        Me.puc = puc
 
     End Sub
     Public Sub New(ByVal bpc As Cliente, ByVal bpa As Sucursal)
@@ -472,78 +469,6 @@ Public Class frmSucursal
     Private Sub mnuSeleccionar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSeleccionar.Click
         AbrirSelectorExpresos()
     End Sub
-
-    Private Sub btnAuto_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAuto.Click
-        On Error Resume Next
-
-        If puc Is Nothing AndAlso bpc.TipoDoc = "80" Then ConsultarPadron(CLng(bpc.CUIT))
-
-        If puc.SucursalFiscal IsNot Nothing Then
-            
-            With puc.SucursalFiscal
-                cboProvincia.SelectedValue = Provincias(.idProvincia)
-                txtCiudad.Text = .localidad
-                txtCp.Text = .codPostal
-                txtDireccion.Text = .direccion
-            End With
-
-            HabilitarCallejero()
-
-        End If
-
-    End Sub
-    Private Function ConsultarPadron(ByVal Cuit As Long) As Boolean
-        Dim wsas As ServidorAutorizacion
-        Dim ta As Ticket = Nothing
-        Dim Path As String = "CERTIFICADOS\"
-        Dim NombreTicket As String = ""
-        Dim NombreCertificado As String = ""
-
-        NombreTicket = "puc_dny.xml"
-        NombreCertificado = "dny.p12"
-
-        If File.Exists(NombreTicket) Then
-            ta = New Ticket
-            ta.Load(NombreTicket)
-        End If
-
-        'Pido nuevo ticket al servidor de afip
-        If ta Is Nothing OrElse ta.ExpirationTime <= Now Then
-
-            Try
-                wsas = New ServidorAutorizacion(Path & NombreCertificado, "1234")
-
-                ta = wsas.SolicitarTicket("ws_sr_padron_a4")
-
-                If ta IsNot Nothing Then
-                    ta.Save(NombreTicket)
-
-                End If
-
-            Catch ex As Exception
-                ta = Nothing
-                Return False
-
-            End Try
-
-        End If
-
-        Try
-            If ta IsNot Nothing Then
-
-                puc = New PadronAfip(ta, 20255807308)
-                puc.Consultar(Cuit)
-
-            End If
-
-        Catch ex As Exception
-            Return False
-
-        End Try
-
-        Return True
-
-    End Function
 
     Private Sub txtAltura_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtAltura.Validating
         Dim txt As TextBox = CType(sender, TextBox)

@@ -65,7 +65,6 @@ Partial Class frmSucursal
         Me.txtFranja1Desde = New System.Windows.Forms.TextBox
         Me.txtFranja1Hasta = New System.Windows.Forms.TextBox
         Me.gbSucursal = New System.Windows.Forms.GroupBox
-        Me.btnAuto = New System.Windows.Forms.Button
         Me.gbDatos = New System.Windows.Forms.GroupBox
         Me.txtNombreExpreso = New System.Windows.Forms.TextBox
         Me.btnCancelar = New System.Windows.Forms.Button
@@ -407,7 +406,7 @@ Partial Class frmSucursal
         '
         Me.txtNombreSucursal.Location = New System.Drawing.Point(170, 19)
         Me.txtNombreSucursal.Name = "txtNombreSucursal"
-        Me.txtNombreSucursal.Size = New System.Drawing.Size(180, 20)
+        Me.txtNombreSucursal.Size = New System.Drawing.Size(239, 20)
         Me.txtNombreSucursal.TabIndex = 2
         Me.txtNombreSucursal.Text = "SUCURSAL"
         '
@@ -475,7 +474,6 @@ Partial Class frmSucursal
         '
         'gbSucursal
         '
-        Me.gbSucursal.Controls.Add(Me.btnAuto)
         Me.gbSucursal.Controls.Add(Me.txtNombreSucursal)
         Me.gbSucursal.Controls.Add(Me.txtCodigoSucursal)
         Me.gbSucursal.Controls.Add(Label17)
@@ -485,15 +483,6 @@ Partial Class frmSucursal
         Me.gbSucursal.TabIndex = 0
         Me.gbSucursal.TabStop = False
         Me.gbSucursal.Text = "Sucursal"
-        '
-        'btnAuto
-        '
-        Me.btnAuto.Location = New System.Drawing.Point(356, 16)
-        Me.btnAuto.Name = "btnAuto"
-        Me.btnAuto.Size = New System.Drawing.Size(53, 23)
-        Me.btnAuto.TabIndex = 8
-        Me.btnAuto.Text = "Auto"
-        Me.btnAuto.UseVisualStyleBackColor = True
         '
         'gbDatos
         '
@@ -709,5 +698,4 @@ Partial Class frmSucursal
     Friend WithEvents cm As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnuSeleccionar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents chkSab As System.Windows.Forms.CheckBox
-    Friend WithEvents btnAuto As System.Windows.Forms.Button
 End Class
