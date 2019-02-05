@@ -111,16 +111,16 @@ Public Class frmVencimientos '2034
 
         'Consulto vencimientos
         Sql = "SELECT DISTINCT mac.bpcnum_0, "
-        Sql &= "	   			bpcnam_0, "
-        Sql &= "				fcyitn_0, "
-        Sql &= "				bpaaddlig_0, "
-        Sql &= "				tsccod_1, "
-        Sql &= "				bpcpyr_0, "
-        Sql &= "				pyr.bpcnam_0 AS admin_0, "
-        Sql &= "				rep_0, "
-        Sql &= "				mac.xitn_0, "
-        Sql &= "				xabo_0, "
-        Sql &= "				bpay.web_0 "
+        Sql &= "	   		   bpc.bpcnam_0, "
+        Sql &= "			   mac.fcyitn_0, "
+        Sql &= "			   bpa.bpaaddlig_0, "
+        Sql &= "			   bpc.tsccod_1, "
+        Sql &= "			   bpc.bpcpyr_0, "
+        Sql &= "			   pyr.bpcnam_0 AS admin_0, "
+        Sql &= "			   pyr.rep_0, "
+        Sql &= "			   mac.xitn_0, "
+        Sql &= "			   bpc.xabo_0, "
+        Sql &= "			   bpay.web_0 "
         Sql &= "FROM machines mac INNER JOIN "
         Sql &= "	 ymacitm ymc ON (mac.macnum_0 = ymc.macnum_0) INNER JOIN "
         Sql &= "	 bomd bmd ON (macpdtcod_0 = itmref_0 AND ymc.cpnitmref_0 = bmd.cpnitmref_0) INNER JOIN "
@@ -208,6 +208,12 @@ Public Class frmVencimientos '2034
             'Agrego consorcio
             With tNode.Nodes.Add(dv2(i).Item(0).ToString & "/" & dv2(i).Item(2).ToString, dv2(i).Item(3).ToString)
                 .Tag = dv2(i).Item(1).ToString
+
+                '04/02/2019 MARTI MIÑO
+                'Si sucursal default del tercerp pagador no tiene mail, marco en violeta
+                If Not oMail.ValidarMail(dv2(i).Item(10).ToString.Trim) Then
+                    .BackColor = Drawing.Color.YellowGreen
+                End If
 
                 'Si es abonado pongo color azul
                 If CInt(dv2(i).Item(9)) = 2 Then
