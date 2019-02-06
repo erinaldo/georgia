@@ -168,7 +168,12 @@ Public Class frmCliente
         bpc.Tipo = TipoCliente
         bpc.EsCliente = TipoCliente = 1
         bpc.EsProspecto = TipoCliente = 4
-        bpc.Activo = usr.PermisoAltaCliente <> 3
+
+        If TipoCliente = 4 Then
+            bpc.Activo = True
+        Else
+            bpc.Activo = usr.PermisoAltaCliente <> 3
+        End If
 
         EstadoControles()
         MostrarDatosCliente()
