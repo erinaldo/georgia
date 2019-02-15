@@ -1129,4 +1129,9 @@ Public Class frmMain
         f.Show()
     End Sub
 
+    Private Sub mnuComisiones_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuComisiones.Click
+        Dim f As New frmComisiones
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class
