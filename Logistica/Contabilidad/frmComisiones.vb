@@ -45,12 +45,12 @@ Public Class frmComisiones
         Application.DoEvents()
 
         'Sql para consultar recibos creados en el mes
-        Sql = "select sih.bpr_0, pth.dat_0, pth.num_0, ptd.amtloc_0, sih.accdat_0, ptd.vcrnum_0, sih.amtati_0, sid.itmref_0, itm.tsicod_4, itm.tsicod_1, sid.amtnotlin_0, bpc.xratbpr_0 "
+        Sql = "select sih.bpr_0, pth.dat_0, pth.num_0, ptd.amtloc_0, sih.accdat_0, ptd.vcrnum_0, sih.amtati_0, sid.itmref_0, itm.tsicod_4, itm.tsicod_1, sid.amtnotlin_0, xvc.bprrat_0 "
         Sql &= "from paypth pth inner join"
         Sql &= "	 paypthdoc ptd on (pth.num_0 = ptd.num_0) inner join"
         Sql &= "	 sinvoice sih on (ptd.vcrnum_0 = sih.num_0) inner join"
         Sql &= "	 sinvoiced sid on (sih.num_0 = sid.num_0) inner join"
-        Sql &= "     bpcustomer bpc on (pth.bpr_0 = bpc.bpcnum_0) inner join "
+        Sql &= "     xvcrcom xvc on (sid.num_0 =  xvc.vcrnum_0 AND sid.sidlin_0 = xvc.vcrlin_0) inner join"
         Sql &= "     itmmaster itm on (sid.itmref_0 = itm.itmref_0) "
         Sql &= "where pth.typ_0 = 2 and"
         Sql &= "	  itm.tsicod_3 = '304' and"
@@ -99,7 +99,7 @@ Public Class frmComisiones
             'Importe AI de la linea del artículo
             Tmp.Numero(0) = CDbl(dr("amtnotlin_0"))
             'Honorario del cliente
-            Tmp.Numero(1) = CDbl(dr("xratbpr_0"))
+            Tmp.Numero(1) = CDbl(dr("bprrat_0"))
             'Alicuota comision articulo segun familias
             Tmp.Numero(2) = Alicuota(dr("tsicod_4").ToString, dr("tsicod_1").ToString)
             'Cobrado (%)
