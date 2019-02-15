@@ -124,6 +124,7 @@ Partial Class frmMain
         Me.ClientesSinMovimientoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem23 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuTickets = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuExportarControles = New System.Windows.Forms.ToolStripMenuItem
         Me.InformesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ContabilidadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuSS = New System.Windows.Forms.ToolStripMenuItem
@@ -203,7 +204,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuExportarControles = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuComisiones = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -716,7 +717,7 @@ Partial Class frmMain
         '
         'mnuContabilidad
         '
-        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuBuscadorCheques, Me.PresupuestoToolStripMenuItem1, Me.PToolStripMenuItem, Me.DetalleToolStripMenuItem, Me.ToolStripMenuItem13, Me.mnuArcibaNc})
+        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuBuscadorCheques, Me.PresupuestoToolStripMenuItem1, Me.PToolStripMenuItem, Me.DetalleToolStripMenuItem, Me.ToolStripMenuItem13, Me.mnuArcibaNc, Me.mnuComisiones})
         Me.mnuContabilidad.Name = "mnuContabilidad"
         Me.mnuContabilidad.Size = New System.Drawing.Size(87, 20)
         Me.mnuContabilidad.Text = "Contabilidad"
@@ -871,6 +872,13 @@ Partial Class frmMain
         Me.mnuTickets.Name = "mnuTickets"
         Me.mnuTickets.Size = New System.Drawing.Size(274, 22)
         Me.mnuTickets.Text = "Tickets"
+        '
+        'mnuExportarControles
+        '
+        Me.mnuExportarControles.Name = "mnuExportarControles"
+        Me.mnuExportarControles.Size = New System.Drawing.Size(274, 22)
+        Me.mnuExportarControles.Tag = "mnuExportarCtrles"
+        Me.mnuExportarControles.Text = "Exportar Controles..."
         '
         'InformesToolStripMenuItem
         '
@@ -1392,12 +1400,11 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'mnuExportarControles
+        'mnuComisiones
         '
-        Me.mnuExportarControles.Name = "mnuExportarControles"
-        Me.mnuExportarControles.Size = New System.Drawing.Size(274, 22)
-        Me.mnuExportarControles.Tag = "mnuExportarCtrles"
-        Me.mnuExportarControles.Text = "Exportar Controles..."
+        Me.mnuComisiones.Name = "mnuComisiones"
+        Me.mnuComisiones.Size = New System.Drawing.Size(226, 22)
+        Me.mnuComisiones.Text = "Comisiones SF..."
         '
         'frmMain
         '
@@ -1601,5 +1608,6 @@ Partial Class frmMain
     Friend WithEvents AtencionAlClienteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CotizadorInternoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuExportarControles As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuComisiones As System.Windows.Forms.ToolStripMenuItem
 
 End Class
