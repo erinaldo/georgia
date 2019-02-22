@@ -106,6 +106,7 @@ Partial Class frmMain
         Me.DetalleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem13 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuArcibaNc = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuComisiones = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuVarios = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMostrador = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuAdministraciones = New System.Windows.Forms.ToolStripMenuItem
@@ -204,7 +205,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuComisiones = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -759,6 +759,13 @@ Partial Class frmMain
         Me.mnuArcibaNc.Name = "mnuArcibaNc"
         Me.mnuArcibaNc.Size = New System.Drawing.Size(226, 22)
         Me.mnuArcibaNc.Text = "ARCIBA Notas de Créditos"
+        '
+        'mnuComisiones
+        '
+        Me.mnuComisiones.Name = "mnuComisiones"
+        Me.mnuComisiones.Size = New System.Drawing.Size(226, 22)
+        Me.mnuComisiones.Tag = "mnuComisionesSF"
+        Me.mnuComisiones.Text = "Comisiones SF..."
         '
         'mnuVarios
         '
@@ -1399,12 +1406,6 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
-        '
-        'mnuComisiones
-        '
-        Me.mnuComisiones.Name = "mnuComisiones"
-        Me.mnuComisiones.Size = New System.Drawing.Size(226, 22)
-        Me.mnuComisiones.Text = "Comisiones SF..."
         '
         'frmMain
         '
