@@ -54,7 +54,8 @@ Public Class frmComisiones
         Sql &= "     itmmaster itm on (sid.itmref_0 = itm.itmref_0) "
         Sql &= "where pth.typ_0 = 2 and"
         Sql &= "	  itm.tsicod_3 = '304' and"
-        Sql &= "	  pth.dat_0 >= :FechaDesde AND pth.dat_0 <= :FechaHasta " 'AND "
+        Sql &= "	  pth.dat_0 >= :FechaDesde AND pth.dat_0 <= :FechaHasta AND "
+        Sql &= "	  sih.accdat_0 >= to_date('01/02/2019', 'dd/mm/yyyy')  "
         Sql &= "order by accdat_0"
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("FechaDesde", OracleType.DateTime).Value = FechaDesde
