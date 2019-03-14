@@ -268,7 +268,7 @@ Public Class frmCliente
                 Select Case cboIva.SelectedValue.ToString
                     Case "CF"
                         Select Case cboTipoDoc.SelectedValue.ToString
-                            Case "86", "96", "99"
+                            Case "80", "86", "96", "99"
                             Case Else
                                 flg = False
                                 msg = "Tipo de Responsable incompatible con tipo de documento"
