@@ -45,7 +45,7 @@ Partial Class FrmTableroCA
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(217, 21)
+        Me.Label1.Location = New System.Drawing.Point(277, 21)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(127, 13)
         Me.Label1.TabIndex = 1
@@ -53,14 +53,14 @@ Partial Class FrmTableroCA
         '
         'TxtBoxCantidadOperaciones
         '
-        Me.TxtBoxCantidadOperaciones.Location = New System.Drawing.Point(350, 18)
+        Me.TxtBoxCantidadOperaciones.Location = New System.Drawing.Point(410, 18)
         Me.TxtBoxCantidadOperaciones.Name = "TxtBoxCantidadOperaciones"
         Me.TxtBoxCantidadOperaciones.Size = New System.Drawing.Size(100, 20)
         Me.TxtBoxCantidadOperaciones.TabIndex = 2
         '
         'TxtBoxCantRecargasFacturadas
         '
-        Me.TxtBoxCantRecargasFacturadas.Location = New System.Drawing.Point(392, 44)
+        Me.TxtBoxCantRecargasFacturadas.Location = New System.Drawing.Point(452, 44)
         Me.TxtBoxCantRecargasFacturadas.Name = "TxtBoxCantRecargasFacturadas"
         Me.TxtBoxCantRecargasFacturadas.Size = New System.Drawing.Size(100, 20)
         Me.TxtBoxCantRecargasFacturadas.TabIndex = 4
@@ -68,7 +68,7 @@ Partial Class FrmTableroCA
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(217, 47)
+        Me.Label2.Location = New System.Drawing.Point(277, 47)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(169, 13)
         Me.Label2.TabIndex = 3
@@ -76,7 +76,7 @@ Partial Class FrmTableroCA
         '
         'TxtBoxCant639
         '
-        Me.TxtBoxCant639.Location = New System.Drawing.Point(350, 70)
+        Me.TxtBoxCant639.Location = New System.Drawing.Point(410, 70)
         Me.TxtBoxCant639.Name = "TxtBoxCant639"
         Me.TxtBoxCant639.Size = New System.Drawing.Size(100, 20)
         Me.TxtBoxCant639.TabIndex = 6
@@ -84,7 +84,7 @@ Partial Class FrmTableroCA
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(217, 73)
+        Me.Label3.Location = New System.Drawing.Point(277, 73)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(124, 13)
         Me.Label3.TabIndex = 5
@@ -92,7 +92,7 @@ Partial Class FrmTableroCA
         '
         'TxtBoxFacturacion
         '
-        Me.TxtBoxFacturacion.Location = New System.Drawing.Point(286, 96)
+        Me.TxtBoxFacturacion.Location = New System.Drawing.Point(346, 96)
         Me.TxtBoxFacturacion.Name = "TxtBoxFacturacion"
         Me.TxtBoxFacturacion.Size = New System.Drawing.Size(100, 20)
         Me.TxtBoxFacturacion.TabIndex = 8
@@ -100,7 +100,7 @@ Partial Class FrmTableroCA
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(217, 99)
+        Me.Label4.Location = New System.Drawing.Point(277, 99)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(63, 13)
         Me.Label4.TabIndex = 7
@@ -108,7 +108,7 @@ Partial Class FrmTableroCA
         '
         'TxtBoxClientes
         '
-        Me.TxtBoxClientes.Location = New System.Drawing.Point(376, 122)
+        Me.TxtBoxClientes.Location = New System.Drawing.Point(436, 122)
         Me.TxtBoxClientes.Name = "TxtBoxClientes"
         Me.TxtBoxClientes.Size = New System.Drawing.Size(100, 20)
         Me.TxtBoxClientes.TabIndex = 10
@@ -116,7 +116,7 @@ Partial Class FrmTableroCA
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(217, 125)
+        Me.Label5.Location = New System.Drawing.Point(277, 125)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(153, 13)
         Me.Label5.TabIndex = 9
@@ -124,7 +124,7 @@ Partial Class FrmTableroCA
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(220, 158)
+        Me.Button1.Location = New System.Drawing.Point(280, 158)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 11
