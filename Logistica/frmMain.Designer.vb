@@ -205,6 +205,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.TableroCAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -1174,7 +1175,7 @@ Partial Class frmMain
         '
         'ConsultasToolStripMenuItem
         '
-        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StockToolStripMenuItem, Me.ZetiToolStripMenuItem, Me.mnuBuscaCliente, Me.PresupuestoToolStripMenuItem, Me.ReporteRecargasToolStripMenuItem, Me.ImpresionesToolStripMenuItem, Me.ArticulosToolStripMenuItem, Me.ListadoFacturasDeVentaToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.OCToolStripMenuItem, Me.ToolStripSeparator2, Me.EstadoDePedidosToolStripMenuItem, Me.PedidosToolStripMenuItem, Me.ToolStripSeparator3, Me.ListadoDeToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem})
+        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StockToolStripMenuItem, Me.ZetiToolStripMenuItem, Me.mnuBuscaCliente, Me.PresupuestoToolStripMenuItem, Me.ReporteRecargasToolStripMenuItem, Me.ImpresionesToolStripMenuItem, Me.ArticulosToolStripMenuItem, Me.ListadoFacturasDeVentaToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.OCToolStripMenuItem, Me.ToolStripSeparator2, Me.EstadoDePedidosToolStripMenuItem, Me.PedidosToolStripMenuItem, Me.ToolStripSeparator3, Me.ListadoDeToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem, Me.TableroCAToolStripMenuItem})
         Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
         Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.ConsultasToolStripMenuItem.Text = "Consultas"
@@ -1407,6 +1408,12 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
+        'TableroCAToolStripMenuItem
+        '
+        Me.TableroCAToolStripMenuItem.Name = "TableroCAToolStripMenuItem"
+        Me.TableroCAToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
+        Me.TableroCAToolStripMenuItem.Text = "TableroCA"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1610,5 +1617,6 @@ Partial Class frmMain
     Friend WithEvents CotizadorInternoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuExportarControles As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuComisiones As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents TableroCAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

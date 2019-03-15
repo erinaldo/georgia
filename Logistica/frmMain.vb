@@ -1134,4 +1134,10 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
+    Private Sub TableroCAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TableroCAToolStripMenuItem.Click
+        Dim f As New FrmTableroCA
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class
