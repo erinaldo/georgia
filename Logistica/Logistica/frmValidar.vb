@@ -1540,14 +1540,17 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 1, "991003")
             Case "991069"
                 CaseArticulos(itn, Cantidad, 3, "991070")
+
             Case "993010"
                 CaseArticulos(itn, Cantidad, 3, "993011")
+
             Case "991072"
                 CaseArticulos(itn, Cantidad, 1, "991073")
             Case "991019"
                 CaseArticulos(itn, Cantidad, 1, "991075")
             Case "991015"
                 CaseArticulos(itn, Cantidad, 1, "991003")
+
             Case "993010"
                 Dim f As Date = dtpFecha.Value
 
@@ -1555,12 +1558,13 @@ Public Class frmValidar
                 Parque.EliminarPorCodigo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, "993011")
 
                 For i As Integer = 1 To 3
+                    f = f.AddMonths(4)
+
                     mac.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
                     mac.ArticuloCodigo = "993011"
                     mac.FabricacionCorto = Date.Today.Year
                     mac.Cantidad = Cantidad
-                    mac.Procesar(f)
-                    f = mac.VtoCarga
+                    mac.VtoCarga = f
                     mac.Observaciones = "Creado automáticamente por validación de ruta " & txtRuta.Text & vbCrLf & vbCrLf
                     mac.Observaciones &= "Ctrl. Nro. " & i.ToString
                     mac.Grabar()
@@ -1658,11 +1662,13 @@ Public Class frmValidar
             mac.FabricacionCorto = Date.Today.Year
             mac.Cantidad = cantidad
             mac.Procesar(f)
-            f = mac.VtoCarga
             mac.Observaciones = "Creado automáticamente por validación de ruta " & txtRuta.Text & vbCrLf & vbCrLf
             mac.Observaciones &= "Ctrl. Nro. " & i.ToString
             mac.Grabar()
+
+            f = mac.VtoCarga
         Next
+
     End Sub
     Private Function ValidarHorarios() As Boolean
         Dim dr As DataGridViewRow

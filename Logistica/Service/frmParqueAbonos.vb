@@ -654,6 +654,8 @@ Public Class frmParqueAbonos
 #End Region
     Private Sub dgvPuestos_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvPuestos.CellDoubleClick
         If e.RowIndex < 0 Then Exit Sub
+        If e.ColumnIndex < 0 Then Exit Sub
+
         If dgvPuestos.Rows(e.RowIndex).DataBoundItem Is Nothing Then Exit Sub
         If dgvPuestos.Columns(e.ColumnIndex).Name <> "col2Equipo" Then Exit Sub
 
