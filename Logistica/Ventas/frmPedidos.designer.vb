@@ -23,12 +23,12 @@ Partial Class frmPedidos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Me.pedido_txtbox = New System.Windows.Forms.TextBox
+        Me.txtCliente = New System.Windows.Forms.TextBox
         Me.cons_btn = New System.Windows.Forms.Button
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.lblsuc = New System.Windows.Forms.Label
-        Me.txtsuc = New System.Windows.Forms.TextBox
-        Me.ano_check = New System.Windows.Forms.CheckBox
+        Me.txtSucursal = New System.Windows.Forms.TextBox
+        Me.chkAnoActual = New System.Windows.Forms.CheckBox
         Me.cliente_radio = New System.Windows.Forms.RadioButton
         Me.pedido_radio = New System.Windows.Forms.RadioButton
         Me.cuadro_datagrid = New System.Windows.Forms.DataGridView
@@ -44,6 +44,7 @@ Partial Class frmPedidos
         Me.VerPedidoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.VerPedidoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.VerRemitoEscaneadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.adiciona_datagrid = New System.Windows.Forms.DataGridView
         Me.pedido_col = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.remito_col = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -58,22 +59,24 @@ Partial Class frmPedidos
         Me.remito_sector_col = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.desde_sector_col = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Para_sector_col = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.VerRemitoEscaneadoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.cms = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuSeleccionar = New System.Windows.Forms.ToolStripMenuItem
         Me.GroupBox1.SuspendLayout()
         CType(Me.cuadro_datagrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip2.SuspendLayout()
         Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.adiciona_datagrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sector_datagrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cms.SuspendLayout()
         Me.SuspendLayout()
         '
-        'pedido_txtbox
+        'txtCliente
         '
-        Me.pedido_txtbox.Location = New System.Drawing.Point(62, 19)
-        Me.pedido_txtbox.Name = "pedido_txtbox"
-        Me.pedido_txtbox.Size = New System.Drawing.Size(142, 20)
-        Me.pedido_txtbox.TabIndex = 0
-        Me.pedido_txtbox.Text = "pedido"
+        Me.txtCliente.ContextMenuStrip = Me.cms
+        Me.txtCliente.Location = New System.Drawing.Point(62, 19)
+        Me.txtCliente.Name = "txtCliente"
+        Me.txtCliente.Size = New System.Drawing.Size(142, 20)
+        Me.txtCliente.TabIndex = 0
         '
         'cons_btn
         '
@@ -87,11 +90,11 @@ Partial Class frmPedidos
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.lblsuc)
-        Me.GroupBox1.Controls.Add(Me.txtsuc)
-        Me.GroupBox1.Controls.Add(Me.ano_check)
+        Me.GroupBox1.Controls.Add(Me.txtSucursal)
+        Me.GroupBox1.Controls.Add(Me.chkAnoActual)
         Me.GroupBox1.Controls.Add(Me.cons_btn)
         Me.GroupBox1.Controls.Add(Me.cliente_radio)
-        Me.GroupBox1.Controls.Add(Me.pedido_txtbox)
+        Me.GroupBox1.Controls.Add(Me.txtCliente)
         Me.GroupBox1.Controls.Add(Me.pedido_radio)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 16)
         Me.GroupBox1.Name = "GroupBox1"
@@ -110,25 +113,25 @@ Partial Class frmPedidos
         Me.lblsuc.TabIndex = 9
         Me.lblsuc.Text = "Sucursal"
         '
-        'txtsuc
+        'txtSucursal
         '
-        Me.txtsuc.Enabled = False
-        Me.txtsuc.Location = New System.Drawing.Point(116, 48)
-        Me.txtsuc.Name = "txtsuc"
-        Me.txtsuc.Size = New System.Drawing.Size(88, 20)
-        Me.txtsuc.TabIndex = 8
+        Me.txtSucursal.Enabled = False
+        Me.txtSucursal.Location = New System.Drawing.Point(116, 48)
+        Me.txtSucursal.Name = "txtSucursal"
+        Me.txtSucursal.Size = New System.Drawing.Size(88, 20)
+        Me.txtSucursal.TabIndex = 8
         '
-        'ano_check
+        'chkAnoActual
         '
-        Me.ano_check.AutoSize = True
-        Me.ano_check.Checked = True
-        Me.ano_check.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ano_check.Location = New System.Drawing.Point(42, 112)
-        Me.ano_check.Name = "ano_check"
-        Me.ano_check.Size = New System.Drawing.Size(78, 17)
-        Me.ano_check.TabIndex = 7
-        Me.ano_check.Text = "Año Actual"
-        Me.ano_check.UseVisualStyleBackColor = True
+        Me.chkAnoActual.AutoSize = True
+        Me.chkAnoActual.Checked = True
+        Me.chkAnoActual.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkAnoActual.Location = New System.Drawing.Point(42, 112)
+        Me.chkAnoActual.Name = "chkAnoActual"
+        Me.chkAnoActual.Size = New System.Drawing.Size(78, 17)
+        Me.chkAnoActual.TabIndex = 7
+        Me.chkAnoActual.Text = "Año Actual"
+        Me.chkAnoActual.UseVisualStyleBackColor = True
         '
         'cliente_radio
         '
@@ -243,13 +246,19 @@ Partial Class frmPedidos
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VerPedidoToolStripMenuItem, Me.VerRemitoEscaneadoToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(192, 70)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(192, 48)
         '
         'VerPedidoToolStripMenuItem
         '
         Me.VerPedidoToolStripMenuItem.Name = "VerPedidoToolStripMenuItem"
         Me.VerPedidoToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
         Me.VerPedidoToolStripMenuItem.Text = "Ver pedido"
+        '
+        'VerRemitoEscaneadoToolStripMenuItem
+        '
+        Me.VerRemitoEscaneadoToolStripMenuItem.Name = "VerRemitoEscaneadoToolStripMenuItem"
+        Me.VerRemitoEscaneadoToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
+        Me.VerRemitoEscaneadoToolStripMenuItem.Text = "Ver Remito Escaneado"
         '
         'adiciona_datagrid
         '
@@ -363,11 +372,17 @@ Partial Class frmPedidos
         Me.Para_sector_col.Name = "Para_sector_col"
         Me.Para_sector_col.ReadOnly = True
         '
-        'VerRemitoEscaneadoToolStripMenuItem
+        'cms
         '
-        Me.VerRemitoEscaneadoToolStripMenuItem.Name = "VerRemitoEscaneadoToolStripMenuItem"
-        Me.VerRemitoEscaneadoToolStripMenuItem.Size = New System.Drawing.Size(191, 22)
-        Me.VerRemitoEscaneadoToolStripMenuItem.Text = "Ver Remito Escaneado"
+        Me.cms.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSeleccionar})
+        Me.cms.Name = "cms"
+        Me.cms.Size = New System.Drawing.Size(144, 26)
+        '
+        'mnuSeleccionar
+        '
+        Me.mnuSeleccionar.Name = "mnuSeleccionar"
+        Me.mnuSeleccionar.Size = New System.Drawing.Size(143, 22)
+        Me.mnuSeleccionar.Text = "Seleccionar..."
         '
         'frmPedidos
         '
@@ -387,16 +402,17 @@ Partial Class frmPedidos
         Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.adiciona_datagrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sector_datagrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cms.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents pedido_txtbox As System.Windows.Forms.TextBox
+    Friend WithEvents txtCliente As System.Windows.Forms.TextBox
     Friend WithEvents cons_btn As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents cliente_radio As System.Windows.Forms.RadioButton
     Friend WithEvents pedido_radio As System.Windows.Forms.RadioButton
     Friend WithEvents cuadro_datagrid As System.Windows.Forms.DataGridView
-    Friend WithEvents ano_check As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAnoActual As System.Windows.Forms.CheckBox
     Friend WithEvents adiciona_datagrid As System.Windows.Forms.DataGridView
     Friend WithEvents sector_datagrid As System.Windows.Forms.DataGridView
     Friend WithEvents fecha_sector_col As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -409,7 +425,7 @@ Partial Class frmPedidos
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents VerPedidoToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblsuc As System.Windows.Forms.Label
-    Friend WithEvents txtsuc As System.Windows.Forms.TextBox
+    Friend WithEvents txtSucursal As System.Windows.Forms.TextBox
     Friend WithEvents pedido_col As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents remito_col As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ruta_col As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -426,5 +442,7 @@ Partial Class frmPedidos
     Friend WithEvents FechaEntrega_col As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents obs_principal_col As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents VerRemitoEscaneadoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cms As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents mnuSeleccionar As System.Windows.Forms.ToolStripMenuItem
 
 End Class

@@ -13,26 +13,28 @@ Public Class frmPedidos
         ' Dim dr As DataRow
         sql = "select bpcord_0, sohnum_0, bpcnam_0,dlvsta_0,invsta_0, shidat_0,ysohdes_0,bpaadd_0 "
         sql &= " from sorder where sohtyp_0 = 'PED' and "
-        If ano_check.Checked = True Then
-            sql &= " to_char(credat_0, 'YYYY') = '2018'and "
+
+        If chkAnoActual.Checked = True Then
+            sql &= " to_char(credat_0, 'YYYY') = '" & Today.Year.ToString & "'and "
         End If
+
         If pedido_radio.Checked = True Then
             sql &= "sohnum_0 like :pedido order by sohnum_0 "
             da = New OracleDataAdapter(sql, cn)
-            da.SelectCommand.Parameters.Add("pedido", OracleType.VarChar).Value = "%" & pedido_txtbox.Text
+            da.SelectCommand.Parameters.Add("pedido", OracleType.VarChar).Value = "%" & txtCliente.Text
             da.Fill(dt)
 
         ElseIf cliente_radio.Checked = True Then
-            If txtsuc.Text.Trim = "" Then
-                sql &= "bpcord_0 like :cliente order by sohnum_0 "
+            If txtSucursal.Text.Trim = "" Then
+                sql &= "bpcord_0 = :cliente order by sohnum_0 "
                 da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = "%" & pedido_txtbox.Text
+                da.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = txtCliente.Text
                 da.Fill(dt)
             Else
-                sql &= "bpcord_0 like :cliente and bpaadd_0 = :suc order by sohnum_0 "
+                sql &= "bpcord_0 = :cliente and bpaadd_0 = :suc order by sohnum_0 "
                 da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = "%" & pedido_txtbox.Text
-                da.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = txtsuc.Text
+                da.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = txtCliente.Text
+                da.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = txtSucursal.Text
                 da.Fill(dt)
             End If
 
@@ -41,14 +43,7 @@ Public Class frmPedidos
         cliente_col.DataPropertyName = "BPCORD_0"
         cliente_principal_col.DataPropertyName = "bpcnam_0"
         Sucursal.DataPropertyName = "bpaadd_0"
-        'Direccion.DataPropertyName = "bpcaddlig_0"
         NumPedido_col.DataPropertyName = "sohnum_0"
-        'Dim mnu As New MenuLocal(cn, 415, False)
-        'mnu.Enlazar(EstadoPedido_col)
-        'EstadoPedido_col.DataPropertyName = "ordsta_0"
-        'mnu = New MenuLocal(cn, 416, False)
-        'mnu.Enlazar(EstadoAsignacion_col)
-        'EstadoAsignacion_col.DataPropertyName = "allsta_0"
         Dim mnu = New MenuLocal(cn, 417, False)
         mnu.Enlazar(EstadoEntrega_col)
         EstadoEntrega_col.DataPropertyName = "dlvsta_0"
@@ -61,20 +56,14 @@ Public Class frmPedidos
         cuadro_datagrid.DataSource = dt
 
     End Sub
-
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        'cliente_txtbox.Text = ""
-        pedido_txtbox.Text = ""
-
+        txtCliente.Text = ""
     End Sub
-
-
     Private Sub cuadro_datagrid_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles cuadro_datagrid.CellContentClick
         Dim numero_pedido As String
         Dim sql As String
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
-        ' Dim dr As DataRow
         numero_pedido = cuadro_datagrid.Rows(e.RowIndex).Cells("numpedido_col").Value.ToString
         sql = "select dlv.sohnum_0,dlv.sdhnum_0,ru.ruta_0,ruc.fecha_0,ru.obs_0,estado_0,noconform_0 "
         sql &= "from sdelivery dlv left join xrutad ru on (dlv.sdhnum_0 = ru.vcrnum_0) "
@@ -100,7 +89,7 @@ Public Class frmPedidos
                 .ValueMember = "code_0"
                 .DataPropertyName = "noconform_0"
             End With
-            'sector_col.DataPropertyName = "para_0"
+
             obs_adicional_col.DataPropertyName = "obs_0"
 
         Else
@@ -114,7 +103,7 @@ Public Class frmPedidos
         Dim sql As String
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
-        ' Dim dr As DataRow
+
         numero_pedido = adiciona_datagrid.Rows(e.RowIndex).Cells("remito_col").Value.ToString
         sql = "select fecha_0,hora_0,rto_0,de_0,para_0 from xsegto where rto_0 = :remito order by fecha_0, hora_0"
         da = New OracleDataAdapter(sql, cn)
@@ -157,11 +146,11 @@ Public Class frmPedidos
     End Sub
 
     Private Sub cliente_radio_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cliente_radio.CheckedChanged
-        txtsuc.Enabled = True
+        txtSucursal.Enabled = True
         lblsuc.Enabled = True
     End Sub
     Private Sub pedido_radio_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles pedido_radio.CheckedChanged
-        txtsuc.Enabled = False
+        txtSucursal.Enabled = False
         lblsuc.Enabled = False
     End Sub
 
@@ -181,5 +170,18 @@ Public Class frmPedidos
         Else
             VerRemitoEscaneadoToolStripMenuItem.Enabled = False
         End If
+    End Sub
+
+    Private Sub mnuSeleccionar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSeleccionar.Click
+        AbrirSelectorCliente()
+    End Sub
+    Private Sub AbrirSelectorCliente()
+        Dim f As New frmSelectorClientes
+        f.ShowDialog(Me)
+
+        If f.DialogResult = Windows.Forms.DialogResult.OK Then
+            txtCliente.Text = f.ClienteSeleccionado
+        End If
+        f.Dispose()
     End Sub
 End Class
