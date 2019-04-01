@@ -28,17 +28,11 @@ Partial Class FrmTableroCA
         Dim Label4 As System.Windows.Forms.Label
         Dim Label5 As System.Windows.Forms.Label
         Me.Calendar = New System.Windows.Forms.MonthCalendar
-        Me.Label1 = New System.Windows.Forms.Label
         Me.TxtBoxCantidadOperaciones = New System.Windows.Forms.TextBox
         Me.TxtBoxCantRecargasFacturadas = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
         Me.TxtBoxCant639 = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
         Me.TxtBoxFacturacion = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
         Me.TxtBoxClientes = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
         Me.btnCalcular = New System.Windows.Forms.Button
         Me.lbl = New System.Windows.Forms.Label
         Label1 = New System.Windows.Forms.Label
