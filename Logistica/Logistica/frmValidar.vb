@@ -1419,7 +1419,7 @@ Public Class frmValidar
 
                     'Agrego consumo de Control Periódico
                     itm.Abrir(articulos)
-                    itn.AgregarConsumo(itm, cantidad, itn.FechaFin, CInt(itn.Detalle(i).Item(10)))
+                    itn.AgregarConsumo(itm, cantidad, itn.FechaFin, CDbl(itn.Detalle(i).Item(10)))
                     'Agergo consumo de 705035 ESTAMPILLA CONTROL PERIODICO
                     itm.Abrir("705035")
                     Precio = tar.ObtenerPrecio(itn.Cliente, "705035")
