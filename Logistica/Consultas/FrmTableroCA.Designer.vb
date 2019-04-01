@@ -50,18 +50,6 @@ Partial Class FrmTableroCA
         '
         'Label1
         '
-<<<<<<< HEAD
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(277, 21)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(127, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Cantidad de Operaciones"
-        '
-        'TxtBoxCantidadOperaciones
-        '
-        Me.TxtBoxCantidadOperaciones.Location = New System.Drawing.Point(410, 18)
-=======
         Label1.AutoSize = True
         Label1.Location = New System.Drawing.Point(248, 48)
         Label1.Name = "Label1"
@@ -72,7 +60,6 @@ Partial Class FrmTableroCA
         'TxtBoxCantidadOperaciones
         '
         Me.TxtBoxCantidadOperaciones.Location = New System.Drawing.Point(423, 45)
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         Me.TxtBoxCantidadOperaciones.Name = "TxtBoxCantidadOperaciones"
         Me.TxtBoxCantidadOperaciones.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxCantidadOperaciones.TabIndex = 2
@@ -80,11 +67,7 @@ Partial Class FrmTableroCA
         '
         'TxtBoxCantRecargasFacturadas
         '
-<<<<<<< HEAD
-        Me.TxtBoxCantRecargasFacturadas.Location = New System.Drawing.Point(452, 44)
-=======
         Me.TxtBoxCantRecargasFacturadas.Location = New System.Drawing.Point(423, 71)
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         Me.TxtBoxCantRecargasFacturadas.Name = "TxtBoxCantRecargasFacturadas"
         Me.TxtBoxCantRecargasFacturadas.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxCantRecargasFacturadas.TabIndex = 4
@@ -92,18 +75,6 @@ Partial Class FrmTableroCA
         '
         'Label2
         '
-<<<<<<< HEAD
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(277, 47)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(169, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Cantidad de Recargas Facturadas"
-        '
-        'TxtBoxCant639
-        '
-        Me.TxtBoxCant639.Location = New System.Drawing.Point(410, 70)
-=======
         Label2.AutoSize = True
         Label2.Location = New System.Drawing.Point(248, 74)
         Label2.Name = "Label2"
@@ -114,7 +85,6 @@ Partial Class FrmTableroCA
         'TxtBoxCant639
         '
         Me.TxtBoxCant639.Location = New System.Drawing.Point(423, 100)
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         Me.TxtBoxCant639.Name = "TxtBoxCant639"
         Me.TxtBoxCant639.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxCant639.TabIndex = 6
@@ -122,18 +92,6 @@ Partial Class FrmTableroCA
         '
         'Label3
         '
-<<<<<<< HEAD
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(277, 73)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(124, 13)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Cantidad 639 Aprobadas"
-        '
-        'TxtBoxFacturacion
-        '
-        Me.TxtBoxFacturacion.Location = New System.Drawing.Point(346, 96)
-=======
         Label3.AutoSize = True
         Label3.Location = New System.Drawing.Point(248, 100)
         Label3.Name = "Label3"
@@ -144,7 +102,6 @@ Partial Class FrmTableroCA
         'TxtBoxFacturacion
         '
         Me.TxtBoxFacturacion.Location = New System.Drawing.Point(423, 126)
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         Me.TxtBoxFacturacion.Name = "TxtBoxFacturacion"
         Me.TxtBoxFacturacion.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxFacturacion.TabIndex = 8
@@ -152,18 +109,6 @@ Partial Class FrmTableroCA
         '
         'Label4
         '
-<<<<<<< HEAD
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(277, 99)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(63, 13)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Facturacion"
-        '
-        'TxtBoxClientes
-        '
-        Me.TxtBoxClientes.Location = New System.Drawing.Point(436, 122)
-=======
         Label4.AutoSize = True
         Label4.Location = New System.Drawing.Point(248, 126)
         Label4.Name = "Label4"
@@ -174,7 +119,6 @@ Partial Class FrmTableroCA
         'TxtBoxClientes
         '
         Me.TxtBoxClientes.Location = New System.Drawing.Point(423, 152)
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         Me.TxtBoxClientes.Name = "TxtBoxClientes"
         Me.TxtBoxClientes.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxClientes.TabIndex = 10
@@ -182,32 +126,15 @@ Partial Class FrmTableroCA
         '
         'Label5
         '
-<<<<<<< HEAD
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(277, 125)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(153, 13)
-        Me.Label5.TabIndex = 9
-        Me.Label5.Text = "Clientes nuevos o recuperados"
-=======
         Label5.AutoSize = True
         Label5.Location = New System.Drawing.Point(248, 152)
         Label5.Name = "Label5"
         Label5.Size = New System.Drawing.Size(153, 13)
         Label5.TabIndex = 9
         Label5.Text = "Clientes nuevos o recuperados"
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         '
         'btnCalcular
         '
-<<<<<<< HEAD
-        Me.Button1.Location = New System.Drawing.Point(280, 158)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 11
-        Me.Button1.Text = "Calcular"
-        Me.Button1.UseVisualStyleBackColor = True
-=======
         Me.btnCalcular.Location = New System.Drawing.Point(426, 178)
         Me.btnCalcular.Name = "btnCalcular"
         Me.btnCalcular.Size = New System.Drawing.Size(75, 23)
@@ -224,7 +151,6 @@ Partial Class FrmTableroCA
         Me.lbl.TabIndex = 12
         Me.lbl.Text = "[Fechas de consulta]"
         Me.lbl.Visible = False
->>>>>>> bb2d313aab85753f453e6b2dd95710501813a688
         '
         'FrmTableroCA
         '
