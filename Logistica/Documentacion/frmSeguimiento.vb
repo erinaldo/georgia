@@ -752,6 +752,11 @@ Public Class frmSeguimiento
                 If DocumentosPendientes(rto.Numero.ToString) Then Exit Sub
             ElseIf cboDe.SelectedValue.ToString = "ADM" And cboPara.SelectedValue.ToString = "LOG" Then
                 If DocumentosPendientes(rto.Numero.ToString) Then Exit Sub
+            ElseIf cboDe.SelectedValue.ToString = "ADM" And cboPara.SelectedValue.ToString = "MOS" Then
+                If rto.Cliente.MailVta Then
+
+                    rto.EnvioMailAvisoMostrador()
+                End If
             End If
 
             If flg Then
