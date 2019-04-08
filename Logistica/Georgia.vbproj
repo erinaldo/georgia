@@ -1668,6 +1668,10 @@
       <Project>{DB244B24-360F-4279-ACBF-9EF2D9A586BA}</Project>
       <Name>Clases</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Sigex\Sigex.vbproj">
+      <Project>{38BCB144-2286-4976-A048-F32D135E917A}</Project>
+      <Name>Sigex</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\WSAFIP\WSAFIP.vbproj">
       <Project>{6D2A4493-DEA8-4C70-9614-475C0B8A8797}</Project>
       <Name>WSAFIP</Name>

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Georgia", "Logistica\Georgia.vbproj", "{871713F8-B84F-4CB9-B6FF-80C14937935A}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Clases", "..\Clases\Clases.vbproj", "{DB244B24-360F-4279-ACBF-9EF2D9A586BA}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Clases", "..\clases\Clases.vbproj", "{DB244B24-360F-4279-ACBF-9EF2D9A586BA}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WSAFIP", "..\WSAFIP\WSAFIP.vbproj", "{6D2A4493-DEA8-4C70-9614-475C0B8A8797}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WSAFIP", "..\wsafip\WSAFIP.vbproj", "{6D2A4493-DEA8-4C70-9614-475C0B8A8797}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sigex", "..\Sigex\Sigex.vbproj", "{38BCB144-2286-4976-A048-F32D135E917A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{6D2A4493-DEA8-4C70-9614-475C0B8A8797}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D2A4493-DEA8-4C70-9614-475C0B8A8797}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D2A4493-DEA8-4C70-9614-475C0B8A8797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38BCB144-2286-4976-A048-F32D135E917A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38BCB144-2286-4976-A048-F32D135E917A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38BCB144-2286-4976-A048-F32D135E917A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38BCB144-2286-4976-A048-F32D135E917A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
