@@ -1864,4 +1864,131 @@ Class frmRuta
 
     End Sub
 
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        Dim itn As New Intervencion(cn)
+        Dim cliente As String = ""
+        Dim suc As String = ""
+        Dim nombre As String = ""
+        Dim direccion As String = ""
+        Dim vcrnum As String = ""
+        Dim fecha As Date
+        Dim sxIdCliente As Integer = 0
+        Dim sxIdSucursal As Integer = 0
+        Dim sxIdContrato As Integer = 0
+        Dim sxContrato As New Sigex.Contrato
+        Dim sxControl As New Sigex.Control
+        Dim sxSectores As New Sigex.Sectores
+        Dim sxClientes As New Sigex.Clientes
+        Dim sxSucursales As New Sigex.Sucursales
+
+        'Obtengo todos los clientes cargados en Sigex
+        sxClientes.CargarTabla()
+        'Obtengo todas las sucursales cargadas en Sigex
+        sxSucursales.CargarTabla()
+
+        For Each dr As DataRow In dtRutad.Rows
+            fecha = CDate(dr("fecha_0"))
+            vcrnum = dr("vcrnum_0").ToString
+            cliente = dr("cliente_0").ToString
+            nombre = dr("nombre_0").ToString
+            direccion = dr("direccion_0").ToString
+            suc = dr("suc_0").ToString
+
+            'Se intenta abrir la intervencion
+            If Not itn.Abrir(vcrnum) Then Continue For
+            'La intervencion debe tener articulo 652001 o 652002
+            If Not itn.ExisteRetira("652001") Or Not itn.ExisteRetira("652002") Then Continue For
+            'Se transfiere el cliente a Sigex
+            sxClientes.Nuevo(cliente, nombre, direccion)
+            sxClientes.Grabar()
+            'Obtengo el ID en Sigex del cliente
+            sxIdCliente = sxClientes.ObtenerIdSigex(cliente)
+            'Se transfiere la sucursal a Sigex
+            sxSucursales.Nueva(sxIdCliente, suc, direccion)
+            sxSucursales.GrabarTabla()
+            'Obtengo el ID de la sucursal
+            sxIdSucursal = sxSucursales.ObtenerIdSigex(sxIdCliente, suc)
+
+            'Cargo Extintores en Adonix
+            Dim Parques As New ParqueCollection(cn)
+            Dim sxParques As New Sigex.EquipoCollection
+
+            'Abro parque en Adonix
+            Parques.AbrirParqueCliente(cliente, suc)
+            'Abro parque en Sigex
+            sxParques.AbrirParqueCliente(sxIdCliente, sxIdSucursal)
+
+            Dim Capacidades As New Sigex.Capacidades
+            Dim Agentes As New Sigex.Agentes
+
+            'Recorro todos los equipos en Adonix
+            For Each Mac As Parque In Parques
+                'Busco el equipo en Sigex
+                Dim sxEquipo As Sigex.Equipo
+
+                sxEquipo = sxParques.BuscarPorCodigoAdonix(Mac.Serie)
+
+                'Creo un nuevo equipo si no existe en Sigex
+                If sxEquipo Is Nothing Then sxEquipo.Nuevo()
+
+                With sxEquipo
+                    .Cilindro = Mac.Cilindro
+                    .CodigoAdonix = Mac.Serie
+                    .CodigoCliente = sxIdCliente
+                    .CodigoSucursal = sxIdSucursal
+                    .Fabricacion = Mac.FabricacionLargo
+                    .VencimientoPH = Mac.VtoPH
+                    .VencimientoCarga = Mac.VtoCarga
+                    .Agente = Agentes.AdonixToSigex(Mac.Articulo.Familia(3))
+                    .Capacidad = Capacidades.AdonixToSigex(Mac.Articulo.Familia(2))
+                End With
+
+            Next
+
+            'Creo/modifico el contrato en sigex y obtengo el ID
+            sxIdContrato = sxContrato.Buscar(dr("cliente_0").ToString, dr("suc_0").ToString, sxIdCliente, sxIdSucursal)
+
+            'Control Periodico
+            sxControl.Abrir(sxContrato.Id)
+            sxControl.Crear(sxContrato.Id, fecha)
+
+            Dim s1 As New Sectores(cn) 'Sectores en Adonix
+            Dim s2 As New Sigex.Sectores 'Sectores en Sigex
+            'Abro sectores en Adonix
+            s1.AbrirSectores(cliente, suc)
+            'Abro sectores en Sigex
+            s2.AbrirSectores(sxIdCliente, sxIdSucursal)
+            'Borro todos los sectores en Sigex
+            s2.BorrarTodo()
+
+            'Recorro todos los sectores en Adonix y luego los puestos
+            For Each s As Sector In s1
+                'Creo el sector en SIgex
+                s2.NuevoSector(s.ID, s.Nombre)
+
+                'Recorro los puestos dentro del sector
+                For Each p1 As Puesto In s.PuestosEnSector
+                    Select Case p1.Tipo
+                        Case "0" 'Extintor
+                            Dim p As New Sigex.PuestoExtintor
+
+                            p.Nuevo(p1.Puesto, p1.Puesto, s.ID)
+
+                            p.Grabar()
+
+                        Case "1" 'Hidrante
+                            Dim p As New Sigex.PuestoHidrante
+
+                            p.Nuevo(p1.Puesto, p1.Puesto, s.ID)
+                            p.Grabar()
+
+                    End Select
+                Next
+
+            Next
+
+        Next
+
+    End Sub
+
 End Class
