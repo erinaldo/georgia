@@ -1966,41 +1966,61 @@ Class frmRuta
             SectoresSigex.ImportarDesdeAdonix(SectoresAdonix)
 
             'Recorro todos los sectores en Adonix y luego los puestos
-            For Each s As Sector In SectoresAdonix
+            For Each SectorAdonix As Sector In SectoresAdonix
                 'Busco el sector en Sigex
+                Dim SectorSigex As Sigex.Sector
+                SectorSigex = SectoresSigex.BuscarSector(SectorAdonix.ID)
+
+                If SectoresSigex IsNot Nothing Then
+                    'Recupero los puestos en el sector
+                    Dim PuestosSigex As Sigex.Puestos
+                    PuestosSigex = SectorSigex.Puestos
+
+                    'Recorro los puestos dentro del sector
+                    For Each PuestoAdonix As Clases.Puesto In SectorAdonix.PuestosEnSector
+                        Dim PuestoSigex As Sigex.Puesto
+
+                        'Busco el puesto Adonix en Sigex
+                        PuestoSigex = PuestosSigex.BuscarPuesto(PuestoAdonix.ID)
+
+                        If PuestoSigex Is Nothing Then
+
+                            Select Case PuestoAdonix.Tipo
+                                Case "0" 'Extintor
+                                    Dim PuestoExtintorSigex As New Sigex.PuestoExtintor
+
+                                    'Obtengo el id del equipo en el puesto
+                                    sxEquipo = sxParques.BuscarPorCodigoAdonix(PuestoAdonix.Serie)
+                                    Dim l As Long = PuestoAdonix.ID
+
+                                    PuestoExtintorSigex.Nuevo(PuestoAdonix.Puesto, PuestoAdonix.Puesto, SectorSigex.Id)
+
+                                    If sxEquipo Is Nothing Then
+                                        PuestoExtintorSigex.TipoEquipo = Agentes.AdonixToSigex("201")
+                                        PuestoExtintorSigex.Capacidad = Capacidades.AdonixToSigex("108")
+                                        PuestoExtintorSigex.Equipo = 0
+                                    Else
+                                        PuestoExtintorSigex.TipoEquipo = sxEquipo.Agente
+                                        PuestoExtintorSigex.Capacidad = sxEquipo.Capacidad
+                                        PuestoExtintorSigex.Equipo = sxEquipo.Id
+                                    End If
+
+                                    PuestoExtintorSigex.Grabar()
+
+                                Case "1" 'Hidrante
+                                    Dim PuestoHidranteSigex As New Sigex.PuestoHidrante
+
+                                    PuestoHidranteSigex.Nuevo(PuestoAdonix.Puesto, PuestoAdonix.Puesto, SectorSigex.Id)
+                                    PuestoHidranteSigex.Grabar()
+
+                            End Select
+                        End If
 
 
-                'Recorro los puestos dentro del sector
-                For Each p1 As Puesto In s.PuestosEnSector
-                    Select Case p1.Tipo
-                        Case "0" 'Extintor
-                            Dim p As New Sigex.PuestoExtintor
+                    Next
+                End If
 
-                            sxEquipo = sxParques.BuscarPorCodigoAdonix(p1.Serie)
-                            Dim l As Long = p1.ID
 
-                            p.Nuevo(p1.Puesto, p1.Puesto, s.ID)
-
-                            If sxEquipo Is Nothing Then
-                                p.TipoEquipo = Agentes.AdonixToSigex("201")
-                                p.Capacidad = Capacidades.AdonixToSigex("108")
-                                p.Equipo = 0
-                            Else
-                                p.TipoEquipo = sxEquipo.Agente
-                                p.Capacidad = sxEquipo.Capacidad
-                                p.Equipo = sxEquipo.Id
-                            End If
-
-                            p.Grabar()
-
-                        Case "1" 'Hidrante
-                            Dim p As New Sigex.PuestoHidrante
-
-                            p.Nuevo(p1.Puesto, p1.Puesto, s.ID)
-                            p.Grabar()
-
-                    End Select
-                Next
 
             Next
 
