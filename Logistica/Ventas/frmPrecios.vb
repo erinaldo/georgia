@@ -59,10 +59,10 @@ Public Class frmPrecios
 
         Sql = "SELECT itmref_0, qty_0, precio_0, precio_1, precio_2, precio_3, precio_4, precio_5, precio_6, precio_7,"
         Sql &= "      precio_8, precio_9, precio_10, precio_11, precio_12, precio_13, precio_14, precio_15, precio_16, precio_17, precio_18, ped_0 "
-        Sql &= "FROM xprecio2 xpe"
+        Sql &= "FROM xprecios xpe"
         da = New OracleDataAdapter(Sql, cn)
 
-        Sql = "INSERT INTO xprecio2 VALUES (:itmref_0, :qty_0, :precio_0, :precio_1, :precio_2, :precio_3, :precio_4, :precio_5, :precio_6, :precio_7, :precio_8, :precio_9, :precio_10, :precio_11, :precio_12, :precio_13, :precio_14, :precio_15, :precio_16, :precio_17, :precio_18, :ped_0)"
+        Sql = "INSERT INTO xprecios VALUES (:itmref_0, :qty_0, :precio_0, :precio_1, :precio_2, :precio_3, :precio_4, :precio_5, :precio_6, :precio_7, :precio_8, :precio_9, :precio_10, :precio_11, :precio_12, :precio_13, :precio_14, :precio_15, :precio_16, :precio_17, :precio_18, :ped_0)"
         da.InsertCommand = New OracleCommand(Sql, cn)
         Parametro(da.InsertCommand, "itmref_0", OracleType.VarChar, DataRowVersion.Current)
         Parametro(da.InsertCommand, "qty_0", OracleType.Number, DataRowVersion.Current)
@@ -87,7 +87,7 @@ Public Class frmPrecios
         Parametro(da.InsertCommand, "precio_18", OracleType.Number, DataRowVersion.Current)
         Parametro(da.InsertCommand, "ped_0", OracleType.Number, DataRowVersion.Current)
 
-        Sql = "UPDATE xprecio2 "
+        Sql = "UPDATE xprecios "
         Sql &= "SET itmref_0 = :itmref_0, qty_0 = :qty_0, "
         Sql &= "precio_0 = :precio_0, precio_1 = :precio_1, precio_2 = :precio_2, precio_3 = :precio_3, precio_4 = :precio_4, precio_5 = :precio_5, "
         Sql &= "precio_6 = :precio_6, precio_7 = :precio_7, precio_8 = :precio_8, precio_9 = :precio_9, precio_10 = :precio_10, precio_11 = :precio_11, "
@@ -121,7 +121,7 @@ Public Class frmPrecios
         Parametro(da.UpdateCommand, "itmref_o", OracleType.VarChar, DataRowVersion.Original, "itmref_0")
         Parametro(da.UpdateCommand, "qty_o", OracleType.Number, DataRowVersion.Original, "qty_0")
 
-        Sql = "DELETE FROM xprecio2 WHERE itmref_0 = :itmref_0 AND qty_0 = :qty_0"
+        Sql = "DELETE FROM xprecios WHERE itmref_0 = :itmref_0 AND qty_0 = :qty_0"
         da.DeleteCommand = New OracleCommand(Sql, cn)
         Parametro(da.DeleteCommand, "itmref_0", OracleType.VarChar, DataRowVersion.Original)
         Parametro(da.DeleteCommand, "qty_0", OracleType.Number, DataRowVersion.Original)
