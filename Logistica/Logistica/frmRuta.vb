@@ -1949,13 +1949,6 @@ Class frmRuta
                 End With
             Next
 
-            'Creo/modifico el contrato en sigex y obtengo el ID
-            sxIdContrato = sxContrato.Buscar(dr("cliente_0").ToString, dr("suc_0").ToString, sxIdCliente, sxIdSucursal)
-
-            'Control Periodico
-            sxControl.Abrir(sxContrato.Id)
-            sxControl.Crear(sxContrato.Id, fecha)
-
             Dim SectoresAdonix As New Sectores(cn) 'Sectores en Adonix
             Dim SectoresSigex As New Sigex.Sectores 'Sectores en Sigex
             'Abro sectores en Adonix
@@ -1981,7 +1974,7 @@ Class frmRuta
                         Dim PuestoSigex As Sigex.Puesto
 
                         'Busco el puesto Adonix en Sigex
-                        PuestoSigex = PuestosSigex.BuscarPuesto(PuestoAdonix.ID)
+                        PuestoSigex = PuestosSigex.BuscarPuesto(PuestoAdonix.Id)
 
                         If PuestoSigex Is Nothing Then
 
@@ -1991,7 +1984,7 @@ Class frmRuta
 
                                     'Obtengo el id del equipo en el puesto
                                     sxEquipo = sxParques.BuscarPorCodigoAdonix(PuestoAdonix.Serie)
-                                    Dim l As Long = PuestoAdonix.ID
+                                    'Dim l As Long = PuestoAdonix.ID
 
                                     PuestoExtintorSigex.Nuevo(PuestoAdonix.Puesto, PuestoAdonix.Puesto, SectorSigex.Id)
 
@@ -2004,6 +1997,7 @@ Class frmRuta
                                         PuestoExtintorSigex.Capacidad = sxEquipo.Capacidad
                                         PuestoExtintorSigex.Equipo = sxEquipo.Id
                                     End If
+                                    PuestoExtintorSigex.CodigoAdonix = PuestoAdonix.Id.ToString
 
                                     PuestoExtintorSigex.Grabar()
 
@@ -2020,12 +2014,16 @@ Class frmRuta
                     Next
                 End If
 
-
-
             Next
 
-        Next
+            'Creo/modifico el contrato en sigex y obtengo el ID
+            sxIdContrato = sxContrato.Buscar(dr("cliente_0").ToString, dr("suc_0").ToString, sxIdCliente, sxIdSucursal)
 
+            'Control Periodico
+            sxControl.Abrir(sxContrato.Id)
+            sxControl.Crear(sxContrato.Id, Today) 'fecha)
+
+        Next
     End Sub
 
 End Class
