@@ -276,7 +276,7 @@ Public Class frmMain
         cm2.Dispose()
 
     End Sub
-    Private Sub frm415_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm415.Click
+    Private Sub frm415_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Dim f As New frm415
         f.MdiParent = Me
         f.Show()
@@ -314,12 +314,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
 
-    End Sub
-    Private Sub mnuRecepcion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRecepcion.Click
-        With frmRecepcion
-            .MdiParent = Me
-            .Show()
-        End With
     End Sub
     Private Sub mnuCfgVencimientos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCfgVencimientos.Click
         Dim f As New frmCfgSrvVencimientos
@@ -938,11 +932,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-    Private Sub mnuIntervenciones_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuIntervenciones.Click
-        Dim f As New frmIntervencion()
-        f.MdiParent = Me
-        f.Show()
-    End Sub
     Private Sub mnuMailMasivos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuMailMasivos.Click
         Dim f As New frmMailsMasivos
         f.MdiParent = Me
@@ -1137,6 +1126,25 @@ Public Class frmMain
 
     Private Sub TableroCAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TableroCAToolStripMenuItem.Click
         Dim f As New FrmTableroCA
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
+    Private Sub mnuIntervencion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuIntervencion.Click
+        Dim f As New frmIntervencion()
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
+    Private Sub mnuRecepcion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRecepcion.Click
+        With frmRecepcion
+            .MdiParent = Me
+            .Show()
+        End With
+    End Sub
+
+    Private Sub mnuRegistroManguera_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRegistroManguera.Click
+        Dim f As New frmIramMangueras
         f.MdiParent = Me
         f.Show()
     End Sub

@@ -450,6 +450,12 @@
     <Compile Include="Service\frmIntervencionesAutomaticas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Service\frmIramMangueras.Designer.vb">
+      <DependentUpon>frmIramMangueras.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmIramMangueras.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Service\frmItnAbo.Designer.vb">
       <DependentUpon>frmItnAbo.vb</DependentUpon>
     </Compile>
@@ -1236,6 +1242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmIntervencionesAutomaticas.resx">
       <DependentUpon>frmIntervencionesAutomaticas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmIramMangueras.resx">
+      <DependentUpon>frmIramMangueras.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmItnAbo.resx">
       <DependentUpon>frmItnAbo.vb</DependentUpon>

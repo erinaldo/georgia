@@ -43,6 +43,7 @@ Partial Class frmRecepcion
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator
         Me.CambiarPalletToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ImprimirPalletToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ResumenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem9 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuPuerto = New System.Windows.Forms.ToolStripMenuItem
         Me.txtItn = New System.Windows.Forms.TextBox
@@ -51,6 +52,29 @@ Partial Class frmRecepcion
         Me.txtDireccion = New System.Windows.Forms.TextBox
         Me.txtCodigo = New System.Windows.Forms.TextBox
         Me.dgv = New System.Windows.Forms.DataGridView
+        Me.ContextMenuGrilla = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuBaja = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuAnularBaja = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuImprimir = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuRecargador = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuPallet = New System.Windows.Forms.ToolStripMenuItem
+        Me.txtBuscar = New System.Windows.Forms.TextBox
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.txtSuc = New System.Windows.Forms.TextBox
+        Me.Tab = New System.Windows.Forms.TabControl
+        Me.TabIntervencion = New System.Windows.Forms.TabPage
+        Me.tabMangueras = New System.Windows.Forms.TabPage
+        Me.dgvMangas = New System.Windows.Forms.DataGridView
+        Me.cmnMangas = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuAddToIntervencion = New System.Windows.Forms.ToolStripMenuItem
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.cboRecargador = New System.Windows.Forms.ComboBox
+        Me.lblPallet = New System.Windows.Forms.Label
+        Me.lblPatente = New System.Windows.Forms.Label
         Me.srenum_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.itngru_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.macnum_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -75,30 +99,12 @@ Partial Class frmRecepcion
         Me.recargador_0 = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.pallet_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.patente_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.ContextMenuGrilla = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuBaja = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuAnularBaja = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuImprimir = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuRecargador = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuPallet = New System.Windows.Forms.ToolStripMenuItem
-        Me.txtBuscar = New System.Windows.Forms.TextBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.txtSuc = New System.Windows.Forms.TextBox
-        Me.Tab = New System.Windows.Forms.TabControl
-        Me.TabIntervencion = New System.Windows.Forms.TabPage
-        Me.tabMangueras = New System.Windows.Forms.TabPage
-        Me.dgvMangas = New System.Windows.Forms.DataGridView
-        Me.cmnMangas = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuAddToIntervencion = New System.Windows.Forms.ToolStripMenuItem
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.cboRecargador = New System.Windows.Forms.ComboBox
-        Me.lblPallet = New System.Windows.Forms.Label
-        Me.lblPatente = New System.Windows.Forms.Label
-        Me.ResumenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.nroiram_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.largo_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ok_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.presion_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.obs_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.usuario_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -261,6 +267,13 @@ Partial Class frmRecepcion
         Me.ImprimirPalletToolStripMenuItem.Size = New System.Drawing.Size(223, 22)
         Me.ImprimirPalletToolStripMenuItem.Text = "Imprimir Pallet..."
         '
+        'ResumenToolStripMenuItem
+        '
+        Me.ResumenToolStripMenuItem.Name = "ResumenToolStripMenuItem"
+        Me.ResumenToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
+        Me.ResumenToolStripMenuItem.Size = New System.Drawing.Size(223, 22)
+        Me.ResumenToolStripMenuItem.Text = "Resumen..."
+        '
         'ToolStripMenuItem9
         '
         Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
@@ -323,7 +336,7 @@ Partial Class frmRecepcion
         Me.dgv.AllowUserToResizeColumns = False
         Me.dgv.AllowUserToResizeRows = False
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.srenum_0, Me.itngru_0, Me.macnum_0, Me.pblnum_0, Me.covflg_0, Me.covspt_0, Me.covvcr_0, Me.maccovren_0, Me.credat_0, Me.creusr_0, Me.upddat_0, Me.updusr_0, Me.yflgmrk_0, Me.yflgtrj_0, Me.macpdtcod_0, Me.macdes_0, Me.ynrocil_0, Me.yfabdat_0, Me.yitnnum_0, Me.macitntyp_0, Me.srelig_0, Me.recargador_0, Me.pallet_0, Me.patente_0})
+        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.srenum_0, Me.itngru_0, Me.macnum_0, Me.pblnum_0, Me.covflg_0, Me.covspt_0, Me.covvcr_0, Me.maccovren_0, Me.credat_0, Me.creusr_0, Me.upddat_0, Me.updusr_0, Me.yflgmrk_0, Me.yflgtrj_0, Me.macpdtcod_0, Me.macdes_0, Me.ynrocil_0, Me.yfabdat_0, Me.yitnnum_0, Me.macitntyp_0, Me.srelig_0, Me.recargador_0, Me.pallet_0, Me.patente_0, Me.nroiram_0, Me.largo_0, Me.ok_0, Me.presion_0, Me.obs_0, Me.usuario_0})
         Me.dgv.ContextMenuStrip = Me.ContextMenuGrilla
         Me.dgv.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgv.Enabled = False
@@ -334,180 +347,6 @@ Partial Class frmRecepcion
         Me.dgv.Size = New System.Drawing.Size(910, 397)
         Me.dgv.StandardTab = True
         Me.dgv.TabIndex = 11
-        '
-        'srenum_0
-        '
-        Me.srenum_0.HeaderText = "srenum"
-        Me.srenum_0.Name = "srenum_0"
-        Me.srenum_0.ReadOnly = True
-        Me.srenum_0.Visible = False
-        '
-        'itngru_0
-        '
-        Me.itngru_0.HeaderText = "itngru"
-        Me.itngru_0.Name = "itngru_0"
-        Me.itngru_0.ReadOnly = True
-        Me.itngru_0.Visible = False
-        '
-        'macnum_0
-        '
-        Me.macnum_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.macnum_0.HeaderText = "Serie"
-        Me.macnum_0.Name = "macnum_0"
-        Me.macnum_0.ReadOnly = True
-        Me.macnum_0.Width = 56
-        '
-        'pblnum_0
-        '
-        Me.pblnum_0.HeaderText = "pblnum"
-        Me.pblnum_0.Name = "pblnum_0"
-        Me.pblnum_0.ReadOnly = True
-        Me.pblnum_0.Visible = False
-        '
-        'covflg_0
-        '
-        Me.covflg_0.HeaderText = "covflg"
-        Me.covflg_0.Name = "covflg_0"
-        Me.covflg_0.ReadOnly = True
-        Me.covflg_0.Visible = False
-        '
-        'covspt_0
-        '
-        Me.covspt_0.HeaderText = "covspt"
-        Me.covspt_0.Name = "covspt_0"
-        Me.covspt_0.ReadOnly = True
-        Me.covspt_0.Visible = False
-        '
-        'covvcr_0
-        '
-        Me.covvcr_0.HeaderText = "covvcr"
-        Me.covvcr_0.Name = "covvcr_0"
-        Me.covvcr_0.ReadOnly = True
-        Me.covvcr_0.Visible = False
-        '
-        'maccovren_0
-        '
-        Me.maccovren_0.HeaderText = "maccovren"
-        Me.maccovren_0.Name = "maccovren_0"
-        Me.maccovren_0.ReadOnly = True
-        Me.maccovren_0.Visible = False
-        '
-        'credat_0
-        '
-        Me.credat_0.HeaderText = "credat"
-        Me.credat_0.Name = "credat_0"
-        Me.credat_0.ReadOnly = True
-        Me.credat_0.Visible = False
-        '
-        'creusr_0
-        '
-        Me.creusr_0.HeaderText = "creusr"
-        Me.creusr_0.Name = "creusr_0"
-        Me.creusr_0.ReadOnly = True
-        Me.creusr_0.Visible = False
-        '
-        'upddat_0
-        '
-        Me.upddat_0.HeaderText = "upddat"
-        Me.upddat_0.Name = "upddat_0"
-        Me.upddat_0.ReadOnly = True
-        Me.upddat_0.Visible = False
-        '
-        'updusr_0
-        '
-        Me.updusr_0.HeaderText = "updusr"
-        Me.updusr_0.Name = "updusr_0"
-        Me.updusr_0.ReadOnly = True
-        Me.updusr_0.Visible = False
-        '
-        'yflgmrk_0
-        '
-        Me.yflgmrk_0.HeaderText = "yflgmrk"
-        Me.yflgmrk_0.Name = "yflgmrk_0"
-        Me.yflgmrk_0.ReadOnly = True
-        Me.yflgmrk_0.Visible = False
-        '
-        'yflgtrj_0
-        '
-        Me.yflgtrj_0.HeaderText = "yflgtrj"
-        Me.yflgtrj_0.Name = "yflgtrj_0"
-        Me.yflgtrj_0.ReadOnly = True
-        Me.yflgtrj_0.Visible = False
-        '
-        'macpdtcod_0
-        '
-        Me.macpdtcod_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.macpdtcod_0.HeaderText = "Articulo"
-        Me.macpdtcod_0.Name = "macpdtcod_0"
-        Me.macpdtcod_0.ReadOnly = True
-        Me.macpdtcod_0.Width = 67
-        '
-        'macdes_0
-        '
-        Me.macdes_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.macdes_0.HeaderText = "Equipo"
-        Me.macdes_0.Name = "macdes_0"
-        Me.macdes_0.ReadOnly = True
-        '
-        'ynrocil_0
-        '
-        Me.ynrocil_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.ynrocil_0.HeaderText = "Cilindro"
-        Me.ynrocil_0.Name = "ynrocil_0"
-        Me.ynrocil_0.ReadOnly = True
-        Me.ynrocil_0.Width = 66
-        '
-        'yfabdat_0
-        '
-        Me.yfabdat_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.yfabdat_0.HeaderText = "Fabricación"
-        Me.yfabdat_0.Name = "yfabdat_0"
-        Me.yfabdat_0.ReadOnly = True
-        Me.yfabdat_0.Width = 87
-        '
-        'yitnnum_0
-        '
-        Me.yitnnum_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.yitnnum_0.HeaderText = "Intervención"
-        Me.yitnnum_0.Name = "yitnnum_0"
-        Me.yitnnum_0.ReadOnly = True
-        Me.yitnnum_0.Width = 91
-        '
-        'macitntyp_0
-        '
-        Me.macitntyp_0.HeaderText = "macitntyp"
-        Me.macitntyp_0.Name = "macitntyp_0"
-        Me.macitntyp_0.ReadOnly = True
-        Me.macitntyp_0.Visible = False
-        '
-        'srelig_0
-        '
-        Me.srelig_0.HeaderText = "Linea"
-        Me.srelig_0.Name = "srelig_0"
-        Me.srelig_0.ReadOnly = True
-        Me.srelig_0.Visible = False
-        '
-        'recargador_0
-        '
-        Me.recargador_0.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.recargador_0.HeaderText = "Recargador"
-        Me.recargador_0.Name = "recargador_0"
-        Me.recargador_0.ReadOnly = True
-        Me.recargador_0.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.recargador_0.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
-        'pallet_0
-        '
-        Me.pallet_0.HeaderText = "Pallet"
-        Me.pallet_0.Name = "pallet_0"
-        Me.pallet_0.ReadOnly = True
-        '
-        'patente_0
-        '
-        Me.patente_0.HeaderText = "Patente"
-        Me.patente_0.MaxInputLength = 6
-        Me.patente_0.Name = "patente_0"
-        Me.patente_0.ReadOnly = True
         '
         'ContextMenuGrilla
         '
@@ -704,12 +543,221 @@ Partial Class frmRecepcion
         Me.lblPatente.Text = "PATENTE"
         Me.lblPatente.Visible = False
         '
-        'ResumenToolStripMenuItem
+        'srenum_0
         '
-        Me.ResumenToolStripMenuItem.Name = "ResumenToolStripMenuItem"
-        Me.ResumenToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.ResumenToolStripMenuItem.Size = New System.Drawing.Size(223, 22)
-        Me.ResumenToolStripMenuItem.Text = "Resumen..."
+        Me.srenum_0.HeaderText = "srenum"
+        Me.srenum_0.Name = "srenum_0"
+        Me.srenum_0.ReadOnly = True
+        Me.srenum_0.Visible = False
+        '
+        'itngru_0
+        '
+        Me.itngru_0.HeaderText = "itngru"
+        Me.itngru_0.Name = "itngru_0"
+        Me.itngru_0.ReadOnly = True
+        Me.itngru_0.Visible = False
+        '
+        'macnum_0
+        '
+        Me.macnum_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.macnum_0.HeaderText = "Serie"
+        Me.macnum_0.Name = "macnum_0"
+        Me.macnum_0.ReadOnly = True
+        Me.macnum_0.Width = 56
+        '
+        'pblnum_0
+        '
+        Me.pblnum_0.HeaderText = "pblnum"
+        Me.pblnum_0.Name = "pblnum_0"
+        Me.pblnum_0.ReadOnly = True
+        Me.pblnum_0.Visible = False
+        '
+        'covflg_0
+        '
+        Me.covflg_0.HeaderText = "covflg"
+        Me.covflg_0.Name = "covflg_0"
+        Me.covflg_0.ReadOnly = True
+        Me.covflg_0.Visible = False
+        '
+        'covspt_0
+        '
+        Me.covspt_0.HeaderText = "covspt"
+        Me.covspt_0.Name = "covspt_0"
+        Me.covspt_0.ReadOnly = True
+        Me.covspt_0.Visible = False
+        '
+        'covvcr_0
+        '
+        Me.covvcr_0.HeaderText = "covvcr"
+        Me.covvcr_0.Name = "covvcr_0"
+        Me.covvcr_0.ReadOnly = True
+        Me.covvcr_0.Visible = False
+        '
+        'maccovren_0
+        '
+        Me.maccovren_0.HeaderText = "maccovren"
+        Me.maccovren_0.Name = "maccovren_0"
+        Me.maccovren_0.ReadOnly = True
+        Me.maccovren_0.Visible = False
+        '
+        'credat_0
+        '
+        Me.credat_0.HeaderText = "credat"
+        Me.credat_0.Name = "credat_0"
+        Me.credat_0.ReadOnly = True
+        Me.credat_0.Visible = False
+        '
+        'creusr_0
+        '
+        Me.creusr_0.HeaderText = "creusr"
+        Me.creusr_0.Name = "creusr_0"
+        Me.creusr_0.ReadOnly = True
+        Me.creusr_0.Visible = False
+        '
+        'upddat_0
+        '
+        Me.upddat_0.HeaderText = "upddat"
+        Me.upddat_0.Name = "upddat_0"
+        Me.upddat_0.ReadOnly = True
+        Me.upddat_0.Visible = False
+        '
+        'updusr_0
+        '
+        Me.updusr_0.HeaderText = "updusr"
+        Me.updusr_0.Name = "updusr_0"
+        Me.updusr_0.ReadOnly = True
+        Me.updusr_0.Visible = False
+        '
+        'yflgmrk_0
+        '
+        Me.yflgmrk_0.HeaderText = "yflgmrk"
+        Me.yflgmrk_0.Name = "yflgmrk_0"
+        Me.yflgmrk_0.ReadOnly = True
+        Me.yflgmrk_0.Visible = False
+        '
+        'yflgtrj_0
+        '
+        Me.yflgtrj_0.HeaderText = "yflgtrj"
+        Me.yflgtrj_0.Name = "yflgtrj_0"
+        Me.yflgtrj_0.ReadOnly = True
+        Me.yflgtrj_0.Visible = False
+        '
+        'macpdtcod_0
+        '
+        Me.macpdtcod_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.macpdtcod_0.HeaderText = "Articulo"
+        Me.macpdtcod_0.Name = "macpdtcod_0"
+        Me.macpdtcod_0.ReadOnly = True
+        Me.macpdtcod_0.Width = 67
+        '
+        'macdes_0
+        '
+        Me.macdes_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.macdes_0.HeaderText = "Equipo"
+        Me.macdes_0.Name = "macdes_0"
+        Me.macdes_0.ReadOnly = True
+        '
+        'ynrocil_0
+        '
+        Me.ynrocil_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.ynrocil_0.HeaderText = "Cilindro"
+        Me.ynrocil_0.Name = "ynrocil_0"
+        Me.ynrocil_0.ReadOnly = True
+        Me.ynrocil_0.Width = 66
+        '
+        'yfabdat_0
+        '
+        Me.yfabdat_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.yfabdat_0.HeaderText = "Fabricación"
+        Me.yfabdat_0.Name = "yfabdat_0"
+        Me.yfabdat_0.ReadOnly = True
+        Me.yfabdat_0.Width = 87
+        '
+        'yitnnum_0
+        '
+        Me.yitnnum_0.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.yitnnum_0.HeaderText = "Intervención"
+        Me.yitnnum_0.Name = "yitnnum_0"
+        Me.yitnnum_0.ReadOnly = True
+        Me.yitnnum_0.Width = 91
+        '
+        'macitntyp_0
+        '
+        Me.macitntyp_0.HeaderText = "macitntyp"
+        Me.macitntyp_0.Name = "macitntyp_0"
+        Me.macitntyp_0.ReadOnly = True
+        Me.macitntyp_0.Visible = False
+        '
+        'srelig_0
+        '
+        Me.srelig_0.HeaderText = "Linea"
+        Me.srelig_0.Name = "srelig_0"
+        Me.srelig_0.ReadOnly = True
+        Me.srelig_0.Visible = False
+        '
+        'recargador_0
+        '
+        Me.recargador_0.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.recargador_0.HeaderText = "Recargador"
+        Me.recargador_0.Name = "recargador_0"
+        Me.recargador_0.ReadOnly = True
+        Me.recargador_0.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.recargador_0.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'pallet_0
+        '
+        Me.pallet_0.HeaderText = "Pallet"
+        Me.pallet_0.Name = "pallet_0"
+        Me.pallet_0.ReadOnly = True
+        '
+        'patente_0
+        '
+        Me.patente_0.HeaderText = "Patente"
+        Me.patente_0.MaxInputLength = 6
+        Me.patente_0.Name = "patente_0"
+        Me.patente_0.ReadOnly = True
+        '
+        'nroiram_0
+        '
+        Me.nroiram_0.HeaderText = "Iram"
+        Me.nroiram_0.Name = "nroiram_0"
+        Me.nroiram_0.ReadOnly = True
+        Me.nroiram_0.Visible = False
+        '
+        'largo_0
+        '
+        Me.largo_0.HeaderText = "Largo"
+        Me.largo_0.Name = "largo_0"
+        Me.largo_0.ReadOnly = True
+        Me.largo_0.Visible = False
+        '
+        'ok_0
+        '
+        Me.ok_0.HeaderText = "Ok"
+        Me.ok_0.Name = "ok_0"
+        Me.ok_0.ReadOnly = True
+        Me.ok_0.Visible = False
+        '
+        'presion_0
+        '
+        Me.presion_0.HeaderText = "Presion"
+        Me.presion_0.Name = "presion_0"
+        Me.presion_0.ReadOnly = True
+        Me.presion_0.Visible = False
+        '
+        'obs_0
+        '
+        Me.obs_0.HeaderText = "Obs"
+        Me.obs_0.Name = "obs_0"
+        Me.obs_0.ReadOnly = True
+        Me.obs_0.Visible = False
+        '
+        'usuario_0
+        '
+        Me.usuario_0.HeaderText = "Usuario"
+        Me.usuario_0.Name = "usuario_0"
+        Me.usuario_0.ReadOnly = True
+        Me.usuario_0.Visible = False
         '
         'frmRecepcion
         '
@@ -797,6 +845,10 @@ Partial Class frmRecepcion
     Friend WithEvents ImprimirPalletToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuPatente As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents lblPatente As System.Windows.Forms.Label
+    Friend WithEvents mnuPallet As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem9 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuPuerto As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ResumenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents srenum_0 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents itngru_0 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents macnum_0 As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -821,8 +873,10 @@ Partial Class frmRecepcion
     Friend WithEvents recargador_0 As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents pallet_0 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents patente_0 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents mnuPallet As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripMenuItem9 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents mnuPuerto As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ResumenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents nroiram_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents largo_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ok_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents presion_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents obs_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents usuario_0 As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

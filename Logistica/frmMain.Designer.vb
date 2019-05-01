@@ -49,9 +49,11 @@ Partial Class frmMain
         Me.mnuService = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuVencimientos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIntervenciones = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuIntervencion = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem24 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuItnAuto = New System.Windows.Forms.ToolStripMenuItem
-        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
         Me.frmControles = New System.Windows.Forms.ToolStripMenuItem
+        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
         Me.frm415 = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuDestribucionVenc = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem22 = New System.Windows.Forms.ToolStripMenuItem
@@ -68,7 +70,9 @@ Partial Class frmMain
         Me.mnuParqueAbono = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuTranferencia = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCilindrosDuplicados = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuIngreso = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRecepcion = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuRegistroManguera = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem12 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuCartelesPallet = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator
@@ -191,6 +195,7 @@ Partial Class frmMain
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator
         Me.ListadoDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TerceroPagadorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.TableroCAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCliente = New System.Windows.Forms.ToolStripMenuItem
         Me.RRHHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -205,7 +210,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.TableroCAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -367,7 +371,7 @@ Partial Class frmMain
         '
         'mnuService
         '
-        Me.mnuService.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVencimientos, Me.mnuIntervenciones, Me.mnuItnAuto, Me.frmItnAbo, Me.frmControles, Me.frm415, Me.mnuDestribucionVenc, Me.ToolStripMenuItem22, Me.mnu11sinCP, Me.MantenimientoFijoMensualToolStripMenuItem, Me.ToolStripMenuItem3, Me.ToolStripMenuItem21, Me.mnuIRAM, Me.mnuIRAM2, Me.mnuSustitutos, Me.ToolStripMenuItem4, Me.mnuCumpliRecargas, Me.mnuParque, Me.mnuRecepcion, Me.ToolStripMenuItem12, Me.mnuCartelesPallet, Me.ToolStripMenuItem5, Me.mnuConfiguracion, Me.ToolStripSeparator1, Me.SolicitudDeServicioToolStripMenuItem, Me.PremioRelevadoresToolStripMenuItem})
+        Me.mnuService.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVencimientos, Me.mnuIntervenciones, Me.mnuDestribucionVenc, Me.ToolStripMenuItem22, Me.mnu11sinCP, Me.MantenimientoFijoMensualToolStripMenuItem, Me.ToolStripMenuItem3, Me.ToolStripMenuItem21, Me.mnuIRAM, Me.mnuIRAM2, Me.mnuSustitutos, Me.ToolStripMenuItem4, Me.mnuCumpliRecargas, Me.mnuParque, Me.mnuIngreso, Me.ToolStripMenuItem12, Me.mnuCartelesPallet, Me.ToolStripMenuItem5, Me.mnuConfiguracion, Me.ToolStripSeparator1, Me.SolicitudDeServicioToolStripMenuItem, Me.PremioRelevadoresToolStripMenuItem})
         Me.mnuService.Name = "mnuService"
         Me.mnuService.Size = New System.Drawing.Size(56, 20)
         Me.mnuService.Text = "Service"
@@ -375,115 +379,126 @@ Partial Class frmMain
         'mnuVencimientos
         '
         Me.mnuVencimientos.Name = "mnuVencimientos"
-        Me.mnuVencimientos.Size = New System.Drawing.Size(288, 22)
+        Me.mnuVencimientos.Size = New System.Drawing.Size(274, 22)
         Me.mnuVencimientos.Tag = "frmVencimientos"
         Me.mnuVencimientos.Text = "Vencimientos..."
         '
         'mnuIntervenciones
         '
+        Me.mnuIntervenciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuIntervencion, Me.ToolStripMenuItem24, Me.mnuItnAuto, Me.frmControles, Me.frm415})
         Me.mnuIntervenciones.Name = "mnuIntervenciones"
-        Me.mnuIntervenciones.Size = New System.Drawing.Size(288, 22)
-        Me.mnuIntervenciones.Tag = "frmIntervenciones"
-        Me.mnuIntervenciones.Text = "Intervenciones..."
+        Me.mnuIntervenciones.Size = New System.Drawing.Size(274, 22)
+        Me.mnuIntervenciones.Text = "Intervenciones"
+        '
+        'mnuIntervencion
+        '
+        Me.mnuIntervencion.Name = "mnuIntervencion"
+        Me.mnuIntervencion.Size = New System.Drawing.Size(230, 22)
+        Me.mnuIntervencion.Tag = "frmIntervenciones"
+        Me.mnuIntervencion.Text = "Intervenciones..."
+        '
+        'ToolStripMenuItem24
+        '
+        Me.ToolStripMenuItem24.Name = "ToolStripMenuItem24"
+        Me.ToolStripMenuItem24.Size = New System.Drawing.Size(227, 6)
         '
         'mnuItnAuto
         '
         Me.mnuItnAuto.Name = "mnuItnAuto"
-        Me.mnuItnAuto.Size = New System.Drawing.Size(288, 22)
+        Me.mnuItnAuto.Size = New System.Drawing.Size(230, 22)
         Me.mnuItnAuto.Tag = "frmItnAutomaticas"
-        Me.mnuItnAuto.Text = "Intervenciones Automáticas"
+        Me.mnuItnAuto.Text = "Intervenciones Automáticas..."
+        '
+        'frmControles
+        '
+        Me.frmControles.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmItnAbo})
+        Me.frmControles.Name = "frmControles"
+        Me.frmControles.Size = New System.Drawing.Size(230, 22)
+        Me.frmControles.Tag = "frmCtrles"
+        Me.frmControles.Text = "Intervenciones Ctrles..."
         '
         'frmItnAbo
         '
         Me.frmItnAbo.Name = "frmItnAbo"
-        Me.frmItnAbo.Size = New System.Drawing.Size(288, 22)
+        Me.frmItnAbo.Size = New System.Drawing.Size(261, 22)
         Me.frmItnAbo.Tag = "frmItnAbo"
         Me.frmItnAbo.Text = "Generar Intervenciones Abonados..."
-        '
-        'frmControles
-        '
-        Me.frmControles.Name = "frmControles"
-        Me.frmControles.Size = New System.Drawing.Size(288, 22)
-        Me.frmControles.Tag = "frmCtrles"
-        Me.frmControles.Text = "Generar Intervenciones Ctrles..."
-        Me.frmControles.Visible = False
         '
         'frm415
         '
         Me.frm415.Name = "frm415"
-        Me.frm415.Size = New System.Drawing.Size(288, 22)
+        Me.frm415.Size = New System.Drawing.Size(230, 22)
         Me.frm415.Tag = "frm415"
-        Me.frm415.Text = "Generar Intervenciones 639..."
-        Me.frm415.Visible = False
+        Me.frm415.Text = "Intervenciones 639..."
         '
         'mnuDestribucionVenc
         '
         Me.mnuDestribucionVenc.Name = "mnuDestribucionVenc"
-        Me.mnuDestribucionVenc.Size = New System.Drawing.Size(288, 22)
+        Me.mnuDestribucionVenc.Size = New System.Drawing.Size(274, 22)
         Me.mnuDestribucionVenc.Tag = "frmDistrib"
         Me.mnuDestribucionVenc.Text = "Distribución de Vencimientos..."
         '
         'ToolStripMenuItem22
         '
         Me.ToolStripMenuItem22.Name = "ToolStripMenuItem22"
-        Me.ToolStripMenuItem22.Size = New System.Drawing.Size(288, 22)
+        Me.ToolStripMenuItem22.Size = New System.Drawing.Size(274, 22)
         Me.ToolStripMenuItem22.Text = "Distribucion de Vencimientos Original"
         '
         'mnu11sinCP
         '
         Me.mnu11sinCP.Name = "mnu11sinCP"
-        Me.mnu11sinCP.Size = New System.Drawing.Size(288, 22)
+        Me.mnu11sinCP.Size = New System.Drawing.Size(274, 22)
         Me.mnu11sinCP.Tag = "frm11sinCP"
         Me.mnu11sinCP.Text = "Consorcios SIN controles periódicos..."
         '
         'MantenimientoFijoMensualToolStripMenuItem
         '
         Me.MantenimientoFijoMensualToolStripMenuItem.Name = "MantenimientoFijoMensualToolStripMenuItem"
-        Me.MantenimientoFijoMensualToolStripMenuItem.Size = New System.Drawing.Size(288, 22)
+        Me.MantenimientoFijoMensualToolStripMenuItem.Size = New System.Drawing.Size(274, 22)
         Me.MantenimientoFijoMensualToolStripMenuItem.Tag = "frmMFM"
         Me.MantenimientoFijoMensualToolStripMenuItem.Text = "Mantenimiento Fijo mensual"
         '
         'ToolStripMenuItem3
         '
         Me.ToolStripMenuItem3.Name = "ToolStripMenuItem3"
-        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(285, 6)
+        Me.ToolStripMenuItem3.Size = New System.Drawing.Size(271, 6)
         '
         'ToolStripMenuItem21
         '
         Me.ToolStripMenuItem21.Name = "ToolStripMenuItem21"
-        Me.ToolStripMenuItem21.Size = New System.Drawing.Size(288, 22)
+        Me.ToolStripMenuItem21.Size = New System.Drawing.Size(274, 22)
         Me.ToolStripMenuItem21.Tag = "PlanillaAbonados"
         Me.ToolStripMenuItem21.Text = "Planilla Planificacion Abonados"
         '
         'mnuIRAM
         '
         Me.mnuIRAM.Name = "mnuIRAM"
-        Me.mnuIRAM.Size = New System.Drawing.Size(288, 22)
+        Me.mnuIRAM.Size = New System.Drawing.Size(274, 22)
         Me.mnuIRAM.Tag = "frmIRAM"
         Me.mnuIRAM.Text = "Impresión de Tarjetas IRAM..."
         '
         'mnuIRAM2
         '
         Me.mnuIRAM2.Name = "mnuIRAM2"
-        Me.mnuIRAM2.Size = New System.Drawing.Size(288, 22)
+        Me.mnuIRAM2.Size = New System.Drawing.Size(274, 22)
         Me.mnuIRAM2.Text = "Impresión Planilla Ctrol Periodico..."
         '
         'mnuSustitutos
         '
         Me.mnuSustitutos.Name = "mnuSustitutos"
-        Me.mnuSustitutos.Size = New System.Drawing.Size(288, 22)
+        Me.mnuSustitutos.Size = New System.Drawing.Size(274, 22)
         Me.mnuSustitutos.Tag = "frmIRAM"
         Me.mnuSustitutos.Text = "Impresión Tarjeta de Sustitutos..."
         '
         'ToolStripMenuItem4
         '
         Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(285, 6)
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(271, 6)
         '
         'mnuCumpliRecargas
         '
         Me.mnuCumpliRecargas.Name = "mnuCumpliRecargas"
-        Me.mnuCumpliRecargas.Size = New System.Drawing.Size(288, 22)
+        Me.mnuCumpliRecargas.Size = New System.Drawing.Size(274, 22)
         Me.mnuCumpliRecargas.Tag = "frmCumplimientoRecargas"
         Me.mnuCumpliRecargas.Text = "Cumplimiento Recargas..."
         '
@@ -491,7 +506,7 @@ Partial Class frmMain
         '
         Me.mnuParque.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuParqueAbono, Me.mnuTranferencia, Me.mnuCilindrosDuplicados})
         Me.mnuParque.Name = "mnuParque"
-        Me.mnuParque.Size = New System.Drawing.Size(288, 22)
+        Me.mnuParque.Size = New System.Drawing.Size(274, 22)
         Me.mnuParque.Text = "Parque"
         '
         'mnuParqueAbono
@@ -514,37 +529,51 @@ Partial Class frmMain
         Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(234, 22)
         Me.mnuCilindrosDuplicados.Text = "Cilindros Duplicados..."
         '
+        'mnuIngreso
+        '
+        Me.mnuIngreso.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRecepcion, Me.mnuRegistroManguera})
+        Me.mnuIngreso.Name = "mnuIngreso"
+        Me.mnuIngreso.Size = New System.Drawing.Size(274, 22)
+        Me.mnuIngreso.Text = "Recepción de equipos"
+        '
         'mnuRecepcion
         '
         Me.mnuRecepcion.Name = "mnuRecepcion"
         Me.mnuRecepcion.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Alt) _
                     Or System.Windows.Forms.Keys.I), System.Windows.Forms.Keys)
-        Me.mnuRecepcion.Size = New System.Drawing.Size(288, 22)
+        Me.mnuRecepcion.Size = New System.Drawing.Size(234, 22)
         Me.mnuRecepcion.Tag = "frmRecepcion"
-        Me.mnuRecepcion.Text = "Ingreso de equipos a planta..."
+        Me.mnuRecepcion.Text = "Ingreso de equipos"
+        '
+        'mnuRegistroManguera
+        '
+        Me.mnuRegistroManguera.Name = "mnuRegistroManguera"
+        Me.mnuRegistroManguera.Size = New System.Drawing.Size(234, 22)
+        Me.mnuRegistroManguera.Tag = "frmRecepcion"
+        Me.mnuRegistroManguera.Text = "Registro de mangueras..."
         '
         'ToolStripMenuItem12
         '
         Me.ToolStripMenuItem12.Name = "ToolStripMenuItem12"
-        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(285, 6)
+        Me.ToolStripMenuItem12.Size = New System.Drawing.Size(271, 6)
         '
         'mnuCartelesPallet
         '
         Me.mnuCartelesPallet.Name = "mnuCartelesPallet"
-        Me.mnuCartelesPallet.Size = New System.Drawing.Size(288, 22)
+        Me.mnuCartelesPallet.Size = New System.Drawing.Size(274, 22)
         Me.mnuCartelesPallet.Tag = "PALLET"
         Me.mnuCartelesPallet.Text = "Impresión carteles de pallet"
         '
         'ToolStripMenuItem5
         '
         Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(285, 6)
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(271, 6)
         '
         'mnuConfiguracion
         '
         Me.mnuConfiguracion.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCfgVencimientos, Me.mnuCfgIram, Me.frmDestinosCfg})
         Me.mnuConfiguracion.Name = "mnuConfiguracion"
-        Me.mnuConfiguracion.Size = New System.Drawing.Size(288, 22)
+        Me.mnuConfiguracion.Size = New System.Drawing.Size(274, 22)
         Me.mnuConfiguracion.Text = "Configuración"
         '
         'mnuCfgVencimientos
@@ -571,19 +600,19 @@ Partial Class frmMain
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(285, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(271, 6)
         '
         'SolicitudDeServicioToolStripMenuItem
         '
         Me.SolicitudDeServicioToolStripMenuItem.Name = "SolicitudDeServicioToolStripMenuItem"
-        Me.SolicitudDeServicioToolStripMenuItem.Size = New System.Drawing.Size(288, 22)
+        Me.SolicitudDeServicioToolStripMenuItem.Size = New System.Drawing.Size(274, 22)
         Me.SolicitudDeServicioToolStripMenuItem.Tag = "FrmSolServ"
         Me.SolicitudDeServicioToolStripMenuItem.Text = "Solicitud de servicio"
         '
         'PremioRelevadoresToolStripMenuItem
         '
         Me.PremioRelevadoresToolStripMenuItem.Name = "PremioRelevadoresToolStripMenuItem"
-        Me.PremioRelevadoresToolStripMenuItem.Size = New System.Drawing.Size(288, 22)
+        Me.PremioRelevadoresToolStripMenuItem.Size = New System.Drawing.Size(274, 22)
         Me.PremioRelevadoresToolStripMenuItem.Text = "Premio Relevadores"
         '
         'mnuVentas
@@ -1306,6 +1335,12 @@ Partial Class frmMain
         Me.TerceroPagadorToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
         Me.TerceroPagadorToolStripMenuItem.Text = "Tercero Pagador"
         '
+        'TableroCAToolStripMenuItem
+        '
+        Me.TableroCAToolStripMenuItem.Name = "TableroCAToolStripMenuItem"
+        Me.TableroCAToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
+        Me.TableroCAToolStripMenuItem.Text = "TableroCA"
+        '
         'ClientesToolStripMenuItem
         '
         Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCliente})
@@ -1408,12 +1443,6 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'TableroCAToolStripMenuItem
-        '
-        Me.TableroCAToolStripMenuItem.Name = "TableroCAToolStripMenuItem"
-        Me.TableroCAToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
-        Me.TableroCAToolStripMenuItem.Text = "TableroCA"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1473,7 +1502,6 @@ Partial Class frmMain
     Friend WithEvents mnuRelevamiento As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRptVtas As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuRecepcion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuDocumentacion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSeguimiento As System.Windows.Forms.ToolStripMenuItem
@@ -1558,17 +1586,14 @@ Partial Class frmMain
     Friend WithEvents mnuCliente As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents RemitosSinDespacharToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frmControles As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem17 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ProcesarDocumentacionEscaneadaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents RRHHToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents IngresarAusenciasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUnificacion As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frmItnAbo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmRetenciones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReporteDeVentasPorFliaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PremioRelevadoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frm415 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem18 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents LogisticaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuFletes As System.Windows.Forms.ToolStripMenuItem
@@ -1594,7 +1619,6 @@ Partial Class frmMain
     Friend WithEvents PToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem22 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Informes639ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuItnAuto As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuPresupuestos639 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CantidadExtiToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ClientesSinMovimientoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -1618,5 +1642,14 @@ Partial Class frmMain
     Friend WithEvents mnuExportarControles As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuComisiones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TableroCAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIntervencion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frmControles As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frmItnAbo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frm415 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuItnAuto As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem24 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuIngreso As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuRecepcion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuRegistroManguera As System.Windows.Forms.ToolStripMenuItem
 
 End Class

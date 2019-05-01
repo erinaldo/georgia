@@ -24,12 +24,12 @@ Public Class frmRecepcion
         Sql = "SELECT sre.*, mac.macpdtcod_0, mac.macdes_0, mac.ynrocil_0, mac.yfabdat_0, mac.macitntyp_0, mac.recargador_0, mac.patente_0 "
         Sql &= "FROM sremac sre INNER JOIN machines mac ON (sre.macnum_0 = mac.macnum_0) "
         Sql &= "WHERE yitnnum_0 = :yitnnum_0"
-        'Sql &= "WHERE srenum_0 = :srenum_0"
         da = New OracleDataAdapter(Sql, cn)
 
         Sql = "INSERT INTO sremac "
         Sql &= "VALUES (:srenum_0, :itngru_0, :macnum_0, :pblnum_0, :covflg_0, :covspt_0, :covvcr_0, "
-        Sql &= ":maccovren_0, :credat_0, :creusr_0, :upddat_0, :updusr_0, :yflgmrk_0, :yflgtrj_0, :yitnnum_0, :srelig_0, :pallet_0)"
+        Sql &= ":maccovren_0, :credat_0, :creusr_0, :upddat_0, :updusr_0, :yflgmrk_0, :yflgtrj_0, :yitnnum_0, :srelig_0, :pallet_0, "
+        Sql &= ":nroiram_0, :largo_0, :ok_0, :presion_0, :obs_0, :usuario_0) "
         da.InsertCommand = New OracleCommand(Sql, cn)
 
         Sql = "UPDATE sremac "
@@ -37,7 +37,6 @@ Public Class frmRecepcion
         Sql &= "WHERE yitnnum_0 = :yitnnum_0 AND macnum_0 = :macnum_0"
         da.UpdateCommand = New OracleCommand(Sql, cn)
 
-        'Sql = "DELETE FROM sremac WHERE srenum_0 = :srenum_0 AND macnum_0 = :macnum_0"
         Sql = "DELETE FROM sremac WHERE yitnnum_0 = :yitnnum_0 AND macnum_0 = :macnum_0"
         da.DeleteCommand = New OracleCommand(Sql, cn)
 
@@ -70,6 +69,12 @@ Public Class frmRecepcion
             Parametro(.InsertCommand, "yitnnum_0", OracleType.VarChar, DataRowVersion.Current)
             Parametro(.InsertCommand, "srelig_0", OracleType.Number, DataRowVersion.Current)
             Parametro(.InsertCommand, "pallet_0", OracleType.Number, DataRowVersion.Current)
+            Parametro(.InsertCommand, "nroiram_0", OracleType.VarChar, DataRowVersion.Current)
+            Parametro(.InsertCommand, "largo_0", OracleType.Number, DataRowVersion.Current)
+            Parametro(.InsertCommand, "ok_0", OracleType.Number, DataRowVersion.Current)
+            Parametro(.InsertCommand, "presion_0", OracleType.VarChar, DataRowVersion.Current)
+            Parametro(.InsertCommand, "obs_0", OracleType.VarChar, DataRowVersion.Current)
+            Parametro(.InsertCommand, "usuario_0", OracleType.VarChar, DataRowVersion.Current)
 
             Parametro(.DeleteCommand, "yitnnum_0", OracleType.VarChar, DataRowVersion.Original)
             Parametro(.DeleteCommand, "macnum_0", OracleType.VarChar, DataRowVersion.Original)
@@ -164,6 +169,11 @@ Public Class frmRecepcion
         dr("macitntyp_0") = IIf(mac.Rechazado, 5, 1)
         dr("recargador_0") = mac.UltimoRecargador
         dr("patente_0") = mac.Patente
+        dr("nroiram_0") = 0
+        dr("largo_0") = 0
+        dr("ok_0") = 2
+        dr("presion_0") = " "
+        dr("obs_0") = " "
 
         dt.Rows.InsertAt(dr, 0)
 
@@ -425,25 +435,31 @@ Public Class frmRecepcion
         'Recupero la solicitud
         sre = itn.SolicitudAsociada
 
+        dgv.Enabled = True
+
         If sre.Estado = Solicitud.EstadoSolicitud.Cerrada Then
             MessageBox.Show("La Solicitud de Servicio está cerrada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             txtBuscar.Enabled = False
-            dgv.Enabled = False
+            'dgv.Enabled = False
+            dgv.ReadOnly = True
 
         ElseIf itn.Remito.Trim <> "" Then
             MessageBox.Show("La intervención ya está remitada.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             txtBuscar.Enabled = False
-            dgv.Enabled = False
+            'dgv.Enabled = False
+            dgv.ReadOnly = True
 
         ElseIf itn.Reclamo Then
             MessageBox.Show("Esta intervención está marcada como reclamo.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             txtBuscar.Enabled = False
-            dgv.Enabled = False
+            'dgv.Enabled = False
+            dgv.ReadOnly = True
 
         ElseIf itn.Tipo = "H1" Then
             MessageBox.Show("Intervencion tipo " & itn.Tipo & ". No se puede recepcionar.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             txtBuscar.Enabled = False
-            dgv.Enabled = False
+            'dgv.Enabled = False
+            dgv.ReadOnly = True
 
         Else
             'Elimino del parque de la solicitud los equipos borrados del parque y
@@ -451,40 +467,9 @@ Public Class frmRecepcion
             sre.LimpiarParque()
             sre.MarcarEquiposSinTarjetas()
 
-            txtItn.Text = itn.Numero
-            txtSre.Text = sre.Numero
-
-            If itn.Observaciones <> "" Then MsgBox(itn.Observaciones)
-
-            With itn.Cliente
-                txtCodigo.Text = .Codigo
-                txtSuc.Text = itn.SucursalCodigo
-                txtNombre.Text = .Nombre
-            End With
-
-            txtDireccion.Text = itn.SucursalCalle & " (" & itn.SucursalCiudad & ")"
-
-            'Recupero el parque cargado en la Solicitud de Servicio
-            'da.SelectCommand.Parameters("srenum_0").Value = sre.Numero
-            da.SelectCommand.Parameters("yitnnum_0").Value = itn.Numero
-            da.Fill(dt)
-
-            'Vista para filtrar el parque a mostrar en la grilla
-            If dv Is Nothing Then dv = New DataView(dt)
-
-            dv.RowFilter = "(yflgtrj_0 = 1 AND yitnnum_0 = ' ') OR yitnnum_0 = '" & itn.Numero & "'"
-
-            'Enlazo la grilla
-            For Each c As DataGridViewColumn In dgv.Columns
-                c.DataPropertyName = c.Name
-            Next
-            'Enlazo el combobox de la grilla
-            mlRecargador.Enlazar(recargador_0)
-
-            dgv.DataSource = dv
-
             txtBuscar.Enabled = True
             dgv.Enabled = True
+            dgv.ReadOnly = False
 
             'Pongo a la intervencion en el sector service
             itn.Sector = "SRV"
@@ -494,6 +479,38 @@ Public Class frmRecepcion
             ObtenerParqueMangas()
 
         End If
+
+        txtItn.Text = itn.Numero
+        txtSre.Text = sre.Numero
+
+        If itn.Observaciones <> "" Then MsgBox(itn.Observaciones)
+
+        With itn.Cliente
+            txtCodigo.Text = .Codigo
+            txtSuc.Text = itn.SucursalCodigo
+            txtNombre.Text = .Nombre
+        End With
+
+        txtDireccion.Text = itn.SucursalCalle & " (" & itn.SucursalCiudad & ")"
+
+        'Recupero el parque cargado en la Solicitud de Servicio
+        'da.SelectCommand.Parameters("srenum_0").Value = sre.Numero
+        da.SelectCommand.Parameters("yitnnum_0").Value = itn.Numero
+        da.Fill(dt)
+
+        'Vista para filtrar el parque a mostrar en la grilla
+        If dv Is Nothing Then dv = New DataView(dt)
+
+        dv.RowFilter = "(yflgtrj_0 = 1 AND yitnnum_0 = ' ') OR yitnnum_0 = '" & itn.Numero & "'"
+
+        'Enlazo la grilla
+        For Each c As DataGridViewColumn In dgv.Columns
+            c.DataPropertyName = c.Name
+        Next
+        'Enlazo el combobox de la grilla
+        mlRecargador.Enlazar(recargador_0)
+
+        dgv.DataSource = dv
 
     End Sub
     Private Sub dgv_RowPostPaint(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewRowPostPaintEventArgs) Handles dgv.RowPostPaint
@@ -656,13 +673,12 @@ Public Class frmRecepcion
                 mnuAlta.Enabled = True
                 mnuCilindro.Enabled = True
 
+                '***********************************************************
+                ' 14.09.2017 B2 Paso equipos del cliente al parque de Donny
+                '***********************************************************
+                If itn.Tipo = "B2" Then PasarADonny()
+
             End If
-
-            '***********************************************************
-            ' 14.09.2017 B2 Paso equipos del cliente al parque de Donny
-            '***********************************************************
-            If itn.Tipo = "B2" Then PasarADonny()
-
 
             Me.Cursor = Cursors.Default
 
@@ -782,7 +798,10 @@ Public Class frmRecepcion
     'CONTEXT MENU INTERVENCION
     Private Sub ContextMenuGrilla_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles ContextMenuGrilla.Opening
 
-        If dgv.SelectedRows.Count = 0 Then
+        If txtBuscar.Enabled = False Then
+            e.Cancel = True
+
+        ElseIf dgv.SelectedRows.Count = 0 Then
             e.Cancel = True
 
         ElseIf dgv.SelectedRows.Count = 1 Then

@@ -33,7 +33,7 @@ Public Class FrmTableroCA
         Sql &= "     sinvoicev siv on (sih.num_0 = siv.num_0) "
         Sql &= "WHERE rep_0 IN ('CA', 'CAA') and "
         Sql &= "      (sih.sivtyp_0 = 'FAC' and sihori_0 in (3, 8) or sih.sivtyp_0 = 'ABO' and sihori_0 in (6)) AND "
-        Sql &= "      accdat_0 >= :datini AND accdat_0 < :datfin "
+        Sql &= "      accdat_0 >= :datini AND accdat_0 <= :datfin "
         Sql &= "GROUP BY to_char(sih.accdat_0, 'YYYY-MM'), sih.sivtyp_0 "
 
         da = New OracleDataAdapter(Sql, cn)
