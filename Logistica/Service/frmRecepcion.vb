@@ -174,6 +174,7 @@ Public Class frmRecepcion
         dr("ok_0") = 2
         dr("presion_0") = " "
         dr("obs_0") = " "
+        dr("usuario_0") = " "
 
         dt.Rows.InsertAt(dr, 0)
 
