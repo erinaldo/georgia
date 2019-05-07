@@ -46,6 +46,7 @@ Public Class frmStock
         If numero.StartsWith("10") Or numero.StartsWith("11") Then
             Sql = "select itm.itmdes1_0 as nombre, sum(it.salsto_0) as cantidad_pedida, sum(it.physto_0) as stock, 'Rodriguez' "
             Sql &= "from itmmaster itm inner join itmmvt it on (itm.ITMREF_0 = it.itmref_0)where (itm.itmref_0 = :itmref_0 or itm.itmref_0 = :itmref_1)" '  and  stofcy_0 <> 'D04'"
+            Sql &= "from itmmaster itm inner join itmmvt it on (itm.ITMREF_0 = it.itmref_0)where (itm.itmref_0 = :itmref_0 or itm.itmref_0 = :itmref_1)  and  stofcy_0 <> 'D04'"
             Sql &= " group by itm.itmdes1_0"
             Sql &= " union all "
             Sql &= "select itm.itmdes1_0 as nombre, sum(it.salsto_0) as cantidad_pedida, sum(it.physto_0) as stock, 'Munro' "
