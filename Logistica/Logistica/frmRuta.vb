@@ -1867,12 +1867,14 @@ Class frmRuta
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim itn As New Intervencion(cn)
         Dim fecha As Date
-        Dim ContratoSigex As New Sigex.Contrato
         Dim ControlSigex As New Sigex.Control
+        Dim ControlesSigex As New Sigex.ControlesCollection
         Dim SectoresSigex As New Sigex.SectoresCollection
-        Dim ClientesSigex As Sigex.ClientesCollection
+        Dim ClientesSigex As New Sigex.ClientesCollection
         Dim ClienteSigex As Sigex.Cliente
         Dim SucursalSigex As Sigex.Sucursal
+        Dim ContratosSigex As New Sigex.ContratosCollection
+        Dim ContratoSigex As New Sigex.Contrato
 
         'Obtengo todos los clientes cargados en Sigex
         ClientesSigex.AbrirTodos()
@@ -2023,19 +2025,27 @@ Class frmRuta
 
                         End Select
                     End If
-
-
                 Next
+            Next
 
+            'Abro los contratos
+            ContratosSigex.BuscarPorClienteSucursal(ClienteSigex.id, SucursalSigex.id, True)
+
+            If ContratosSigex.Count > 0 Then
+                ContratoSigex = ContratosSigex.Item(0)
+            Else
+                ContratoSigex.Nuevo(ClienteSigex, SucursalSigex)
+            End If
+
+            'Abro controles del contrato
+            ControlesSigex.Abrir(ContratoSigex.Id)
+            'Recorro los controles
+            For Each ControlSigex In ControlesSigex
+                'Busco si existe un control para la fecha de la ruta
 
             Next
 
-            'Creo/modifico el contrato en sigex y obtengo el ID
-            ContratoSigex = sxContrato.Buscar(dr("cliente_0").ToString, dr("suc_0").ToString, sxIdCliente, sxIdSucursal)
-
-            'Control Periodico
-            sxControl.Abrir(sxContrato.Id)
-            sxControl.Crear(sxContrato.Id, Today) 'fecha)
+            ControlSigex.Crear(ContratoSigex.Id, Today) 'fecha)
 
         Next
     End Sub
