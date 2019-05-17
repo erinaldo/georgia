@@ -1953,6 +1953,24 @@ Class frmRuta
 
             'Abro sectores en Adonix
             SectoresAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+            SectoresAdonix.EliminarSectoresSinPuestos()
+
+            'Creo un sector en blanco
+            If SectoresAdonix.Count = 0 Then
+                Dim s As New Sector2(cn)
+                s.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
+                s.Numero = "000"
+                s.Nombre = "sin nombre"
+                s.Grabar()
+                'Creo un puesto en blanco
+                Dim p As New Puesto2(cn)
+                p.Nuevo(s.Id, "000", "sin ubicacion", 1)
+                p.Grabar()
+
+                'Vuelvo a cargar los sectores
+                SectoresAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+            End If
+
             'Abro sectores en Sigex
             SectoresSigex.AbrirSectores(ClienteSigex.id, SucursalSigex.id)
 
@@ -1965,66 +1983,69 @@ Class frmRuta
                 'Busco el sector en Sigex
                 Dim SectorSigex As Sigex.Sector
                 SectorSigex = SectoresSigex.BuscarSector(SectorAdonix.Id)
-
                 If SectorSigex Is Nothing Then
-                    'Solo creo el sector si tiene puestos adentro
-                    If PuestosAdonix.Count > 0 Then
-                        SectorSigex = New Sigex.Sector
-                        SectorSigex.Nuevo(SectorAdonix.Id.ToString, SectorAdonix.Nombre, ClienteSigex.id, SucursalSigex.id)
-                        SectorSigex.Grabar()
-                    End If
-
-                Else
-                    'Borro el sector en Sigex porque no tiene sectores si no tiene puestos adentro
-                    SectorSigex.Borrar()
-                    'Salto al siguiente sector de Adonix
-                    Continue For
-
+                    SectorSigex = New Sigex.Sector
+                    SectorSigex.Nuevo(SectorAdonix.Id.ToString, SectorAdonix.Nombre, ClienteSigex.id, SucursalSigex.id)
+                    SectorSigex.Grabar()
                 End If
 
                 'Recupero todos los puestos en el sector Sigex
                 Dim PuestosSigex As Sigex.PuestosCollection
                 PuestosSigex = SectorSigex.Puestos
 
-                'Recorro los puestos dentro del sector
+                '1) Buscar Puesto Sector
+                Dim PuestoSectorSigex As New Sigex.PuestoSector
+                PuestoSectorSigex = PuestosSigex.BuscarPuestoSector(SectorAdonix.Id)
+                If PuestoSectorSigex Is Nothing Then
+                    PuestoSectorSigex = New Sigex.PuestoSector
+                    PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
+                    PuestoSectorSigex.CodigoAdonix = SectorAdonix.Id.ToString
+                    PuestoSectorSigex.Grabar()
+                End If
+
+                'Recorro los puestos (Extintor y Hidrantes) dentro del sector
                 For Each PuestoAdonix As Clases.Puesto2 In SectorAdonix.Puestos
-                    Dim PuestoSigex As Sigex.Puesto
 
-                    'Busco el puesto Adonix en Sigex
-                    PuestoSigex = PuestosSigex.BuscarPuesto(PuestoAdonix.id)
+                    Select Case PuestoAdonix.Tipo
+                        Case 1 'Extintor
+                            Dim p As Sigex.PuestoExtintor
 
-                    If PuestoSigex Is Nothing Then
+                            p = PuestosSigex.BuscarPuestoExtintor(PuestoAdonix.id)
 
-                        Select Case PuestoAdonix.Tipo
-                            Case 0 'Extintor
-                                Dim PuestoExtintorSigex As New Sigex.PuestoExtintor
+                            If p Is Nothing Then
+
+                                p = New Sigex.PuestoExtintor
+                                p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
+                                p.CodigoAdonix = PuestoAdonix.id.ToString
+                                p.TipoEquipo = Agentes.AdonixToSigex(PuestoAdonix.Agente)
+                                p.Capacidad = Capacidades.AdonixToSigex(PuestoAdonix.Capacidad)
 
                                 'Obtengo el id del equipo en el puesto
                                 EquipoSigex = EquiposSigex.BuscarPorCodigoAdonix(PuestoAdonix.EquipoId)
-                                'Creo el puesto Extintor
-                                PuestoExtintorSigex.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
-
                                 If EquipoSigex Is Nothing Then
-                                    PuestoExtintorSigex.TipoEquipo = Agentes.AdonixToSigex("201")
-                                    PuestoExtintorSigex.Capacidad = Capacidades.AdonixToSigex("108")
-                                    PuestoExtintorSigex.Equipo = 0
+                                    p.Equipo = 0
                                 Else
-                                    PuestoExtintorSigex.TipoEquipo = EquipoSigex.Agente
-                                    PuestoExtintorSigex.Capacidad = EquipoSigex.Capacidad
-                                    PuestoExtintorSigex.Equipo = EquipoSigex.Id
+                                    p.Equipo = EquipoSigex.Id
                                 End If
-                                PuestoExtintorSigex.CodigoAdonix = PuestoAdonix.id.ToString
 
-                                PuestoExtintorSigex.Grabar()
+                                p.Grabar()
+                            End If
 
-                            Case 1 'Hidrante
-                                Dim PuestoHidranteSigex As New Sigex.PuestoHidrante
+                        Case 2 'Hidrante
 
-                                PuestoHidranteSigex.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
-                                PuestoHidranteSigex.Grabar()
+                            Dim p As New Sigex.PuestoHidrante
 
-                        End Select
-                    End If
+                            'Buscar Puesto Hidrantes
+                            p = PuestosSigex.BuscarPuestoHidrante(PuestoAdonix.id)
+                            If PuestoAdonix.Tipo = 2 Then
+                                p = New Sigex.PuestoHidrante
+                                p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
+                                p.CodigoAdonix = PuestoAdonix.id.ToString
+                                p.Grabar()
+                            End If
+
+                    End Select
+
                 Next
             Next
 
@@ -2038,15 +2059,21 @@ Class frmRuta
 
                 If ContratosSigex.Count > 0 Then
                     ContratoSigex = ContratosSigex.Item(0)
+
                 Else
                     ContratoSigex.Nuevo(ClienteSigex, SucursalSigex)
+                    ContratoSigex.Grabar()
                 End If
 
+                'Cargo controles del contrato
+                ControlesSigex = ContratoSigex.Controles
+
                 'Creo el control para la intervencion
-                ControlSigex.Nuevo(ContratoSigex.Id, dtpFecha.Value)
+                ControlSigex = ControlesSigex.NuevoControl(ContratoSigex.Id, dtpFecha.Value)
 
             End If
 
+            'Consulto si existe control para la intervencion
             ControlSigex.FechaProgramacion = dtpFecha.Value
             ControlSigex.Relevador = 1
             ControlSigex.Intervencion = itn.Numero

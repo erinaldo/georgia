@@ -342,6 +342,12 @@
     <Compile Include="Logistica\frmRelevamientos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmRelevamientosV2.Designer.vb">
+      <DependentUpon>frmRelevamientosV2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmRelevamientosV2.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Presup\FrmListado.Designer.vb">
       <DependentUpon>FrmListado.vb</DependentUpon>
     </Compile>
@@ -1177,6 +1183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmRelevamientos.resx">
       <DependentUpon>frmRelevamientos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmRelevamientosV2.resx">
+      <DependentUpon>frmRelevamientosV2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presup\FrmListado.resx">
       <DependentUpon>FrmListado.vb</DependentUpon>
