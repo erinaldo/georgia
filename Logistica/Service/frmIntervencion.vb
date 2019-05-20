@@ -782,7 +782,7 @@ Public Class frmIntervencion
     End Sub
     Private Sub AbrirSelectorArticulos()
         Dim f As New frmSelectorArticulos()
-        Dim c As Control
+        Dim c As System.Windows.Forms.Control
 
         f.ShowDialog(Me)
 
@@ -2124,7 +2124,7 @@ Public Class frmIntervencion
         Return flg
 
     End Function
-    Private Function FindFocussedControl(ByVal ctr As Control) As Control
+    Private Function FindFocussedControl(ByVal ctr As System.Windows.Forms.Control) As System.Windows.Forms.Control
         Dim cc As ContainerControl = TryCast(ctr, ContainerControl)
 
         Do While (cc IsNot Nothing)
