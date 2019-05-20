@@ -122,15 +122,20 @@ Public Class frmListadoPesos
                 End If
 
                 If CInt(dr("acc_0")) = 0 Then
-                    If cboCce.SelectedValue.ToString = "DDVE" Then
-                        dr("pr") = pa.ObtenerValorAcumulado("TOT2", "411106", 12) - CDbl(dr("ra"))
-                    Else
-                        dr("pr") = pa.ObtenerValorAcumulado("TOT", "411106", 12) - CDbl(dr("ra"))
-                    End If
+
+                    Select Case cboCce.SelectedValue.ToString
+                        Case "DDVE", "677"
+                            dr("pr") = pa.ObtenerValorAcumulado("TOT2", "411106", 12) - CDbl(dr("ra"))
+
+                        Case Else
+                            dr("pr") = pa.ObtenerValorAcumulado("TOT", "411106", 12) - CDbl(dr("ra"))
+
+                    End Select
 
                 Else
                     dr("pr") = PresupuestoAnual(dr("acc_0").ToString) - CDbl(dr("ra"))
                 End If
+
                 If CDbl(dr("pr")) < 0 Then dr("pr") = 0
 
             Next
