@@ -2037,7 +2037,7 @@ Class frmRuta
 
                             'Buscar Puesto Hidrantes
                             p = PuestosSigex.BuscarPuestoHidrante(PuestoAdonix.id)
-                            If PuestoAdonix.Tipo = 2 Then
+                            If p Is Nothing Then
                                 p = New Sigex.PuestoHidrante
                                 p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
                                 p.CodigoAdonix = PuestoAdonix.id.ToString
