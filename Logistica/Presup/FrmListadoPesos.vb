@@ -124,7 +124,7 @@ Public Class frmListadoPesos
                 If CInt(dr("acc_0")) = 0 Then
 
                     Select Case cboCce.SelectedValue.ToString
-                        Case "DDVE", "677"
+                        Case "DDVE", "667"
                             dr("pr") = pa.ObtenerValorAcumulado("TOT2", "411106", 12) - CDbl(dr("ra"))
 
                         Case Else
