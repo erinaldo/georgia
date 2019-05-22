@@ -85,20 +85,19 @@ Public Class frmRelevamientosV2
             '1 = Finalizado
             '2 = En curso
             If CInt(dr("estado")) > 0 Then
-
-                Dim ControlSigex As New Sigex.Control
-                Dim InspeccionesSigex As New Sigex.InspeccionesCollection
                 'Abro el control periodico en Sigex
+                Dim ControlSigex As New Sigex.Control
                 ControlSigex.Abrir(CInt(dr("id")))
                 'Cargo las inspecciones del control
+                Dim InspeccionesSigex As New Sigex.InspeccionesCollection
                 InspeccionesSigex = ControlSigex.Inspecciones
 
                 'Abro el control periodico en Adonix
                 Dim ControlAdonix As New Clases.Control(cn)
                 Dim InspeccionesAdonix As Clases.InspeccionesCollection
 
+                'Abro el control en Adonix o creo uno nuevo si no existe
                 If Not ControlAdonix.Abrir(ControlSigex.Intervencion) Then
-                    'No existe el control en Adonix. Se crea uno nuevo con el nro intervencion
                     With ControlAdonix
                         .Nuevo()
                         .id = ControlSigex.Intervencion
@@ -108,7 +107,7 @@ Public Class frmRelevamientosV2
                         .Grabar()
                     End With
                 End If
-                'Cargo las inspecciones
+                'Cargo las inspecciones que tiene el control de Adonix
                 InspeccionesAdonix = ControlAdonix.Inspecciones
 
                 For Each i As Sigex.Inspeccion In InspeccionesSigex

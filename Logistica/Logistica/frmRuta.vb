@@ -1987,6 +1987,8 @@ Class frmRuta
                     SectorSigex = New Sigex.Sector
                     SectorSigex.Nuevo(SectorAdonix.Id.ToString, SectorAdonix.Nombre, ClienteSigex.id, SucursalSigex.id)
                     SectorSigex.Grabar()
+
+                    SectoresSigex.Add(SectorSigex)
                 End If
 
                 'Recupero todos los puestos en el sector Sigex
