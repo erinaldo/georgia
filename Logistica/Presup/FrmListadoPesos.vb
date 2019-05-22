@@ -124,7 +124,7 @@ Public Class frmListadoPesos
                 If CInt(dr("acc_0")) = 0 Then
 
                     Select Case cboCce.SelectedValue.ToString
-                        Case "DDVE", "667"
+                        Case "DDVE", "677"
                             dr("pr") = pa.ObtenerValorAcumulado("TOT2", "411106", 12) - CDbl(dr("ra"))
 
                         Case Else
@@ -199,12 +199,14 @@ Public Class frmListadoPesos
 
         Select Case cna
             Case "0"
-                If cboCce.SelectedValue.ToString <> "DDVE" Then
-                    v = pa.ObtenerValorAcumulado("TOT", "411106", Hasta.Month)
-                Else
-                    v = pa.ObtenerValorAcumulado("TOT2", "411106", Hasta.Month)
-                End If
+                Select Case cboCce.SelectedValue.ToString
+                    Case "DDVE", "677"
+                        v = pa.ObtenerValorAcumulado("TOT2", "411106", Hasta.Month)
 
+                    Case Else
+                        v = pa.ObtenerValorAcumulado("TOT", "411106", Hasta.Month)
+
+                End Select
 
             Case "999999"
                 v = pa.ObtenerValorAcumulado(cboCce.SelectedValue.ToString, Hasta.Month)
@@ -262,7 +264,11 @@ Public Class frmListadoPesos
         sql &= "      sih.sivtyp_0 <> 'PRF'  and "
         sql &= "      sid.itmref_0 not in ('900068', '900069', '900071', '900097')"
 
-        If cboCce.SelectedValue.ToString = "DDVE" Then sql &= " AND itm.tsicod_3 = '304'"
+        Select Case cboCce.SelectedValue.ToString
+            Case "DDVE", "677"
+                sql &= " AND itm.tsicod_3 = '304'"
+
+        End Select
 
         da = New OracleDataAdapter(sql, cn)
         da.SelectCommand.Parameters.Add("datini", OracleType.DateTime).Value = Desde
