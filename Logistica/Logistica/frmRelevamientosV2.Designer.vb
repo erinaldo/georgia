@@ -23,17 +23,18 @@ Partial Class frmRelevamientosV2
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.dgv1 = New System.Windows.Forms.DataGridView
-        Me.btnRefrescar = New System.Windows.Forms.Button
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.colId = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colIntervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colRelevador = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colEstado = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.btnRefrescar = New System.Windows.Forms.Button
         Me.btnTransferir = New System.Windows.Forms.Button
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         CType(Me.dgv1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -41,41 +42,14 @@ Partial Class frmRelevamientosV2
         '
         Me.dgv1.AllowUserToAddRows = False
         Me.dgv1.AllowUserToDeleteRows = False
-        Me.dgv1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colId, Me.colIntervencion, Me.colFecha, Me.colRelevador, Me.colEstado, Me.colCliente})
-        Me.dgv1.Location = New System.Drawing.Point(3, 0)
+        Me.dgv1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgv1.Location = New System.Drawing.Point(0, 0)
         Me.dgv1.Name = "dgv1"
         Me.dgv1.ReadOnly = True
-        Me.dgv1.Size = New System.Drawing.Size(811, 133)
+        Me.dgv1.Size = New System.Drawing.Size(911, 419)
         Me.dgv1.TabIndex = 0
-        '
-        'btnRefrescar
-        '
-        Me.btnRefrescar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefrescar.Location = New System.Drawing.Point(824, 12)
-        Me.btnRefrescar.Name = "btnRefrescar"
-        Me.btnRefrescar.Size = New System.Drawing.Size(75, 23)
-        Me.btnRefrescar.TabIndex = 1
-        Me.btnRefrescar.Text = "Refrescar"
-        Me.btnRefrescar.UseVisualStyleBackColor = True
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.btnTransferir)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.btnRefrescar)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.dgv1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(911, 476)
-        Me.SplitContainer1.SplitterDistance = 136
-        Me.SplitContainer1.TabIndex = 2
         '
         'colId
         '
@@ -126,15 +100,43 @@ Partial Class frmRelevamientosV2
         Me.colCliente.ReadOnly = True
         Me.colCliente.Width = 64
         '
+        'btnRefrescar
+        '
+        Me.btnRefrescar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRefrescar.Location = New System.Drawing.Point(739, 14)
+        Me.btnRefrescar.Name = "btnRefrescar"
+        Me.btnRefrescar.Size = New System.Drawing.Size(75, 23)
+        Me.btnRefrescar.TabIndex = 1
+        Me.btnRefrescar.Text = "Refrescar"
+        Me.btnRefrescar.UseVisualStyleBackColor = True
+        '
         'btnTransferir
         '
-        Me.btnTransferir.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnTransferir.Location = New System.Drawing.Point(824, 41)
+        Me.btnTransferir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnTransferir.Location = New System.Drawing.Point(824, 14)
         Me.btnTransferir.Name = "btnTransferir"
         Me.btnTransferir.Size = New System.Drawing.Size(75, 23)
         Me.btnTransferir.TabIndex = 2
         Me.btnTransferir.Text = "Transferir"
         Me.btnTransferir.UseVisualStyleBackColor = True
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.dgv1)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnRefrescar)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnTransferir)
+        Me.SplitContainer1.Size = New System.Drawing.Size(911, 476)
+        Me.SplitContainer1.SplitterDistance = 419
+        Me.SplitContainer1.TabIndex = 2
         '
         'frmRelevamientosV2
         '
@@ -143,16 +145,16 @@ Partial Class frmRelevamientosV2
         Me.ClientSize = New System.Drawing.Size(911, 476)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmRelevamientosV2"
-        Me.Text = "frmRelevamientosV2"
+        Me.Text = "Relevamientos"
         CType(Me.dgv1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents dgv1 As System.Windows.Forms.DataGridView
     Friend WithEvents btnRefrescar As System.Windows.Forms.Button
-    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents colId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colFecha As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -160,4 +162,5 @@ Partial Class frmRelevamientosV2
     Friend WithEvents colEstado As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnTransferir As System.Windows.Forms.Button
+    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
 End Class
