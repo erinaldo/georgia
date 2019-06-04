@@ -1,8 +1,6 @@
 ﻿Imports System.Globalization
 Imports System.Data.OracleClient
 Imports CrystalDecisions.CrystalReports.Engine
-Imports System.Net
-Imports System.Net.Sockets
 
 Public Class frmMain
 
@@ -203,7 +201,7 @@ Public Class frmMain
         f.Show()
     End Sub
     Private Sub mnuRelevamientosV2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRelevamientosV2.Click
-        Dim f As New frmRelevamientosV2
+        Dim f As New frmInspecciones
 
         f.MdiParent = Me
         f.Show()
@@ -309,7 +307,7 @@ Public Class frmMain
         f.Show()
     End Sub
     Private Sub mnuParqueAbono_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuParqueAbono.Click
-        Dim f As New frmParqueAbonos
+        Dim f As New frmSectoresPuestos
 
         f.MdiParent = Me
         f.Show()

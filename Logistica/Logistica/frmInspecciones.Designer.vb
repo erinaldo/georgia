@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmRelevamientosV2
+Partial Class frmInspecciones
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -22,7 +22,9 @@ Partial Class frmRelevamientosV2
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.dgv1 = New System.Windows.Forms.DataGridView
+        Dim Label1 As System.Windows.Forms.Label
+        Dim Label2 As System.Windows.Forms.Label
+        Me.dgvSigex = New System.Windows.Forms.DataGridView
         Me.colId = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colIntervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -32,24 +34,31 @@ Partial Class frmRelevamientosV2
         Me.btnRefrescar = New System.Windows.Forms.Button
         Me.btnTransferir = New System.Windows.Forms.Button
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        CType(Me.dgv1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.dgvAdonix = New System.Windows.Forms.DataGridView
+        Label1 = New System.Windows.Forms.Label
+        Label2 = New System.Windows.Forms.Label
+        CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        CType(Me.dgvAdonix, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'dgv1
+        'dgvSigex
         '
-        Me.dgv1.AllowUserToAddRows = False
-        Me.dgv1.AllowUserToDeleteRows = False
-        Me.dgv1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colId, Me.colIntervencion, Me.colFecha, Me.colRelevador, Me.colEstado, Me.colCliente})
-        Me.dgv1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgv1.Location = New System.Drawing.Point(0, 0)
-        Me.dgv1.Name = "dgv1"
-        Me.dgv1.ReadOnly = True
-        Me.dgv1.Size = New System.Drawing.Size(911, 419)
-        Me.dgv1.TabIndex = 0
+        Me.dgvSigex.AllowUserToAddRows = False
+        Me.dgvSigex.AllowUserToDeleteRows = False
+        Me.dgvSigex.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvSigex.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvSigex.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colId, Me.colIntervencion, Me.colFecha, Me.colRelevador, Me.colEstado, Me.colCliente})
+        Me.dgvSigex.Location = New System.Drawing.Point(3, 28)
+        Me.dgvSigex.Name = "dgvSigex"
+        Me.dgvSigex.ReadOnly = True
+        Me.dgvSigex.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvSigex.Size = New System.Drawing.Size(811, 130)
+        Me.dgvSigex.TabIndex = 0
         '
         'colId
         '
@@ -103,7 +112,7 @@ Partial Class frmRelevamientosV2
         'btnRefrescar
         '
         Me.btnRefrescar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefrescar.Location = New System.Drawing.Point(739, 14)
+        Me.btnRefrescar.Location = New System.Drawing.Point(824, 28)
         Me.btnRefrescar.Name = "btnRefrescar"
         Me.btnRefrescar.Size = New System.Drawing.Size(75, 23)
         Me.btnRefrescar.TabIndex = 1
@@ -113,7 +122,7 @@ Partial Class frmRelevamientosV2
         'btnTransferir
         '
         Me.btnTransferir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnTransferir.Location = New System.Drawing.Point(824, 14)
+        Me.btnTransferir.Location = New System.Drawing.Point(824, 57)
         Me.btnTransferir.Name = "btnTransferir"
         Me.btnTransferir.Size = New System.Drawing.Size(75, 23)
         Me.btnTransferir.TabIndex = 2
@@ -128,15 +137,44 @@ Partial Class frmRelevamientosV2
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.dgv1)
+        Me.SplitContainer1.Panel1.Controls.Add(Label1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btnRefrescar)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.dgvSigex)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.btnTransferir)
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnRefrescar)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnTransferir)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.dgvAdonix)
+        Me.SplitContainer1.Panel2.Controls.Add(Label2)
         Me.SplitContainer1.Size = New System.Drawing.Size(911, 476)
-        Me.SplitContainer1.SplitterDistance = 419
+        Me.SplitContainer1.SplitterDistance = 161
         Me.SplitContainer1.TabIndex = 2
+        '
+        'Label1
+        '
+        Label1.AutoSize = True
+        Label1.Location = New System.Drawing.Point(3, 9)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(121, 13)
+        Label1.TabIndex = 3
+        Label1.Text = "Relevamientos en Sigex"
+        '
+        'Label2
+        '
+        Label2.AutoSize = True
+        Label2.Location = New System.Drawing.Point(3, 15)
+        Label2.Name = "Label2"
+        Label2.Size = New System.Drawing.Size(197, 13)
+        Label2.TabIndex = 4
+        Label2.Text = "Relevamientos en Adonix para confirmar"
+        '
+        'dgvAdonix
+        '
+        Me.dgvAdonix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAdonix.Location = New System.Drawing.Point(3, 31)
+        Me.dgvAdonix.Name = "dgvAdonix"
+        Me.dgvAdonix.Size = New System.Drawing.Size(905, 277)
+        Me.dgvAdonix.TabIndex = 5
         '
         'frmRelevamientosV2
         '
@@ -146,14 +184,17 @@ Partial Class frmRelevamientosV2
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmRelevamientosV2"
         Me.Text = "Relevamientos"
-        CType(Me.dgv1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.PerformLayout()
         Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.dgvAdonix, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents dgv1 As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvSigex As System.Windows.Forms.DataGridView
     Friend WithEvents btnRefrescar As System.Windows.Forms.Button
     Friend WithEvents colId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -163,4 +204,5 @@ Partial Class frmRelevamientosV2
     Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnTransferir As System.Windows.Forms.Button
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents dgvAdonix As System.Windows.Forms.DataGridView
 End Class

@@ -1158,6 +1158,8 @@ Class frmRuta
         'ValoresIniciales()
         ActualizarControles()
 
+        CargarComboCelulares()
+
     End Sub
     Private Sub frmRuta_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         If Not (e.CloseReason = CloseReason.TaskManagerClosing Or e.CloseReason = CloseReason.WindowsShutDown) Then
@@ -1785,7 +1787,6 @@ Class frmRuta
         Next
 
     End Sub
-
     Private Sub dgvZonas_CellFormatting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvZonas.CellFormatting
         On Error Resume Next
 
@@ -1809,7 +1810,6 @@ Class frmRuta
             c.Style.BackColor = col
         Next
     End Sub
-
     Private Sub ToolGenEtiqu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolGenEtiqu.Click
         If Grilla.Rows.Count > 0 Then
             Dim colum As Integer = 0
@@ -1836,7 +1836,6 @@ Class frmRuta
             MessageBox.Show("No hay filas seleccionadas", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
     End Sub
-
     Private Sub chkMicrocentro_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkMicrocentro.CheckedChanged
         If dtRutac.Rows.Count = 0 Or BloqueoModificacion Then Exit Sub
 
@@ -1864,7 +1863,8 @@ Class frmRuta
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    '----------------------
+    Private Sub btnEnviar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnviar.Click
         Dim itn As New Intervencion(cn)
         Dim fecha As Date
         Dim ControlSigex As New Sigex.Control
@@ -1875,6 +1875,8 @@ Class frmRuta
         Dim SucursalSigex As Sigex.Sucursal
         Dim ContratosSigex As New Sigex.ContratosCollection
         Dim ContratoSigex As New Sigex.Contrato
+
+        btnEnviar.Enabled = False
 
         'Obtengo todos los clientes cargados en Sigex
         ClientesSigex.AbrirTodos()
@@ -1995,14 +1997,22 @@ Class frmRuta
                 Dim PuestosSigex As Sigex.PuestosCollection
                 PuestosSigex = SectorSigex.Puestos
 
-                '1) Buscar Puesto Sector
+                '1) Buscar Puesto Sector solo para cliente consorcios
                 Dim PuestoSectorSigex As New Sigex.PuestoSector
                 PuestoSectorSigex = PuestosSigex.BuscarPuestoSector(SectorAdonix.Id)
-                If PuestoSectorSigex Is Nothing Then
-                    PuestoSectorSigex = New Sigex.PuestoSector
-                    PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
-                    PuestoSectorSigex.Adonix = SectorAdonix.Id.ToString
-                    PuestoSectorSigex.Grabar()
+
+                If SectorAdonix.Cliente.Familia2 = "10" Then
+                    If PuestoSectorSigex Is Nothing Then
+                        PuestoSectorSigex = New Sigex.PuestoSector
+                        PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
+                        PuestoSectorSigex.Adonix = SectorAdonix.Id.ToString
+                        PuestoSectorSigex.Grabar()
+                    End If
+                Else
+                    If PuestoSectorSigex IsNot Nothing Then
+                        PuestoSectorSigex.Borrar()
+                        PuestoSectorSigex.Grabar()
+                    End If
                 End If
 
                 'Recorro los puestos (Extintor y Hidrantes) dentro del sector
@@ -2077,7 +2087,7 @@ Class frmRuta
 
             'Consulto si existe control para la intervencion
             ControlSigex.FechaProgramacion = dtpFecha.Value
-            ControlSigex.Relevador = 1
+            ControlSigex.Relevador = CInt(cboCelulares.SelectedValue)
             ControlSigex.Intervencion = itn.Numero
             ControlSigex.Grabar()
 
@@ -2089,9 +2099,26 @@ Class frmRuta
 
         Next
 
-
         MessageBox.Show("Listo")
+        btnEnviar.Enabled = True
 
     End Sub
+    Public Sub CargarComboCelulares()
+        Try
+            'Carga combo con los usuarios de Sigex
+            Dim u As New Sigex.UsuariosCollection
+
+            With cboCelulares
+                .ValueMember = "id"
+                .DisplayMember = "nombreCompleto"
+                .DataSource = u.dt
+            End With
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    '----------------------
 
 End Class

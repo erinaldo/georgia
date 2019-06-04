@@ -39,6 +39,7 @@ Partial Class frmRuta
         Dim Label17 As System.Windows.Forms.Label
         Dim Label18 As System.Windows.Forms.Label
         Dim Label19 As System.Windows.Forms.Label
+        Dim Label6 As System.Windows.Forms.Label
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmRuta))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
@@ -112,6 +113,8 @@ Partial Class frmRuta
         Me.btnCamioneta = New System.Windows.Forms.Button
         Me.btnCourier = New System.Windows.Forms.Button
         Me.chkMicrocentro = New System.Windows.Forms.CheckBox
+        Me.btnEnviar = New System.Windows.Forms.Button
+        Me.cboCelulares = New System.Windows.Forms.ComboBox
         Me.Button1 = New System.Windows.Forms.Button
         Label2 = New System.Windows.Forms.Label
         Label1 = New System.Windows.Forms.Label
@@ -129,6 +132,7 @@ Partial Class frmRuta
         Label17 = New System.Windows.Forms.Label
         Label18 = New System.Windows.Forms.Label
         Label19 = New System.Windows.Forms.Label
+        Label6 = New System.Windows.Forms.Label
         CType(Me.nudPrestamosExt, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.mnuContextMenu.SuspendLayout()
@@ -290,6 +294,16 @@ Partial Class frmRuta
         Label19.Size = New System.Drawing.Size(110, 13)
         Label19.TabIndex = 31
         Label19.Text = "Tercer Acompañante:"
+        '
+        'Label6
+        '
+        Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Label6.AutoSize = True
+        Label6.Location = New System.Drawing.Point(462, 507)
+        Label6.Name = "Label6"
+        Label6.Size = New System.Drawing.Size(42, 13)
+        Label6.TabIndex = 42
+        Label6.Text = "Celular:"
         '
         'lstTransportes
         '
@@ -885,13 +899,32 @@ Partial Class frmRuta
         Me.chkMicrocentro.Text = "Microcentro"
         Me.chkMicrocentro.UseVisualStyleBackColor = True
         '
+        'btnEnviar
+        '
+        Me.btnEnviar.Location = New System.Drawing.Point(693, 504)
+        Me.btnEnviar.Name = "btnEnviar"
+        Me.btnEnviar.Size = New System.Drawing.Size(75, 23)
+        Me.btnEnviar.TabIndex = 40
+        Me.btnEnviar.Text = "Enviar"
+        Me.btnEnviar.UseVisualStyleBackColor = True
+        '
+        'cboCelulares
+        '
+        Me.cboCelulares.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cboCelulares.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboCelulares.FormattingEnabled = True
+        Me.cboCelulares.Location = New System.Drawing.Point(510, 504)
+        Me.cboCelulares.Name = "cboCelulares"
+        Me.cboCelulares.Size = New System.Drawing.Size(177, 21)
+        Me.cboCelulares.TabIndex = 41
+        '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(505, 504)
+        Me.Button1.Location = New System.Drawing.Point(448, 467)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 40
-        Me.Button1.Text = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(33, 23)
+        Me.Button1.TabIndex = 43
+        Me.Button1.Text = "Enviar"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'frmRuta
@@ -900,7 +933,10 @@ Partial Class frmRuta
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1016, 547)
         Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.cboCelulares)
+        Me.Controls.Add(Label6)
         Me.Controls.Add(Me.chkMicrocentro)
+        Me.Controls.Add(Me.btnEnviar)
         Me.Controls.Add(Me.btnCourier)
         Me.Controls.Add(Me.dgvZonas)
         Me.Controls.Add(Me.btnCamioneta)
@@ -1017,5 +1053,7 @@ Partial Class frmRuta
     Friend WithEvents col3Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ToolGenEtiqu As System.Windows.Forms.ToolStripButton
     Friend WithEvents chkMicrocentro As System.Windows.Forms.CheckBox
+    Friend WithEvents btnEnviar As System.Windows.Forms.Button
+    Friend WithEvents cboCelulares As System.Windows.Forms.ComboBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

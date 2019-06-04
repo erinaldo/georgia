@@ -2,7 +2,7 @@
 Imports Clases
 Imports System.Collections
 
-Public Class frmRelevamientosV2
+Public Class frmInspecciones
     Private ControlSigex As New Sigex.Control
     Private ControlAdonix As New Clases.Control(cn)
     Private InspeccionesSigex As New Sigex.InspeccionesCollection
@@ -29,32 +29,35 @@ Public Class frmRelevamientosV2
             End Get
         End Property
     End Structure
-    Private Sub frmRelevamientosV2_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmInspecciones_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         CargarControlesPendientes()
     End Sub
-
     Private Sub btnRefrescar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefrescar.Click
         CargarControlesPendientes()
     End Sub
     Private Sub btnTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferir.Click
-        Transferir()
+        If dgvSigex.SelectedRows.Count = 0 Then
+            MessageBox.Show("No hay filas seleccionadas para transferir", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
 
+        Transferir()
     End Sub
     Private Sub CargarControlesPendientes()
         'Carga los contoles pendientes de migracion Sigex->Adonix
         Dim dt As DataTable
         Dim ctrles As New Sigex.ControlesCollection
 
-        If dgv1.DataSource Is Nothing Then
+        If dgvSigex.DataSource Is Nothing Then
             dt = New DataTable
         Else
-            dt = CType(dgv1.DataSource, DataTable)
+            dt = CType(dgvSigex.DataSource, DataTable)
 
         End If
 
         ctrles.ControlesPendientes(dt)
 
-        If dgv1.DataSource Is Nothing Then
+        If dgvSigex.DataSource Is Nothing Then
             colId.DataPropertyName = "id"
             colIntervencion.DataPropertyName = "observaciones"
             colFecha.DataPropertyName = "fechaProgramacion"
@@ -73,7 +76,7 @@ Public Class frmRelevamientosV2
 
             colCliente.DataPropertyName = "cliente"
 
-            dgv1.DataSource = dt
+            dgvSigex.DataSource = dt
 
         End If
 
@@ -84,10 +87,10 @@ Public Class frmRelevamientosV2
         btnTransferir.Enabled = False
 
         'Salgo si la grilla no contiene controles
-        If dgv1.DataSource Is Nothing Then Exit Sub
+        If dgvSigex.DataSource Is Nothing Then Exit Sub
 
         'Cargo la tabla con los controles
-        dt = CType(dgv1.DataSource, DataTable)
+        dt = CType(dgvSigex.DataSource, DataTable)
 
         'Recorro todos los controles de la grilla
         For Each dr As DataRow In dt.Rows
@@ -328,7 +331,6 @@ Public Class frmRelevamientosV2
         ElseIf TypeOf i Is InspeccionExtintor Then
             Dim Agente As New Agentes
             Dim Capacidad As New Capacidades
-
             Dim ii As InspeccionExtintor
             ii = CType(i, InspeccionExtintor)
 
