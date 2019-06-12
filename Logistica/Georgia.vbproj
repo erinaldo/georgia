@@ -312,6 +312,12 @@
     <Compile Include="Informes\frmRptVtasFliaA.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmConfirmarInspeccion.Designer.vb">
+      <DependentUpon>frmConfirmarInspeccion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmConfirmarInspeccion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logistica\frmExportarControles.Designer.vb">
       <DependentUpon>frmExportarControles.vb</DependentUpon>
     </Compile>
@@ -336,10 +342,10 @@
     <Compile Include="Logistica\frmIntervencionesPendientes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Logistica\frmRelevamientosV2.Designer.vb">
-      <DependentUpon>frmRelevamientosV2.vb</DependentUpon>
+    <Compile Include="Logistica\frmInspecciones.Designer.vb">
+      <DependentUpon>frmInspecciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="Logistica\frmRelevamientosV2.vb">
+    <Compile Include="Logistica\frmInspecciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presup\FrmListado.Designer.vb">
@@ -1187,6 +1193,9 @@
     <EmbeddedResource Include="Informes\frmRptVtasFliaA.resx">
       <DependentUpon>frmRptVtasFliaA.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmConfirmarInspeccion.resx">
+      <DependentUpon>frmConfirmarInspeccion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmExportarControles.resx">
       <DependentUpon>frmExportarControles.vb</DependentUpon>
     </EmbeddedResource>
@@ -1199,8 +1208,8 @@
     <EmbeddedResource Include="Logistica\frmIntervencionesPendientes.resx">
       <DependentUpon>frmIntervencionesPendientes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Logistica\frmRelevamientosV2.resx">
-      <DependentUpon>frmRelevamientosV2.vb</DependentUpon>
+    <EmbeddedResource Include="Logistica\frmInspecciones.resx">
+      <DependentUpon>frmInspecciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presup\FrmListado.resx">
       <DependentUpon>FrmListado.vb</DependentUpon>

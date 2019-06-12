@@ -109,7 +109,7 @@ Public Class frmTickets
 
             mnu = New MenuLocal(cn)
             mnu.AbrirMenu(9200, True)
-            mnu.Enlazar(colMotivo).DataPropertyName = "motivo_0"
+            mnu.Enlazar(colMotivo, "motivo_0")
 
             colFechaCreacion.DataPropertyName = "credat_0"
             colAsignado.DataPropertyName = "asigusr_0"
@@ -120,7 +120,7 @@ Public Class frmTickets
             mnu.ModificarTexto(1, "Abierto")
             mnu.ModificarTexto(2, "Resuelto")
             mnu.ModificarTexto(3, "Cerrado")
-            mnu.Enlazar(colEstado).DataPropertyName = "estado_0"
+            mnu.Enlazar(colEstado, "estado_0")
 
             colFechaAsignado.DataPropertyName = "asigdat_0"
 

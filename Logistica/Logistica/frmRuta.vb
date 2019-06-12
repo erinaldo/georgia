@@ -2006,6 +2006,7 @@ Class frmRuta
                         PuestoSectorSigex = New Sigex.PuestoSector
                         PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
                         PuestoSectorSigex.Adonix = SectorAdonix.Id.ToString
+                        PuestoSectorSigex.FotosRequeridas = False
                         PuestoSectorSigex.Grabar()
                     End If
                 Else
@@ -2040,6 +2041,8 @@ Class frmRuta
                                     p.idEquipo = EquipoSigex.Id
                                 End If
 
+                                p.FotosRequeridas = True
+
                                 p.Grabar()
                             End If
 
@@ -2053,6 +2056,7 @@ Class frmRuta
                                 p = New Sigex.PuestoHidrante
                                 p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
                                 p.Adonix = PuestoAdonix.id.ToString
+                                p.FotosRequeridas = True
                                 p.Grabar()
                             End If
 

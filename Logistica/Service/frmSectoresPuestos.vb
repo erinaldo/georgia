@@ -151,6 +151,7 @@ Public Class frmSectoresPuestos
 
         EnlazarPuestosExtintores()
         EnlazarPuestosHidrantes()
+
     End Sub
     Private Sub CargarInspecciones()
         With daInspecciones.SelectCommand
@@ -715,7 +716,6 @@ Public Class frmSectoresPuestos
         Next
 
     End Sub
-
     Private Sub mnuCambiarSectorHidrante_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCambiarSectorHidrante.Click
         CambiarSector(dgvPuestosHidrantes)
     End Sub

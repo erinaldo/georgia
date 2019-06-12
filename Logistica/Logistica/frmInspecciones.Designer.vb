@@ -22,19 +22,31 @@ Partial Class frmInspecciones
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container
         Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgvSigex = New System.Windows.Forms.DataGridView
-        Me.colId = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colIntervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colRelevador = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colEstado = New System.Windows.Forms.DataGridViewComboBoxColumn
-        Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.btnRefrescar = New System.Windows.Forms.Button
         Me.btnTransferir = New System.Windows.Forms.Button
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.dgvAdonix = New System.Windows.Forms.DataGridView
+        Me.mnu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuComparar = New System.Windows.Forms.ToolStripMenuItem
+        Me.col1Id = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col1Intervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col1Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col1Relevador = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col1Estado = New System.Windows.Forms.DataGridViewComboBoxColumn
+        Me.col1Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Intervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Sucursal = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Direccion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -42,7 +54,26 @@ Partial Class frmInspecciones
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         CType(Me.dgvAdonix, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.mnu.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'Label1
+        '
+        Label1.AutoSize = True
+        Label1.Location = New System.Drawing.Point(3, 9)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(121, 13)
+        Label1.TabIndex = 3
+        Label1.Text = "Relevamientos en Sigex"
+        '
+        'Label2
+        '
+        Label2.AutoSize = True
+        Label2.Location = New System.Drawing.Point(3, 15)
+        Label2.Name = "Label2"
+        Label2.Size = New System.Drawing.Size(197, 13)
+        Label2.TabIndex = 4
+        Label2.Text = "Relevamientos en Adonix para confirmar"
         '
         'dgvSigex
         '
@@ -52,62 +83,13 @@ Partial Class frmInspecciones
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvSigex.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSigex.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colId, Me.colIntervencion, Me.colFecha, Me.colRelevador, Me.colEstado, Me.colCliente})
+        Me.dgvSigex.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col1Id, Me.col1Intervencion, Me.col1Fecha, Me.col1Relevador, Me.col1Estado, Me.col1Cliente})
         Me.dgvSigex.Location = New System.Drawing.Point(3, 28)
         Me.dgvSigex.Name = "dgvSigex"
         Me.dgvSigex.ReadOnly = True
         Me.dgvSigex.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvSigex.Size = New System.Drawing.Size(811, 130)
         Me.dgvSigex.TabIndex = 0
-        '
-        'colId
-        '
-        Me.colId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colId.HeaderText = "Id"
-        Me.colId.Name = "colId"
-        Me.colId.ReadOnly = True
-        Me.colId.Width = 41
-        '
-        'colIntervencion
-        '
-        Me.colIntervencion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colIntervencion.HeaderText = "Intervencion"
-        Me.colIntervencion.Name = "colIntervencion"
-        Me.colIntervencion.ReadOnly = True
-        Me.colIntervencion.Width = 91
-        '
-        'colFecha
-        '
-        Me.colFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colFecha.HeaderText = "Fecha Programacion"
-        Me.colFecha.Name = "colFecha"
-        Me.colFecha.ReadOnly = True
-        Me.colFecha.Width = 119
-        '
-        'colRelevador
-        '
-        Me.colRelevador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colRelevador.HeaderText = "Relevador"
-        Me.colRelevador.Name = "colRelevador"
-        Me.colRelevador.ReadOnly = True
-        Me.colRelevador.Width = 81
-        '
-        'colEstado
-        '
-        Me.colEstado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colEstado.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.colEstado.HeaderText = "Estado"
-        Me.colEstado.Name = "colEstado"
-        Me.colEstado.ReadOnly = True
-        Me.colEstado.Width = 46
-        '
-        'colCliente
-        '
-        Me.colCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colCliente.HeaderText = "Cliente"
-        Me.colCliente.Name = "colCliente"
-        Me.colCliente.ReadOnly = True
-        Me.colCliente.Width = 64
         '
         'btnRefrescar
         '
@@ -150,39 +132,159 @@ Partial Class frmInspecciones
         Me.SplitContainer1.SplitterDistance = 161
         Me.SplitContainer1.TabIndex = 2
         '
-        'Label1
-        '
-        Label1.AutoSize = True
-        Label1.Location = New System.Drawing.Point(3, 9)
-        Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(121, 13)
-        Label1.TabIndex = 3
-        Label1.Text = "Relevamientos en Sigex"
-        '
-        'Label2
-        '
-        Label2.AutoSize = True
-        Label2.Location = New System.Drawing.Point(3, 15)
-        Label2.Name = "Label2"
-        Label2.Size = New System.Drawing.Size(197, 13)
-        Label2.TabIndex = 4
-        Label2.Text = "Relevamientos en Adonix para confirmar"
-        '
         'dgvAdonix
         '
+        Me.dgvAdonix.AllowUserToAddRows = False
+        Me.dgvAdonix.AllowUserToDeleteRows = False
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAdonix.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvAdonix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAdonix.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col2Intervencion, Me.col2Fecha, Me.col2Cliente, Me.col2Nombre, Me.col2Sucursal, Me.col2Direccion})
+        Me.dgvAdonix.ContextMenuStrip = Me.mnu
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvAdonix.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvAdonix.Location = New System.Drawing.Point(3, 31)
         Me.dgvAdonix.Name = "dgvAdonix"
+        Me.dgvAdonix.ReadOnly = True
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvAdonix.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvAdonix.Size = New System.Drawing.Size(905, 277)
         Me.dgvAdonix.TabIndex = 5
         '
-        'frmRelevamientosV2
+        'mnu
+        '
+        Me.mnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuComparar})
+        Me.mnu.Name = "mnu"
+        Me.mnu.Size = New System.Drawing.Size(137, 26)
+        '
+        'mnuComparar
+        '
+        Me.mnuComparar.Name = "mnuComparar"
+        Me.mnuComparar.Size = New System.Drawing.Size(136, 22)
+        Me.mnuComparar.Text = "Comparar..."
+        '
+        'col1Id
+        '
+        Me.col1Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Id.HeaderText = "Id"
+        Me.col1Id.Name = "col1Id"
+        Me.col1Id.ReadOnly = True
+        Me.col1Id.Width = 41
+        '
+        'col1Intervencion
+        '
+        Me.col1Intervencion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Intervencion.HeaderText = "Intervencion"
+        Me.col1Intervencion.Name = "col1Intervencion"
+        Me.col1Intervencion.ReadOnly = True
+        Me.col1Intervencion.Width = 91
+        '
+        'col1Fecha
+        '
+        Me.col1Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Fecha.HeaderText = "Fecha"
+        Me.col1Fecha.Name = "col1Fecha"
+        Me.col1Fecha.ReadOnly = True
+        Me.col1Fecha.Width = 62
+        '
+        'col1Relevador
+        '
+        Me.col1Relevador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Relevador.HeaderText = "Relevador"
+        Me.col1Relevador.Name = "col1Relevador"
+        Me.col1Relevador.ReadOnly = True
+        Me.col1Relevador.Width = 81
+        '
+        'col1Estado
+        '
+        Me.col1Estado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Estado.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.col1Estado.HeaderText = "Estado"
+        Me.col1Estado.Name = "col1Estado"
+        Me.col1Estado.ReadOnly = True
+        Me.col1Estado.Width = 46
+        '
+        'col1Cliente
+        '
+        Me.col1Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col1Cliente.HeaderText = "Cliente"
+        Me.col1Cliente.Name = "col1Cliente"
+        Me.col1Cliente.ReadOnly = True
+        Me.col1Cliente.Width = 64
+        '
+        'col2Intervencion
+        '
+        Me.col2Intervencion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Intervencion.HeaderText = "Intervención"
+        Me.col2Intervencion.Name = "col2Intervencion"
+        Me.col2Intervencion.ReadOnly = True
+        Me.col2Intervencion.Width = 91
+        '
+        'col2Fecha
+        '
+        Me.col2Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Fecha.HeaderText = "Fecha"
+        Me.col2Fecha.Name = "col2Fecha"
+        Me.col2Fecha.ReadOnly = True
+        Me.col2Fecha.Width = 62
+        '
+        'col2Cliente
+        '
+        Me.col2Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Cliente.HeaderText = "Cliente"
+        Me.col2Cliente.Name = "col2Cliente"
+        Me.col2Cliente.ReadOnly = True
+        Me.col2Cliente.Width = 64
+        '
+        'col2Nombre
+        '
+        Me.col2Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Nombre.HeaderText = "Nombre"
+        Me.col2Nombre.Name = "col2Nombre"
+        Me.col2Nombre.ReadOnly = True
+        Me.col2Nombre.Width = 69
+        '
+        'col2Sucursal
+        '
+        Me.col2Sucursal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Sucursal.HeaderText = "Sucursal"
+        Me.col2Sucursal.Name = "col2Sucursal"
+        Me.col2Sucursal.ReadOnly = True
+        Me.col2Sucursal.Width = 73
+        '
+        'col2Direccion
+        '
+        Me.col2Direccion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Direccion.HeaderText = "Dirección"
+        Me.col2Direccion.Name = "col2Direccion"
+        Me.col2Direccion.ReadOnly = True
+        Me.col2Direccion.Width = 77
+        '
+        'frmInspecciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(911, 476)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Name = "frmRelevamientosV2"
+        Me.Name = "frmInspecciones"
         Me.Text = "Relevamientos"
         CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -191,18 +293,27 @@ Partial Class frmInspecciones
         Me.SplitContainer1.Panel2.PerformLayout()
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.dgvAdonix, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.mnu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents dgvSigex As System.Windows.Forms.DataGridView
     Friend WithEvents btnRefrescar As System.Windows.Forms.Button
-    Friend WithEvents colId As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colFecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colRelevador As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colEstado As System.Windows.Forms.DataGridViewComboBoxColumn
-    Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnTransferir As System.Windows.Forms.Button
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvAdonix As System.Windows.Forms.DataGridView
+    Friend WithEvents mnu As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents mnuComparar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents col1Id As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col1Intervencion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col1Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col1Relevador As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col1Estado As System.Windows.Forms.DataGridViewComboBoxColumn
+    Friend WithEvents col1Cliente As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Intervencion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Cliente As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Nombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Sucursal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Direccion As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

@@ -1,14 +1,13 @@
 ﻿Imports Sigex
 Imports Clases
 Imports System.Collections
+Imports System.Data.OracleClient
 
 Public Class frmInspecciones
     Private ControlSigex As New Sigex.Control
     Private ControlAdonix As New Clases.Control(cn)
     Private InspeccionesSigex As New Sigex.InspeccionesCollection
     Private InspeccionesAdonix As Clases.InspeccionesCollection
-    Private Agentes As New Sigex.Agentes
-    Private Capacidades As New Sigex.Capacidades
 
     Structure Estados
         Private _id As Integer
@@ -31,6 +30,7 @@ Public Class frmInspecciones
     End Structure
     Private Sub frmInspecciones_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         CargarControlesPendientes()
+        CargarControlesParaConfirmar()
     End Sub
     Private Sub btnRefrescar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefrescar.Click
         CargarControlesPendientes()
@@ -42,44 +42,6 @@ Public Class frmInspecciones
         End If
 
         Transferir()
-    End Sub
-    Private Sub CargarControlesPendientes()
-        'Carga los contoles pendientes de migracion Sigex->Adonix
-        Dim dt As DataTable
-        Dim ctrles As New Sigex.ControlesCollection
-
-        If dgvSigex.DataSource Is Nothing Then
-            dt = New DataTable
-        Else
-            dt = CType(dgvSigex.DataSource, DataTable)
-
-        End If
-
-        ctrles.ControlesPendientes(dt)
-
-        If dgvSigex.DataSource Is Nothing Then
-            colId.DataPropertyName = "id"
-            colIntervencion.DataPropertyName = "observaciones"
-            colFecha.DataPropertyName = "fechaProgramacion"
-            colRelevador.DataPropertyName = "nombre"
-
-            Dim x As New ArrayList
-
-            x.Add(New Estados(0, "Pendiente"))
-            x.Add(New Estados(1, "Finalizado"))
-            x.Add(New Estados(2, "En curso"))
-
-            colEstado.DataPropertyName = "estado"
-            colEstado.DataSource = x
-            colEstado.DisplayMember = "desc"
-            colEstado.ValueMember = "id"
-
-            colCliente.DataPropertyName = "cliente"
-
-            dgvSigex.DataSource = dt
-
-        End If
-
     End Sub
     Private Sub Transferir()
         Dim dt As DataTable
@@ -94,208 +56,54 @@ Public Class frmInspecciones
 
         'Recorro todos los controles de la grilla
         For Each dr As DataRow In dt.Rows
-            'Proceso unicamente los controles que no están pendientes
-            '0 = Pendiente
-            '1 = Finalizado
-            '2 = En curso
-            If CInt(dr("estado")) > 0 Then
-                'Abro el control periodico en Sigex
-                ControlSigex.Abrir(CInt(dr("id")))
+            'Salto si el estado del control es 0=pendiente
+            If CInt(dr("estado")) = 0 Then Continue For
 
-                'Abro el control periodico en Adonix
-                If Not ControlAdonix.Abrir(ControlSigex.Intervencion) Then
-                    With ControlAdonix
-                        .Nuevo()
-                        .id = ControlSigex.Intervencion
-                        .Fecha = ControlSigex.FechaProgramacion
-                        .Cliente = ControlSigex.Contrato.ContratoCliente
-                        .Sucursal = ControlSigex.Contrato.ContratoSucursal
-                        .Grabar()
-                    End With
-                End If
+            'Abro el control periodico en Sigex
+            ControlSigex.Abrir(CInt(dr("id")))
 
-                'Cargo las inspecciones del control en Sigex
-                InspeccionesSigex = ControlSigex.Inspecciones
-
-                'Cargo las inspecciones que tiene el control de Adonix
-                InspeccionesAdonix = ControlAdonix.Inspecciones
-
-                ' *
-                ' RECORRO TODAS LAS INSPECCIONES EN SIGEX
-                ' *
-                Dim UltimoSector As Integer = 0
-
-                For Each i As Sigex.Inspeccion In InspeccionesSigex
-                    If i.Estado = 0 Then Continue For
-
-                    If UltimoSector <> i.Puesto.Sector.Id Then
-                        UltimoSector = i.Puesto.Sector.Id
-                        ProcesarSector(i)
-                    End If
-
-                    ProcesarPuesto(i)
-                    ProcesarInspeccion(i)
-                Next
-
-                'Marco el control como transferido
-                If ControlSigex.Estado = 1 Then
-                    ControlSigex.Sincronizacion = True
-                    ControlSigex.Grabar()
-                End If
-
+            'Abro el control periodico en Adonix
+            If Not ControlAdonix.Abrir(ControlSigex.Intervencion) Then
+                With ControlAdonix
+                    .Nuevo()
+                    .id = ControlSigex.Intervencion
+                    .Fecha = ControlSigex.FechaProgramacion
+                    .Cliente = ControlSigex.Contrato.ContratoCliente
+                    .Sucursal = ControlSigex.Contrato.ContratoSucursal
+                    .Estado = 1
+                    .Grabar()
+                End With
             End If
+
+            'Cargo las inspecciones del control en Sigex
+            InspeccionesSigex = ControlSigex.Inspecciones
+
+            'Cargo las inspecciones que tiene el control de Adonix
+            InspeccionesAdonix = ControlAdonix.Inspecciones
+
+            For Each i As Sigex.Inspeccion In InspeccionesSigex
+                If i.Estado = 0 Then Continue For
+                ProcesarInspeccion(i)
+            Next
+
+            'Marco el control como transferido
+            If ControlSigex.Estado = 1 Then
+                ControlSigex.Sincronizacion = True
+                ControlSigex.Grabar()
+            End If
+
+            ControlAdonix.Estado = ControlSigex.Estado
+            ControlAdonix.Grabar()
+
         Next
 
         CargarControlesPendientes()
         btnTransferir.Enabled = True
 
     End Sub
-    Public Sub ProcesarSector(ByVal i As Sigex.Inspeccion)
-        Dim ss As New Sigex.Sector
-        Dim sa As New Clases.Sector2(cn)
-
-        ss = i.Puesto.Sector
-
-        If ss.Adonix = 0 Then
-            sa.Nuevo(ControlAdonix.Cliente, ControlAdonix.Sucursal)
-            sa.Grabar()
-
-            ss.Adonix = sa.Id
-            ss.Grabar()
-        Else
-            sa.Abrir(ss.Adonix)
-        End If
-
-        sa.Numero = ss.Numero
-        sa.Nombre = ss.Sector
-        sa.Grabar()
-    End Sub
-    Public Sub ProcesarPuesto(ByVal i As Sigex.Inspeccion)
-
-        Select Case i.Puesto.TipoId
-            Case 0 'Sector
-
-
-            Case 1 'Extintor
-                ProcesarPuestoExtintor(CType(i, InspeccionExtintor))
-
-            Case 2 'Hidrante
-                ProcesarPuestoHidrante(CType(i, InspeccionHidrante))
-
-        End Select
-
-    End Sub
-    Public Sub ProcesarPuestoExtintor(ByVal i As Sigex.InspeccionExtintor)
-        Dim ss As Sigex.Sector
-        Dim ps As Sigex.PuestoExtintor
-        Dim sa As Clases.Sector2
-        Dim pa As Clases.Puesto2
-        Dim es As Sigex.Equipo
-        Dim mac As New Parque(cn)
-
-        ss = New Sigex.Sector
-        sa = New Clases.Sector2(cn)
-
-        'Obtengo el puesto extintor de la inspeccion
-        ps = i.Puesto.PuestoExtintor
-
-        'Obtengo el sector Sigex del puesto
-        ss = ps.Sector
-
-        'Abro el sector en Adonix
-        sa.Abrir(ss.Adonix)
-
-        'Abro el puesto en Adonix
-        pa = sa.Puestos.BuscarPuestoPorId(CInt(ps.Adonix))
-        'El puesto no existe en Adonix, creo uno nuevo
-        If pa Is Nothing Then
-            pa = New Puesto2(cn)
-            pa.Nuevo(sa.Id, ps.NroPuesto, ps.Ubicacion, ps.TipoId)
-            pa.Agente = Agentes.SigexToAdonix(ps.Agente)
-            pa.Capacidad = Capacidades.SigexToAdonix(ps.Capacidad)
-            pa.Grabar()
-
-            ps.Adonix = pa.id.ToString
-            ps.Grabar()
-        End If
-
-        pa.NroPuesto = ps.NroPuesto
-        pa.Ubicacion = ps.Ubicacion
-
-        'Obtengo el equipo de la inspeccion
-        es = i.Equipo
-
-        If es Is Nothing Then
-            pa.EquipoId = " "
-
-        Else
-            If es.CodigoAdonix = "" Then
-                mac.Nuevo(sa.ClienteId, sa.SucursalId)
-                mac.Cilindro = es.Cilindro
-                mac.FabricacionLargo = es.Fabricacion
-                mac.setTipoExtintor(Agentes.SigexToAdonix(es.Agente), Capacidades.SigexToAdonix(es.Capacidad))
-                mac.VtoCarga = es.VencimientoCarga
-                mac.VtoPH = es.VencimientoPH
-                mac.Observaciones = "Creado en Sigex - " & Today.ToString("dd/MM/yy")
-                mac.Grabar()
-
-                es.CodigoAdonix = mac.Serie
-                es.Grabar()
-
-            Else
-                pa.EquipoId = es.CodigoAdonix
-
-            End If
-        End If
-
-        pa.UltimaInspeccion = ControlAdonix.id
-        pa.Grabar()
-
-    End Sub
-    Public Sub ProcesarPuestoHidrante(ByVal i As Sigex.InspeccionHidrante)
-        Dim ss As Sigex.Sector
-        Dim ps As Sigex.PuestoHidrante
-        Dim sa As Clases.Sector2
-        Dim pa As Clases.Puesto2
-
-        ss = New Sigex.Sector
-        sa = New Clases.Sector2(cn)
-
-        'Obtengo el puesto extintor de la inspeccion
-        ps = i.Puesto.PuestoHidrante
-
-        'Obtengo el sector Sigex del puesto
-        ss = ps.Sector
-
-        'Abro el sector en Adonix
-        sa.Abrir(ss.Adonix)
-
-        'Abro el puesto en Adonix
-        pa = sa.Puestos.BuscarPuestoPorId(CInt(ps.Adonix))
-        'El puesto no existe en Adonix, creo uno nuevo
-        If pa Is Nothing Then
-            pa = New Puesto2(cn)
-            pa.Nuevo(sa.Id, ps.NroPuesto, ps.Ubicacion, ps.TipoId)
-            pa.Grabar()
-
-            ps.Adonix = pa.id.ToString
-            ps.Grabar()
-        End If
-
-        pa.NroPuesto = ps.NroPuesto
-        pa.Ubicacion = ps.Ubicacion
-
-        pa.UltimaInspeccion = ControlAdonix.id
-        pa.Grabar()
-
-    End Sub
     Public Sub ProcesarInspeccion(ByVal i As Sigex.Inspeccion)
         Dim ia As Clases.Inspeccion
         Dim pa As Puesto2 = Nothing
-
-        'Abro el puesto Adonix
-        pa = New Puesto2(cn)
-        pa.Abrir(CInt(i.Puesto.Adonix))
 
         'Busco la inspeccion en adonix
         ia = InspeccionesAdonix.Buscar(i.id)
@@ -307,6 +115,10 @@ Public Class frmInspecciones
         ia.id = i.id
         ia.Intervencion = ControlSigex.Intervencion 'Numero de Intervencion
 
+        'Abro el puesto Adonix
+        pa = New Puesto2(cn)
+        pa.Abrir(CInt(i.Puesto.Adonix))
+
         If i.Puesto.TipoId = 0 Then 'Puesto sector
             ia.Puesto = i.Puesto.Sector.Adonix
             ia.Sector = ia.Puesto
@@ -317,6 +129,7 @@ Public Class frmInspecciones
 
         ia.Nro = i.Puesto.NroPuesto
         ia.Ubicacion = i.Puesto.Ubicacion
+        ia.Nombre = i.Puesto.Sector.Sector
 
         If TypeOf i Is InspeccionSector Then
             Dim ii As InspeccionSector
@@ -374,26 +187,89 @@ Public Class frmInspecciones
 
         ia.Grabar()
     End Sub
-    Public Sub ProcesarEquipo(ByVal i As Sigex.Inspeccion)
-        Dim ii As InspeccionExtintor
-        Dim e As Sigex.Equipo
-        Dim mac As Parque
-        Dim Agente As New Agentes
-        Dim Capacidad As New Capacidades
+    Private Sub CargarControlesPendientes()
+        'Carga los contoles pendientes de migracion Sigex->Adonix
+        Dim dt As DataTable
+        Dim ctrles As New Sigex.ControlesCollection
+        Dim dv As DataGridView = dgvSigex
 
-        'Salgo si la inspeccion no pertenece a un sector extintor
-        If TypeOf i Is InspeccionExtintor = False Then Exit Sub
-
-        ii = CType(i, InspeccionExtintor)
-
-        'Obtengo equipo de la inspeccion
-        e = ii.Equipo
-
-        If e.CodigoAdonix = "" Then
-            'Creo el equipo en Adonix
-            mac = New Parque(cn)
+        If dv.DataSource Is Nothing Then
+            dt = New DataTable
+        Else
+            dt = CType(dv.DataSource, DataTable)
 
         End If
+
+        ctrles.ControlesPendientes(dt)
+
+        If dv.DataSource Is Nothing Then
+            col1Id.DataPropertyName = "id"
+            col1Intervencion.DataPropertyName = "observaciones"
+            col1Fecha.DataPropertyName = "fechaProgramacion"
+            col1Relevador.DataPropertyName = "nombre"
+
+            Dim x As New ArrayList
+
+            x.Add(New Estados(0, "Pendiente"))
+            x.Add(New Estados(1, "Finalizado"))
+            x.Add(New Estados(2, "En curso"))
+
+            col1Estado.DataPropertyName = "estado"
+            col1Estado.DataSource = x
+            col1Estado.DisplayMember = "desc"
+            col1Estado.ValueMember = "id"
+
+            col1Cliente.DataPropertyName = "cliente"
+
+            dv.DataSource = dt
+
+        End If
+
+    End Sub
+    Private Sub CargarControlesParaConfirmar()
+        'Se carga la grilla con los controles que se deben comparar con el anterior
+        'para confirmar o modificar
+        Dim da As OracleDataAdapter
+        Dim dt As New DataTable
+        Dim sql As String
+        Dim dv As DataGridView = dgvAdonix
+
+        If dv.DataSource Is Nothing Then
+            dt = New DataTable
+        Else
+            dt = CType(dv.DataSource, DataTable)
+
+        End If
+
+        sql = "select xco.itn_0, xco.dat_0, xco.bpcnum_0, bpc.bpcnam_0, xco.bpaadd_0, bpa.bpaaddlig_0 "
+        sql &= "from xcontroles xco inner join "
+        sql &= "	 bpaddress bpa on (xco.bpcnum_0 = bpa.bpanum_0 AND xco.bpaadd_0 = bpa.bpaadd_0) inner join "
+        sql &= "	 bpcustomer bpc on (bpa.bpanum_0 = bpc.bpcnum_0) "
+        sql &= "where xco.estado_0 = 1"
+        da = New OracleDataAdapter(sql, cn)
+        da.Fill(dt)
+
+        If dv.DataSource Is Nothing Then
+            col2Intervencion.DataPropertyName = "itn_0"
+            col2Fecha.DataPropertyName = "dat_0"
+            col2Cliente.DataPropertyName = "bpcnum_0"
+            col2Nombre.DataPropertyName = "bpcnam_0"
+            col2Sucursal.DataPropertyName = "bpaadd_0"
+            col2Direccion.DataPropertyName = "bpaaddlig_0"
+            dv.DataSource = dt
+        End If
+
+    End Sub
+    Private Sub mnuComparar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuComparar.Click
+        Dim f As frmConfirmarInspeccion
+        Dim dr As DataRow
+
+        If dgvAdonix.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
+
+        dr = CType(dgvAdonix.CurrentRow.DataBoundItem, DataRowView).Row
+        ControlAdonix.Abrir(dr("itn_0").ToString)
+        f = New frmConfirmarInspeccion(ControlAdonix)
+        f.ShowDialog(Me)
 
     End Sub
 
