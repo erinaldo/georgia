@@ -924,14 +924,16 @@ Public Class frmCliente
 
                 Case "2" 'Convenio Multilateral
 
-                    'Debe comenzar con 9 y tener longitud 11
-                    If .Text.StartsWith("9") And .Text.Length = 11 Then
-                        Return True
+                    'Debe ser número de cuit
+                    Return Cliente.CheckCuit(.Text.Trim)
 
-                    Else
-                        Return False
+                    'If .Text.StartsWith("9") And .Text.Length = 11 Then
+                    '    Return True
 
-                    End If
+                    'Else
+                    '    Return False
+
+                    'End If
 
                 Case "4" 'Otros
 
