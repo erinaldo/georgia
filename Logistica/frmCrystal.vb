@@ -2,14 +2,17 @@
 
 Public Class frmCrystal
 
-    Public Sub New(ByRef rpt As ReportDocument)
+    Public Sub New(ByRef rpt As ReportDocument, Optional ByVal X3DOS As Boolean = True)
 
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        rpt.SetParameterValue("X3DOS", X3DOS)
+        If X3DOS Then
+            rpt.SetParameterValue("X3DOS", X3DOS)
+        End If
+
 
         CrystalReportViewer1.ReportSource = rpt
 

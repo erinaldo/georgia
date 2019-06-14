@@ -1158,6 +1158,8 @@ Class frmRuta
         'ValoresIniciales()
         ActualizarControles()
 
+        CargarComboCelulares()
+
     End Sub
     Private Sub frmRuta_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         If Not (e.CloseReason = CloseReason.TaskManagerClosing Or e.CloseReason = CloseReason.WindowsShutDown) Then
@@ -1785,7 +1787,6 @@ Class frmRuta
         Next
 
     End Sub
-
     Private Sub dgvZonas_CellFormatting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvZonas.CellFormatting
         On Error Resume Next
 
@@ -1809,7 +1810,6 @@ Class frmRuta
             c.Style.BackColor = col
         Next
     End Sub
-
     Private Sub ToolGenEtiqu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolGenEtiqu.Click
         If Grilla.Rows.Count > 0 Then
             Dim colum As Integer = 0
@@ -1836,7 +1836,6 @@ Class frmRuta
             MessageBox.Show("No hay filas seleccionadas", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
     End Sub
-
     Private Sub chkMicrocentro_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkMicrocentro.CheckedChanged
         If dtRutac.Rows.Count = 0 Or BloqueoModificacion Then Exit Sub
 
@@ -1863,5 +1862,267 @@ Class frmRuta
         End With
 
     End Sub
+
+    '----------------------
+    Private Sub btnEnviar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnviar.Click
+        Dim itn As New Intervencion(cn)
+        Dim fecha As Date
+        Dim ControlSigex As New Sigex.Control
+        Dim ControlesSigex As New Sigex.ControlesCollection
+        Dim SectoresSigex As New Sigex.Sectores2Collection
+        Dim ClientesSigex As New Sigex.ClientesCollection
+        Dim ClienteSigex As Sigex.Cliente
+        Dim SucursalSigex As Sigex.Sucursal
+        Dim ContratosSigex As New Sigex.ContratosCollection
+        Dim ContratoSigex As New Sigex.Contrato
+
+        btnEnviar.Enabled = False
+
+        'Obtengo todos los clientes cargados en Sigex
+        ClientesSigex.AbrirTodos()
+
+        For Each dr As DataRow In dtRutad.Rows
+            fecha = dtpFecha.Value
+
+            'Se intenta abrir la intervencion
+            If Not itn.Abrir(dr("vcrnum_0").ToString) Then Continue For
+            'La intervencion debe tener articulo 652001 o 652002
+            If Not itn.ExisteRetira("652001") And Not itn.ExisteRetira("652002") Then Continue For
+
+            'Obtengo el cliente en Sigex
+            ClienteSigex = ClientesSigex.BuscarPorCodigoAdonix(itn.Cliente.Codigo)
+            'Si no encontré el cliente, creo uno nuevo
+            If ClienteSigex Is Nothing Then
+                ClienteSigex = New Sigex.Cliente
+                ClienteSigex.Nuevo(itn.Cliente.Codigo, itn.Cliente.Nombre)
+                ClienteSigex.Grabar()
+            End If
+            'Busco si existe la sucursal en Sigex
+            SucursalSigex = ClienteSigex.Sucursales.BuscarPorCodigoAdonix(itn.SucursalCodigo)
+            'Creo la sucursal si no existe
+            If SucursalSigex Is Nothing Then
+                SucursalSigex = New Sigex.Sucursal
+                SucursalSigex.Nueva(ClienteSigex, itn.SucursalCodigo, itn.SucursalCalle)
+                SucursalSigex.Grabar()
+            End If
+
+            'Cargo Extintores en Adonix
+            Dim Parques As ParqueCollection
+            Parques = itn.Sucursal.Parque
+
+            'Cargo Extintores en Sigex
+            Dim EquiposSigex As Sigex.EquipoCollection
+            EquiposSigex = SucursalSigex.Equipos
+
+            Dim Capacidades As New Sigex.Capacidades
+            Dim Agentes As New Sigex.Agentes
+            Dim EquipoSigex As Sigex.Equipo
+
+            'Recorro todos los equipos en Adonix
+            For Each Mac As Parque In Parques
+                If Mac.Articulo.Familia(3) <> "301" Then Continue For
+
+                'Busco el equipo en Sigex
+                EquipoSigex = EquiposSigex.BuscarPorCodigoAdonix(Mac.Serie)
+
+                'Creo un nuevo equipo si no existe en Sigex
+                If EquipoSigex Is Nothing Then
+                    EquipoSigex = New Sigex.Equipo
+                    EquipoSigex.Nuevo()
+                    'Agrego el nuevo equipo a la coleccion
+                    EquiposSigex.Add(EquipoSigex)
+                End If
+
+                With EquipoSigex
+                    .Cilindro = Mac.Cilindro
+                    .CodigoAdonix = Mac.Serie
+                    .CodigoCliente = ClienteSigex.id
+                    .CodigoSucursal = SucursalSigex.id
+                    .Fabricacion = Mac.FabricacionLargo
+                    .UltimaPh = Mac.VtoPH.AddDays(Mac.FrecuenciaPH)
+                    .VencimientoVidaUtil = New Date(Mac.FinVidaUtil, 1, 1)
+                    .VencimientoPH = Mac.VtoPH
+                    .VencimientoCarga = Mac.VtoCarga
+                    .Agente = Agentes.AdonixToSigex(Mac.Articulo.Familia(3))
+                    .Capacidad = Capacidades.AdonixToSigex(Mac.Articulo.Familia(2))
+                    .Grabar()
+                End With
+            Next
+            '
+            '
+            '
+            Dim SectoresAdonix As New Sectores2(cn) 'Sectores en Adonix
+
+            'Abro sectores en Adonix
+            SectoresAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+            SectoresAdonix.EliminarSectoresSinPuestos()
+
+            'Creo un sector en blanco
+            If SectoresAdonix.Count = 0 Then
+                Dim s As New Sector2(cn)
+                s.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
+                s.Numero = "X"
+                s.Nombre = "sin nombre"
+                s.Grabar()
+                'Creo un puesto en blanco
+                Dim p As New Puesto2(cn)
+                p.Nuevo(s.Id, "X", "sin ubicacion", 1)
+                p.Grabar()
+
+                'Vuelvo a cargar los sectores
+                SectoresAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+            End If
+
+            'Abro sectores en Sigex
+            SectoresSigex.AbrirSectores(ClienteSigex.id, SucursalSigex.id)
+
+            'Recorro todos los sectores en Adonix y luego los puestos
+            For Each SectorAdonix As Sector2 In SectoresAdonix
+                'Recupero todos los puestos en el sector Adonix
+                Dim PuestosAdonix As Puestos2Collection
+                PuestosAdonix = SectorAdonix.Puestos
+
+                'Busco el sector en Sigex
+                Dim SectorSigex As Sigex.Sector
+                SectorSigex = SectoresSigex.BuscarSector(SectorAdonix.Id)
+                If SectorSigex Is Nothing Then
+                    SectorSigex = New Sigex.Sector
+                    SectorSigex.Nuevo(SectorAdonix.Id.ToString, SectorAdonix.Nombre, ClienteSigex.id, SucursalSigex.id)
+                    SectorSigex.Grabar()
+
+                    SectoresSigex.Add(SectorSigex)
+                End If
+
+                'Recupero todos los puestos en el sector Sigex
+                Dim PuestosSigex As Sigex.PuestosCollection
+                PuestosSigex = SectorSigex.Puestos
+
+                '1) Buscar Puesto Sector solo para cliente consorcios
+                Dim PuestoSectorSigex As New Sigex.PuestoSector
+                PuestoSectorSigex = PuestosSigex.BuscarPuestoSector(SectorAdonix.Id)
+
+                If SectorAdonix.Cliente.Familia2 = "10" Then
+                    If PuestoSectorSigex Is Nothing Then
+                        PuestoSectorSigex = New Sigex.PuestoSector
+                        PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
+                        PuestoSectorSigex.Adonix = SectorAdonix.Id.ToString
+                        PuestoSectorSigex.FotosRequeridas = False
+                        PuestoSectorSigex.Grabar()
+                    End If
+                Else
+                    If PuestoSectorSigex IsNot Nothing Then
+                        PuestoSectorSigex.Borrar()
+                        PuestoSectorSigex.Grabar()
+                    End If
+                End If
+
+                'Recorro los puestos (Extintor y Hidrantes) dentro del sector
+                For Each PuestoAdonix As Clases.Puesto2 In SectorAdonix.Puestos
+
+                    Select Case PuestoAdonix.Tipo
+                        Case 1 'Extintor
+                            Dim p As Sigex.PuestoExtintor
+
+                            p = PuestosSigex.BuscarPuestoExtintor(PuestoAdonix.id)
+
+                            If p Is Nothing Then
+
+                                p = New Sigex.PuestoExtintor
+                                p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
+                                p.Adonix = PuestoAdonix.id.ToString
+                                p.Agente = Agentes.AdonixToSigex(PuestoAdonix.Agente)
+                                p.Capacidad = Capacidades.AdonixToSigex(PuestoAdonix.Capacidad)
+
+                                'Obtengo el id del equipo en el puesto
+                                EquipoSigex = EquiposSigex.BuscarPorCodigoAdonix(PuestoAdonix.EquipoId)
+                                If EquipoSigex Is Nothing Then
+                                    p.idEquipo = 0
+                                Else
+                                    p.idEquipo = EquipoSigex.Id
+                                End If
+
+                                p.FotosRequeridas = True
+
+                                p.Grabar()
+                            End If
+
+                        Case 2 'Hidrante
+
+                            Dim p As New Sigex.PuestoHidrante
+
+                            'Buscar Puesto Hidrantes
+                            p = PuestosSigex.BuscarPuestoHidrante(PuestoAdonix.id)
+                            If p Is Nothing Then
+                                p = New Sigex.PuestoHidrante
+                                p.Nuevo(PuestoAdonix.NroPuesto, PuestoAdonix.Ubicacion, SectorSigex.Id)
+                                p.Adonix = PuestoAdonix.id.ToString
+                                p.FotosRequeridas = True
+                                p.Grabar()
+                            End If
+
+                    End Select
+
+                Next
+            Next
+
+            'Busco si existe control para la intervencion
+            If ControlesSigex.BuscarPorIntervencion(itn.Numero) Then
+                ControlSigex = ControlesSigex.Item(0)
+
+            Else
+                'Busco si existe contrato activo
+                ContratosSigex.BuscarPorClienteSucursal(ClienteSigex.id, SucursalSigex.id, True)
+
+                If ContratosSigex.Count > 0 Then
+                    ContratoSigex = ContratosSigex.Item(0)
+
+                Else
+                    ContratoSigex.Nuevo(ClienteSigex, SucursalSigex)
+                    ContratoSigex.Grabar()
+                End If
+
+                'Cargo controles del contrato
+                ControlesSigex = ContratoSigex.Controles
+
+                'Creo el control para la intervencion
+                ControlSigex = ControlesSigex.NuevoControl(ContratoSigex.Id, dtpFecha.Value)
+
+            End If
+
+            'Consulto si existe control para la intervencion
+            ControlSigex.FechaProgramacion = dtpFecha.Value
+            ControlSigex.Relevador = CInt(cboCelulares.SelectedValue)
+            ControlSigex.Intervencion = itn.Numero
+            ControlSigex.Grabar()
+
+            'Crear todas las inspecciones para el control
+            Dim InspeccionesSigex As New Sigex.InspeccionesCollection
+
+            InspeccionesSigex.Abrir(ControlSigex.id)
+            InspeccionesSigex.CrearInspecciones(SectoresSigex)
+
+        Next
+
+        MessageBox.Show("Listo")
+        btnEnviar.Enabled = True
+
+    End Sub
+    Public Sub CargarComboCelulares()
+        Try
+            'Carga combo con los usuarios de Sigex
+            Dim u As New Sigex.UsuariosCollection
+
+            With cboCelulares
+                .ValueMember = "id"
+                .DisplayMember = "nombreCompleto"
+                .DataSource = u.dt
+            End With
+
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    '----------------------
 
 End Class

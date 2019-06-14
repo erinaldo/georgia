@@ -312,6 +312,12 @@
     <Compile Include="Informes\frmRptVtasFliaA.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmConfirmarInspeccion.Designer.vb">
+      <DependentUpon>frmConfirmarInspeccion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmConfirmarInspeccion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logistica\frmExportarControles.Designer.vb">
       <DependentUpon>frmExportarControles.vb</DependentUpon>
     </Compile>
@@ -336,10 +342,10 @@
     <Compile Include="Logistica\frmIntervencionesPendientes.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Logistica\frmRelevamientos.Designer.vb">
-      <DependentUpon>frmRelevamientos.vb</DependentUpon>
+    <Compile Include="Logistica\frmInspecciones.Designer.vb">
+      <DependentUpon>frmInspecciones.vb</DependentUpon>
     </Compile>
-    <Compile Include="Logistica\frmRelevamientos.vb">
+    <Compile Include="Logistica\frmInspecciones.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presup\FrmListado.Designer.vb">
@@ -376,6 +382,18 @@
       <DependentUpon>IngresoAusencias.vb</DependentUpon>
     </Compile>
     <Compile Include="RRHH\IngresoAusencias.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Service\frmABMPuestoExtintor.Designer.vb">
+      <DependentUpon>frmABMPuestoExtintor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmABMPuestoExtintor.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Service\frmABMSectores.Designer.vb">
+      <DependentUpon>frmABMSectores.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmABMSectores.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Service\frmCilindrosDuplicados.Designer.vb">
@@ -490,6 +508,18 @@
       <DependentUpon>frmRecepcionResumen.vb</DependentUpon>
     </Compile>
     <Compile Include="Service\frmRecepcionResumen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Service\frmSectoresPuestos.designer.vb">
+      <DependentUpon>frmSectoresPuestos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmSectoresPuestos.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Service\frmSelectorSectores.Designer.vb">
+      <DependentUpon>frmSelectorSectores.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmSelectorSectores.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Service\frmSS.Designer.vb">
@@ -1169,6 +1199,9 @@
     <EmbeddedResource Include="Informes\frmRptVtasFliaA.resx">
       <DependentUpon>frmRptVtasFliaA.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmConfirmarInspeccion.resx">
+      <DependentUpon>frmConfirmarInspeccion.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmExportarControles.resx">
       <DependentUpon>frmExportarControles.vb</DependentUpon>
     </EmbeddedResource>
@@ -1181,8 +1214,8 @@
     <EmbeddedResource Include="Logistica\frmIntervencionesPendientes.resx">
       <DependentUpon>frmIntervencionesPendientes.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Logistica\frmRelevamientos.resx">
-      <DependentUpon>frmRelevamientos.vb</DependentUpon>
+    <EmbeddedResource Include="Logistica\frmInspecciones.resx">
+      <DependentUpon>frmInspecciones.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presup\FrmListado.resx">
       <DependentUpon>FrmListado.vb</DependentUpon>
@@ -1201,6 +1234,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RRHH\IngresoAusencias.resx">
       <DependentUpon>IngresoAusencias.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmABMPuestoExtintor.resx">
+      <DependentUpon>frmABMPuestoExtintor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmABMSectores.resx">
+      <DependentUpon>frmABMSectores.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmCilindrosDuplicados.resx">
       <DependentUpon>frmCilindrosDuplicados.vb</DependentUpon>
@@ -1264,6 +1303,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmRecepcionResumen.resx">
       <DependentUpon>frmRecepcionResumen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmSectoresPuestos.resx">
+      <DependentUpon>frmSectoresPuestos.vb</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmSelectorSectores.resx">
+      <DependentUpon>frmSelectorSectores.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmSS.resx">
       <DependentUpon>frmSS.vb</DependentUpon>
@@ -1676,6 +1722,10 @@
     <ProjectReference Include="..\..\Clases\Clases.vbproj">
       <Project>{DB244B24-360F-4279-ACBF-9EF2D9A586BA}</Project>
       <Name>Clases</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Sigex\Sigex.vbproj">
+      <Project>{38BCB144-2286-4976-A048-F32D135E917A}</Project>
+      <Name>Sigex</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\WSAFIP\WSAFIP.vbproj">
       <Project>{6D2A4493-DEA8-4C70-9614-475C0B8A8797}</Project>
