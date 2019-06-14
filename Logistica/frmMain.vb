@@ -307,6 +307,13 @@ Public Class frmMain
         f.Show()
     End Sub
     Private Sub mnuParqueAbono_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuParqueAbono.Click
+        Dim f As New frmParqueAbonos
+
+        f.MdiParent = Me
+        f.Show()
+
+    End Sub
+    Private Sub mnuSectoresPuestos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSectoresPuestos.Click
         Dim f As New frmSectoresPuestos
 
         f.MdiParent = Me
@@ -1138,5 +1145,4 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-
 End Class

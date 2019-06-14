@@ -38,6 +38,7 @@ Partial Class frmMain
         Me.mnuNuevaHojaRuta = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuValidarRuta = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRelevamientos = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuRelevamientosV2 = New System.Windows.Forms.ToolStripMenuItem
         Me.CantidadExtiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIntervencionesPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator
@@ -65,6 +66,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuCumpliRecargas = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuParque = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuSectoresPuestos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuParqueAbono = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuTranferencia = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCilindrosDuplicados = New System.Windows.Forms.ToolStripMenuItem
@@ -206,7 +208,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuRelevamientosV2 = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -313,6 +314,12 @@ Partial Class frmMain
         Me.mnuRelevamientos.Size = New System.Drawing.Size(221, 22)
         Me.mnuRelevamientos.Tag = "frmColector"
         Me.mnuRelevamientos.Text = "Relevamientos..."
+        '
+        'mnuRelevamientosV2
+        '
+        Me.mnuRelevamientosV2.Name = "mnuRelevamientosV2"
+        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(221, 22)
+        Me.mnuRelevamientosV2.Text = "Relevamientos V2..."
         '
         'CantidadExtiToolStripMenuItem
         '
@@ -490,29 +497,36 @@ Partial Class frmMain
         '
         'mnuParque
         '
-        Me.mnuParque.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuParqueAbono, Me.mnuTranferencia, Me.mnuCilindrosDuplicados})
+        Me.mnuParque.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSectoresPuestos, Me.mnuParqueAbono, Me.mnuTranferencia, Me.mnuCilindrosDuplicados})
         Me.mnuParque.Name = "mnuParque"
         Me.mnuParque.Size = New System.Drawing.Size(288, 22)
         Me.mnuParque.Text = "Parque"
         '
+        'mnuSectoresPuestos
+        '
+        Me.mnuSectoresPuestos.Name = "mnuSectoresPuestos"
+        Me.mnuSectoresPuestos.Size = New System.Drawing.Size(237, 22)
+        Me.mnuSectoresPuestos.Tag = "frmColector"
+        Me.mnuSectoresPuestos.Text = "Sectores y Puestos Abonados..."
+        '
         'mnuParqueAbono
         '
         Me.mnuParqueAbono.Name = "mnuParqueAbono"
-        Me.mnuParqueAbono.Size = New System.Drawing.Size(234, 22)
+        Me.mnuParqueAbono.Size = New System.Drawing.Size(237, 22)
         Me.mnuParqueAbono.Tag = "frmColector"
         Me.mnuParqueAbono.Text = "Parque de clientes abonados..."
         '
         'mnuTranferencia
         '
         Me.mnuTranferencia.Name = "mnuTranferencia"
-        Me.mnuTranferencia.Size = New System.Drawing.Size(234, 22)
+        Me.mnuTranferencia.Size = New System.Drawing.Size(237, 22)
         Me.mnuTranferencia.Tag = "frmTransferencia"
         Me.mnuTranferencia.Text = "Transferencia de parque..."
         '
         'mnuCilindrosDuplicados
         '
         Me.mnuCilindrosDuplicados.Name = "mnuCilindrosDuplicados"
-        Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(234, 22)
+        Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(237, 22)
         Me.mnuCilindrosDuplicados.Text = "Cilindros Duplicados..."
         '
         'mnuRecepcion
@@ -1415,12 +1429,6 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'mnuRelevamientosV2
-        '
-        Me.mnuRelevamientosV2.Name = "mnuRelevamientosV2"
-        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(221, 22)
-        Me.mnuRelevamientosV2.Text = "Relevamientos V2..."
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1626,5 +1634,6 @@ Partial Class frmMain
     Friend WithEvents mnuComisiones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TableroCAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRelevamientosV2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuSectoresPuestos As System.Windows.Forms.ToolStripMenuItem
 
 End Class

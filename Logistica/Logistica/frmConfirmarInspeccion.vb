@@ -9,22 +9,22 @@ Public Class frmConfirmarInspeccion
     Private ControlSigex As New Sigex.Control
     Private ControlAdonix As New Clases.Control(cn)
     Private ControlAdonixAnterior As Clases.Control
-    Private dtInspecciones As DataTable
+    Private Inspecciones As Clases.InspeccionesCollection
 
     Public Sub New(ByVal ControlAdonix As Clases.Control)
         InitializeComponent()
 
         Me.ControlAdonix = ControlAdonix
-        dtInspecciones = ControlAdonix.Inspecciones.dt
+        Inspecciones = ControlAdonix.Inspecciones
 
         'Buscar control anterior
         BuscarControlAnterior()
 
     End Sub
     Private Sub frmConfirmarInspeccion_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Dim dvSectores As New DataView(dtInspecciones)
-        Dim dvExtintores As New DataView(dtInspecciones)
-        Dim dvHidrantes As New DataView(dtInspecciones)
+        Dim dvSectores As New DataView(Inspecciones.dt)
+        Dim dvExtintores As New DataView(Inspecciones.dt)
+        Dim dvHidrantes As New DataView(Inspecciones.dt)
         Dim tb As TablaVaria
         Dim mnu As MenuLocal
 
@@ -58,7 +58,6 @@ Public Class frmConfirmarInspeccion
         col1Despintado.DataPropertyName = "despintado_0"
         col1Despresurizado.DataPropertyName = "despresu_0"
         col1Altura.DataPropertyName = "altura_0"
-        col1Senal.DataPropertyName = "senal_0"
         col1SenalAltura.DataPropertyName = "senalalt_0"
         col1SenalBaliza.DataPropertyName = "senalbali_0"
         col1Tarjeta.DataPropertyName = "tarjeta_0"
@@ -72,6 +71,7 @@ Public Class frmConfirmarInspeccion
         col1Lanza.DataPropertyName = "lanza_0"
         col1Vidrio.DataPropertyName = "vidrio_0"
         col1Llave.DataPropertyName = "llave_0"
+        col1Obs.DataPropertyName = "obs_0"
         dgvSectores.DataSource = dvSectores
         ' -- dgv extintores
         col2Id.DataPropertyName = "id_0"
@@ -104,7 +104,6 @@ Public Class frmConfirmarInspeccion
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2Despintado, "despintado_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2Despresurizado, "despresu_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2Altura, "altura_0")
-        mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2Senal, "senal_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2SenalAltura, "senalalt_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2SenalBaliza, "senalbali_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col2Tarjeta, "tarjeta_0")
@@ -119,6 +118,7 @@ Public Class frmConfirmarInspeccion
         col2Lanza.DataPropertyName = "lanza_0"
         col2Vidrio.DataPropertyName = "vidrio_0"
         col2Llave.DataPropertyName = "llave_0"
+        col2Obs.DataPropertyName = "obs_0"
         dgvExtintores.DataSource = dvExtintores
         ' -- dgv hidrantes
         col3Id.DataPropertyName = "id_0"
@@ -145,7 +145,6 @@ Public Class frmConfirmarInspeccion
         col3Despintado.DataPropertyName = "despintado_0"
         col3Despresurizado.DataPropertyName = "despresu_0"
         col3Altura.DataPropertyName = "altura_0"
-        col3Senal.DataPropertyName = "senal_0"
         col3SenalAltura.DataPropertyName = "senalalt_0"
         col3SenalBaliza.DataPropertyName = "senalbali_0"
         col3Tarjeta.DataPropertyName = "tarjeta_0"
@@ -159,6 +158,7 @@ Public Class frmConfirmarInspeccion
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col3Lanza, "lanza_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col3Vidrio, "vidrio_0")
         mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col3Llave, "llave_0")
+        col3Obs.DataPropertyName = "obs_0"
         dgvHidrantes.DataSource = dvHidrantes
 
         'Comparo con la inspeccion anterior
@@ -167,124 +167,60 @@ Public Class frmConfirmarInspeccion
         End If
 
     End Sub
+    Private Sub ProcesarInspecciones()
+        Dim i As Clases.Inspeccion
 
-    Private Sub ProcesarPuesto(ByVal i As Sigex.Inspeccion)
+        For Each i In Inspecciones
 
-        Select Case i.Puesto.TipoId
-            Case 0 'Sector
+            Select Case i.Tipo
+                Case 0 'Sector
 
+                Case 1 'Extintor
+                    ProcesarPuestoExtintor(i)
 
-            Case 1 'Extintor
-                ProcesarPuestoExtintor(CType(i, InspeccionExtintor))
+                Case 2 'Hidrante
+                    ProcesarPuestoHidrante(i)
 
-            Case 2 'Hidrante
-                ProcesarPuestoHidrante(CType(i, InspeccionHidrante))
+            End Select
 
-        End Select
+        Next
 
     End Sub
-    Private Sub ProcesarPuestoExtintor(ByVal i As Sigex.InspeccionExtintor)
-        Dim ss As Sigex.Sector
-        Dim ps As Sigex.PuestoExtintor
-        Dim sa As Clases.Sector2
-        Dim pa As Clases.Puesto2
-        Dim es As Sigex.Equipo
+    Private Sub ProcesarPuestoExtintor(ByVal i As Clases.Inspeccion)
+        Dim p As Clases.Puesto2
         Dim mac As New Parque(cn)
 
-        ss = New Sigex.Sector
-        sa = New Clases.Sector2(cn)
-
-        'Obtengo el puesto extintor de la inspeccion
-        ps = i.Puesto.PuestoExtintor
-
-        'Obtengo el sector Sigex del puesto
-        ss = ps.Sector
-
-        'Abro el sector en Adonix
-        sa.Abrir(ss.Adonix)
-
-        'Abro el puesto en Adonix
-        pa = sa.Puestos.BuscarPuestoPorId(CInt(ps.Adonix))
-        'El puesto no existe en Adonix, creo uno nuevo
-        If pa Is Nothing Then
-            pa = New Puesto2(cn)
-            pa.Nuevo(sa.Id, ps.NroPuesto, ps.Ubicacion, ps.TipoId)
-            pa.Agente = Agentes.SigexToAdonix(ps.Agente)
-            pa.Capacidad = Capacidades.SigexToAdonix(ps.Capacidad)
-            pa.Grabar()
-
-            ps.Adonix = pa.id.ToString
-            ps.Grabar()
+        'Actualizo el puesto con la información de la inspeccion
+        p = i.Puesto
+        If p Is Nothing Then
+            p = New Puesto2(cn)
+            p.Nuevo(i.Sector, i.Nro, i.Ubicacion, 2)
         End If
 
-        pa.NroPuesto = ps.NroPuesto
-        pa.Ubicacion = ps.Ubicacion
-
-        'Obtengo el equipo de la inspeccion
-        es = i.Equipo
-
-        If es Is Nothing Then
-            pa.EquipoId = " "
-
-        Else
-            If es.CodigoAdonix = "" Then
-                mac.Nuevo(sa.ClienteId, sa.SucursalId)
-                mac.Cilindro = es.Cilindro
-                mac.FabricacionLargo = es.Fabricacion
-                mac.setTipoExtintor(Agentes.SigexToAdonix(es.Agente), Capacidades.SigexToAdonix(es.Capacidad))
-                mac.VtoCarga = es.VencimientoCarga
-                mac.VtoPH = es.VencimientoPH
-                mac.Observaciones = "Creado en Sigex - " & Today.ToString("dd/MM/yy")
-                mac.Grabar()
-
-                es.CodigoAdonix = mac.Serie
-                es.Grabar()
-
-            Else
-                pa.EquipoId = es.CodigoAdonix
-
-            End If
-        End If
-
-        pa.UltimaInspeccion = ControlAdonix.id
-        pa.Grabar()
+        p.EquipoId = i.Equipo
+        p.Agente = i.Agente
+        p.Capacidad = i.Capacidad
+        p.NroPuesto = i.Nro
+        p.Ubicacion = i.Ubicacion
+        p.UltimaInspeccion = ControlAdonix.id
+        p.Grabar()
 
     End Sub
-    Private Sub ProcesarPuestoHidrante(ByVal i As Sigex.InspeccionHidrante)
-        Dim ss As Sigex.Sector
-        Dim ps As Sigex.PuestoHidrante
-        Dim sa As Clases.Sector2
-        Dim pa As Clases.Puesto2
-
-        ss = New Sigex.Sector
-        sa = New Clases.Sector2(cn)
+    Private Sub ProcesarPuestoHidrante(ByVal i As Clases.Inspeccion)
+        Dim p As Clases.Puesto2
 
         'Obtengo el puesto extintor de la inspeccion
-        ps = i.Puesto.PuestoHidrante
-
-        'Obtengo el sector Sigex del puesto
-        ss = ps.Sector
-
-        'Abro el sector en Adonix
-        sa.Abrir(ss.Adonix)
-
-        'Abro el puesto en Adonix
-        pa = sa.Puestos.BuscarPuestoPorId(CInt(ps.Adonix))
-        'El puesto no existe en Adonix, creo uno nuevo
-        If pa Is Nothing Then
-            pa = New Puesto2(cn)
-            pa.Nuevo(sa.Id, ps.NroPuesto, ps.Ubicacion, ps.TipoId)
-            pa.Grabar()
-
-            ps.Adonix = pa.id.ToString
-            ps.Grabar()
+        p = i.Puesto
+        'Creo el puesto si no existe
+        If p Is Nothing Then
+            p = New Puesto2(cn)
+            p.Nuevo(i.Sector, i.Nro, i.Ubicacion, 3)
         End If
 
-        pa.NroPuesto = ps.NroPuesto
-        pa.Ubicacion = ps.Ubicacion
-
-        pa.UltimaInspeccion = ControlAdonix.id
-        pa.Grabar()
+        p.NroPuesto = i.Nro
+        p.Ubicacion = i.Ubicacion
+        p.UltimaInspeccion = ControlAdonix.id
+        p.Grabar()
 
     End Sub
     Private Sub ProcesarEquipo(ByVal i As Sigex.Inspeccion)
@@ -356,14 +292,187 @@ Public Class frmConfirmarInspeccion
 
     End Sub
     Private Sub CompararConAnterior()
+        Dim d As DataGridViewRow
         Dim ii As Clases.InspeccionesCollection
+        Dim i As Clases.Inspeccion
+        Dim Campo As String
 
-        ii = ControlAdonix.Inspecciones
+        Dim tb1 = New TablaVaria(cn, 22, True) 'agentes
+        Dim tb2 = New TablaVaria(cn, 21, True) 'capacidades
 
-        For Each i As Clases.Inspeccion In ii
+        ii = ControlAdonixAnterior.Inspecciones
 
+        'Comparacion de puestos hidrantes
+        For Each d In dgvHidrantes.Rows
+            Dim dr As DataRow
+
+            'Obtengo el dr origen
+            dr = CType(d.DataBoundItem, DataRowView).Row
+            'Busco si existe el relevamiento anterior del puesto
+            i = ii.Buscar(CInt(dr("id_0")))
+
+            If i IsNot Nothing Then
+                Campo = "col1Luz"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Luz Then
+                    d.Cells(Campo).ErrorText = IIf(i.Luz, "Sí", "No").ToString
+                End If
+                Campo = "col1Cartel"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Cartel Then
+                    d.Cells(Campo).ErrorText = IIf(i.Cartel, "Sí", "No").ToString
+                End If
+                Campo = "col1Cinta"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Cinta Then
+                    d.Cells(Campo).ErrorText = IIf(i.Cinta, "Sí", "No").ToString
+                End If
+            End If
         Next
 
+        'Comparacion de puestos extintor
+        For Each d In dgvExtintores.Rows
+            Dim dr As DataRow
+
+            'Obtengo el dr origen
+            dr = CType(d.DataBoundItem, DataRowView).Row
+            'Busco si existe el relevamiento anterior del puesto
+            i = ii.Buscar(CInt(dr("id_0")))
+
+            If i IsNot Nothing Then
+                Campo = "col2Agente"
+                If d.Cells(Campo).Value.ToString <> i.Agente Then
+                    d.Cells(Campo).ErrorText = tb1.Texto(i.Agente)
+                End If
+                Campo = "col2Capacidad"
+                If d.Cells(Campo).Value.ToString <> i.Capacidad Then
+                    d.Cells(Campo).ErrorText = tb2.Texto(i.Capacidad)
+                End If
+                Campo = "col2Cilindro"
+                If d.Cells(Campo).Value.ToString <> i.Cilindro Then
+                    d.Cells(Campo).ErrorText = i.Cilindro
+                End If
+                Campo = "col2Vencido"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Vencido Then
+                    d.Cells(Campo).ErrorText = IIf(i.Vencido, "Sí", "No").ToString
+                End If
+                Campo = "col2Ausente"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Ausente Then
+                    d.Cells(Campo).ErrorText = IIf(i.Ausente, "Sí", "No").ToString
+                End If
+                Campo = "col2Obstruido"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Obstruido Then
+                    d.Cells(Campo).ErrorText = IIf(i.Obstruido, "Sí", "No").ToString
+                End If
+                Campo = "col2Carro"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.CarroDefectuoso Then
+                    d.Cells(Campo).ErrorText = IIf(i.CarroDefectuoso, "Sí", "No").ToString
+                End If
+                Campo = "col2Usado"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.EquipoUsado Then
+                    d.Cells(Campo).ErrorText = IIf(i.EquipoUsado, "Sí", "No").ToString
+                End If
+                Campo = "col2Despintado"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.EquipoDespintado Then
+                    d.Cells(Campo).ErrorText = IIf(i.EquipoDespintado, "Sí", "No").ToString
+                End If
+                Campo = "col2Despresurizado"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.EquipoDespresurizado Then
+                    d.Cells(Campo).ErrorText = IIf(i.EquipoDespresurizado, "Sí", "No").ToString
+                End If
+                Campo = "col2Altura"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.AlturaIncorrecta Then
+                    d.Cells(Campo).ErrorText = IIf(i.AlturaIncorrecta, "Sí", "No").ToString
+                End If
+                Campo = "col2SenalAltura"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.FaltaSenalizacionAltura Then
+                    d.Cells(Campo).ErrorText = IIf(i.FaltaSenalizacionAltura, "Sí", "No").ToString
+                End If
+                Campo = "col2SenalBaliza"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.FaltaSenalizacionBaliza Then
+                    d.Cells(Campo).ErrorText = IIf(i.FaltaSenalizacionBaliza, "Sí", "No").ToString
+                End If
+                Campo = "col2Tarjeta"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Tarjeta Then
+                    d.Cells(Campo).ErrorText = IIf(i.Tarjeta, "Sí", "No").ToString
+                End If
+                Campo = "col2Precinto"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.FaltaPrecinto Then
+                    d.Cells(Campo).ErrorText = IIf(i.FaltaPrecinto, "Sí", "No").ToString
+                End If
+                Campo = "col2Soporte"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.SoporteDefectuoso Then
+                    d.Cells(Campo).ErrorText = IIf(i.SoporteDefectuoso, "Sí", "No").ToString
+                End If
+                Campo = "col2Ruptura"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.MedioRuptura Then
+                    d.Cells(Campo).ErrorText = IIf(i.MedioRuptura, "Sí", "No").ToString
+                End If
+                Campo = "col2Manguera"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.MangueraRota Then
+                    d.Cells(Campo).ErrorText = IIf(i.MangueraRota, "Sí", "No").ToString
+                End If
+                Campo = "col2Otro"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Otro Then
+                    d.Cells(Campo).ErrorText = IIf(i.Otro, "Sí", "No").ToString
+                End If
+
+            End If
+        Next
+
+        'Comparacion de puestos hidrantes
+        For Each d In dgvHidrantes.Rows
+            Dim dr As DataRow
+
+            'Obtengo el dr origen
+            dr = CType(d.DataBoundItem, DataRowView).Row
+            'Busco si existe el relevamiento anterior del puesto
+            i = ii.Buscar(CInt(dr("id_0")))
+
+            If i IsNot Nothing Then
+                Campo = "col3Valvula"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Valvula Then
+                    d.Cells(Campo).ErrorText = IIf(i.Valvula, "Sí", "No").ToString
+                End If
+                Campo = "col3Pico"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Pico Then
+                    d.Cells(Campo).ErrorText = IIf(i.Pico, "Sí", "No").ToString
+                End If
+                Campo = "col3Lanza"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Lanza Then
+                    d.Cells(Campo).ErrorText = IIf(i.Lanza, "Sí", "No").ToString
+                End If
+                Campo = "col3Vidrio"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Vidrio Then
+                    d.Cells(Campo).ErrorText = IIf(i.Vidrio, "Sí", "No").ToString
+                End If
+                Campo = "col3Llave"
+                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Llave Then
+                    d.Cells(Campo).ErrorText = IIf(i.Llave, "Sí", "No").ToString
+                End If
+
+            End If
+        Next
+
+    End Sub
+    Private Sub Registrar()
+        Inspecciones.Grabar()
+    End Sub
+    Private Sub btnRegistrar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRegistrar.Click
+        Registrar()
+    End Sub
+    Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
+        If MessageBox.Show("¿Confirma la inspección?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+            Registrar()
+
+            ControlAdonix.Estado = 2
+            ControlAdonix.Grabar()
+
+            Me.DialogResult = Windows.Forms.DialogResult.OK
+            Me.Close()
+        End If
+
+    End Sub
+    Private Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
+        Me.DialogResult = Windows.Forms.DialogResult.Cancel
+        Me.Close()
     End Sub
 
 End Class

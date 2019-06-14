@@ -8,6 +8,8 @@ Public Class frmInspecciones
     Private ControlAdonix As New Clases.Control(cn)
     Private InspeccionesSigex As New Sigex.InspeccionesCollection
     Private InspeccionesAdonix As Clases.InspeccionesCollection
+    Private Agentes As New Sigex.Agentes
+    Private Capacidades As New Sigex.Capacidades
 
     Structure Estados
         Private _id As Integer
@@ -34,6 +36,7 @@ Public Class frmInspecciones
     End Sub
     Private Sub btnRefrescar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefrescar.Click
         CargarControlesPendientes()
+        CargarControlesParaConfirmar()
     End Sub
     Private Sub btnTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferir.Click
         If dgvSigex.SelectedRows.Count = 0 Then
@@ -98,12 +101,16 @@ Public Class frmInspecciones
         Next
 
         CargarControlesPendientes()
+        CargarControlesParaConfirmar()
+
         btnTransferir.Enabled = True
 
     End Sub
-    Public Sub ProcesarInspeccion(ByVal i As Sigex.Inspeccion)
+    Private Sub ProcesarInspeccion(ByVal i As Sigex.Inspeccion)
         Dim ia As Clases.Inspeccion
         Dim pa As Puesto2 = Nothing
+        Dim es As Sigex.Equipo
+        Dim mac As Parque
 
         'Busco la inspeccion en adonix
         ia = InspeccionesAdonix.Buscar(i.id)
@@ -120,10 +127,10 @@ Public Class frmInspecciones
         pa.Abrir(CInt(i.Puesto.Adonix))
 
         If i.Puesto.TipoId = 0 Then 'Puesto sector
-            ia.Puesto = i.Puesto.Sector.Adonix
-            ia.Sector = ia.Puesto
+            ia.PuestoId = i.Puesto.Sector.Adonix
+            ia.Sector = ia.PuestoId
         Else 'Puesto extintor o hidrante
-            ia.Puesto = pa.id
+            ia.PuestoId = pa.id
             ia.Sector = pa.SectorId
         End If
 
@@ -169,6 +176,36 @@ Public Class frmInspecciones
             ia.MedioRuptura = ii.MedioRuptura
             ia.MangueraRota = ii.MangueraRota
             ia.Otro = ii.Otro
+
+
+            'Actualizacion de equipos
+            es = ii.Equipo
+
+            If es Is Nothing Then
+                pa.EquipoId = " "
+
+            Else
+                'Si no tiene codigo adonix es porque se creo desde la app
+                If es.CodigoAdonix = "" Then
+                    mac = New Parque(cn)
+                    mac.Nuevo(ControlAdonix.Cliente, ControlAdonix.Sucursal)
+                    mac.Cilindro = es.Cilindro
+                    mac.FabricacionLargo = es.Fabricacion
+                    mac.setTipoExtintor(Agentes.SigexToAdonix(es.Agente), Capacidades.SigexToAdonix(es.Capacidad))
+                    mac.VtoCarga = es.VencimientoCarga
+                    mac.VtoPH = es.VencimientoPH
+                    mac.Observaciones = "Creado en Sigex - " & Today.ToString("dd/MM/yy")
+                    mac.Grabar()
+
+                    es.CodigoAdonix = mac.Serie
+                    es.Grabar()
+
+                Else
+                    pa.EquipoId = es.CodigoAdonix
+
+                End If
+            End If
+
 
         ElseIf TypeOf i Is InspeccionHidrante Then
             Dim ii As InspeccionHidrante
@@ -260,7 +297,7 @@ Public Class frmInspecciones
         End If
 
     End Sub
-    Private Sub mnuComparar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuComparar.Click
+    Private Sub mnuVer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVer.Click
         Dim f As frmConfirmarInspeccion
         Dim dr As DataRow
 
@@ -269,7 +306,13 @@ Public Class frmInspecciones
         dr = CType(dgvAdonix.CurrentRow.DataBoundItem, DataRowView).Row
         ControlAdonix.Abrir(dr("itn_0").ToString)
         f = New frmConfirmarInspeccion(ControlAdonix)
+        f.ShowInTaskbar = False
         f.ShowDialog(Me)
+
+        If f.DialogResult = Windows.Forms.DialogResult.OK Then
+            CargarControlesPendientes()
+            CargarControlesParaConfirmar()
+        End If
 
     End Sub
 
