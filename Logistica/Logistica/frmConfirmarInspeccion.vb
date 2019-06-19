@@ -5,7 +5,6 @@ Imports Sigex
 Public Class frmConfirmarInspeccion
     Private Agentes As New Sigex.Agentes
     Private Capacidades As New Sigex.Capacidades
-
     Private ControlSigex As New Sigex.Control
     Private ControlAdonix As New Clases.Control(cn)
     Private ControlAdonixAnterior As Clases.Control
@@ -41,15 +40,14 @@ Public Class frmConfirmarInspeccion
         col1Nro.DataPropertyName = "nro_0"
         col1Ubicacion.DataPropertyName = "ubicacion_0"
         col1Nombre.DataPropertyName = "nombre_0"
-        col1Luz.DataPropertyName = "luz_0"
-        col1Cartel.DataPropertyName = "cartel_0"
-        col1Cinta.DataPropertyName = "cinta_0"
+        mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col1Luz, "luz_0")
+        mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col1Cartel, "cartel_0")
+        mnu = New MenuLocal(cn, 1, False) : mnu.Enlazar(col1Cinta, "cinta_0")
         col1Equipo.DataPropertyName = "equipo_0"
         col1Agente.DataPropertyName = "agente_0"
         col1Capacidad.DataPropertyName = "capacidad_0"
         col1Cilindro.DataPropertyName = "cilindro_0"
         col1Vto.DataPropertyName = "vto_0"
-
         col1Vencido.DataPropertyName = "vencido_0"
         col1Ausente.DataPropertyName = "ausente_0"
         col1Obstruido.DataPropertyName = "obstruido_0"
@@ -454,6 +452,23 @@ Public Class frmConfirmarInspeccion
     End Sub
     Private Sub Registrar()
         Inspecciones.Grabar()
+        ActualizarPuestos()
+    End Sub
+    Private Sub ActualizarPuestos()
+        For Each i As Clases.Inspeccion In Inspecciones
+            Select Case i.Tipo
+                Case 2 'Extintor
+                    Dim p As Clases.Puesto2
+
+                    p = i.Puesto
+
+                    p.EquipoId = i.Equipo
+                    p.Agente = i.Agente
+                    p.Capacidad = i.Capacidad
+                    p.Grabar()
+
+            End Select
+        Next
     End Sub
     Private Sub btnRegistrar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRegistrar.Click
         Registrar()

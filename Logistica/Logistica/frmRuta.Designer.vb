@@ -115,7 +115,6 @@ Partial Class frmRuta
         Me.chkMicrocentro = New System.Windows.Forms.CheckBox
         Me.btnEnviar = New System.Windows.Forms.Button
         Me.cboCelulares = New System.Windows.Forms.ComboBox
-        Me.Button1 = New System.Windows.Forms.Button
         Label2 = New System.Windows.Forms.Label
         Label1 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -918,21 +917,11 @@ Partial Class frmRuta
         Me.cboCelulares.Size = New System.Drawing.Size(177, 21)
         Me.cboCelulares.TabIndex = 41
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(448, 467)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(33, 23)
-        Me.Button1.TabIndex = 43
-        Me.Button1.Text = "Enviar"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'frmRuta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1016, 547)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.cboCelulares)
         Me.Controls.Add(Label6)
         Me.Controls.Add(Me.chkMicrocentro)
@@ -1055,5 +1044,4 @@ Partial Class frmRuta
     Friend WithEvents chkMicrocentro As System.Windows.Forms.CheckBox
     Friend WithEvents btnEnviar As System.Windows.Forms.Button
     Friend WithEvents cboCelulares As System.Windows.Forms.ComboBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class

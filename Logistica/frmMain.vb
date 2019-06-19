@@ -1146,14 +1146,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-
-    Private Sub mnuRecepcion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRecepcion.Click
-        With frmRecepcion
-            .MdiParent = Me
-            .Show()
-        End With
-    End Sub
-
     Private Sub mnuRegistroManguera_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRegistroManguera.Click
         Dim f As New frmIramMangueras
         f.MdiParent = Me

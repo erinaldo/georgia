@@ -1863,13 +1863,12 @@ Class frmRuta
 
     End Sub
 
-    '----------------------
     Private Sub btnEnviar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnviar.Click
         Dim itn As New Intervencion(cn)
         Dim fecha As Date
         Dim ControlSigex As New Sigex.Control
         Dim ControlesSigex As New Sigex.ControlesCollection
-        Dim SectoresSigex As New Sigex.Sectores2Collection
+        Dim SectoresSigex As New Sigex.SectoresCollection
         Dim ClientesSigex As New Sigex.ClientesCollection
         Dim ClienteSigex As Sigex.Cliente
         Dim SucursalSigex As Sigex.Sucursal
@@ -2001,7 +2000,7 @@ Class frmRuta
                 Dim PuestoSectorSigex As New Sigex.PuestoSector
                 PuestoSectorSigex = PuestosSigex.BuscarPuestoSector(SectorAdonix.Id)
 
-                If SectorAdonix.Cliente.Familia2 = "10" Then
+                If SectorAdonix.Cliente.Familia2 = "11" Then
                     If PuestoSectorSigex Is Nothing Then
                         PuestoSectorSigex = New Sigex.PuestoSector
                         PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
@@ -2123,6 +2122,5 @@ Class frmRuta
         End Try
 
     End Sub
-    '----------------------
 
 End Class
