@@ -42,12 +42,6 @@ Partial Class FrmTableroCA
         Label5 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
-        'Calendar
-        '
-        Me.Calendar.Location = New System.Drawing.Point(9, 18)
-        Me.Calendar.Name = "Calendar"
-        Me.Calendar.TabIndex = 0
-        '
         'Label1
         '
         Label1.AutoSize = True
@@ -56,6 +50,49 @@ Partial Class FrmTableroCA
         Label1.Size = New System.Drawing.Size(127, 13)
         Label1.TabIndex = 1
         Label1.Text = "Cantidad de Operaciones"
+        '
+        'Label2
+        '
+        Label2.AutoSize = True
+        Label2.Location = New System.Drawing.Point(248, 74)
+        Label2.Name = "Label2"
+        Label2.Size = New System.Drawing.Size(169, 13)
+        Label2.TabIndex = 3
+        Label2.Text = "Cantidad de Recargas Facturadas"
+        '
+        'Label3
+        '
+        Label3.AutoSize = True
+        Label3.Location = New System.Drawing.Point(248, 100)
+        Label3.Name = "Label3"
+        Label3.Size = New System.Drawing.Size(124, 13)
+        Label3.TabIndex = 5
+        Label3.Text = "Cantidad 639 Aprobadas"
+        '
+        'Label4
+        '
+        Label4.AutoSize = True
+        Label4.Location = New System.Drawing.Point(248, 126)
+        Label4.Name = "Label4"
+        Label4.Size = New System.Drawing.Size(63, 13)
+        Label4.TabIndex = 7
+        Label4.Text = "Facturacion"
+        '
+        'Label5
+        '
+        Label5.AutoSize = True
+        Label5.Location = New System.Drawing.Point(248, 152)
+        Label5.Name = "Label5"
+        Label5.Size = New System.Drawing.Size(153, 13)
+        Label5.TabIndex = 9
+        Label5.Text = "Clientes nuevos o recuperados"
+        '
+        'Calendar
+        '
+        Me.Calendar.Location = New System.Drawing.Point(9, 18)
+        Me.Calendar.MaxSelectionCount = 1
+        Me.Calendar.Name = "Calendar"
+        Me.Calendar.TabIndex = 0
         '
         'TxtBoxCantidadOperaciones
         '
@@ -73,15 +110,6 @@ Partial Class FrmTableroCA
         Me.TxtBoxCantRecargasFacturadas.TabIndex = 4
         Me.TxtBoxCantRecargasFacturadas.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label2
-        '
-        Label2.AutoSize = True
-        Label2.Location = New System.Drawing.Point(248, 74)
-        Label2.Name = "Label2"
-        Label2.Size = New System.Drawing.Size(169, 13)
-        Label2.TabIndex = 3
-        Label2.Text = "Cantidad de Recargas Facturadas"
-        '
         'TxtBoxCant639
         '
         Me.TxtBoxCant639.Location = New System.Drawing.Point(423, 100)
@@ -89,15 +117,6 @@ Partial Class FrmTableroCA
         Me.TxtBoxCant639.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxCant639.TabIndex = 6
         Me.TxtBoxCant639.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label3
-        '
-        Label3.AutoSize = True
-        Label3.Location = New System.Drawing.Point(248, 100)
-        Label3.Name = "Label3"
-        Label3.Size = New System.Drawing.Size(124, 13)
-        Label3.TabIndex = 5
-        Label3.Text = "Cantidad 639 Aprobadas"
         '
         'TxtBoxFacturacion
         '
@@ -107,15 +126,6 @@ Partial Class FrmTableroCA
         Me.TxtBoxFacturacion.TabIndex = 8
         Me.TxtBoxFacturacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'Label4
-        '
-        Label4.AutoSize = True
-        Label4.Location = New System.Drawing.Point(248, 126)
-        Label4.Name = "Label4"
-        Label4.Size = New System.Drawing.Size(63, 13)
-        Label4.TabIndex = 7
-        Label4.Text = "Facturacion"
-        '
         'TxtBoxClientes
         '
         Me.TxtBoxClientes.Location = New System.Drawing.Point(423, 152)
@@ -123,15 +133,6 @@ Partial Class FrmTableroCA
         Me.TxtBoxClientes.Size = New System.Drawing.Size(78, 20)
         Me.TxtBoxClientes.TabIndex = 10
         Me.TxtBoxClientes.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'Label5
-        '
-        Label5.AutoSize = True
-        Label5.Location = New System.Drawing.Point(248, 152)
-        Label5.Name = "Label5"
-        Label5.Size = New System.Drawing.Size(153, 13)
-        Label5.TabIndex = 9
-        Label5.Text = "Clientes nuevos o recuperados"
         '
         'btnCalcular
         '
