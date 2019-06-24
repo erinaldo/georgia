@@ -453,7 +453,7 @@ Partial Class frmRuta
         '
         'Tool
         '
-        Me.Tool.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolNuevo, Me.toolAbrir, Me.toolGrabar, Me.toolDeshacer, Me.tooBorrar, Me.toolImprimir, Me.toolPreparacion, Me.ToolGenEtiqu, Me.toolPreparacion2, Me.ToolStripSeparator1, Me.tooTarea})
+        Me.Tool.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toolNuevo, Me.toolAbrir, Me.toolGrabar, Me.toolDeshacer, Me.tooBorrar, Me.toolImprimir, Me.toolPreparacion2, Me.toolPreparacion, Me.ToolGenEtiqu, Me.ToolStripSeparator1, Me.tooTarea})
         Me.Tool.Location = New System.Drawing.Point(0, 0)
         Me.Tool.Name = "Tool"
         Me.Tool.Size = New System.Drawing.Size(1016, 25)
@@ -526,8 +526,8 @@ Partial Class frmRuta
         Me.ToolGenEtiqu.Image = CType(resources.GetObject("ToolGenEtiqu.Image"), System.Drawing.Image)
         Me.ToolGenEtiqu.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolGenEtiqu.Name = "ToolGenEtiqu"
-        Me.ToolGenEtiqu.Size = New System.Drawing.Size(78, 22)
-        Me.ToolGenEtiqu.Text = "Gen Etiqu"
+        Me.ToolGenEtiqu.Size = New System.Drawing.Size(75, 22)
+        Me.ToolGenEtiqu.Text = "Etiquetas"
         '
         'toolPreparacion2
         '
@@ -549,7 +549,7 @@ Partial Class frmRuta
         Me.tooTarea.Image = CType(resources.GetObject("tooTarea.Image"), System.Drawing.Image)
         Me.tooTarea.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tooTarea.Name = "tooTarea"
-        Me.tooTarea.Size = New System.Drawing.Size(101, 22)
+        Me.tooTarea.Size = New System.Drawing.Size(101, 20)
         Me.tooTarea.Text = "Agregar Tarea"
         '
         'Grilla

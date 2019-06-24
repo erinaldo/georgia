@@ -1151,4 +1151,12 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
+    Private Sub mnuRelevamientos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRelevamientos.Click
+        Dim f As New frmRelevamientos
+
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
 End Class

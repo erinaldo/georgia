@@ -2,14 +2,14 @@
 
 Public Class frmCrystal
 
-    Public Sub New(ByRef rpt As ReportDocument, Optional ByVal X3DOS As Boolean = True)
+    Public Sub New(ByRef rpt As ReportDocument, Optional ByVal HasX3 As Boolean = True)
 
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
 
         ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        If X3DOS Then
+        If HasX3 Then
             rpt.SetParameterValue("X3DOS", X3DOS)
         End If
 

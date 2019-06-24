@@ -1811,30 +1811,20 @@ Class frmRuta
         Next
     End Sub
     Private Sub ToolGenEtiqu_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ToolGenEtiqu.Click
-        If Grilla.Rows.Count > 0 Then
-            Dim colum As Integer = 0
-            If MessageBox.Show("¿Confirma la impresión de las etiquetas?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
-                Exit Sub
-            End If
-            If MessageBox.Show("La etiqueta es de una (1) columna?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                colum = 1
-            Else
-                colum = 2
-            End If
-            Dim itn As New Intervencion(cn)
-
-            For Each c As DataGridViewRow In Grilla.Rows
-                Dim tipo As String = c.Cells(8).Value.ToString
-                If tipo <> "RET" Then Continue For
-                Dim int As String = c.Cells(9).Value.ToString
-                If itn.Abrir(int) Then
-                    itn.EtiquetasEntrega("artin.txt", colum)
-                End If
-            Next
-
-        Else
-            MessageBox.Show("No hay filas seleccionadas", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If MessageBox.Show("¿Confirma la impresión de las etiquetas?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) <> Windows.Forms.DialogResult.Yes Then
+            Exit Sub
         End If
+
+        Dim etiq As New EtiquetaService(cn)
+
+        For Each c As DataGridViewRow In Grilla.Rows
+
+            If c.Cells(8).Value.ToString <> "RET" Then Continue For
+
+            etiq.Abrir(c.Cells(9).Value.ToString)
+            etiq.Imprimir()
+        Next
+
     End Sub
     Private Sub chkMicrocentro_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkMicrocentro.CheckedChanged
         If dtRutac.Rows.Count = 0 Or BloqueoModificacion Then Exit Sub
