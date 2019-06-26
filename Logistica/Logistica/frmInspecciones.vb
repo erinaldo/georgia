@@ -110,7 +110,7 @@ Public Class frmInspecciones
             Else
                 s2.Abrir(s.Adonix)
             End If
-            s2.Nombre = s.Sector
+            s2.Nombre = s.Nombre
             s2.Numero = s.Numero
             s2.Grabar()
             If s.Adonix = 0 Then
@@ -125,7 +125,7 @@ Public Class frmInspecciones
             For Each p As Sigex.Puesto In p1
                 'El sector no figura en Adonix porque es nuevo
                 If p.Adonix = "" Then
-                    p2.Nuevo(s2.Id, p.NroPuesto, p.Ubicacion, p.TipoId)
+                    p2.Nuevo(s2.Id, p.Nro, p.Ubicacion, p.TipoId)
                 Else
                     p2.Abrir(CInt(p.Adonix))
                 End If
@@ -145,7 +145,7 @@ Public Class frmInspecciones
 
                 End If
 
-                p2.NroPuesto = p.NroPuesto
+                p2.NroPuesto = p.Nro
                 p2.Ubicacion = p.Ubicacion
                 p2.Grabar()
 
@@ -230,9 +230,10 @@ Public Class frmInspecciones
 
         End If
 
-        ia.Nro = i.Puesto.NroPuesto
+        ia.Nro = i.Puesto.Nro
         ia.Ubicacion = i.Puesto.Ubicacion
-        ia.Nombre = i.Puesto.Sector.Sector
+        ia.Nombre = i.Puesto.Sector.Nombre
+        ia.Observaciones = i.Observaciones
 
         If TypeOf i Is InspeccionSector Then
             Dim ii As InspeccionSector
@@ -273,7 +274,6 @@ Public Class frmInspecciones
             ia.MangueraRota = ii.MangueraRota
             ia.Otro = ii.Otro
 
-
             'Actualizacion de equipos
             es = ii.Equipo
 
@@ -304,7 +304,6 @@ Public Class frmInspecciones
 
             pa.Grabar()
 
-
         ElseIf TypeOf i Is InspeccionHidrante Then
             Dim ii As InspeccionHidrante
             ii = CType(i, InspeccionHidrante)
@@ -317,7 +316,6 @@ Public Class frmInspecciones
             ia.Vidrio = ii.Vidrio
             ia.Llave = ii.Llave
             ia.Tarjeta = ii.Tarjeta
-
         End If
 
         ia.Grabar()

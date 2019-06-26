@@ -1852,7 +1852,6 @@ Class frmRuta
         End With
 
     End Sub
-
     Private Sub btnEnviar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEnviar.Click
         Dim itn As New Intervencion(cn)
         Dim fecha As Date

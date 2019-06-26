@@ -260,7 +260,7 @@ Public Class frmConfirmarInspeccion
         End If
 
         sa.Numero = ss.Numero
-        sa.Nombre = ss.Sector
+        sa.Nombre = ss.Nombre
         sa.Grabar()
     End Sub
     Private Sub BuscarControlAnterior()

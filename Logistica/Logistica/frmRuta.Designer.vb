@@ -67,9 +67,9 @@ Partial Class frmRuta
         Me.toolDeshacer = New System.Windows.Forms.ToolStripButton
         Me.tooBorrar = New System.Windows.Forms.ToolStripButton
         Me.toolImprimir = New System.Windows.Forms.ToolStripButton
+        Me.toolPreparacion2 = New System.Windows.Forms.ToolStripButton
         Me.toolPreparacion = New System.Windows.Forms.ToolStripButton
         Me.ToolGenEtiqu = New System.Windows.Forms.ToolStripButton
-        Me.toolPreparacion2 = New System.Windows.Forms.ToolStripButton
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.tooTarea = New System.Windows.Forms.ToolStripButton
         Me.Grilla = New System.Windows.Forms.DataGridView
@@ -511,6 +511,15 @@ Partial Class frmRuta
         Me.toolImprimir.Size = New System.Drawing.Size(100, 22)
         Me.toolImprimir.Text = "Imprimir Ruta"
         '
+        'toolPreparacion2
+        '
+        Me.toolPreparacion2.Enabled = False
+        Me.toolPreparacion2.Image = CType(resources.GetObject("toolPreparacion2.Image"), System.Drawing.Image)
+        Me.toolPreparacion2.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.toolPreparacion2.Name = "toolPreparacion2"
+        Me.toolPreparacion2.Size = New System.Drawing.Size(187, 22)
+        Me.toolPreparacion2.Text = "Imprimir Preparación (Service)"
+        '
         'toolPreparacion
         '
         Me.toolPreparacion.Enabled = False
@@ -529,15 +538,6 @@ Partial Class frmRuta
         Me.ToolGenEtiqu.Size = New System.Drawing.Size(75, 22)
         Me.ToolGenEtiqu.Text = "Etiquetas"
         '
-        'toolPreparacion2
-        '
-        Me.toolPreparacion2.Enabled = False
-        Me.toolPreparacion2.Image = CType(resources.GetObject("toolPreparacion2.Image"), System.Drawing.Image)
-        Me.toolPreparacion2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.toolPreparacion2.Name = "toolPreparacion2"
-        Me.toolPreparacion2.Size = New System.Drawing.Size(187, 22)
-        Me.toolPreparacion2.Text = "Imprimir Preparación (Service)"
-        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
@@ -549,7 +549,7 @@ Partial Class frmRuta
         Me.tooTarea.Image = CType(resources.GetObject("tooTarea.Image"), System.Drawing.Image)
         Me.tooTarea.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tooTarea.Name = "tooTarea"
-        Me.tooTarea.Size = New System.Drawing.Size(101, 20)
+        Me.tooTarea.Size = New System.Drawing.Size(101, 22)
         Me.tooTarea.Text = "Agregar Tarea"
         '
         'Grilla
