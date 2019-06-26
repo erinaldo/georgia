@@ -348,6 +348,12 @@
     <Compile Include="Logistica\frmInspecciones.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmRelevadores.Designer.vb">
+      <DependentUpon>frmRelevadores.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmRelevadores.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logistica\frmRelevamientos.Designer.vb">
       <DependentUpon>frmRelevamientos.vb</DependentUpon>
     </Compile>
@@ -1222,6 +1228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmInspecciones.resx">
       <DependentUpon>frmInspecciones.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmRelevadores.resx">
+      <DependentUpon>frmRelevadores.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmRelevamientos.resx">
       <DependentUpon>frmRelevamientos.vb</DependentUpon>

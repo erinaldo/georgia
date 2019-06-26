@@ -37,8 +37,11 @@ Partial Class frmMain
         Me.mnuLogistica = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuNuevaHojaRuta = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuValidarRuta = New System.Windows.Forms.ToolStripMenuItem
+        Me.RelevamientosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRelevamientos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRelevamientosV2 = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem25 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuRelevadores = New System.Windows.Forms.ToolStripMenuItem
         Me.CantidadExtiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIntervencionesPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem8 = New System.Windows.Forms.ToolStripSeparator
@@ -293,7 +296,7 @@ Partial Class frmMain
         '
         'mnuLogistica
         '
-        Me.mnuLogistica.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaHojaRuta, Me.mnuValidarRuta, Me.mnuRelevamientos, Me.mnuRelevamientosV2, Me.CantidadExtiToolStripMenuItem, Me.mnuIntervencionesPendientes, Me.ToolStripMenuItem8, Me.mnuResolver, Me.mnuPrestamos, Me.ToolStripMenuItem20, Me.UnigisToolStripMenuItem})
+        Me.mnuLogistica.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaHojaRuta, Me.mnuValidarRuta, Me.RelevamientosToolStripMenuItem, Me.CantidadExtiToolStripMenuItem, Me.mnuIntervencionesPendientes, Me.ToolStripMenuItem8, Me.mnuResolver, Me.mnuPrestamos, Me.ToolStripMenuItem20, Me.UnigisToolStripMenuItem})
         Me.mnuLogistica.Name = "mnuLogistica"
         Me.mnuLogistica.Size = New System.Drawing.Size(66, 20)
         Me.mnuLogistica.Text = "Logística"
@@ -312,18 +315,35 @@ Partial Class frmMain
         Me.mnuValidarRuta.Tag = "frmValidar"
         Me.mnuValidarRuta.Text = "Validar Ruta..."
         '
+        'RelevamientosToolStripMenuItem
+        '
+        Me.RelevamientosToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRelevamientos, Me.mnuRelevamientosV2, Me.ToolStripMenuItem25, Me.mnuRelevadores})
+        Me.RelevamientosToolStripMenuItem.Name = "RelevamientosToolStripMenuItem"
+        Me.RelevamientosToolStripMenuItem.Size = New System.Drawing.Size(221, 22)
+        Me.RelevamientosToolStripMenuItem.Text = "Relevamientos"
+        '
         'mnuRelevamientos
         '
         Me.mnuRelevamientos.Name = "mnuRelevamientos"
-        Me.mnuRelevamientos.Size = New System.Drawing.Size(221, 22)
-        Me.mnuRelevamientos.Tag = "frmColector"
+        Me.mnuRelevamientos.Size = New System.Drawing.Size(176, 22)
         Me.mnuRelevamientos.Text = "Relevamientos..."
         '
         'mnuRelevamientosV2
         '
         Me.mnuRelevamientosV2.Name = "mnuRelevamientosV2"
-        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(221, 22)
+        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(176, 22)
         Me.mnuRelevamientosV2.Text = "Relevamientos V2..."
+        '
+        'ToolStripMenuItem25
+        '
+        Me.ToolStripMenuItem25.Name = "ToolStripMenuItem25"
+        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(173, 6)
+        '
+        'mnuRelevadores
+        '
+        Me.mnuRelevadores.Name = "mnuRelevadores"
+        Me.mnuRelevadores.Size = New System.Drawing.Size(176, 22)
+        Me.mnuRelevadores.Text = "ABM Relevadores..."
         '
         'CantidadExtiToolStripMenuItem
         '
@@ -1514,7 +1534,6 @@ Partial Class frmMain
     Friend WithEvents mnuCfgVencimientos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuCfgIram As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuFactElec As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuRelevamientos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents InformesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRptVtas As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem5 As System.Windows.Forms.ToolStripSeparator
@@ -1668,8 +1687,12 @@ Partial Class frmMain
     Friend WithEvents mnuRecepcion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRegistroManguera As System.Windows.Forms.ToolStripMenuItem
 
-    Friend WithEvents mnuRelevamientosV2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuSectoresPuestos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RelevamientosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuRelevamientos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuRelevamientosV2 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem25 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuRelevadores As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

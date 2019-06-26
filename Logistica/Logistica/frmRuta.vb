@@ -1976,6 +1976,7 @@ Class frmRuta
                 If SectorSigex Is Nothing Then
                     SectorSigex = New Sigex.Sector
                     SectorSigex.Nuevo(SectorAdonix.Id.ToString, SectorAdonix.Nombre, ClienteSigex.id, SucursalSigex.id)
+                    SectorSigex.Numero = SectorAdonix.Numero
                     SectorSigex.Grabar()
 
                     SectoresSigex.Add(SectorSigex)
@@ -1993,6 +1994,7 @@ Class frmRuta
                     If PuestoSectorSigex Is Nothing Then
                         PuestoSectorSigex = New Sigex.PuestoSector
                         PuestoSectorSigex.Nuevo(SectorAdonix.Numero, SectorAdonix.Nombre, SectorSigex.Id)
+
                         PuestoSectorSigex.Adonix = SectorAdonix.Id.ToString
                         PuestoSectorSigex.FotosRequeridas = False
                         PuestoSectorSigex.Grabar()

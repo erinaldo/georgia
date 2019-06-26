@@ -76,7 +76,7 @@ Partial Class frmABMPuestos
         Label4.Location = New System.Drawing.Point(3, 9)
         Label4.Name = "Label4"
         Label4.Size = New System.Drawing.Size(44, 13)
-        Label4.TabIndex = 6
+        Label4.TabIndex = 0
         Label4.Text = "Agente:"
         '
         'Label5
@@ -85,7 +85,7 @@ Partial Class frmABMPuestos
         Label5.Location = New System.Drawing.Point(178, 9)
         Label5.Name = "Label5"
         Label5.Size = New System.Drawing.Size(61, 13)
-        Label5.TabIndex = 8
+        Label5.TabIndex = 2
         Label5.Text = "Capacidad:"
         '
         'btnAceptar
@@ -95,7 +95,7 @@ Partial Class frmABMPuestos
         Me.btnAceptar.Location = New System.Drawing.Point(358, 79)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(75, 23)
-        Me.btnAceptar.TabIndex = 12
+        Me.btnAceptar.TabIndex = 7
         Me.btnAceptar.Text = "Aceptar"
         Me.btnAceptar.UseVisualStyleBackColor = True
         '
@@ -106,7 +106,7 @@ Partial Class frmABMPuestos
         Me.btnCancelar.Location = New System.Drawing.Point(358, 108)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancelar.TabIndex = 13
+        Me.btnCancelar.TabIndex = 8
         Me.btnCancelar.Text = "Cancelar"
         Me.btnCancelar.UseVisualStyleBackColor = True
         '
@@ -133,19 +133,21 @@ Partial Class frmABMPuestos
         '
         'cboAgente
         '
+        Me.cboAgente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboAgente.FormattingEnabled = True
         Me.cboAgente.Location = New System.Drawing.Point(3, 25)
         Me.cboAgente.Name = "cboAgente"
         Me.cboAgente.Size = New System.Drawing.Size(172, 21)
-        Me.cboAgente.TabIndex = 7
+        Me.cboAgente.TabIndex = 1
         '
         'cboCapacidad
         '
+        Me.cboCapacidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCapacidad.FormattingEnabled = True
         Me.cboCapacidad.Location = New System.Drawing.Point(181, 25)
         Me.cboCapacidad.Name = "cboCapacidad"
         Me.cboCapacidad.Size = New System.Drawing.Size(121, 21)
-        Me.cboCapacidad.TabIndex = 9
+        Me.cboCapacidad.TabIndex = 3
         '
         'panEquipo
         '
@@ -156,7 +158,7 @@ Partial Class frmABMPuestos
         Me.panEquipo.Location = New System.Drawing.Point(15, 51)
         Me.panEquipo.Name = "panEquipo"
         Me.panEquipo.Size = New System.Drawing.Size(337, 66)
-        Me.panEquipo.TabIndex = 14
+        Me.panEquipo.TabIndex = 6
         '
         'frmABMPuestos
         '

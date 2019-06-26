@@ -25,13 +25,13 @@ Partial Class frmSelectorExpreso
         Dim GroupBox2 As System.Windows.Forms.GroupBox
         Dim GroupBox1 As System.Windows.Forms.GroupBox
         Me.dgv = New System.Windows.Forms.DataGridView
+        Me.txtBuscar = New System.Windows.Forms.TextBox
+        Me.btnSeleccionar = New System.Windows.Forms.Button
+        Me.btnCerrar = New System.Windows.Forms.Button
         Me.colCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colNombre = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colDomicilio = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colLocalidad = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.txtBuscar = New System.Windows.Forms.TextBox
-        Me.btnSeleccionar = New System.Windows.Forms.Button
-        Me.btnCerrar = New System.Windows.Forms.Button
         GroupBox2 = New System.Windows.Forms.GroupBox
         GroupBox1 = New System.Windows.Forms.GroupBox
         GroupBox2.SuspendLayout()
@@ -62,37 +62,6 @@ Partial Class frmSelectorExpreso
         Me.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv.Size = New System.Drawing.Size(668, 279)
         Me.dgv.TabIndex = 0
-        '
-        'colCodigo
-        '
-        Me.colCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colCodigo.HeaderText = "Codigo"
-        Me.colCodigo.Name = "colCodigo"
-        Me.colCodigo.ReadOnly = True
-        Me.colCodigo.Width = 65
-        '
-        'colNombre
-        '
-        Me.colNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colNombre.HeaderText = "Nombre"
-        Me.colNombre.Name = "colNombre"
-        Me.colNombre.ReadOnly = True
-        '
-        'colDomicilio
-        '
-        Me.colDomicilio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDomicilio.HeaderText = "Domicilio"
-        Me.colDomicilio.Name = "colDomicilio"
-        Me.colDomicilio.ReadOnly = True
-        Me.colDomicilio.Width = 74
-        '
-        'colLocalidad
-        '
-        Me.colLocalidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colLocalidad.HeaderText = "Localidad"
-        Me.colLocalidad.Name = "colLocalidad"
-        Me.colLocalidad.ReadOnly = True
-        Me.colLocalidad.Width = 78
         '
         'GroupBox1
         '
@@ -130,6 +99,38 @@ Partial Class frmSelectorExpreso
         Me.btnCerrar.TabStop = False
         Me.btnCerrar.Text = "Cerrar"
         Me.btnCerrar.UseVisualStyleBackColor = True
+        '
+        'colCodigo
+        '
+        Me.colCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colCodigo.HeaderText = "Codigo"
+        Me.colCodigo.Name = "colCodigo"
+        Me.colCodigo.ReadOnly = True
+        Me.colCodigo.Width = 65
+        '
+        'colNombre
+        '
+        Me.colNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colNombre.HeaderText = "Nombre"
+        Me.colNombre.Name = "colNombre"
+        Me.colNombre.ReadOnly = True
+        Me.colNombre.Width = 69
+        '
+        'colDomicilio
+        '
+        Me.colDomicilio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDomicilio.HeaderText = "Domicilio"
+        Me.colDomicilio.Name = "colDomicilio"
+        Me.colDomicilio.ReadOnly = True
+        Me.colDomicilio.Width = 74
+        '
+        'colLocalidad
+        '
+        Me.colLocalidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colLocalidad.HeaderText = "Localidad"
+        Me.colLocalidad.Name = "colLocalidad"
+        Me.colLocalidad.ReadOnly = True
+        Me.colLocalidad.Width = 78
         '
         'frmSelectorExpreso
         '

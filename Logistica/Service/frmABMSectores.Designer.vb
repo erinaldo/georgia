@@ -38,7 +38,7 @@ Partial Class frmABMSectores
         Label1.Location = New System.Drawing.Point(12, 22)
         Label1.Name = "Label1"
         Label1.Size = New System.Drawing.Size(27, 13)
-        Label1.TabIndex = 2
+        Label1.TabIndex = 0
         Label1.Text = "Nro:"
         '
         'Label2
@@ -47,7 +47,7 @@ Partial Class frmABMSectores
         Label2.Location = New System.Drawing.Point(12, 50)
         Label2.Name = "Label2"
         Label2.Size = New System.Drawing.Size(47, 13)
-        Label2.TabIndex = 3
+        Label2.TabIndex = 2
         Label2.Text = "Nombre:"
         '
         'btnAceptar
@@ -57,7 +57,7 @@ Partial Class frmABMSectores
         Me.btnAceptar.Location = New System.Drawing.Point(139, 77)
         Me.btnAceptar.Name = "btnAceptar"
         Me.btnAceptar.Size = New System.Drawing.Size(75, 23)
-        Me.btnAceptar.TabIndex = 0
+        Me.btnAceptar.TabIndex = 4
         Me.btnAceptar.Text = "Aceptar"
         Me.btnAceptar.UseVisualStyleBackColor = True
         '
@@ -68,7 +68,7 @@ Partial Class frmABMSectores
         Me.btnCancelar.Location = New System.Drawing.Point(220, 77)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancelar.TabIndex = 1
+        Me.btnCancelar.TabIndex = 5
         Me.btnCancelar.Text = "Cancelar"
         Me.btnCancelar.UseVisualStyleBackColor = True
         '
@@ -77,14 +77,14 @@ Partial Class frmABMSectores
         Me.txtNro.Location = New System.Drawing.Point(61, 19)
         Me.txtNro.Name = "txtNro"
         Me.txtNro.Size = New System.Drawing.Size(52, 20)
-        Me.txtNro.TabIndex = 4
+        Me.txtNro.TabIndex = 1
         '
         'txtNombre
         '
         Me.txtNombre.Location = New System.Drawing.Point(61, 47)
         Me.txtNombre.Name = "txtNombre"
         Me.txtNombre.Size = New System.Drawing.Size(237, 20)
-        Me.txtNombre.TabIndex = 5
+        Me.txtNombre.TabIndex = 3
         '
         'frmABMSectores
         '
