@@ -26,21 +26,20 @@ Partial Class frmRptVtasA
         Dim Label2 As System.Windows.Forms.Label
         Dim Label3 As System.Windows.Forms.Label
         Me.btnGenerar = New System.Windows.Forms.Button
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
         Me.Label1 = New System.Windows.Forms.Label
         Me.lstVendedores = New System.Windows.Forms.CheckedListBox
         Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuMarcarTodos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
+        Me.chkIVA = New System.Windows.Forms.CheckBox
+        Me.chkPresupuesto = New System.Windows.Forms.CheckBox
         Me.chkCosto = New System.Windows.Forms.CheckBox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.rbRpt2 = New System.Windows.Forms.RadioButton
         Me.rbRpt1 = New System.Windows.Forms.RadioButton
         Me.nudAno = New System.Windows.Forms.NumericUpDown
         Me.crv = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-        Me.chkPresupuesto = New System.Windows.Forms.CheckBox
-        Me.chkIVA = New System.Windows.Forms.CheckBox
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
         Me.ContextMenuStrip2.SuspendLayout()
@@ -73,21 +72,12 @@ Partial Class frmRptVtasA
         '
         Me.btnGenerar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGenerar.Enabled = False
-        Me.btnGenerar.Location = New System.Drawing.Point(97, 443)
+        Me.btnGenerar.Location = New System.Drawing.Point(9, 443)
         Me.btnGenerar.Name = "btnGenerar"
-        Me.btnGenerar.Size = New System.Drawing.Size(75, 23)
+        Me.btnGenerar.Size = New System.Drawing.Size(163, 23)
         Me.btnGenerar.TabIndex = 3
         Me.btnGenerar.Text = "Generar"
         Me.btnGenerar.UseVisualStyleBackColor = True
-        '
-        'ProgressBar1
-        '
-        Me.ProgressBar1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ProgressBar1.Location = New System.Drawing.Point(9, 443)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(82, 23)
-        Me.ProgressBar1.TabIndex = 5
         '
         'Label1
         '
@@ -150,7 +140,6 @@ Partial Class frmRptVtasA
         Me.SplitContainer1.Panel1.Controls.Add(Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btnGenerar)
         Me.SplitContainer1.Panel1.Controls.Add(Me.lstVendedores)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.ProgressBar1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
         '
         'SplitContainer1.Panel2
@@ -159,6 +148,30 @@ Partial Class frmRptVtasA
         Me.SplitContainer1.Size = New System.Drawing.Size(890, 475)
         Me.SplitContainer1.SplitterDistance = 177
         Me.SplitContainer1.TabIndex = 7
+        '
+        'chkIVA
+        '
+        Me.chkIVA.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkIVA.AutoSize = True
+        Me.chkIVA.Checked = True
+        Me.chkIVA.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkIVA.Location = New System.Drawing.Point(9, 365)
+        Me.chkIVA.Name = "chkIVA"
+        Me.chkIVA.Size = New System.Drawing.Size(65, 17)
+        Me.chkIVA.TabIndex = 13
+        Me.chkIVA.Text = "Con IVA"
+        Me.chkIVA.UseVisualStyleBackColor = True
+        '
+        'chkPresupuesto
+        '
+        Me.chkPresupuesto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkPresupuesto.AutoSize = True
+        Me.chkPresupuesto.Location = New System.Drawing.Point(9, 342)
+        Me.chkPresupuesto.Name = "chkPresupuesto"
+        Me.chkPresupuesto.Size = New System.Drawing.Size(85, 17)
+        Me.chkPresupuesto.TabIndex = 12
+        Me.chkPresupuesto.Text = "Presupuesto"
+        Me.chkPresupuesto.UseVisualStyleBackColor = True
         '
         'chkCosto
         '
@@ -232,30 +245,6 @@ Partial Class frmRptVtasA
         Me.crv.TabIndex = 6
         Me.crv.ViewTimeSelectionFormula = ""
         '
-        'chkPresupuesto
-        '
-        Me.chkPresupuesto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkPresupuesto.AutoSize = True
-        Me.chkPresupuesto.Location = New System.Drawing.Point(9, 342)
-        Me.chkPresupuesto.Name = "chkPresupuesto"
-        Me.chkPresupuesto.Size = New System.Drawing.Size(85, 17)
-        Me.chkPresupuesto.TabIndex = 12
-        Me.chkPresupuesto.Text = "Presupuesto"
-        Me.chkPresupuesto.UseVisualStyleBackColor = True
-        '
-        'chkIVA
-        '
-        Me.chkIVA.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.chkIVA.AutoSize = True
-        Me.chkIVA.Checked = True
-        Me.chkIVA.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIVA.Location = New System.Drawing.Point(9, 365)
-        Me.chkIVA.Name = "chkIVA"
-        Me.chkIVA.Size = New System.Drawing.Size(65, 17)
-        Me.chkIVA.TabIndex = 13
-        Me.chkIVA.Text = "Con IVA"
-        Me.chkIVA.UseVisualStyleBackColor = True
-        '
         'frmRptVtasA
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -276,7 +265,6 @@ Partial Class frmRptVtasA
 
     End Sub
     Friend WithEvents btnGenerar As System.Windows.Forms.Button
-    Friend WithEvents ProgressBar1 As System.Windows.Forms.ProgressBar
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents lstVendedores As System.Windows.Forms.CheckedListBox
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
@@ -288,7 +276,7 @@ Partial Class frmRptVtasA
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents rbRpt2 As System.Windows.Forms.RadioButton
     Friend WithEvents rbRpt1 As System.Windows.Forms.RadioButton
-    Friend WithEvents chkCosto As System.Windows.Forms.CheckBox
     Friend WithEvents chkPresupuesto As System.Windows.Forms.CheckBox
     Friend WithEvents chkIVA As System.Windows.Forms.CheckBox
+    Friend WithEvents chkCosto As System.Windows.Forms.CheckBox
 End Class
