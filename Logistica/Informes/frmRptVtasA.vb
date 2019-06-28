@@ -98,6 +98,7 @@ Public Class frmRptVtasA
                 rpt.Load(RPTX3 & "XRPTVTASA2.rpt")
                 rpt.SetParameterValue("X3TIT", "Seguimiento de extintores")
             Case 3
+                rpt.Load(RPTX3 & "XRPTVTAS3A.rpt") 'Reporte normal
 
         End Select
 
