@@ -67,8 +67,10 @@ Public Class frmRptVtasA
 
         If rbRpt1.Checked Then
             TipoReporte = 1
-        Else
+        ElseIf rbRpt2.Checked Then
             TipoReporte = 2
+        Else
+            TipoReporte = 3
         End If
 
         AgregarVendedoresChequeados(Reporte)
@@ -86,16 +88,18 @@ Public Class frmRptVtasA
         rpt = New ReportDocument
         crv.ReportSource = Nothing
 
-        If TipoReporte = 1 Then
-            rpt.Load(RPTX3 & "XRPTVTASA.rpt")
-            rpt.SetParameterValue("IVA", chkIVA.Checked)
-            rpt.SetParameterValue("COSTOS", chkCosto.Checked)
-            rpt.SetParameterValue("PRESUPUESTO", chkPresupuesto.Checked)
+        Select Case TipoReporte
+            Case 1
+                rpt.Load(RPTX3 & "XRPTVTASA.rpt")
+                rpt.SetParameterValue("IVA", chkIVA.Checked)
+                rpt.SetParameterValue("COSTOS", chkCosto.Checked)
+                rpt.SetParameterValue("PRESUPUESTO", chkPresupuesto.Checked)
+            Case 2
+                rpt.Load(RPTX3 & "XRPTVTASA2.rpt")
+                rpt.SetParameterValue("X3TIT", "Seguimiento de extintores")
+            Case 3
 
-        Else
-            rpt.Load(RPTX3 & "XRPTVTASA2.rpt")
-            rpt.SetParameterValue("X3TIT", "Seguimiento de extintores")
-        End If
+        End Select
 
         rpt.SetParameterValue("X3USR", usr.Codigo)
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)

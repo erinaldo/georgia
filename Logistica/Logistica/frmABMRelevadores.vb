@@ -1,15 +1,14 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class frmRelevadores
+Public Class frmABMRelevadores
     Private Const db As String = "Server=SIGEX\SQLEXPRESS;Database=sigexevolution;User Id=sa;Password=Georgia2017;"
 
     Private Sql As String
     Private da As SqlDataAdapter
     Private cn As New SqlConnection(db)
+    Private dt As New DataTable
 
     Private Sub frmRelevadores_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Dim dt As New DataTable
-
         Sql = "SELECT * FROM usuarios"
         da = New SqlDataAdapter(Sql, cn)
         da.InsertCommand = New SqlCommandBuilder(da).GetInsertCommand
@@ -23,7 +22,7 @@ Public Class frmRelevadores
 
     Private Sub btnRegistrar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRegistrar.Click
         Try
-            da.Update(dtPermisos)
+            da.Update(dt)
 
         Catch ex As Exception
             MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)

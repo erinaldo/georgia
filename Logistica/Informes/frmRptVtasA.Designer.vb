@@ -40,6 +40,7 @@ Partial Class frmRptVtasA
         Me.rbRpt1 = New System.Windows.Forms.RadioButton
         Me.nudAno = New System.Windows.Forms.NumericUpDown
         Me.crv = New CrystalDecisions.Windows.Forms.CrystalReportViewer
+        Me.rbRpt3 = New System.Windows.Forms.RadioButton
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
         Me.ContextMenuStrip2.SuspendLayout()
@@ -155,7 +156,7 @@ Partial Class frmRptVtasA
         Me.chkIVA.AutoSize = True
         Me.chkIVA.Checked = True
         Me.chkIVA.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkIVA.Location = New System.Drawing.Point(9, 365)
+        Me.chkIVA.Location = New System.Drawing.Point(9, 404)
         Me.chkIVA.Name = "chkIVA"
         Me.chkIVA.Size = New System.Drawing.Size(65, 17)
         Me.chkIVA.TabIndex = 13
@@ -166,7 +167,7 @@ Partial Class frmRptVtasA
         '
         Me.chkPresupuesto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkPresupuesto.AutoSize = True
-        Me.chkPresupuesto.Location = New System.Drawing.Point(9, 342)
+        Me.chkPresupuesto.Location = New System.Drawing.Point(9, 381)
         Me.chkPresupuesto.Name = "chkPresupuesto"
         Me.chkPresupuesto.Size = New System.Drawing.Size(85, 17)
         Me.chkPresupuesto.TabIndex = 12
@@ -177,7 +178,7 @@ Partial Class frmRptVtasA
         '
         Me.chkCosto.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkCosto.AutoSize = True
-        Me.chkCosto.Location = New System.Drawing.Point(9, 319)
+        Me.chkCosto.Location = New System.Drawing.Point(9, 358)
         Me.chkCosto.Name = "chkCosto"
         Me.chkCosto.Size = New System.Drawing.Size(90, 17)
         Me.chkCosto.TabIndex = 11
@@ -188,11 +189,12 @@ Partial Class frmRptVtasA
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.rbRpt3)
         Me.GroupBox1.Controls.Add(Me.rbRpt2)
         Me.GroupBox1.Controls.Add(Me.rbRpt1)
         Me.GroupBox1.Location = New System.Drawing.Point(3, 244)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(169, 69)
+        Me.GroupBox1.Size = New System.Drawing.Size(169, 96)
         Me.GroupBox1.TabIndex = 10
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Tipo de Reporte"
@@ -245,6 +247,16 @@ Partial Class frmRptVtasA
         Me.crv.TabIndex = 6
         Me.crv.ViewTimeSelectionFormula = ""
         '
+        'rbRpt3
+        '
+        Me.rbRpt3.AutoSize = True
+        Me.rbRpt3.Location = New System.Drawing.Point(6, 65)
+        Me.rbRpt3.Name = "rbRpt3"
+        Me.rbRpt3.Size = New System.Drawing.Size(114, 17)
+        Me.rbRpt3.TabIndex = 2
+        Me.rbRpt3.Text = "Seguimiento de SF"
+        Me.rbRpt3.UseVisualStyleBackColor = True
+        '
         'frmRptVtasA
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -279,4 +291,5 @@ Partial Class frmRptVtasA
     Friend WithEvents chkPresupuesto As System.Windows.Forms.CheckBox
     Friend WithEvents chkIVA As System.Windows.Forms.CheckBox
     Friend WithEvents chkCosto As System.Windows.Forms.CheckBox
+    Friend WithEvents rbRpt3 As System.Windows.Forms.RadioButton
 End Class

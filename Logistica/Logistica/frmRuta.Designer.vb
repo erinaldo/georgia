@@ -114,7 +114,7 @@ Partial Class frmRuta
         Me.btnCourier = New System.Windows.Forms.Button
         Me.chkMicrocentro = New System.Windows.Forms.CheckBox
         Me.btnEnviar = New System.Windows.Forms.Button
-        Me.cboCelulares = New System.Windows.Forms.ComboBox
+        Me.cboRelevador = New System.Windows.Forms.ComboBox
         Label2 = New System.Windows.Forms.Label
         Label1 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -298,11 +298,11 @@ Partial Class frmRuta
         '
         Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Label6.AutoSize = True
-        Label6.Location = New System.Drawing.Point(462, 507)
+        Label6.Location = New System.Drawing.Point(448, 507)
         Label6.Name = "Label6"
-        Label6.Size = New System.Drawing.Size(42, 13)
+        Label6.Size = New System.Drawing.Size(59, 13)
         Label6.TabIndex = 42
-        Label6.Text = "Celular:"
+        Label6.Text = "Relevador:"
         '
         'lstTransportes
         '
@@ -907,24 +907,24 @@ Partial Class frmRuta
         Me.btnEnviar.Text = "Enviar"
         Me.btnEnviar.UseVisualStyleBackColor = True
         '
-        'cboCelulares
+        'cboRelevador
         '
-        Me.cboCelulares.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cboCelulares.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCelulares.FormattingEnabled = True
-        Me.cboCelulares.Location = New System.Drawing.Point(510, 504)
-        Me.cboCelulares.Name = "cboCelulares"
-        Me.cboCelulares.Size = New System.Drawing.Size(177, 21)
-        Me.cboCelulares.TabIndex = 41
+        Me.cboRelevador.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cboRelevador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboRelevador.FormattingEnabled = True
+        Me.cboRelevador.Location = New System.Drawing.Point(510, 504)
+        Me.cboRelevador.Name = "cboRelevador"
+        Me.cboRelevador.Size = New System.Drawing.Size(177, 21)
+        Me.cboRelevador.TabIndex = 41
         '
         'frmRuta
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1016, 547)
-        Me.Controls.Add(Me.cboCelulares)
-        Me.Controls.Add(Label6)
+        Me.Controls.Add(Me.cboRelevador)
         Me.Controls.Add(Me.chkMicrocentro)
+        Me.Controls.Add(Label6)
         Me.Controls.Add(Me.btnEnviar)
         Me.Controls.Add(Me.btnCourier)
         Me.Controls.Add(Me.dgvZonas)
@@ -1043,5 +1043,5 @@ Partial Class frmRuta
     Friend WithEvents ToolGenEtiqu As System.Windows.Forms.ToolStripButton
     Friend WithEvents chkMicrocentro As System.Windows.Forms.CheckBox
     Friend WithEvents btnEnviar As System.Windows.Forms.Button
-    Friend WithEvents cboCelulares As System.Windows.Forms.ComboBox
+    Friend WithEvents cboRelevador As System.Windows.Forms.ComboBox
 End Class

@@ -1158,7 +1158,7 @@ Class frmRuta
         'ValoresIniciales()
         ActualizarControles()
 
-        CargarComboCelulares()
+        CargarComboRelevadores()
 
     End Sub
     Private Sub frmRuta_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -2081,7 +2081,7 @@ Class frmRuta
 
             'Consulto si existe control para la intervencion
             ControlSigex.FechaProgramacion = dtpFecha.Value
-            ControlSigex.Relevador = CInt(cboCelulares.SelectedValue)
+            ControlSigex.Relevador = CInt(cboRelevador.SelectedValue)
             ControlSigex.Intervencion = itn.Numero
             ControlSigex.Grabar()
 
@@ -2097,12 +2097,17 @@ Class frmRuta
         btnEnviar.Enabled = True
 
     End Sub
-    Public Sub CargarComboCelulares()
+    Public Sub CargarComboRelevadores()
         Try
             'Carga combo con los usuarios de Sigex
             Dim u As New Sigex.UsuariosCollection
 
-            With cboCelulares
+            For Each dr As DataRow In u.dt.Rows
+                If CInt(dr("id")) < 4 Then dr.Delete()
+            Next
+            u.dt.AcceptChanges()
+
+            With cboRelevador
                 .ValueMember = "id"
                 .DisplayMember = "nombreCompleto"
                 .DataSource = u.dt

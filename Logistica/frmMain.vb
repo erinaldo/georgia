@@ -1160,7 +1160,7 @@ Public Class frmMain
     End Sub
 
     Private Sub mnuRelevadores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRelevadores.Click
-        Dim f As New frmRelevadores
+        Dim f As New frmABMRelevadores
 
         f.MdiParent = Me
         f.Show()
