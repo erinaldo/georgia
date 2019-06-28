@@ -108,7 +108,7 @@ Public Class FrmPacto
     Private Sub EnvioSegundoMail()
         mail.Nuevo()
         mail.Remitente("sdiaz@matafuegosgeorgia.com", "Matafuegos Georgia")
-        mail.AgregarDestinatarioArchivo("Pacto.txt", 0)
+        mail.AgregarDestinatarioArchivo("Pacto.txt", 2)
         mail.AgregarDestinatarioCopia("sdiaz@matafuegosgeorgia.com")
         mail.Asunto = "PACTO"
         mail.Cuerpo = TxtRazonSocial.Text.ToString & " " & pac.Direccion.ToString & " " & pac.Ciudad.ToString & " - " & CmbEstado.SelectedItem.ToString
