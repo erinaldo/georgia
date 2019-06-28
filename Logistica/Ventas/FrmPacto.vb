@@ -98,9 +98,7 @@ Public Class FrmPacto
     Private Sub EnvioPrimerMail(ByVal mails As String)
         mail.Nuevo()
         mail.Remitente(mails, "Matafuegos Georgia")
-        'mail.AgregarDestinatario("mbarcudes@matafuegosgeorgia.com")
-        ' mail.AgregarDestinatario("ioeyen@matafuegosgeorgia.com")
-        mail.AgregarDestinatarioArchivo("mails\Pacto.txt", 0)
+        mail.AgregarDestinatarioArchivo("mails\Pacto.txt", 2)
         mail.AgregarDestinatarioCopia("sdiaz@matafuegosgeorgia.com")
         mail.AgregarDestinatarioCopia(mails)
         mail.Asunto = TxtRazonSocial.Text.ToString & " " & pac.Direccion.ToString & " " & pac.Ciudad.ToString
@@ -110,8 +108,6 @@ Public Class FrmPacto
     Private Sub EnvioSegundoMail()
         mail.Nuevo()
         mail.Remitente("sdiaz@matafuegosgeorgia.com", "Matafuegos Georgia")
-        ' mail.AgregarDestinatario("mbarcudes@matafuegosgeorgia.com")
-        'mail.AgregarDestinatario("ioeyen@matafuegosgeorgia.com")
         mail.AgregarDestinatarioArchivo("Pacto.txt", 0)
         mail.AgregarDestinatarioCopia("sdiaz@matafuegosgeorgia.com")
         mail.Asunto = "PACTO"
