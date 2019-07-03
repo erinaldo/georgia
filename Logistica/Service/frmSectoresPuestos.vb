@@ -109,7 +109,8 @@ Public Class frmSectoresPuestos
 
         ds.Tables.Add(dtPuestos)
 
-        'EliminarSectoresSueltos()
+        btnTransferenciaMasiva.Visible = (usr.Codigo = "MMIN")
+        lblTransferenciaMasiva.Visible = (usr.Codigo = "MMIN")
 
     End Sub
     Private Sub cboSucursales_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboSucursales.SelectedIndexChanged
@@ -609,23 +610,25 @@ Public Class frmSectoresPuestos
         End Try
     End Sub
     Private Sub btnTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferir.Click
-        Transferir()
+        Dim Cli As String
+        Dim Suc As String
+
+        'Obtengo Cliente y Sucursal
+        Cli = txtCliente.Text
+        suc = cboSucursales.SelectedValue.ToString
+
+        Transferir(Cli, Suc)
+
     End Sub
-    Public Sub Transferir()
+    Public Sub Transferir(ByVal Cli As String, ByVal Suc As String)
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
         Dim Sql As String
-        Dim Cli As String
-        Dim Suc As String
 
         Dim Secs As New Sectores2(cn)
         Dim Sec As New Sector2(cn)
         Dim Pues As Puestos2Collection
         Dim Pue As New Puesto2(cn)
-
-        'Obtengo Cliente y Sucursal
-        Cli = txtCliente.Text
-        Suc = cboSucursales.SelectedValue.ToString
 
         'Elimino los Sectores y Puestos actuales
         Secs.Abrir(Cli, Suc)
@@ -678,7 +681,16 @@ Public Class frmSectoresPuestos
 
             If dr("macnum_0").ToString.Trim <> "" Then
                 If mac.Abrir(dr("macnum_0").ToString) Then
-                    Tipo = CInt(IIf(mac.EsManguera, 2, 1))
+                    Try
+                        Tipo = CInt(IIf(mac.EsManguera, 2, 1))
+
+                    Catch ex As Exception
+                        Continue For
+
+                    End Try
+
+                Else
+                    mac = Nothing
                 End If
             Else
                 mac = Nothing
@@ -721,6 +733,48 @@ Public Class frmSectoresPuestos
     End Sub
     Private Sub mnuCambiarSectorExtintor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCambiarSectorExtintor.Click
         CambiarSector(dgvPuestosExtintores)
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferenciaMasiva.Click
+        Dim Sql As String
+        Dim da As OracleDataAdapter
+        Dim dt As New DataTable
+        Dim btn As Button = CType(sender, Button)
+        Dim i As Integer = 0
+        Dim j As Integer = 0
+
+        btn.Enabled = False
+
+        Sql = "SELECT distinct bpcnum_0, fcyitn_0 "
+        Sql &= "FROM xsectores "
+        Sql &= "ORDER BY bpcnum_0, fcyitn_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        da.Fill(dt)
+        da.Dispose()
+
+        j = dt.Rows.Count - 1
+
+        For i = 0 To j
+            Dim dr As DataRow
+            Dim Cli As String
+            Dim Suc As String
+
+            dr = dt.Rows(i)
+            Cli = dr("bpcnum_0").ToString
+            Suc = dr("fcyitn_0").ToString
+
+            lblTransferenciaMasiva.Text = i.ToString & " de " & j.ToString
+            Transferir(Cli, Suc)
+
+            Application.DoEvents()
+            Application.DoEvents()
+
+
+        Next
+
+        btn.Enabled = True
+
     End Sub
 
 End Class

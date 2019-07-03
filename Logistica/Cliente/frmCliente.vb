@@ -4,6 +4,8 @@ Imports WSAFIP
 Imports System.IO
 
 Public Class frmCliente
+    Private Const LIMITE_SUCURSALES As Integer = 1000
+
     Private CerrarAlGrabar As Boolean = False
     Private bpc As Cliente = Nothing
 
@@ -596,7 +598,7 @@ Public Class frmCliente
     End Function
     Private Sub btnAgregarSucursal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAgregarSucursal.Click
 
-        If bpc.Sucursales.Count < 410 Then
+        If bpc.Sucursales.Count < LIMITE_SUCURSALES Then
             Dim f As New frmSucursal(bpc)
             f.ShowDialog(Me)
 

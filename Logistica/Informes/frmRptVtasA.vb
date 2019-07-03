@@ -99,7 +99,9 @@ Public Class frmRptVtasA
                 rpt.SetParameterValue("X3TIT", "Seguimiento de extintores")
             Case 3
                 rpt.Load(RPTX3 & "XRPTVTAS3A.rpt") 'Reporte normal
-
+                rpt.SetParameterValue("IVA", chkIVA.Checked)
+                rpt.SetParameterValue("COSTOS", chkCosto.Checked)
+                rpt.SetParameterValue("PRESUPUESTO", chkPresupuesto.Checked)
         End Select
 
         rpt.SetParameterValue("X3USR", usr.Codigo)
