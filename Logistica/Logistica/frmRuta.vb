@@ -1823,6 +1823,7 @@ Class frmRuta
 
             etiq.Abrir(c.Cells(9).Value.ToString)
             etiq.Imprimir()
+            etiq.Eliminar()
         Next
 
     End Sub
