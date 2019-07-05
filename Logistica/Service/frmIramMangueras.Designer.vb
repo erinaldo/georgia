@@ -29,15 +29,6 @@ Partial Class frmIramMangueras
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgv = New System.Windows.Forms.DataGridView
-        Me.btnRegistrar = New System.Windows.Forms.Button
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.mnuAcciones = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuAbrir = New System.Windows.Forms.ToolStripMenuItem
-        Me.txtSucursal = New System.Windows.Forms.TextBox
-        Me.txtCodigo = New System.Windows.Forms.TextBox
-        Me.txtDireccion = New System.Windows.Forms.TextBox
-        Me.txtNombre = New System.Windows.Forms.TextBox
-        Me.txtIntervencion = New System.Windows.Forms.TextBox
         Me.colDiametro = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colLargo = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colMarca = New System.Windows.Forms.DataGridViewComboBoxColumn
@@ -53,6 +44,16 @@ Partial Class frmIramMangueras
         Me.colSolicitud = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colIntervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colUsuario = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.btnRegistrar = New System.Windows.Forms.Button
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
+        Me.mnuAcciones = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuAbrir = New System.Windows.Forms.ToolStripMenuItem
+        Me.txtSucursal = New System.Windows.Forms.TextBox
+        Me.txtCodigo = New System.Windows.Forms.TextBox
+        Me.txtDireccion = New System.Windows.Forms.TextBox
+        Me.txtNombre = New System.Windows.Forms.TextBox
+        Me.txtIntervencion = New System.Windows.Forms.TextBox
+        Me.btnIram = New System.Windows.Forms.Button
         Label3 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label1 = New System.Windows.Forms.Label
@@ -116,89 +117,6 @@ Partial Class frmIramMangueras
         Me.dgv.Name = "dgv"
         Me.dgv.Size = New System.Drawing.Size(991, 352)
         Me.dgv.TabIndex = 0
-        '
-        'btnRegistrar
-        '
-        Me.btnRegistrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRegistrar.Location = New System.Drawing.Point(928, 424)
-        Me.btnRegistrar.Name = "btnRegistrar"
-        Me.btnRegistrar.Size = New System.Drawing.Size(75, 23)
-        Me.btnRegistrar.TabIndex = 2
-        Me.btnRegistrar.Text = "Registrar"
-        Me.btnRegistrar.UseVisualStyleBackColor = True
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAcciones})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1015, 24)
-        Me.MenuStrip1.TabIndex = 3
-        Me.MenuStrip1.Text = "MenuStrip1"
-        Me.MenuStrip1.Visible = False
-        '
-        'mnuAcciones
-        '
-        Me.mnuAcciones.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.mnuAcciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAbrir})
-        Me.mnuAcciones.Font = New System.Drawing.Font("Tahoma", 8.25!)
-        Me.mnuAcciones.ForeColor = System.Drawing.SystemColors.ControlText
-        Me.mnuAcciones.MergeIndex = 6
-        Me.mnuAcciones.Name = "mnuAcciones"
-        Me.mnuAcciones.Size = New System.Drawing.Size(61, 20)
-        Me.mnuAcciones.Text = "Acciones"
-        '
-        'mnuAbrir
-        '
-        Me.mnuAbrir.Name = "mnuAbrir"
-        Me.mnuAbrir.ShortcutKeys = System.Windows.Forms.Keys.F2
-        Me.mnuAbrir.Size = New System.Drawing.Size(192, 22)
-        Me.mnuAbrir.Text = "Abrir Intervención..."
-        '
-        'txtSucursal
-        '
-        Me.txtSucursal.Location = New System.Drawing.Point(351, 12)
-        Me.txtSucursal.Name = "txtSucursal"
-        Me.txtSucursal.ReadOnly = True
-        Me.txtSucursal.Size = New System.Drawing.Size(35, 20)
-        Me.txtSucursal.TabIndex = 20
-        Me.txtSucursal.TabStop = False
-        '
-        'txtCodigo
-        '
-        Me.txtCodigo.Location = New System.Drawing.Point(295, 12)
-        Me.txtCodigo.Name = "txtCodigo"
-        Me.txtCodigo.ReadOnly = True
-        Me.txtCodigo.Size = New System.Drawing.Size(50, 20)
-        Me.txtCodigo.TabIndex = 16
-        Me.txtCodigo.TabStop = False
-        '
-        'txtDireccion
-        '
-        Me.txtDireccion.Location = New System.Drawing.Point(295, 40)
-        Me.txtDireccion.Name = "txtDireccion"
-        Me.txtDireccion.ReadOnly = True
-        Me.txtDireccion.Size = New System.Drawing.Size(269, 20)
-        Me.txtDireccion.TabIndex = 19
-        Me.txtDireccion.TabStop = False
-        '
-        'txtNombre
-        '
-        Me.txtNombre.Location = New System.Drawing.Point(392, 12)
-        Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.ReadOnly = True
-        Me.txtNombre.Size = New System.Drawing.Size(172, 20)
-        Me.txtNombre.TabIndex = 17
-        Me.txtNombre.TabStop = False
-        '
-        'txtIntervencion
-        '
-        Me.txtIntervencion.Location = New System.Drawing.Point(86, 12)
-        Me.txtIntervencion.Name = "txtIntervencion"
-        Me.txtIntervencion.ReadOnly = True
-        Me.txtIntervencion.Size = New System.Drawing.Size(88, 20)
-        Me.txtIntervencion.TabIndex = 14
-        Me.txtIntervencion.TabStop = False
         '
         'colDiametro
         '
@@ -314,13 +232,106 @@ Partial Class frmIramMangueras
         Me.colUsuario.HeaderText = "Usuario"
         Me.colUsuario.Name = "colUsuario"
         Me.colUsuario.Visible = False
-        Me.colUsuario.Width = 68
+        '
+        'btnRegistrar
+        '
+        Me.btnRegistrar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnRegistrar.Location = New System.Drawing.Point(928, 424)
+        Me.btnRegistrar.Name = "btnRegistrar"
+        Me.btnRegistrar.Size = New System.Drawing.Size(75, 23)
+        Me.btnRegistrar.TabIndex = 2
+        Me.btnRegistrar.Text = "Registrar"
+        Me.btnRegistrar.UseVisualStyleBackColor = True
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAcciones})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(1015, 24)
+        Me.MenuStrip1.TabIndex = 3
+        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Visible = False
+        '
+        'mnuAcciones
+        '
+        Me.mnuAcciones.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.mnuAcciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAbrir})
+        Me.mnuAcciones.Font = New System.Drawing.Font("Tahoma", 8.25!)
+        Me.mnuAcciones.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.mnuAcciones.MergeIndex = 6
+        Me.mnuAcciones.Name = "mnuAcciones"
+        Me.mnuAcciones.Size = New System.Drawing.Size(61, 20)
+        Me.mnuAcciones.Text = "Acciones"
+        '
+        'mnuAbrir
+        '
+        Me.mnuAbrir.Name = "mnuAbrir"
+        Me.mnuAbrir.ShortcutKeys = System.Windows.Forms.Keys.F2
+        Me.mnuAbrir.Size = New System.Drawing.Size(192, 22)
+        Me.mnuAbrir.Text = "Abrir Intervención..."
+        '
+        'txtSucursal
+        '
+        Me.txtSucursal.Location = New System.Drawing.Point(351, 12)
+        Me.txtSucursal.Name = "txtSucursal"
+        Me.txtSucursal.ReadOnly = True
+        Me.txtSucursal.Size = New System.Drawing.Size(35, 20)
+        Me.txtSucursal.TabIndex = 20
+        Me.txtSucursal.TabStop = False
+        '
+        'txtCodigo
+        '
+        Me.txtCodigo.Location = New System.Drawing.Point(295, 12)
+        Me.txtCodigo.Name = "txtCodigo"
+        Me.txtCodigo.ReadOnly = True
+        Me.txtCodigo.Size = New System.Drawing.Size(50, 20)
+        Me.txtCodigo.TabIndex = 16
+        Me.txtCodigo.TabStop = False
+        '
+        'txtDireccion
+        '
+        Me.txtDireccion.Location = New System.Drawing.Point(295, 40)
+        Me.txtDireccion.Name = "txtDireccion"
+        Me.txtDireccion.ReadOnly = True
+        Me.txtDireccion.Size = New System.Drawing.Size(269, 20)
+        Me.txtDireccion.TabIndex = 19
+        Me.txtDireccion.TabStop = False
+        '
+        'txtNombre
+        '
+        Me.txtNombre.Location = New System.Drawing.Point(392, 12)
+        Me.txtNombre.Name = "txtNombre"
+        Me.txtNombre.ReadOnly = True
+        Me.txtNombre.Size = New System.Drawing.Size(172, 20)
+        Me.txtNombre.TabIndex = 17
+        Me.txtNombre.TabStop = False
+        '
+        'txtIntervencion
+        '
+        Me.txtIntervencion.Location = New System.Drawing.Point(86, 12)
+        Me.txtIntervencion.Name = "txtIntervencion"
+        Me.txtIntervencion.ReadOnly = True
+        Me.txtIntervencion.Size = New System.Drawing.Size(88, 20)
+        Me.txtIntervencion.TabIndex = 14
+        Me.txtIntervencion.TabStop = False
+        '
+        'btnIram
+        '
+        Me.btnIram.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnIram.Location = New System.Drawing.Point(847, 424)
+        Me.btnIram.Name = "btnIram"
+        Me.btnIram.Size = New System.Drawing.Size(75, 23)
+        Me.btnIram.TabIndex = 21
+        Me.btnIram.Text = "Iram"
+        Me.btnIram.UseVisualStyleBackColor = True
         '
         'frmIramMangueras
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1015, 459)
+        Me.Controls.Add(Me.btnIram)
         Me.Controls.Add(Me.txtSucursal)
         Me.Controls.Add(Me.txtCodigo)
         Me.Controls.Add(Me.txtDireccion)
@@ -366,4 +377,5 @@ Partial Class frmIramMangueras
     Friend WithEvents colSolicitud As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colUsuario As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents btnIram As System.Windows.Forms.Button
 End Class

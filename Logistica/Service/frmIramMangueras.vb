@@ -166,6 +166,11 @@ Public Class frmIramMangueras
                 dr("nromanga_0") = CLng(dr("macnum_0"))
                 dr.EndEdit()
             End If
+            If dr("presion_0").ToString.Trim = "" Then
+                dr.BeginEdit()
+                dr("presion_0") = "1.2"
+                dr.EndEdit()
+            End If
         Next
     End Sub
     Private Sub CargarMangueras()
@@ -299,4 +304,34 @@ Public Class frmIramMangueras
         EstadoBoton()
     End Sub
 
+    Private Sub btnIram_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnIram.Click
+        Dim i, j As Integer
+        Dim t As String
+
+        t = "Ingrese el número de la primer estampilla"
+        t = InputBox(t, Me.Text)
+
+        If IsNumeric(t) Then
+            i = CInt(t)
+
+            For j = 0 To dt1.Rows.Count - 1
+                Dim dr As DataRow
+                dr = dt1.Rows(j)
+
+                'Salto si OK = NO
+                If CInt(dr("ok_0")) <> 2 Then Continue For
+
+                dr.BeginEdit()
+                dr("nroiram_0") = i
+                dr.EndEdit()
+
+                i += 1
+            Next
+
+        Else
+            MessageBox.Show("El valor ingresado no es numérico", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+
+        End If
+
+    End Sub
 End Class
