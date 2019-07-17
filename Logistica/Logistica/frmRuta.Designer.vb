@@ -900,6 +900,7 @@ Partial Class frmRuta
         '
         'btnEnviar
         '
+        Me.btnEnviar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnEnviar.Location = New System.Drawing.Point(693, 504)
         Me.btnEnviar.Name = "btnEnviar"
         Me.btnEnviar.Size = New System.Drawing.Size(75, 23)

@@ -104,6 +104,7 @@ Partial Class frmMain
         Me.mnuFiscal = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuFiscalGru = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuFiscalLia = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuFiscalSch = New System.Windows.Forms.ToolStripMenuItem
         Me.frmCAE = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuLicitaciones = New System.Windows.Forms.ToolStripMenuItem
         Me.PactoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -130,11 +131,14 @@ Partial Class frmMain
         Me.mnuUnificacion = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem19 = New System.Windows.Forms.ToolStripSeparator
         Me.frmSMS = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuMailMasivos = New System.Windows.Forms.ToolStripMenuItem
         Me.ClientesSinMovimientoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem23 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuTickets = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuExportarControles = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuMailing = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuMailsClientesMostrador = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem26 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuMailMasivos = New System.Windows.Forms.ToolStripMenuItem
         Me.InformesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ContabilidadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuSS = New System.Windows.Forms.ToolStripMenuItem
@@ -215,7 +219,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuFiscalSch = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripSeparator
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -743,16 +747,22 @@ Partial Class frmMain
         'mnuFiscalGru
         '
         Me.mnuFiscalGru.Name = "mnuFiscalGru"
-        Me.mnuFiscalGru.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFiscalGru.Size = New System.Drawing.Size(97, 22)
         Me.mnuFiscalGru.Tag = "frmFiscalGru"
         Me.mnuFiscalGru.Text = "GRU"
         '
         'mnuFiscalLia
         '
         Me.mnuFiscalLia.Name = "mnuFiscalLia"
-        Me.mnuFiscalLia.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFiscalLia.Size = New System.Drawing.Size(97, 22)
         Me.mnuFiscalLia.Tag = "frmFiscalLia"
         Me.mnuFiscalLia.Text = "LIA"
+        '
+        'mnuFiscalSch
+        '
+        Me.mnuFiscalSch.Name = "mnuFiscalSch"
+        Me.mnuFiscalSch.Size = New System.Drawing.Size(97, 22)
+        Me.mnuFiscalSch.Text = "SCH"
         '
         'frmCAE
         '
@@ -835,7 +845,7 @@ Partial Class frmMain
         '
         'mnuVarios
         '
-        Me.mnuVarios.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMostrador, Me.mnuAdministraciones, Me.ToolStripMenuItem7, Me.mnuFactElec, Me.ToolStripMenuItem10, Me.mnuCorreo, Me.mnuCheques, Me.mnuParte, Me.ToolStripMenuItem17, Me.ProcesarDocumentacionEscaneadaToolStripMenuItem, Me.mnuUnificacion, Me.ToolStripMenuItem19, Me.frmSMS, Me.mnuMailMasivos, Me.ClientesSinMovimientoToolStripMenuItem, Me.ToolStripMenuItem23, Me.mnuTickets, Me.mnuExportarControles})
+        Me.mnuVarios.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMostrador, Me.mnuAdministraciones, Me.ToolStripMenuItem7, Me.mnuFactElec, Me.ToolStripMenuItem10, Me.mnuCorreo, Me.mnuCheques, Me.mnuParte, Me.ToolStripMenuItem17, Me.ProcesarDocumentacionEscaneadaToolStripMenuItem, Me.mnuUnificacion, Me.ToolStripMenuItem19, Me.frmSMS, Me.mnuMailing, Me.ToolStripMenuItem27, Me.ClientesSinMovimientoToolStripMenuItem, Me.ToolStripMenuItem23, Me.mnuTickets, Me.mnuExportarControles})
         Me.mnuVarios.Name = "mnuVarios"
         Me.mnuVarios.Size = New System.Drawing.Size(51, 20)
         Me.mnuVarios.Text = "Varios"
@@ -921,13 +931,6 @@ Partial Class frmMain
         Me.frmSMS.Tag = "frmSMS"
         Me.frmSMS.Text = "SMS"
         '
-        'mnuMailMasivos
-        '
-        Me.mnuMailMasivos.Name = "mnuMailMasivos"
-        Me.mnuMailMasivos.Size = New System.Drawing.Size(274, 22)
-        Me.mnuMailMasivos.Tag = "frmMailMasivos"
-        Me.mnuMailMasivos.Text = "Mails Masivos..."
-        '
         'ClientesSinMovimientoToolStripMenuItem
         '
         Me.ClientesSinMovimientoToolStripMenuItem.Name = "ClientesSinMovimientoToolStripMenuItem"
@@ -952,6 +955,32 @@ Partial Class frmMain
         Me.mnuExportarControles.Size = New System.Drawing.Size(274, 22)
         Me.mnuExportarControles.Tag = "mnuExportarCtrles"
         Me.mnuExportarControles.Text = "Exportar Controles..."
+        '
+        'mnuMailing
+        '
+        Me.mnuMailing.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMailsClientesMostrador, Me.ToolStripMenuItem26, Me.mnuMailMasivos})
+        Me.mnuMailing.Name = "mnuMailing"
+        Me.mnuMailing.Size = New System.Drawing.Size(274, 22)
+        Me.mnuMailing.Text = "Mailing"
+        '
+        'mnuMailsClientesMostrador
+        '
+        Me.mnuMailsClientesMostrador.Name = "mnuMailsClientesMostrador"
+        Me.mnuMailsClientesMostrador.Size = New System.Drawing.Size(214, 22)
+        Me.mnuMailsClientesMostrador.Tag = "frmMailClientesMostrador"
+        Me.mnuMailsClientesMostrador.Text = "Mails Clientes Mostrador..."
+        '
+        'ToolStripMenuItem26
+        '
+        Me.ToolStripMenuItem26.Name = "ToolStripMenuItem26"
+        Me.ToolStripMenuItem26.Size = New System.Drawing.Size(211, 6)
+        '
+        'mnuMailMasivos
+        '
+        Me.mnuMailMasivos.Name = "mnuMailMasivos"
+        Me.mnuMailMasivos.Size = New System.Drawing.Size(214, 22)
+        Me.mnuMailMasivos.Tag = "frmMailMasivos"
+        Me.mnuMailMasivos.Text = "Mails Masivos..."
         '
         'InformesToolStripMenuItem
         '
@@ -1479,11 +1508,10 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'mnuFiscalSch
+        'ToolStripMenuItem27
         '
-        Me.mnuFiscalSch.Name = "mnuFiscalSch"
-        Me.mnuFiscalSch.Size = New System.Drawing.Size(152, 22)
-        Me.mnuFiscalSch.Text = "SCH"
+        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(271, 6)
         '
         'frmMain
         '
@@ -1648,7 +1676,6 @@ Partial Class frmMain
     Friend WithEvents mnuFiscalLia As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmCAE As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuIntervenciones As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuMailMasivos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem20 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents UnigisToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUnigisExportar As System.Windows.Forms.ToolStripMenuItem
@@ -1701,6 +1728,11 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem25 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuRelevadores As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuFiscalSch As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMailing As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMailMasivos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuMailsClientesMostrador As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem26 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripMenuItem27 As System.Windows.Forms.ToolStripSeparator
 
 
 End Class

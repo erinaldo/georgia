@@ -594,6 +594,12 @@
     <Compile Include="Varios\frmEscanerDocumentacion.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Varios\frmMailsClientesMostrador.Designer.vb">
+      <DependentUpon>frmMailsClientesMostrador.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Varios\frmMailsClientesMostrador.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Varios\frmMailsMasivos.Designer.vb">
       <DependentUpon>frmMailsMasivos.vb</DependentUpon>
     </Compile>
@@ -1359,6 +1365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Varios\frmEscanerDocumentacion.resx">
       <DependentUpon>frmEscanerDocumentacion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Varios\frmMailsClientesMostrador.resx">
+      <DependentUpon>frmMailsClientesMostrador.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Varios\frmMailsMasivos.resx">
       <DependentUpon>frmMailsMasivos.vb</DependentUpon>

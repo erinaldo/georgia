@@ -953,6 +953,12 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+    Private Sub mnuMailsClientesMostrador_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuMailsClientesMostrador.Click
+        Dim f As New frmMailsClientesMostrador
+
+        f.MdiParent = Me
+        f.Show()
+    End Sub
     Private Sub mnuUnigisExportar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuUnigisExportar.Click
         Dim f As New frmExportarUnigis
         f.MdiParent = Me
@@ -1170,5 +1176,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
 
 End Class
