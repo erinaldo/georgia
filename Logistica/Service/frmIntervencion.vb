@@ -1294,7 +1294,7 @@ Public Class frmIntervencion
 
                 If cboTipo.SelectedValue.ToString <> "B2" AndAlso Not Sustitutos() Then Return False
 
-            Case "C1"
+            Case "C1", "C2"
                 If bpc.EsAbonado Or tiene_articulo("451021") Then
 
                     If lvDocumentos.CheckedItems.Count = 1 Then
@@ -1724,7 +1724,7 @@ Public Class frmIntervencion
                     flg = True
                 End If
 
-            Case "C1"
+            Case "C1", "C2"
 
                 If Articulo.StartsWith("45") OrElse _
                    Articulo.StartsWith("50") OrElse _

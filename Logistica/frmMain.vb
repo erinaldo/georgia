@@ -943,6 +943,11 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+    Private Sub mnuFiscalSch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuFiscalSch.Click
+        Dim f As New frmFiscal("SCH")
+        f.MdiParent = Me
+        f.Show()
+    End Sub
     Private Sub mnuMailMasivos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuMailMasivos.Click
         Dim f As New frmMailsMasivos
         f.MdiParent = Me
@@ -1165,4 +1170,5 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
 End Class

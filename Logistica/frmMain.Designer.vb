@@ -215,6 +215,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.mnuFiscalSch = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -734,7 +735,7 @@ Partial Class frmMain
         '
         'mnuFiscal
         '
-        Me.mnuFiscal.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFiscalGru, Me.mnuFiscalLia})
+        Me.mnuFiscal.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFiscalGru, Me.mnuFiscalLia, Me.mnuFiscalSch})
         Me.mnuFiscal.Name = "mnuFiscal"
         Me.mnuFiscal.Size = New System.Drawing.Size(299, 22)
         Me.mnuFiscal.Text = "Controlador Fiscal"
@@ -742,14 +743,14 @@ Partial Class frmMain
         'mnuFiscalGru
         '
         Me.mnuFiscalGru.Name = "mnuFiscalGru"
-        Me.mnuFiscalGru.Size = New System.Drawing.Size(97, 22)
+        Me.mnuFiscalGru.Size = New System.Drawing.Size(152, 22)
         Me.mnuFiscalGru.Tag = "frmFiscalGru"
         Me.mnuFiscalGru.Text = "GRU"
         '
         'mnuFiscalLia
         '
         Me.mnuFiscalLia.Name = "mnuFiscalLia"
-        Me.mnuFiscalLia.Size = New System.Drawing.Size(97, 22)
+        Me.mnuFiscalLia.Size = New System.Drawing.Size(152, 22)
         Me.mnuFiscalLia.Tag = "frmFiscalLia"
         Me.mnuFiscalLia.Text = "LIA"
         '
@@ -1478,6 +1479,12 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
+        'mnuFiscalSch
+        '
+        Me.mnuFiscalSch.Name = "mnuFiscalSch"
+        Me.mnuFiscalSch.Size = New System.Drawing.Size(152, 22)
+        Me.mnuFiscalSch.Text = "SCH"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1693,6 +1700,7 @@ Partial Class frmMain
     Friend WithEvents mnuRelevamientosV2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem25 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuRelevadores As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuFiscalSch As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

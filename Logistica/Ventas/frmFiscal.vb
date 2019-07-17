@@ -250,7 +250,7 @@ Public Class frmFiscal
             Case "GRU"
                 e = FiscalEpson.IF_OPEN("COM" & txtPuerto.Text, 9600)
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 e = FiscalHasar.IF_OPEN("COM" & txtPuerto.Text, 9600)
         End Select
 
@@ -281,7 +281,7 @@ Public Class frmFiscal
                                          sih.CondicionPagoFactura.Descripcion, _
                                          "C")
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 'Datos del cliente
                 e = FiscalHasar.SetCustomerData(H(sih.Cliente.Codigo & " " & sih.Cliente.Nombre, 50), _
                                                 sih.Cliente.CUIT, _
@@ -332,7 +332,7 @@ Public Class frmFiscal
                                          0, _
                                          0)
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 Item = H(dr("itmref_0").ToString & " " & dr("itmdes1_0").ToString, 50)
                 Pvp = CDbl(dr("netpriati_0"))
                 Qty = CDbl(dr("qty_0"))
@@ -365,7 +365,7 @@ Public Class frmFiscal
 
                 e = FiscalEpson.FACTCIERRA(TipoComprobante, sih.LetraComprobante, "FINAL")
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 Select Case sih.TipoComprobante
                     Case "FAC", "DEB"
                         e = FiscalHasar.CloseFiscalReceipt("1")
@@ -385,7 +385,7 @@ Public Class frmFiscal
             Case "GRU"
                 e = FiscalEpson.IF_CLOSE()
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 e = FiscalHasar.IF_CLOSE()
 
         End Select
@@ -402,7 +402,7 @@ Public Class frmFiscal
             Case "GRU"
                 e = FiscalEpson.CIERREZ()
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 e = FiscalHasar.DailyClose("Z")
 
         End Select
@@ -417,7 +417,7 @@ Public Class frmFiscal
             Case "GRU"
                 e = FiscalEpson.FACTCANCEL()
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 e = FiscalHasar.Cancel()
 
         End Select
@@ -433,7 +433,7 @@ Public Class frmFiscal
                 txtNCA.Text = FiscalEpson.IF_READ(11)
                 txtNCB.Text = FiscalEpson.IF_READ(12)
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 FiscalHasar.StatusRequest()
                 txtFCA.Text = FiscalHasar.IF_READ(5)
                 txtFCB.Text = FiscalHasar.IF_READ(3)
@@ -507,7 +507,7 @@ Public Class frmFiscal
 
                 End Select
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 Select Case Tipo
                     Case "FAC"
                         Resp = IIf(Letra = "A", "A", "B").ToString
@@ -542,7 +542,7 @@ Public Class frmFiscal
 
                 End Select
 
-            Case "LIA"
+            Case "LIA", "SCH"
                 Select Case Tipo
                     Case "RI", "RIL"
                         TipoIva = "I" 'Responsable Inscripto
@@ -576,7 +576,7 @@ Public Class frmFiscal
                         TipoDocumento = "DNI"
                 End Select
 
-            Case "LIA"
+            Case "LIA", "SCH"
 
                 Select Case Tipo
                     Case "80"
