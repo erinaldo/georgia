@@ -131,14 +131,15 @@ Partial Class frmMain
         Me.mnuUnificacion = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem19 = New System.Windows.Forms.ToolStripSeparator
         Me.frmSMS = New System.Windows.Forms.ToolStripMenuItem
-        Me.ClientesSinMovimientoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem23 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuTickets = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuExportarControles = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMailing = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMailsClientesMostrador = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem26 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuMailMasivos = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripSeparator
+        Me.ClientesSinMovimientoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem23 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuTickets = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuExportarControles = New System.Windows.Forms.ToolStripMenuItem
         Me.InformesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ContabilidadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuSS = New System.Windows.Forms.ToolStripMenuItem
@@ -219,7 +220,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStripMenuItem27 = New System.Windows.Forms.ToolStripSeparator
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -330,24 +330,24 @@ Partial Class frmMain
         'mnuRelevamientos
         '
         Me.mnuRelevamientos.Name = "mnuRelevamientos"
-        Me.mnuRelevamientos.Size = New System.Drawing.Size(176, 22)
+        Me.mnuRelevamientos.Size = New System.Drawing.Size(175, 22)
         Me.mnuRelevamientos.Text = "Relevamientos..."
         '
         'mnuRelevamientosV2
         '
         Me.mnuRelevamientosV2.Name = "mnuRelevamientosV2"
-        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(176, 22)
-        Me.mnuRelevamientosV2.Text = "Relevamientos V2..."
+        Me.mnuRelevamientosV2.Size = New System.Drawing.Size(175, 22)
+        Me.mnuRelevamientosV2.Text = "Inspecciones Sigex"
         '
         'ToolStripMenuItem25
         '
         Me.ToolStripMenuItem25.Name = "ToolStripMenuItem25"
-        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(173, 6)
+        Me.ToolStripMenuItem25.Size = New System.Drawing.Size(172, 6)
         '
         'mnuRelevadores
         '
         Me.mnuRelevadores.Name = "mnuRelevadores"
-        Me.mnuRelevadores.Size = New System.Drawing.Size(176, 22)
+        Me.mnuRelevadores.Size = New System.Drawing.Size(175, 22)
         Me.mnuRelevadores.Text = "ABM Relevadores..."
         '
         'CantidadExtiToolStripMenuItem
@@ -931,31 +931,6 @@ Partial Class frmMain
         Me.frmSMS.Tag = "frmSMS"
         Me.frmSMS.Text = "SMS"
         '
-        'ClientesSinMovimientoToolStripMenuItem
-        '
-        Me.ClientesSinMovimientoToolStripMenuItem.Name = "ClientesSinMovimientoToolStripMenuItem"
-        Me.ClientesSinMovimientoToolStripMenuItem.Size = New System.Drawing.Size(274, 22)
-        Me.ClientesSinMovimientoToolStripMenuItem.Tag = "FrmClienteSin"
-        Me.ClientesSinMovimientoToolStripMenuItem.Text = "Clientes sin movimiento"
-        '
-        'ToolStripMenuItem23
-        '
-        Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
-        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(271, 6)
-        '
-        'mnuTickets
-        '
-        Me.mnuTickets.Name = "mnuTickets"
-        Me.mnuTickets.Size = New System.Drawing.Size(274, 22)
-        Me.mnuTickets.Text = "Tickets"
-        '
-        'mnuExportarControles
-        '
-        Me.mnuExportarControles.Name = "mnuExportarControles"
-        Me.mnuExportarControles.Size = New System.Drawing.Size(274, 22)
-        Me.mnuExportarControles.Tag = "mnuExportarCtrles"
-        Me.mnuExportarControles.Text = "Exportar Controles..."
-        '
         'mnuMailing
         '
         Me.mnuMailing.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMailsClientesMostrador, Me.ToolStripMenuItem26, Me.mnuMailMasivos})
@@ -981,6 +956,36 @@ Partial Class frmMain
         Me.mnuMailMasivos.Size = New System.Drawing.Size(214, 22)
         Me.mnuMailMasivos.Tag = "frmMailMasivos"
         Me.mnuMailMasivos.Text = "Mails Masivos..."
+        '
+        'ToolStripMenuItem27
+        '
+        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
+        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(271, 6)
+        '
+        'ClientesSinMovimientoToolStripMenuItem
+        '
+        Me.ClientesSinMovimientoToolStripMenuItem.Name = "ClientesSinMovimientoToolStripMenuItem"
+        Me.ClientesSinMovimientoToolStripMenuItem.Size = New System.Drawing.Size(274, 22)
+        Me.ClientesSinMovimientoToolStripMenuItem.Tag = "FrmClienteSin"
+        Me.ClientesSinMovimientoToolStripMenuItem.Text = "Clientes sin movimiento"
+        '
+        'ToolStripMenuItem23
+        '
+        Me.ToolStripMenuItem23.Name = "ToolStripMenuItem23"
+        Me.ToolStripMenuItem23.Size = New System.Drawing.Size(271, 6)
+        '
+        'mnuTickets
+        '
+        Me.mnuTickets.Name = "mnuTickets"
+        Me.mnuTickets.Size = New System.Drawing.Size(274, 22)
+        Me.mnuTickets.Text = "Tickets"
+        '
+        'mnuExportarControles
+        '
+        Me.mnuExportarControles.Name = "mnuExportarControles"
+        Me.mnuExportarControles.Size = New System.Drawing.Size(274, 22)
+        Me.mnuExportarControles.Tag = "mnuExportarCtrles"
+        Me.mnuExportarControles.Text = "Exportar Controles..."
         '
         'InformesToolStripMenuItem
         '
@@ -1507,11 +1512,6 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
-        '
-        'ToolStripMenuItem27
-        '
-        Me.ToolStripMenuItem27.Name = "ToolStripMenuItem27"
-        Me.ToolStripMenuItem27.Size = New System.Drawing.Size(271, 6)
         '
         'frmMain
         '

@@ -49,6 +49,7 @@ Partial Class frmInspecciones
         Me.col2Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.col2Sucursal = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.col2Direccion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.mnuForzarFinalizado = New System.Windows.Forms.ToolStripMenuItem
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,7 +72,7 @@ Partial Class frmInspecciones
         'Label2
         '
         Label2.AutoSize = True
-        Label2.Location = New System.Drawing.Point(3, 15)
+        Label2.Location = New System.Drawing.Point(3, 9)
         Label2.Name = "Label2"
         Label2.Size = New System.Drawing.Size(197, 13)
         Label2.TabIndex = 4
@@ -115,7 +116,7 @@ Partial Class frmInspecciones
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvSigex.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvSigex.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSigex.Size = New System.Drawing.Size(811, 130)
+        Me.dgvSigex.Size = New System.Drawing.Size(581, 434)
         Me.dgvSigex.TabIndex = 0
         '
         'col1Id
@@ -169,20 +170,20 @@ Partial Class frmInspecciones
         '
         'mnu
         '
-        Me.mnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuTransferir})
+        Me.mnu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuForzarFinalizado, Me.mnuTransferir})
         Me.mnu.Name = "mnu"
-        Me.mnu.Size = New System.Drawing.Size(125, 26)
+        Me.mnu.Size = New System.Drawing.Size(172, 48)
         '
         'mnuTransferir
         '
         Me.mnuTransferir.Name = "mnuTransferir"
-        Me.mnuTransferir.Size = New System.Drawing.Size(124, 22)
+        Me.mnuTransferir.Size = New System.Drawing.Size(171, 22)
         Me.mnuTransferir.Text = "Transferir"
         '
         'btnRefrescar
         '
-        Me.btnRefrescar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnRefrescar.Location = New System.Drawing.Point(824, 28)
+        Me.btnRefrescar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnRefrescar.Location = New System.Drawing.Point(12, 468)
         Me.btnRefrescar.Name = "btnRefrescar"
         Me.btnRefrescar.Size = New System.Drawing.Size(75, 23)
         Me.btnRefrescar.TabIndex = 1
@@ -191,9 +192,9 @@ Partial Class frmInspecciones
         '
         'SplitContainer1
         '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
-        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
         'SplitContainer1.Panel1
         '
@@ -205,8 +206,8 @@ Partial Class frmInspecciones
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvAdonix)
         Me.SplitContainer1.Panel2.Controls.Add(Label2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(911, 476)
-        Me.SplitContainer1.SplitterDistance = 161
+        Me.SplitContainer1.Size = New System.Drawing.Size(1125, 494)
+        Me.SplitContainer1.SplitterDistance = 587
         Me.SplitContainer1.TabIndex = 2
         '
         'dgvAdonix
@@ -234,7 +235,7 @@ Partial Class frmInspecciones
         DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvAdonix.DefaultCellStyle = DataGridViewCellStyle5
-        Me.dgvAdonix.Location = New System.Drawing.Point(3, 31)
+        Me.dgvAdonix.Location = New System.Drawing.Point(3, 28)
         Me.dgvAdonix.Name = "dgvAdonix"
         Me.dgvAdonix.ReadOnly = True
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -246,7 +247,7 @@ Partial Class frmInspecciones
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvAdonix.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvAdonix.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAdonix.Size = New System.Drawing.Size(905, 277)
+        Me.dgvAdonix.Size = New System.Drawing.Size(528, 434)
         Me.dgvAdonix.TabIndex = 5
         '
         'col2Intervencion
@@ -297,14 +298,20 @@ Partial Class frmInspecciones
         Me.col2Direccion.ReadOnly = True
         Me.col2Direccion.Width = 77
         '
+        'mnuForzarFinalizado
+        '
+        Me.mnuForzarFinalizado.Name = "mnuForzarFinalizado"
+        Me.mnuForzarFinalizado.Size = New System.Drawing.Size(171, 22)
+        Me.mnuForzarFinalizado.Text = "Forzar Finalizado..."
+        '
         'frmInspecciones
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(911, 476)
+        Me.ClientSize = New System.Drawing.Size(1125, 494)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmInspecciones"
-        Me.Text = "Relevamientos"
+        Me.Text = "Inspecciones"
         CType(Me.dgvSigex, System.ComponentModel.ISupportInitialize).EndInit()
         Me.mnu.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -334,4 +341,5 @@ Partial Class frmInspecciones
     Friend WithEvents col2Sucursal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents col2Direccion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents mnuTransferir As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuForzarFinalizado As System.Windows.Forms.ToolStripMenuItem
 End Class

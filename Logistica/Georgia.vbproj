@@ -336,6 +336,12 @@
     <Compile Include="Logistica\frmExportarUnigis.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmInspeccion.Designer.vb">
+      <DependentUpon>frmInspeccion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmInspeccion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logistica\frmIntervencionesPendientes.Designer.vb">
       <DependentUpon>frmIntervencionesPendientes.vb</DependentUpon>
     </Compile>
@@ -1228,6 +1234,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmExportarUnigis.resx">
       <DependentUpon>frmExportarUnigis.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmInspeccion.resx">
+      <DependentUpon>frmInspeccion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmIntervencionesPendientes.resx">
       <DependentUpon>frmIntervencionesPendientes.vb</DependentUpon>

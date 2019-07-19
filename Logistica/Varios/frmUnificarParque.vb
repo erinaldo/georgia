@@ -23,7 +23,13 @@ Public Class frmUnificarParque
         txt &= "	  bomseq_0 = 10 and "
         txt &= "	  ymc.cpnitmref_0 like '451%' and "
         txt &= "	  macitntyp_0 = 1 and "
-        txt &= "	  xabo_0 <> 2 "
+
+        If chkAbonados.Checked Then
+            txt &= "	  xabo_0 = 2 "
+        Else
+            txt &= "	  xabo_0 <> 2 "
+        End If
+
         txt &= "group by tsccod_1, mac.bpcnum_0, mac.fcyitn_0, EXTRACT(YEAR FROM datnext_0), EXTRACT(MONTH FROM datnext_0),bpcnam_0 "
         txt &= "order by tsccod_1, bpcnum_0, fcyitn_0, AA, MM"
 

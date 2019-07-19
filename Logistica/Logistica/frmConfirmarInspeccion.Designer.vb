@@ -144,7 +144,7 @@ Partial Class frmConfirmarInspeccion
         Me.col3Vidrio = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.col3Llave = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.col3Obs = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.btnAceptar = New System.Windows.Forms.Button
+        Me.btnConfirmar = New System.Windows.Forms.Button
         Me.btnCancelar = New System.Windows.Forms.Button
         Me.btnRegistrar = New System.Windows.Forms.Button
         Label1 = New System.Windows.Forms.Label
@@ -1007,15 +1007,15 @@ Partial Class frmConfirmarInspeccion
         Me.col3Obs.Name = "col3Obs"
         Me.col3Obs.Visible = False
         '
-        'btnAceptar
+        'btnConfirmar
         '
-        Me.btnAceptar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAceptar.Location = New System.Drawing.Point(772, 447)
-        Me.btnAceptar.Name = "btnAceptar"
-        Me.btnAceptar.Size = New System.Drawing.Size(75, 23)
-        Me.btnAceptar.TabIndex = 1
-        Me.btnAceptar.Text = "&Aceptar"
-        Me.btnAceptar.UseVisualStyleBackColor = True
+        Me.btnConfirmar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnConfirmar.Location = New System.Drawing.Point(772, 447)
+        Me.btnConfirmar.Name = "btnConfirmar"
+        Me.btnConfirmar.Size = New System.Drawing.Size(75, 23)
+        Me.btnConfirmar.TabIndex = 1
+        Me.btnConfirmar.Text = "Confirmar"
+        Me.btnConfirmar.UseVisualStyleBackColor = True
         '
         'btnCancelar
         '
@@ -1046,7 +1046,7 @@ Partial Class frmConfirmarInspeccion
         Me.ClientSize = New System.Drawing.Size(940, 482)
         Me.Controls.Add(Me.btnRegistrar)
         Me.Controls.Add(Me.btnCancelar)
-        Me.Controls.Add(Me.btnAceptar)
+        Me.Controls.Add(Me.btnConfirmar)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Name = "frmConfirmarInspeccion"
         Me.Text = "Confirmación de Inspección"
@@ -1068,7 +1068,7 @@ Partial Class frmConfirmarInspeccion
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvSectores As System.Windows.Forms.DataGridView
     Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
-    Friend WithEvents btnAceptar As System.Windows.Forms.Button
+    Friend WithEvents btnConfirmar As System.Windows.Forms.Button
     Friend WithEvents btnCancelar As System.Windows.Forms.Button
     Friend WithEvents btnRegistrar As System.Windows.Forms.Button
     Friend WithEvents dgvExtintores As System.Windows.Forms.DataGridView

@@ -27,10 +27,6 @@ Partial Class frmUnificarParque
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgv = New System.Windows.Forms.DataGridView
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.dtp = New System.Windows.Forms.DateTimePicker
-        Me.btnBuscar = New System.Windows.Forms.Button
-        Me.lbl1 = New System.Windows.Forms.Label
         Me.colTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colNomCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -38,6 +34,11 @@ Partial Class frmUnificarParque
         Me.colMes = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colAno = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colVtos = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.dtp = New System.Windows.Forms.DateTimePicker
+        Me.btnBuscar = New System.Windows.Forms.Button
+        Me.lbl1 = New System.Windows.Forms.Label
+        Me.chkAbonados = New System.Windows.Forms.CheckBox
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -59,39 +60,6 @@ Partial Class frmUnificarParque
         Me.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgv.Size = New System.Drawing.Size(444, 396)
         Me.dgv.TabIndex = 0
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
-        '
-        'dtp
-        '
-        Me.dtp.CustomFormat = "MM/yyyy"
-        Me.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtp.Location = New System.Drawing.Point(12, 8)
-        Me.dtp.Name = "dtp"
-        Me.dtp.Size = New System.Drawing.Size(108, 20)
-        Me.dtp.TabIndex = 1
-        '
-        'btnBuscar
-        '
-        Me.btnBuscar.Location = New System.Drawing.Point(126, 5)
-        Me.btnBuscar.Name = "btnBuscar"
-        Me.btnBuscar.Size = New System.Drawing.Size(75, 23)
-        Me.btnBuscar.TabIndex = 2
-        Me.btnBuscar.Text = "Buscar"
-        Me.btnBuscar.UseVisualStyleBackColor = True
-        '
-        'lbl1
-        '
-        Me.lbl1.AutoSize = True
-        Me.lbl1.Location = New System.Drawing.Point(207, 10)
-        Me.lbl1.Name = "lbl1"
-        Me.lbl1.Size = New System.Drawing.Size(64, 13)
-        Me.lbl1.TabIndex = 3
-        Me.lbl1.Text = "Buscando..."
-        Me.lbl1.Visible = False
         '
         'colTipo
         '
@@ -160,11 +128,55 @@ Partial Class frmUnificarParque
         Me.colVtos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.colVtos.Width = 34
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
+        'dtp
+        '
+        Me.dtp.CustomFormat = "MM/yyyy"
+        Me.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtp.Location = New System.Drawing.Point(12, 8)
+        Me.dtp.Name = "dtp"
+        Me.dtp.Size = New System.Drawing.Size(108, 20)
+        Me.dtp.TabIndex = 1
+        '
+        'btnBuscar
+        '
+        Me.btnBuscar.Location = New System.Drawing.Point(206, 4)
+        Me.btnBuscar.Name = "btnBuscar"
+        Me.btnBuscar.Size = New System.Drawing.Size(75, 23)
+        Me.btnBuscar.TabIndex = 2
+        Me.btnBuscar.Text = "Buscar"
+        Me.btnBuscar.UseVisualStyleBackColor = True
+        '
+        'lbl1
+        '
+        Me.lbl1.AutoSize = True
+        Me.lbl1.Location = New System.Drawing.Point(287, 9)
+        Me.lbl1.Name = "lbl1"
+        Me.lbl1.Size = New System.Drawing.Size(64, 13)
+        Me.lbl1.TabIndex = 3
+        Me.lbl1.Text = "Buscando..."
+        Me.lbl1.Visible = False
+        '
+        'chkAbonados
+        '
+        Me.chkAbonados.AutoSize = True
+        Me.chkAbonados.Location = New System.Drawing.Point(126, 11)
+        Me.chkAbonados.Name = "chkAbonados"
+        Me.chkAbonados.Size = New System.Drawing.Size(74, 17)
+        Me.chkAbonados.TabIndex = 4
+        Me.chkAbonados.Text = "Abonados"
+        Me.chkAbonados.UseVisualStyleBackColor = True
+        '
         'frmUnificarParque
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(473, 442)
+        Me.Controls.Add(Me.chkAbonados)
         Me.Controls.Add(Me.lbl1)
         Me.Controls.Add(Me.btnBuscar)
         Me.Controls.Add(Me.dtp)
@@ -188,4 +200,5 @@ Partial Class frmUnificarParque
     Friend WithEvents colMes As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colAno As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colVtos As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents chkAbonados As System.Windows.Forms.CheckBox
 End Class

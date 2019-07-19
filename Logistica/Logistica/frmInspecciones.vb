@@ -2,6 +2,7 @@
 Imports Clases
 Imports System.Collections
 Imports System.Data.OracleClient
+Imports System.Data.SqlClient
 
 Public Class frmInspecciones
     Private ControlSigex As New Sigex.Control
@@ -356,7 +357,52 @@ Public Class frmInspecciones
 
             dv.DataSource = dt
 
+            CorregirEstadoControles(dt)
+
         End If
+
+    End Sub
+    Private Sub CorregirEstadoControles(ByVal dt As DataTable)
+        Dim Inspeccion As Sigex.Inspeccion
+        Dim Inspecciones As Sigex.InspeccionesCollection
+
+        For Each dr As DataRow In dt.Rows
+            'Salto si ya está Finalizado
+            If CInt(dr("estado")) = 1 Then Continue For
+
+            'Abro el Control
+            ControlSigex.Abrir(CInt(dr("id")))
+            Inspecciones = ControlSigex.Inspecciones
+
+            Dim i As Integer = 0
+
+            For Each Inspeccion In Inspecciones
+                If Inspeccion.Estado = 1 Then i += 1
+            Next
+
+            If i = 0 Then Continue For
+
+            If i = Inspecciones.Count Then
+                i = 1 'Finalizado
+            Else
+                i = 2 'En curso
+            End If
+
+            'Actualizar aqui estado control
+            If i > 0 Then
+                dr.BeginEdit()
+                dr("estado") = i
+                dr.EndEdit()
+
+                Select Case i
+                    Case 1
+                        ControlSigex.ForzarFinalizado()
+                    Case 2
+                        ControlSigex.ForzarEnCurso()
+                End Select
+                ControlSigex.Grabar()
+            End If
+        Next
 
     End Sub
     Private Sub CargarControlesParaConfirmar()
@@ -410,11 +456,12 @@ Public Class frmInspecciones
     Private Sub mnu_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles mnu.Opening
         Dim dr As DataRow
 
-        If dgvAdonix.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
+        If dgvSigex.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
 
         dr = CType(dgvSigex.CurrentRow.DataBoundItem, DataRowView).Row
 
         mnuTransferir.Enabled = (CInt(dr("estado")) = 1)
+        mnuForzarFinalizado.Enabled = (CInt(dr("estado")) <> 1)
 
     End Sub
     Private Sub dgvAdonix_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvAdonix.DoubleClick
@@ -433,6 +480,65 @@ Public Class frmInspecciones
             CargarControlesPendientes()
             CargarControlesParaConfirmar()
         End If
+    End Sub
+
+    Private Sub mnuForzarFinalizado_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuForzarFinalizado.Click
+        Dim dr As DataRow
+
+        If dgvSigex.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
+
+        If MessageBox.Show("¿Poner la inspección como finalizada?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+            dr = CType(dgvSigex.CurrentRow.DataBoundItem, DataRowView).Row
+
+            dr.BeginEdit()
+            dr("estado") = 1
+            dr.EndEdit()
+
+            Dim c As New Sigex.Control
+            c.Abrir(CInt(dr("id")))
+            c.ForzarFinalizado()
+            c.Grabar()
+
+            CargarControlesPendientes()
+
+        End If
+
+    End Sub
+
+    Private Sub dgvSigex_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvSigex.CellDoubleClick
+        Dim i As Integer
+        Dim Id As Integer
+
+
+        i = e.RowIndex
+
+        Id = CInt(dgvSigex.Rows(i).Cells("col1Id").Value)
+
+        Dim f As New frmInspeccion(Id)
+        f.ShowDialog()
+
+    End Sub
+
+    Private Sub dgvSigex_CellFormatting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvSigex.CellFormatting
+        On Error Resume Next
+
+        Dim o As DataGridView = CType(sender, DataGridView)
+        Dim r As DataGridViewRow = o.Rows(e.RowIndex)
+        Dim c As DataGridViewCell
+        Dim col As System.Drawing.Color
+
+        Select Case CInt(r.Cells("col1Estado").Value)
+            Case 0
+                col = Drawing.Color.LightPink
+            Case 1
+                col = Drawing.Color.LightGreen
+            Case 2
+                col = Drawing.Color.LightGoldenrodYellow
+        End Select
+
+        For Each c In r.Cells
+            c.Style.BackColor = col
+        Next
     End Sub
 
 End Class

@@ -1873,10 +1873,11 @@ Class frmRuta
         For Each dr As DataRow In dtRutad.Rows
             fecha = dtpFecha.Value
 
+            'La intervencion debe ser de tipo CTL
+            If dr("tipo_0").ToString <> "CTL" Then Continue For
+
             'Se intenta abrir la intervencion
             If Not itn.Abrir(dr("vcrnum_0").ToString) Then Continue For
-            'La intervencion debe tener articulo 652001 o 652002
-            If Not itn.ExisteRetira("652001") And Not itn.ExisteRetira("652002") Then Continue For
 
             'Obtengo el cliente en Sigex
             ClienteSigex = ClientesSigex.BuscarPorCodigoAdonix(itn.Cliente.Codigo)
