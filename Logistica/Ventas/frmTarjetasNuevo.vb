@@ -57,11 +57,6 @@ Public Class frmTarjetasNuevo
         If txt.Trim <> "" Then
             If soh.Abrir(txt) Then
 
-                If soh.Cliente.Sucursal(soh.SucursalCodigo).Provincia <> "CFE" Then
-                    MessageBox.Show("La sucursal no es de Capital", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Exit Sub
-                End If
-
                 txtNro.Text = soh.Numero
                 txtCliente.Text = soh.Cliente.Codigo & " - " & soh.Cliente.Nombre
 
