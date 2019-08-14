@@ -141,7 +141,7 @@ Public Class frmTarjetasNuevo
 
             End If
 
-            linea &= " " & dr("ynrocil_0").ToString.Trim & SEP 'Campo 7
+            linea &= dr("ynrocil_0").ToString.Trim & SEP 'Campo 7
             linea &= "False" & SEP 'Campo 8
             linea &= "Venta" & SEP 'Campo 9
             linea &= tab1.Aux1(itm.Familia(2)) & SEP 'Campo 10
