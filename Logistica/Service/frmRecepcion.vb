@@ -93,7 +93,7 @@ Public Class frmRecepcion
 
         'Obtengo puerto de impresora Zebra
         PuertoImpresora = getPuerto()
-
+        txtPuesto.Text = getPuesto()
     End Sub
     Private Sub frmRecepcion_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         GuardarResumen()
@@ -184,10 +184,10 @@ Public Class frmRecepcion
 
             'Imprimir etiqueta de codigo de barras
             If DB_USR = "GEOPROD" Then
-                If Not mac.Rechazado Then mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora)
+                If Not mac.Rechazado Then mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
             Else
                 If Not mac.Rechazado AndAlso MessageBox.Show("¿Imprimir etiqueta?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-                    mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora)
+                    mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
                 End If
             End If
 
@@ -972,7 +972,7 @@ Public Class frmRecepcion
             If mac.Rechazado Then
                 mac.ImprimirRechazo(itn, CLng(lblPallet.Tag), Application.StartupPath, PuertoImpresora)
             Else
-                mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora)
+                mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
             End If
 
         Next
@@ -1166,7 +1166,39 @@ Public Class frmRecepcion
         End Try
 
     End Sub
+    Private Function getPuesto() As String
+        Dim RegKey As RegistryKey
+        Dim s As String = ""
 
+        Try
+            'Creo o abro clave del registro
+            RegKey = Registry.CurrentUser.OpenSubKey("Software", True).CreateSubKey("Georgia")
+            s = RegKey.GetValue("PUESTO").ToString
+            RegKey.Close()
+
+        Catch ex As Exception
+            'MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+        Return s
+
+    End Function
+    Private Sub setPuesto(ByVal s As String)
+        Dim RegKey As RegistryKey
+
+        Try
+            'Creo o abro clave del registro
+            RegKey = Registry.CurrentUser.OpenSubKey("Software", True).CreateSubKey("Georgia")
+            RegKey.SetValue("PUESTO", s)
+            RegKey.Close()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+
+    End Sub
     Private Sub PasarADonny()
         'Pasa los equipos marcados con esta intervención al parque de Matafuegos Donny 402000/001
         Dim sql As String
@@ -1193,6 +1225,23 @@ Public Class frmRecepcion
         'f.MdiParent = Me.ParentForm
         f.ShowDialog()
 
+    End Sub
+
+    Private Sub mnuRastreo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRastreo.Click
+        Dim Sql As String
+        Dim Nro As String
+
+        Nro = InputBox("Codigo de Barra", "Rastreo de equipo")
+        Nro = Nro.Trim
+
+        If Nro <> "" Then
+            Sql = ""
+        End If
+    End Sub
+
+    Private Sub txtPuesto_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPuesto.LostFocus
+        Dim t As TextBox = CType(sender, TextBox)
+        setPuesto(t.Text)
     End Sub
 
 End Class
