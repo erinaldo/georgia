@@ -522,6 +522,12 @@
     <Compile Include="Service\frmPremioRelevadores.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Service\frmRastreo.Designer.vb">
+      <DependentUpon>frmRastreo.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Service\frmRastreo.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Service\frmRecepcionResumen.Designer.vb">
       <DependentUpon>frmRecepcionResumen.vb</DependentUpon>
     </Compile>
@@ -1333,6 +1339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmPremioRelevadores.resx">
       <DependentUpon>frmPremioRelevadores.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Service\frmRastreo.resx">
+      <DependentUpon>frmRastreo.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmRecepcionResumen.resx">
       <DependentUpon>frmRecepcionResumen.vb</DependentUpon>

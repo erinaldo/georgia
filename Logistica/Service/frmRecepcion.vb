@@ -1228,15 +1228,11 @@ Public Class frmRecepcion
     End Sub
 
     Private Sub mnuRastreo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRastreo.Click
-        Dim Sql As String
-        Dim Nro As String
+        Dim f As New frmRastreo
 
-        Nro = InputBox("Codigo de Barra", "Rastreo de equipo")
-        Nro = Nro.Trim
+        f.ShowInTaskbar = False
+        f.ShowDialog(Me)
 
-        If Nro <> "" Then
-            Sql = ""
-        End If
     End Sub
 
     Private Sub txtPuesto_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtPuesto.LostFocus
