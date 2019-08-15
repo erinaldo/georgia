@@ -94,6 +94,11 @@ Public Class frmRecepcion
         'Obtengo puerto de impresora Zebra
         PuertoImpresora = getPuerto()
         txtPuesto.Text = getPuesto()
+
+        'Desactivo menu Equipos procesados en el dia
+        'al usuario RECEP
+        mnuConsulta.Enabled = usr.Codigo <> "RECEP"
+
     End Sub
     Private Sub frmRecepcion_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         GuardarResumen()
