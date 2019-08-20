@@ -1649,7 +1649,7 @@ Public Class frmCotizadorV2
             'Configuración de la pantalla
             With f
                 'Muestro la pantalla
-                ctz.IntervencionRechazo = f.cbo.SelectedValue.ToString
+                ctz.IntervencionRechazo = f.Seleccionado
                 ActualizarDatosControles()
             End With
 
