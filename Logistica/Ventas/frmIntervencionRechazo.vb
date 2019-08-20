@@ -51,7 +51,7 @@ Public Class frmIntervencionRechazo
 
         dr = CType(dgv.SelectedRows(0).DataBoundItem, DataRowView).Row
 
-        Seleccionado = dr("num_0").ToString
+        Seleccionado = dr("intervencion").ToString
 
         DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
