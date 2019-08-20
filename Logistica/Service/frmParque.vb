@@ -5,6 +5,9 @@ Public Class frmParque
     Private WithEvents Mac As Parque
     Private Activo As Boolean = False
 
+    Private bpc As Cliente = Nothing
+    Private bpa As Sucursal = Nothing
+
     'SUB
     Public Sub New(ByVal Mac As Parque)
 
@@ -241,6 +244,10 @@ Public Class frmParque
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
         Dim Sql As String = ""
+
+        'Cancelo la busqueda si el cliente es de capital o es distribuidor
+        If Mac.Cliente.Familia2 = "20" Then Exit Sub
+        If Mac.Sucursal.Provincia = "CFE" Then Exit Sub
 
         Sql = "select mac.* "
         Sql &= "from machines mac inner join "
