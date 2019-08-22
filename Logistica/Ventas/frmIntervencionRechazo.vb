@@ -19,21 +19,27 @@ Public Class frmIntervencionRechazo
         Dim da As OracleDataAdapter
         Dim sql As String = ""
 
-        sql = "select itn.dat_0 as fecha, itn.num_0 as intervencion, itn.ysdhdeb_0 as rto, itn.xsector_0 as sector "
+        sql = "select distinct itn.dat_0 as fecha, itn.num_0 as intervencion, itn.ysdhdeb_0 as rto, itn.xsector_0 as sector "
         sql &= "from interven itn inner join "
-        sql &= "	 hdktask hdk on (itn.num_0 = hdk.itnnum_0) "
+        sql &= "	 sremac srm on (itn.num_0 = srm.yitnnum_0) inner join "
+        sql &= "	 machines mac on (srm.macnum_0 = mac.macnum_0) "
         sql &= "where itn.bpc_0 = :cli and "
         sql &= "      itn.bpaadd_0 = :suc and "
         sql &= "      itn.credat_0 >= :dat and "
-        sql &= "      hdk.hdtitm_0 in ('453001', '503001') "
-        sql &= "order by credat_0 desc "
+        sql &= "      mac.macitntyp_0 = 5 "
+        sql &= "order by itn.dat_0 desc "
 
         da = New OracleDataAdapter(sql, cn)
         da.SelectCommand.Parameters.Add("cli", OracleType.VarChar).Value = bpc.Codigo
         da.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = bpa.Sucursal
         da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Today.AddYears(-1)
 
-        da.Fill(dt)
+        Try
+            da.Fill(dt)
+        Catch ex As Exception
+
+        End Try
+
 
         dgv.DataSource = dt
 
@@ -43,6 +49,10 @@ Public Class frmIntervencionRechazo
         btnAceptar.Enabled = dt.Rows.Count > 0
 
         Seleccionado = ""
+
+        For Each c As DataGridViewColumn In dgv.Columns
+            c.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+        Next
 
     End Sub
 
