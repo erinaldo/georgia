@@ -1200,11 +1200,11 @@ Public Class frmIntervencion
         cpy.abrir(cboSociedad.SelectedValue.ToString)
 
         Select Case cpy.Codigo
-            Case "GRU"
+            Case "GRU", "LIA"
                 MessageBox.Show("Esta sociedad no se puede utilizar", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Return False
 
-            Case "LIA"
+            Case "SCH"
                 If bpc.RegimenImpuesto = "RI" OrElse bpc.RegimenImpuesto = "RIE" Then
                     MessageBox.Show("Esta sociedad no se puede utilizar con clientes RI", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     Return False
@@ -2152,8 +2152,8 @@ Public Class frmIntervencion
         'Obligatorio si NO tiene facturas en el historico
         If bpc.TieneFacturas Then Return False
         'Debe ser LIA o H
-        If Not (cboSociedad.SelectedValue.ToString = "LIA" Or chkH.Checked) Then
-            Dim msg As String = "Debe usar sociedad LIA o H para este cliente"
+        If Not (cboSociedad.SelectedValue.ToString = "SCH" Or chkH.Checked) Then
+            Dim msg As String = "Debe usar sociedad SCH o H para este cliente"
             MessageBox.Show(msg, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return True
         End If

@@ -602,7 +602,7 @@ Public Class frmIntervencionesAutomaticas
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
         Dim sql As String
-        Dim compania As String = "LIA"
+        Dim compania As String = "SCH"
 
         sql = "select salfcy_0 from interven where bpc_0 = :bpc and typ_0 = 'B1' order by dat_0 desc"
         da = New OracleDataAdapter(sql, cn)
@@ -615,7 +615,7 @@ Public Class frmIntervencionesAutomaticas
             If dr("salfcy_0").ToString = "D01" Then
                 compania = "DNY"
             Else
-                compania = "LIA"
+                compania = "SCH"
             End If
 
         Else
@@ -634,7 +634,7 @@ Public Class frmIntervencionesAutomaticas
                 If dr1("salfcy_0").ToString = "D01" Then
                     compania = "DNY"
                 Else
-                    compania = "LIA"
+                    compania = "SCH"
                 End If
             End If
 
