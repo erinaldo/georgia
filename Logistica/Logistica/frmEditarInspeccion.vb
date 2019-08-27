@@ -2,7 +2,7 @@
 Imports Clases
 Imports Sigex
 
-Public Class frmConfirmarInspeccion
+Public Class frmEditarInspeccion
     Private Agentes As New Sigex.Agentes
     Private Capacidades As New Sigex.Capacidades
     Private ControlSigex As New Sigex.Control
@@ -311,16 +311,16 @@ Public Class frmConfirmarInspeccion
 
             If i IsNot Nothing Then
                 Campo = "col1Luz"
-                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Luz Then
-                    d.Cells(Campo).ErrorText = IIf(i.Luz, "Sí", "No").ToString
+                If CInt(d.Cells(Campo).Value) <> i.Luces Then
+                    d.Cells(Campo).ErrorText = i.Luces.ToString
                 End If
                 Campo = "col1Cartel"
-                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Cartel Then
-                    d.Cells(Campo).ErrorText = IIf(i.Cartel, "Sí", "No").ToString
+                If CInt(d.Cells(Campo).Value) <> i.CartelAltura Then
+                    d.Cells(Campo).ErrorText = i.CartelAltura.ToString
                 End If
                 Campo = "col1Cinta"
-                If CBool(CInt(d.Cells(Campo).Value) - 1) <> i.Cinta Then
-                    d.Cells(Campo).ErrorText = IIf(i.Cinta, "Sí", "No").ToString
+                If CInt(d.Cells(Campo).Value) <> i.Cinta Then
+                    d.Cells(Campo).ErrorText = i.Cinta.ToString
                 End If
             End If
         Next

@@ -43,11 +43,17 @@ Public Class frmSectoresPuestos
         daPuestos.DeleteCommand = New OracleCommandBuilder(daPuestos).GetDeleteCommand
 
         'SQL para inspecciones
-        Sql = "SELECT dat_0, itn_0 "
-        Sql &= "FROM xcontroles "
+        Sql = "SELECT dat_0, "
+        Sql &= "	  itn_0, "
+        Sql &= "	  (SELECT lanmes_0 FROM aplstd WHERE lanchp_0 = 2408 AND lan_0 = 'SPA' AND lannum_0 = acomp_0) AS relevador "
+        Sql &= "FROM xcontroles xco INNER JOIN "
+        Sql &= "	 xrutad xrd ON (itn_0 = vcrnum_0) INNER JOIN "
+        Sql &= "	 xrutac xrc ON (xrd.ruta_0 = xrc.ruta_0) "
         Sql &= "WHERE bpcnum_0 = :bpcnum_0 AND "
-        Sql &= "      bpaadd_0 = :bpaadd_0 "
+        Sql &= "	  bpaadd_0 = :bpaadd_0 AND "
+        Sql &= "	  xrd.estado_0 = 3"
         Sql &= "ORDER BY dat_0 DESC"
+
         daInspecciones = New OracleDataAdapter(Sql, cn)
         daInspecciones.SelectCommand.Parameters.Add("bpcnum_0", OracleType.VarChar)
         daInspecciones.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar)
@@ -109,9 +115,6 @@ Public Class frmSectoresPuestos
 
         ds.Tables.Add(dtPuestos)
 
-        btnTransferenciaMasiva.Visible = (usr.Codigo = "MMIN")
-        lblTransferenciaMasiva.Visible = (usr.Codigo = "MMIN")
-
     End Sub
     Private Sub cboSucursales_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboSucursales.SelectedIndexChanged
         If cboSucursales.SelectedValue Is Nothing Then Exit Sub
@@ -166,6 +169,7 @@ Public Class frmSectoresPuestos
         If dgvInspecciones.DataSource Is Nothing Then
             colInspeccionesFecha.DataPropertyName = "dat_0"
             colInspeccionesIntervencion.DataPropertyName = "itn_0"
+            colInspeccionesRelevador.DataPropertyName = "relevador"
             dgvInspecciones.DataSource = dtInspecciones
         End If
     End Sub
@@ -481,6 +485,9 @@ Public Class frmSectoresPuestos
     Private Sub mnuVerInspeccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVerInspeccion.Click
         VerInspeccion()
     End Sub
+    Private Sub mnuEditarInspeccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuEditarInspeccion.Click
+        EditarInspeccion()
+    End Sub
 #End Region
 #Region "BOTONES"
     Private Sub btnAbrir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbrir.Click
@@ -518,6 +525,7 @@ Public Class frmSectoresPuestos
         Me.Close()
     End Sub
 #End Region
+
     Private Sub dgvPuestos_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvPuestosExtintores.CellDoubleClick
         If e.RowIndex < 0 Then Exit Sub
         If e.ColumnIndex < 0 Then Exit Sub
@@ -609,15 +617,22 @@ Public Class frmSectoresPuestos
 
         End Try
     End Sub
-    Private Sub btnTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferir.Click
-        Dim Cli As String
-        Dim Suc As String
+    Private Sub EditarInspeccion()
+        Dim dr As DataRow
+        Dim x As String = ""
+        Dim c As New Clases.Control(cn)
 
-        'Obtengo Cliente y Sucursal
-        Cli = txtCliente.Text
-        suc = cboSucursales.SelectedValue.ToString
+        If dgvInspecciones.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
 
-        Transferir(Cli, Suc)
+        'Obtengo el registro actual
+        dr = CType(CType(dgvInspecciones.CurrentRow, DataGridViewRow).DataBoundItem, DataRowView).Row
+        x = dr("itn_0").ToString
+
+        c.Abrir(x)
+
+        Dim f As New frmEditarInspeccion(c)
+        f.ShowInTaskbar = False
+        f.ShowDialog(Me)
 
     End Sub
     Public Sub Transferir(ByVal Cli As String, ByVal Suc As String)
@@ -733,48 +748,6 @@ Public Class frmSectoresPuestos
     End Sub
     Private Sub mnuCambiarSectorExtintor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCambiarSectorExtintor.Click
         CambiarSector(dgvPuestosExtintores)
-    End Sub
-
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferenciaMasiva.Click
-        Dim Sql As String
-        Dim da As OracleDataAdapter
-        Dim dt As New DataTable
-        Dim btn As Button = CType(sender, Button)
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-
-        btn.Enabled = False
-
-        Sql = "SELECT distinct bpcnum_0, fcyitn_0 "
-        Sql &= "FROM xsectores "
-        Sql &= "ORDER BY bpcnum_0, fcyitn_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        da.Fill(dt)
-        da.Dispose()
-
-        j = dt.Rows.Count - 1
-
-        For i = 0 To j
-            Dim dr As DataRow
-            Dim Cli As String
-            Dim Suc As String
-
-            dr = dt.Rows(i)
-            Cli = dr("bpcnum_0").ToString
-            Suc = dr("fcyitn_0").ToString
-
-            lblTransferenciaMasiva.Text = i.ToString & " de " & j.ToString
-            Transferir(Cli, Suc)
-
-            Application.DoEvents()
-            Application.DoEvents()
-
-
-        Next
-
-        btn.Enabled = True
-
     End Sub
 
 End Class

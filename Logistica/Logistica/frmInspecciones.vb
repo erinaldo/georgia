@@ -7,6 +7,7 @@ Imports System.Data.SqlClient
 Public Class frmInspecciones
     Private ControlSigex As New Sigex.Control
     Private ControlAdonix As New Clases.Control(cn)
+    Private ctrles As New Sigex.ControlesCollection
     Private InspeccionesSigex As New Sigex.InspeccionesCollection
     Private InspeccionesAdonix As Clases.InspeccionesCollection
     Private Agentes As New Sigex.Agentes
@@ -32,6 +33,9 @@ Public Class frmInspecciones
         End Property
     End Structure
     Private Sub frmInspecciones_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        AddHandler dgvSigex.RowPostPaint, AddressOf NumeracionGrillas
+        AddHandler dgvAdonix.RowPostPaint, AddressOf NumeracionGrillas
+
         CargarControlesPendientes()
         CargarControlesParaConfirmar()
     End Sub
@@ -51,7 +55,7 @@ Public Class frmInspecciones
                 .Fecha = ControlSigex.FechaProgramacion
                 .Cliente = ControlSigex.Contrato.ContratoCliente
                 .Sucursal = ControlSigex.Contrato.ContratoSucursal
-                .Estado = 1
+                .Estado = 2 'Fuerzo estado finalizado
                 .Grabar()
             End With
         End If
@@ -68,6 +72,8 @@ Public Class frmInspecciones
         'Cargo las inspecciones que tiene el control de Adonix
         InspeccionesAdonix = ControlAdonix.Inspecciones
 
+
+
         For Each i As Sigex.Inspeccion In InspeccionesSigex
             If i.Estado = 0 Then Continue For
             ProcesarInspeccion(i)
@@ -79,12 +85,15 @@ Public Class frmInspecciones
             ControlSigex.Grabar()
         End If
 
-        ControlAdonix.Estado = ControlSigex.Estado
+        ControlAdonix.Estado = 2
         ControlAdonix.Grabar()
 
-        CargarControlesPendientes()
-        CargarControlesParaConfirmar()
-
+    End Sub
+    Private Sub Eliminar(ByVal dr As DataRow)
+        Try
+            dr.Delete()
+        Catch ex As Exception
+        End Try
     End Sub
     Private Sub MigrarSectoresPuestos(ByVal ClienteId As Integer, ByVal SucursalId As Integer)
         Dim cli As New Sigex.Cliente
@@ -242,9 +251,18 @@ Public Class frmInspecciones
 
             ia.Tipo = 1 '1=Puesto sector
 
-            ia.Luz = ii.Luz
+            ia.Balizas = ii.Baldes
+            ia.Gabinetes = ii.Gabinetes
+            ia.CartelSalida = ii.CartelSalida
+            ia.CartelSalidaEmergencia = ii.CartelSalidaEmergencia
+            ia.CartelEscaleras = ii.CartelEscaleras
+            ia.CartelRiesgoElectrico = ii.CartelRiesgoElectrico
+            ia.CartelAscensor = ii.CartelAscensor
+            ia.CartelAltura = ii.CartelAltura
+            ia.Baldes = ii.Baldes
+            ia.Martillos = ii.Martillos
+            ia.Luces = ii.Luces
             ia.Cinta = ii.Cinta
-            ia.Cartel = ii.Cartel
 
         ElseIf TypeOf i Is InspeccionExtintor Then
             Dim Agente As New Agentes
@@ -253,11 +271,6 @@ Public Class frmInspecciones
             ii = CType(i, InspeccionExtintor)
 
             ia.Tipo = 2 '2=Puesto Extintor
-            ia.Equipo = ii.Equipo.CodigoAdonix
-            ia.Agente = Agente.SigexToAdonix(ii.Equipo.Agente)
-            ia.Capacidad = Capacidad.SigexToAdonix(ii.Equipo.Capacidad)
-            ia.Cilindro = ii.Equipo.Cilindro
-            ia.Vto = ii.Equipo.VencimientoCarga
             ia.Vencido = ii.Vencido
             ia.Ausente = ii.Ausente
             ia.Obstruido = ii.Obstruido
@@ -281,7 +294,19 @@ Public Class frmInspecciones
             If es Is Nothing Then
                 pa.EquipoId = " "
 
+                ia.Equipo = " "
+                ia.Agente = " "
+                ia.Capacidad = " "
+                ia.Cilindro = " "
+                ia.Vto = #12/31/1599#
+
             Else
+                ia.Equipo = es.CodigoAdonix
+                ia.Agente = Agente.SigexToAdonix(es.Agente)
+                ia.Capacidad = Capacidad.SigexToAdonix(es.Capacidad)
+                ia.Cilindro = ii.Equipo.Cilindro
+                ia.Vto = es.VencimientoCarga
+
                 'Si no tiene codigo adonix es porque se creo desde la app
                 If es.CodigoAdonix = "" Then
                     mac = New Parque(cn)
@@ -320,11 +345,27 @@ Public Class frmInspecciones
         End If
 
         ia.Grabar()
+
+        'Transferencia de fotos
+        TransferirFotos(i)
+
+    End Sub
+    Private Sub TransferirFotos(ByVal i As Sigex.Inspeccion)
+        Dim f As Sigex.Foto
+        Dim af As New Clases.Foto(cn)
+
+        For Each f In i.Fotos
+            af.Nuevo(f.id)
+            af.Descripcion = f.descripcion
+            af.Foto = f.Foto
+            af.Inspeccion = f.Inspeccion
+            af.Grabar()
+        Next
+
     End Sub
     Private Sub CargarControlesPendientes()
         'Carga los contoles pendientes de migracion Sigex->Adonix
         Dim dt As DataTable
-        Dim ctrles As New Sigex.ControlesCollection
         Dim dv As DataGridView = dgvSigex
 
         If dv.DataSource Is Nothing Then
@@ -406,6 +447,12 @@ Public Class frmInspecciones
 
     End Sub
     Private Sub CargarControlesParaConfirmar()
+        ''
+        '------------------------------------
+        ' FUNCION DESACTIVADA POR EL MOMENTO -- 23.08.2019
+        '------------------------------------
+        '
+        '
         'Se carga la grilla con los controles que se deben comparar con el anterior
         'para confirmar o modificar
         Dim da As OracleDataAdapter
@@ -452,6 +499,9 @@ Public Class frmInspecciones
 
         Transferir(dr)
 
+        CargarControlesPendientes()
+        CargarControlesParaConfirmar()
+
     End Sub
     Private Sub mnu_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles mnu.Opening
         Dim dr As DataRow
@@ -465,14 +515,14 @@ Public Class frmInspecciones
 
     End Sub
     Private Sub dgvAdonix_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvAdonix.DoubleClick
-        Dim f As frmConfirmarInspeccion
+        Dim f As frmEditarInspeccion
         Dim dr As DataRow
 
         If dgvAdonix.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
 
         dr = CType(dgvAdonix.CurrentRow.DataBoundItem, DataRowView).Row
         ControlAdonix.Abrir(dr("itn_0").ToString)
-        f = New frmConfirmarInspeccion(ControlAdonix)
+        f = New frmEditarInspeccion(ControlAdonix)
         f.ShowInTaskbar = False
         f.ShowDialog(Me)
 
@@ -481,14 +531,13 @@ Public Class frmInspecciones
             CargarControlesParaConfirmar()
         End If
     End Sub
-
     Private Sub mnuForzarFinalizado_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuForzarFinalizado.Click
         Dim dr As DataRow
 
         If dgvSigex.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
 
-        If MessageBox.Show("¿Poner la inspección como finalizada?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-            dr = CType(dgvSigex.CurrentRow.DataBoundItem, DataRowView).Row
+        For Each d As DataGridViewRow In dgvSigex.SelectedRows
+            dr = CType(d.DataBoundItem, DataRowView).Row
 
             dr.BeginEdit()
             dr("estado") = 1
@@ -499,12 +548,11 @@ Public Class frmInspecciones
             c.ForzarFinalizado()
             c.Grabar()
 
-            CargarControlesPendientes()
+        Next
 
-        End If
+        CargarControlesPendientes()
 
     End Sub
-
     Private Sub dgvSigex_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvSigex.CellDoubleClick
         Dim i As Integer
         Dim Id As Integer
@@ -518,7 +566,6 @@ Public Class frmInspecciones
         f.ShowDialog()
 
     End Sub
-
     Private Sub dgvSigex_CellFormatting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvSigex.CellFormatting
         On Error Resume Next
 
@@ -539,6 +586,58 @@ Public Class frmInspecciones
         For Each c In r.Cells
             c.Style.BackColor = col
         Next
+    End Sub
+    Private Sub btnTransferirTodo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTransferirFinalizados.Click
+        Dim dt As DataTable
+        Dim dr As DataRow
+
+        CType(sender, Button).Enabled = False
+
+        dt = CType(dgvSigex.DataSource, DataTable)
+
+        For Each dr In dt.Rows
+            If CInt(dr("estado")) <> 1 Then Continue For
+            Transferir(dr)
+        Next
+
+        CargarControlesPendientes()
+        CargarControlesParaConfirmar()
+
+        CType(sender, Button).Enabled = True
+
+    End Sub
+    Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
+        Dim dt As DataTable
+        Dim n As Integer
+        Dim s As String
+
+        n = dgvSigex.SelectedRows.Count
+
+        s = "¿Confirma la eliminacion de "
+        s &= n.ToString
+        s &= " inspecciones?"
+
+        If MessageBox.Show(s, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
+            Exit Sub
+        End If
+
+        dt = CType(dgvSigex.DataSource, DataTable)
+
+        For Each r As DataGridViewRow In dgvSigex.SelectedRows
+            Try
+
+                With CType(r.DataBoundItem, DataRowView).Row
+                    If .RowState = DataRowState.Deleted Then Continue For
+                    .Delete()
+                End With
+
+            Catch ex As Exception
+
+            End Try
+        Next
+
+        ctrles.UpdateTable(dt)
+
     End Sub
 
 End Class

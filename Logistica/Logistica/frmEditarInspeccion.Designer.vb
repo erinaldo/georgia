@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmConfirmarInspeccion
+Partial Class frmEditarInspeccion
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -166,9 +166,9 @@ Partial Class frmConfirmarInspeccion
         Label1.AutoSize = True
         Label1.Location = New System.Drawing.Point(3, 9)
         Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(49, 13)
+        Label1.Size = New System.Drawing.Size(79, 13)
         Label1.TabIndex = 1
-        Label1.Text = "Sectores"
+        Label1.Text = "Puestos Sector"
         '
         'Label2
         '
@@ -195,6 +195,7 @@ Partial Class frmConfirmarInspeccion
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
         'SplitContainer1.Panel1
         '
@@ -205,7 +206,7 @@ Partial Class frmConfirmarInspeccion
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer2)
         Me.SplitContainer1.Size = New System.Drawing.Size(940, 436)
-        Me.SplitContainer1.SplitterDistance = 283
+        Me.SplitContainer1.SplitterDistance = 147
         Me.SplitContainer1.TabIndex = 0
         '
         'dgvSectores
@@ -219,7 +220,7 @@ Partial Class frmConfirmarInspeccion
         Me.dgvSectores.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col1Id, Me.col1Intervencion, Me.col1Puesto, Me.col1Sector, Me.col1Tipo, Me.col1Nro, Me.col1Ubicacion, Me.col1Nombre, Me.col1Luz, Me.col1Cartel, Me.col1Cinta, Me.col1Equipo, Me.col1Agente, Me.col1Capacidad, Me.col1Cilindro, Me.col1Vto, Me.col1Vencido, Me.col1Ausente, Me.col1Obstruido, Me.col1Carro, Me.col1Usado, Me.col1Despintado, Me.col1Despresurizado, Me.col1Altura, Me.col1SenalAltura, Me.col1SenalBaliza, Me.col1Tarjeta, Me.col1Precinto, Me.col1Soporte, Me.col1Ruptura, Me.col1Manguera, Me.col1Otro, Me.col1Valvula, Me.col1Pico, Me.col1Lanza, Me.col1Vidrio, Me.col1Llave, Me.col1Obs})
         Me.dgvSectores.Location = New System.Drawing.Point(3, 25)
         Me.dgvSectores.Name = "dgvSectores"
-        Me.dgvSectores.Size = New System.Drawing.Size(277, 408)
+        Me.dgvSectores.Size = New System.Drawing.Size(934, 119)
         Me.dgvSectores.TabIndex = 0
         '
         'col1Id
@@ -466,8 +467,8 @@ Partial Class frmConfirmarInspeccion
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.dgvHidrantes)
         Me.SplitContainer2.Panel2.Controls.Add(Label3)
-        Me.SplitContainer2.Size = New System.Drawing.Size(653, 436)
-        Me.SplitContainer2.SplitterDistance = 208
+        Me.SplitContainer2.Size = New System.Drawing.Size(940, 285)
+        Me.SplitContainer2.SplitterDistance = 135
         Me.SplitContainer2.TabIndex = 0
         '
         'dgvExtintores
@@ -481,7 +482,7 @@ Partial Class frmConfirmarInspeccion
         Me.dgvExtintores.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col2Id, Me.col2Intervencion, Me.col2Puesto, Me.col2Sector, Me.col2Tipo, Me.col2Nro, Me.col2Ubicacion, Me.col2Nombre, Me.col2Luz, Me.col2Cartel, Me.col2Cinta, Me.col2Equipo, Me.col2Agente, Me.col2Capacidad, Me.col2Cilindro, Me.col2Vto, Me.col2Vencido, Me.col2Ausente, Me.col2Obstruido, Me.col2Carro, Me.col2Usado, Me.col2Despintado, Me.col2Despresurizado, Me.col2Altura, Me.col2SenalAltura, Me.col2SenalBaliza, Me.col2Tarjeta, Me.col2Precinto, Me.col2Soporte, Me.col2Ruptura, Me.col2Manguera, Me.col2Otro, Me.col2Valvula, Me.col2Pico, Me.col2Lanza, Me.col2Vidrio, Me.col2Llave, Me.col2Obs})
         Me.dgvExtintores.Location = New System.Drawing.Point(3, 25)
         Me.dgvExtintores.Name = "dgvExtintores"
-        Me.dgvExtintores.Size = New System.Drawing.Size(647, 180)
+        Me.dgvExtintores.Size = New System.Drawing.Size(934, 107)
         Me.dgvExtintores.TabIndex = 2
         '
         'col2Id
@@ -762,7 +763,7 @@ Partial Class frmConfirmarInspeccion
         Me.dgvHidrantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col3Id, Me.col3Intervencion, Me.col3Puesto, Me.col3Sector, Me.col3Tipo, Me.col3Nro, Me.col3Ubicacion, Me.col3Nombre, Me.col3Luz, Me.col3Cartel, Me.col3Cinta, Me.col3Equipo, Me.col3Agente, Me.col3Capacidad, Me.col3Cilindro, Me.col3Vto, Me.col3Vencido, Me.col3Ausente, Me.col3Obstruido, Me.col3Carro, Me.col3Usado, Me.col3Despintado, Me.col3Despresurizado, Me.col3Altura, Me.col3SenalAltura, Me.col3SenalBaliza, Me.col3Tarjeta, Me.col3Precinto, Me.col3Soporte, Me.col3Ruptura, Me.col3Manguera, Me.col3Otro, Me.col3Valvula, Me.col3Pico, Me.col3Lanza, Me.col3Vidrio, Me.col3Llave, Me.col3Obs})
         Me.dgvHidrantes.Location = New System.Drawing.Point(3, 21)
         Me.dgvHidrantes.Name = "dgvHidrantes"
-        Me.dgvHidrantes.Size = New System.Drawing.Size(647, 200)
+        Me.dgvHidrantes.Size = New System.Drawing.Size(934, 122)
         Me.dgvHidrantes.TabIndex = 3
         '
         'col3Id
@@ -1016,6 +1017,7 @@ Partial Class frmConfirmarInspeccion
         Me.btnConfirmar.TabIndex = 1
         Me.btnConfirmar.Text = "Confirmar"
         Me.btnConfirmar.UseVisualStyleBackColor = True
+        Me.btnConfirmar.Visible = False
         '
         'btnCancelar
         '
@@ -1038,7 +1040,7 @@ Partial Class frmConfirmarInspeccion
         Me.btnRegistrar.Text = "&Registrar"
         Me.btnRegistrar.UseVisualStyleBackColor = True
         '
-        'frmConfirmarInspeccion
+        'frmEditarInspeccion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -1048,7 +1050,7 @@ Partial Class frmConfirmarInspeccion
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.btnConfirmar)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Name = "frmConfirmarInspeccion"
+        Me.Name = "frmEditarInspeccion"
         Me.Text = "Confirmación de Inspección"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()

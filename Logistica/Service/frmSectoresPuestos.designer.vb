@@ -54,6 +54,7 @@ Partial Class frmSectoresPuestos
         Me.dgvInspecciones = New System.Windows.Forms.DataGridView
         Me.colInspeccionesFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colInspeccionesIntervencion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colInspeccionesRelevador = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.mnuInspecciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuVerInspeccion = New System.Windows.Forms.ToolStripMenuItem
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer
@@ -100,9 +101,7 @@ Partial Class frmSectoresPuestos
         Me.btnCancelar = New System.Windows.Forms.Button
         Me.txtCliente = New System.Windows.Forms.TextBox
         Me.btnSalir = New System.Windows.Forms.Button
-        Me.btnTransferir = New System.Windows.Forms.Button
-        Me.btnTransferenciaMasiva = New System.Windows.Forms.Button
-        Me.lblTransferenciaMasiva = New System.Windows.Forms.Label
+        Me.mnuEditarInspeccion = New System.Windows.Forms.ToolStripMenuItem
         Label1 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
         Label4 = New System.Windows.Forms.Label
@@ -323,7 +322,7 @@ Partial Class frmSectoresPuestos
         DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvInspecciones.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvInspecciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvInspecciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colInspeccionesFecha, Me.colInspeccionesIntervencion})
+        Me.dgvInspecciones.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colInspeccionesFecha, Me.colInspeccionesIntervencion, Me.colInspeccionesRelevador})
         Me.dgvInspecciones.ContextMenuStrip = Me.mnuInspecciones
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
@@ -365,17 +364,23 @@ Partial Class frmSectoresPuestos
         Me.colInspeccionesIntervencion.ReadOnly = True
         Me.colInspeccionesIntervencion.Width = 91
         '
+        'colInspeccionesRelevador
+        '
+        Me.colInspeccionesRelevador.HeaderText = "Relevador"
+        Me.colInspeccionesRelevador.Name = "colInspeccionesRelevador"
+        Me.colInspeccionesRelevador.ReadOnly = True
+        '
         'mnuInspecciones
         '
-        Me.mnuInspecciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVerInspeccion})
+        Me.mnuInspecciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVerInspeccion, Me.mnuEditarInspeccion})
         Me.mnuInspecciones.Name = "cmenuPuestos"
-        Me.mnuInspecciones.Size = New System.Drawing.Size(161, 26)
+        Me.mnuInspecciones.Size = New System.Drawing.Size(174, 70)
         '
         'mnuVerInspeccion
         '
         Me.mnuVerInspeccion.Name = "mnuVerInspeccion"
-        Me.mnuVerInspeccion.Size = New System.Drawing.Size(160, 22)
-        Me.mnuVerInspeccion.Text = "Ver inspeccion..."
+        Me.mnuVerInspeccion.Size = New System.Drawing.Size(173, 22)
+        Me.mnuVerInspeccion.Text = "Ver inspección..."
         '
         'SplitContainer2
         '
@@ -757,40 +762,17 @@ Partial Class frmSectoresPuestos
         Me.btnSalir.Text = "Salir"
         Me.btnSalir.UseVisualStyleBackColor = True
         '
-        'btnTransferir
+        'mnuEditarInspeccion
         '
-        Me.btnTransferir.Location = New System.Drawing.Point(860, 8)
-        Me.btnTransferir.Name = "btnTransferir"
-        Me.btnTransferir.Size = New System.Drawing.Size(75, 23)
-        Me.btnTransferir.TabIndex = 14
-        Me.btnTransferir.Text = "Transferir"
-        Me.btnTransferir.UseVisualStyleBackColor = True
-        '
-        'btnTransferenciaMasiva
-        '
-        Me.btnTransferenciaMasiva.Location = New System.Drawing.Point(952, 8)
-        Me.btnTransferenciaMasiva.Name = "btnTransferenciaMasiva"
-        Me.btnTransferenciaMasiva.Size = New System.Drawing.Size(75, 23)
-        Me.btnTransferenciaMasiva.TabIndex = 15
-        Me.btnTransferenciaMasiva.Text = "Transf. All"
-        Me.btnTransferenciaMasiva.UseVisualStyleBackColor = True
-        '
-        'lblTransferenciaMasiva
-        '
-        Me.lblTransferenciaMasiva.AutoSize = True
-        Me.lblTransferenciaMasiva.Location = New System.Drawing.Point(1033, 16)
-        Me.lblTransferenciaMasiva.Name = "lblTransferenciaMasiva"
-        Me.lblTransferenciaMasiva.Size = New System.Drawing.Size(39, 13)
-        Me.lblTransferenciaMasiva.TabIndex = 16
-        Me.lblTransferenciaMasiva.Text = "Label5"
+        Me.mnuEditarInspeccion.Name = "mnuEditarInspeccion"
+        Me.mnuEditarInspeccion.Size = New System.Drawing.Size(173, 22)
+        Me.mnuEditarInspeccion.Text = "Editar inspección..."
         '
         'frmSectoresPuestos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1191, 578)
-        Me.Controls.Add(Me.lblTransferenciaMasiva)
-        Me.Controls.Add(Me.btnTransferenciaMasiva)
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.txtCliente)
         Me.Controls.Add(Me.btnSectores)
@@ -800,7 +782,6 @@ Partial Class frmSectoresPuestos
         Me.Controls.Add(Me.btnRegistrar)
         Me.Controls.Add(Me.txtNombre)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.btnTransferir)
         Me.Name = "frmSectoresPuestos"
         Me.Text = "Parque de clientes abonados"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -883,13 +864,12 @@ Partial Class frmSectoresPuestos
     Friend WithEvents colPuestoHidranteInspeccion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents SplitContainer3 As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvInspecciones As System.Windows.Forms.DataGridView
-    Friend WithEvents colInspeccionesFecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colInspeccionesIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents mnuInspecciones As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnuVerInspeccion As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnTransferir As System.Windows.Forms.Button
     Friend WithEvents mnuCambiarSectorExtintor As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuCambiarSectorHidrante As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnTransferenciaMasiva As System.Windows.Forms.Button
-    Friend WithEvents lblTransferenciaMasiva As System.Windows.Forms.Label
+    Friend WithEvents colInspeccionesFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colInspeccionesIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colInspeccionesRelevador As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents mnuEditarInspeccion As System.Windows.Forms.ToolStripMenuItem
 End Class
