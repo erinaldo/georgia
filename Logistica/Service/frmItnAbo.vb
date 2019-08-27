@@ -138,7 +138,7 @@ Public Class frmItnAbo
                     Continue For
                 End If
 
-                If ProcesoA1(dIni, dFin, con, bpa, ss) Then flgA1 = True
+                'If ProcesoA1(dIni, dFin, con, bpa, ss) Then flgA1 = True
                 If ProcesoC1(dIni, dFin, con, bpa, ss) Then flgC1 = True
 
             Next
@@ -348,10 +348,15 @@ Public Class frmItnAbo
 
         dtRetiros.Clear()
 
-        If con.Unificacion > 0 Then
-            dIni = dIni.AddMonths(-1 * (con.Unificacion - 1))
-            dFin = dFin.AddMonths(con.Unificacion - 1)
-        End If
+        '27.08.2019 Se desactiva unificacion y se recarga mes actual y dos meses hacia atras
+        '
+        'If con.Unificacion > 0 Then
+        '    dIni = dIni.AddMonths(-1 * (con.Unificacion - 1))
+        '    dFin = dFin.AddMonths(con.Unificacion - 1)
+        'End If
+        '
+        '27.08.2019 Busco dos meses hacia atras
+        dIni = dIni.AddMonths(-2)
 
         'Si la fecha fin sobrepasa la fecha cobertura del contrato
         'If dFin > con.FechaHasta.AddDays(1) Then
