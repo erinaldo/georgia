@@ -191,6 +191,12 @@ Public Class frmTarjetasNuevo
                 If mac.Abrir(dr("macnum_0").ToString) Then
                     mac.Cilindro = dr("ynrocil_0").ToString
                     mac.FabricacionCorto = Year(soh.Fecha)
+
+                    'piso DATPREV_0 con DATNEXT_0
+                    If mac.UltimaCarga <> mac.VtoCarga Then
+                        mac.UltimaCarga = mac.VtoCarga
+                    End If
+
                     mac.Grabar()
                 End If
             Next
