@@ -709,6 +709,11 @@ Public Class frmCotizadorV2
 
         Dim txt As String = ""
 
+        If EsPresupuestoAgua() And ctz.PresupuestoAdonix = "" Then
+            MessageBox.Show("Para pedidos de agua primero se debe generar presupuesto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+
         Alertas = ctz.Alertas(1)
 
         If Alertas.Count > 0 Then
@@ -784,7 +789,14 @@ Public Class frmCotizadorV2
 
             'Se crea el pedido en Adonix
             If ctz.PedidoAdonix = "" Then
-                ctz.ConvertirEnPedido()
+                Dim soh As Pedido
+
+                soh = ctz.ConvertirEnPedido()
+
+                If ctz.PresupuestoAdonix <> "" Then
+                    soh.PresupuestoNumero = ctz.PresupuestoAdonix
+                    soh.Grabar()
+                End If
                 'ctz.Pedido.TipoCambio = TipoCambio
                 'ctz.Pedido.Grabar()
 
@@ -858,6 +870,15 @@ Public Class frmCotizadorV2
             Dim Sqh As Presupuesto
 
             Sqh = ctz.ConvertirEnPresupuesto()
+
+            'Si es presupuesto de agua, pego la comision segun tabla
+            If EsPresupuestoAgua() Then
+                Dim ComiAgua As New ComisionAgua(cn)
+
+                Sqh.Comision = ComiAgua.ObtenerAlicuota(Sqh.TotalAI)
+                Sqh.Grabar()
+
+            End If
 
             '05.09.2018 Se graba el tipo de cambio
             'Sqh.TipoCambio = TipoCambio
@@ -1728,5 +1749,19 @@ Public Class frmCotizadorV2
         End If
 
     End Sub
+    Private Function EsPresupuestoAgua() As Boolean
+        Dim flg As Boolean = False
+
+        For Each dr As DataRow In ctz.Lineas.Rows
+            If "401102-401106-402110".IndexOf(dr("itmref_0").ToString) <> -1 Then
+                flg = True
+                Exit For
+            End If
+        Next
+
+        Return flg
+
+    End Function
+
 
 End Class
