@@ -616,7 +616,7 @@ Public Class frmVencimientos '2034
             'Si el nodo es de color azul, significa que el cliente tiene tilde de abono
             'consulto si tiene contrato de servicio activo y muestro advertencia
             If e.Node.ForeColor = Drawing.Color.Blue Then
-                If Not bpc.ContratoActivo Then
+                If Not bpc.ContratoActivo(dMin) Then
                     MessageBox.Show("Este cliente no tiene un Contrato de Servicio activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
                 Else
