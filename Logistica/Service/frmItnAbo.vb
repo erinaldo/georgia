@@ -138,7 +138,7 @@ Public Class frmItnAbo
                     Continue For
                 End If
 
-                'If ProcesoA1(dIni, dFin, con, bpa, ss) Then flgA1 = True
+                If ProcesoA1(dIni, dFin, con, bpa, ss) Then flgA1 = True
                 If ProcesoC1(dIni, dFin, con, bpa, ss) Then flgC1 = True
 
             Next
@@ -390,14 +390,14 @@ Public Class frmItnAbo
         End If
 
         'Busco la fecha de la ultima intervencion
-        Dim FechaItn As Date
-        FechaItn = FechaUltimaIntervencion(con.Cliente, bpa.Sucursal)
+        'Dim FechaItn As Date
+        'FechaItn = FechaUltimaIntervencion(con.Cliente, bpa.Sucursal)
 
         'Salto si aun falta para el proximo retiro segun la unificacion
-        If FechaItn > dIni Then
-            AlertasAbo.Add("Se encontró en el cliente " & con.Cliente & "-" & bpa.Sucursal & " vencimiento que debía retirarse por unificación en " & FechaItn.ToString("MMMM/yyyy") & " según contrato " & con.Numero & " (cada " & con.Unificacion & " meses)")
-            Exit Function
-        End If
+        'If FechaItn > dIni Then
+        '    AlertasAbo.Add("Se encontró en el cliente " & con.Cliente & "-" & bpa.Sucursal & " vencimiento que debía retirarse por unificación en " & FechaItn.ToString("MMMM/yyyy") & " según contrato " & con.Numero & " (cada " & con.Unificacion & " meses)")
+        '    Exit Function
+        'End If
 
         For Each drVtos As DataRow In dtVtos.Rows
             'Agrego si está cubierto por el contrato
