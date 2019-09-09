@@ -67,7 +67,7 @@ Public Class frmMailsClientesMostrador
         Dim oMail As New CorreoElectronico
 
         oMail.Nuevo()
-        oMail.Remitente("ventas@matafuegosgeorgia.com")
+        oMail.Remitente("ventas@georgia.com.ar")
         oMail.AgregarDestinatario(Mail)
         oMail.EsHtml = True
         oMail.Asunto = "Calificá nuestra atención en Google y obtené un 20% de descuento"

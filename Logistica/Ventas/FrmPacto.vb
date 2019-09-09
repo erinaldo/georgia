@@ -99,7 +99,7 @@ Public Class FrmPacto
         mail.Nuevo()
         mail.Remitente(mails, "Matafuegos Georgia")
         mail.AgregarDestinatarioArchivo("mails\Pacto.txt", 2)
-        mail.AgregarDestinatarioCopia("sdiaz@matafuegosgeorgia.com")
+        mail.AgregarDestinatarioCopia("sdiaz@georgia.com.ar")
         mail.AgregarDestinatarioCopia(mails)
         mail.Asunto = TxtRazonSocial.Text.ToString & " " & pac.Direccion.ToString & " " & pac.Ciudad.ToString
         mail.Cuerpo = "Gracias"
@@ -107,9 +107,9 @@ Public Class FrmPacto
     End Sub
     Private Sub EnvioSegundoMail()
         mail.Nuevo()
-        mail.Remitente("sdiaz@matafuegosgeorgia.com", "Matafuegos Georgia")
+        mail.Remitente("sdiaz@georgia.com.ar", "Matafuegos Georgia")
         mail.AgregarDestinatarioArchivo("Pacto.txt", 2)
-        mail.AgregarDestinatarioCopia("sdiaz@matafuegosgeorgia.com")
+        mail.AgregarDestinatarioCopia("sdiaz@georgia.com.ar")
         mail.Asunto = "PACTO"
         mail.Cuerpo = TxtRazonSocial.Text.ToString & " " & pac.Direccion.ToString & " " & pac.Ciudad.ToString & " - " & CmbEstado.SelectedItem.ToString
         mail.Enviar()

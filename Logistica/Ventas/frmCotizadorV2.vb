@@ -808,7 +808,7 @@ Public Class frmCotizadorV2
                     With mail
                         .Nuevo()
                         .Remitente("noreply@matafuegosgeorgia.com", "Matafuegos Georgia")
-                        .AgregarDestinatario("jrodriguez@matafuegosgeorgia.com", False)
+                        .AgregarDestinatario("jrodriguez@georgia.com.ar", False)
                         .Asunto = "Pedido creado sin OC"
                         .Cuerpo = "El cliente: " & ctz.Cliente.Codigo & "-" & ctz.Cliente.Nombre & ", con el pedido: " & ctz.PedidoAdonix & " fue creado sin OC "
                         If DB_USR = "GEOPROD" Then .Enviar()
@@ -1174,6 +1174,7 @@ Public Class frmCotizadorV2
             txtCodigoCliente.Text = f.ClienteSeleccionado
         End If
         f.Dispose()
+
     End Sub
     Private Sub AbrirSelectorSucursal()
         If txtCodigoCliente.Text = "" Then Exit Sub
@@ -1185,6 +1186,7 @@ Public Class frmCotizadorV2
             txtCodigoSucursal.Text = f.SucursalSeleccionada
         End If
         f.Dispose()
+
     End Sub
     Private Sub AbrirSelectorExpreso()
         Dim f As New frmSelectorExpreso()
@@ -1194,13 +1196,13 @@ Public Class frmCotizadorV2
             txtCodigoExpreso.Text = f.Seleccion
         End If
         f.Dispose()
+
     End Sub
     Private Sub EnviarPresupuestoPorMail()
         'Envia el presupuesto por mail al vendedor
         Dim rpt As New ReportDocument
-        Dim archivo As String = ctz.PresupuestoAdonix & ".pdf"
+        Dim Archivo As String = ctz.PresupuestoAdonix & ".pdf"
         Dim eml As New CorreoElectronico
-
 
         If DB_USR <> "GEOPROD" Then
             If MessageBox.Show("¿Enviar mail?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
@@ -1237,27 +1239,22 @@ Public Class frmCotizadorV2
 
             End If
 
-            rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, archivo)
+            rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Archivo)
 
             eml.EsHtml = True
             eml.Remitente(usr.Mail, usr.Nombre)
-            eml.Asunto = "Presupuesto " & ctz.PresupuestoAdonix & " Matafuegos Georgia"
-            eml.AdjuntarArchivo(archivo)
-            eml.Cuerpo = "<p>Buenos días,</p>" & vbCrLf
-            eml.Cuerpo &= "<p>Adjuntamos presupuesto solicitado por Ud.</p>" & vbCrLf
+            eml.Asunto = "Presupuesto " & ctz.PresupuestoAdonix & " GEORGIA Seguridad contra Incendios"
+            eml.AdjuntarArchivo(Archivo)
+            eml.CuerpoDesdeArchivo("plantillas\presupuesto.html")
+
             If Aviso639() Then
-                eml.Cuerpo &= "<p>Contratando el servicio de recargas puede obtener una bonificación del 5% en el mantenimiento de instalaciones fijas.</p>" & vbCrLf
+                eml.Cuerpo = eml.Cuerpo.Replace("<!--BONIFICACION-->", "Contratando el servicio de recargas puede obtener una bonificación del 5% en el mantenimiento de instalaciones fijas.")
             End If
 
-            eml.Cuerpo &= "<p><a href=""http://b2b.matafuegosgeorgia.com/aprobpresu.aspx?p1={presupuesto}&p2={codigo_cliente}"">Haga clic aquí para APROBAR este presupuesto.</a></p>" & vbCrLf
-
-            eml.Cuerpo &= "<p>Ante cualquier consulta estamos a su disponibilidad.</p>" & vbCrLf
-            eml.Cuerpo &= "<p>Atentamente</p>" & vbCrLf & vbCrLf
-            eml.Cuerpo &= "<p>"
-            eml.Cuerpo &= ctz.Cliente.Vendedor.Nombre & "<br>" & vbCrLf
-            eml.Cuerpo &= ctz.Cliente.Vendedor.Interno & "<br>" & vbCrLf
-            eml.Cuerpo &= "</p>"
-
+            eml.Cuerpo = eml.Cuerpo.Replace("{CLIENTE}", ctz.Cliente.Nombre)
+            eml.Cuerpo = eml.Cuerpo.Replace("{firma}", ctz.Cliente.Vendedor.Nombre)
+            eml.Cuerpo = eml.Cuerpo.Replace("{interno}", ctz.Cliente.Vendedor.Interno)
+            eml.Cuerpo = eml.Cuerpo.Replace("{mail_vendedor}", ctz.Cliente.Vendedor.Mail)
             eml.Cuerpo = eml.Cuerpo.Replace("{presupuesto}", ctz.PresupuestoAdonix)
             eml.Cuerpo = eml.Cuerpo.Replace("{codigo_cliente}", ctz.ClienteCodigo)
 
@@ -1269,16 +1266,12 @@ Public Class frmCotizadorV2
             rpt.Dispose()
 
         Catch ex As Exception
-
-
-
         End Try
 
         Try
             File.Delete(archivo)
 
         Catch ex As Exception
-
         End Try
 
     End Sub
@@ -1762,6 +1755,5 @@ Public Class frmCotizadorV2
         Return flg
 
     End Function
-
 
 End Class

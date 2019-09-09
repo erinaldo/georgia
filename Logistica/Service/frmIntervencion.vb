@@ -664,14 +664,14 @@ Public Class frmIntervencion
                 With m
                     m.Remitente("noreply@matafuegosgeorgia.com")
                     If DB_USR = "GEOPROD" Then
-                        m.AgregarDestinatario("wsimonetti@matafuegosgeorgia.com")
-                        m.AgregarDestinatario("mlucas@matafuegosgeorgia.com")
-                        m.AgregarDestinatario("yyubro@matafuegosgeorgia.com")
-                        m.AgregarDestinatario("adjibilian@matafuegosgeorgia.com")
-                        m.AgregarDestinatario("dbattauz@matafuegosgeorgia.com")
-                        m.AgregarDestinatario("jrodriguez@matafuegosgeorgia.com")
+                        m.AgregarDestinatario("wsimonetti@georgia.com.ar")
+                        m.AgregarDestinatario("mlucas@georgia.com.ar")
+                        m.AgregarDestinatario("yyubro@georgia.com.ar")
+                        m.AgregarDestinatario("adjibilian@georgia.com.ar")
+                        m.AgregarDestinatario("dbattauz@georgia.com.ar")
+                        m.AgregarDestinatario("jrodriguez@georgia.com.ar")
                     Else
-                        m.AgregarDestinatario("mmino@matafuegosgeorgia.com")
+                        m.AgregarDestinatario("mmino@georgia.com.ar")
                     End If
                     
                     .Asunto = "Nueva Intervención B2"

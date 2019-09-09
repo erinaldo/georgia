@@ -222,7 +222,7 @@ Public Class frmSaldos
 
                         .Remitente(usr.Mail, usr.Nombre)
                         .AgregarDestinatario(usr.Mail, True)
-                        .ResponderA("cobranzas@matafuegosgeorgia.com")
+                        .ResponderA("cobranzas@georgia.com.ar")
                         .Asunto = "Composición de deuda"
                         .EsHtml = False
 
@@ -236,7 +236,7 @@ Public Class frmSaldos
                             .Cuerpo &= "Cobranzas" & vbCrLf & vbCrLf
                             .Cuerpo &= "Matafuegos Georgia" & vbCrLf
                             .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
-                            .Cuerpo &= "cobranzas@matafuegosgeorgia.com" & vbCrLf
+                            .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
                             .Cuerpo &= "www.matafuegosgeorgia.com"
 
                         Else
@@ -247,7 +247,7 @@ Public Class frmSaldos
                             .Cuerpo &= "Cobranzas" & vbCrLf & vbCrLf
                             .Cuerpo &= "Matafuegos Georgia" & vbCrLf
                             .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
-                            .Cuerpo &= "cobranzas@matafuegosgeorgia.com" & vbCrLf
+                            .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
                             .Cuerpo &= "www.matafuegosgeorgia.com"
 
                         End If

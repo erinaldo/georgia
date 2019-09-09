@@ -409,7 +409,7 @@ Public Class frmCotizadorInterno
         LimpiarCampos()
         'Si es cotizacion nueva , envia mail a compras para avisar que se creo una nueva cotizacion.
         If TxtBoxNumeroCotizacion.Text = "0" Then
-            EnviarMail("compras@matafuegosgeorgia.com", "Se creo un nuevo pedido de cotizacion", "Verifique ingresando a la aplicacion especialmente creada para ustedes.")
+            EnviarMail("compras@georgia.com.ar", "Se creo un nuevo pedido de cotizacion", "Verifique ingresando a la aplicacion especialmente creada para ustedes.")
             'ElseIf TxtBoxNumeroCotizacion.Text <> "0" And cboEstado.SelectedIndex = 6 Then
             '    EnviarMail("mbarcudes@matafuegosgeorgia.com", "Se creo un nuevo pedido de cotizacion", "Verifique ingresando a la aplicacion especialmente creada para ustedes.")
         End If

@@ -262,7 +262,7 @@ Public Class frmfacturas2
                     Next
 
                     .Remitente(usr.Mail, usr.Nombre)
-                    .ResponderA("cobranzas@matafuegosgeorgia.com")
+                    .ResponderA("cobranzas@georgia.com.ar")
                     .Asunto = "Factura " & dgvr.Cells(1).Value.ToString & " - MATAFUEGOS DONNY S.R.L."
                     .EsHtml = True
                     .Prioridad = Net.Mail.MailPriority.High
@@ -316,7 +316,7 @@ Public Class frmfacturas2
                     .Cuerpo &= "MATAFUEGOS DONNY S.R.L." & vbCrLf
                     .Cuerpo &= "Departamento de Cobranzas" & vbCrLf
                     .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
-                    .Cuerpo &= "cobranzas@matafuegosgeorgia.com" & vbCrLf
+                    .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
                     .Cuerpo &= "www.matafuegosgeorgia.com" & vbCrLf
                     .Cuerpo &= "</pre>"
 

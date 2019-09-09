@@ -628,7 +628,7 @@ Public Class frmValidar
                 eMail.EsHtml = False
                 eMail.Cuerpo = txt
                 'eMail.AgregarDestinatario("mmino@matafuegosgeorgia.com")
-                eMail.AgregarDestinatario("jguzzetti@matafuegosgeorgia.com")
+                eMail.AgregarDestinatario("jguzzetti@georgia.com.ar")
                 eMail.Enviar()
             End If
         End If
