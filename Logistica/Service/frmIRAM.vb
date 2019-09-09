@@ -83,7 +83,7 @@ Public Class frmIRAM
                 Case "DNY"
                     s = DNY_1K
 
-                Case "GRU", "LIA"
+                Case "GRU", "LIA", "SCH"
                     s = GRU_1K
 
                 Case "MON"
@@ -100,7 +100,7 @@ Public Class frmIRAM
                 Case "DNY"
                     s = DNY
 
-                Case "GRU", "LIA"
+                Case "GRU", "LIA", "SCH"
                     s = GRU
 
                 Case "MON"
