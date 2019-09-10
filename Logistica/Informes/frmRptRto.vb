@@ -34,7 +34,18 @@ Public Class frmRptRto
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
 
-        Sql = "SELECT dlvdat_0 as FechaRemito, sdhnum_0 as numero, (sdh.bpcord_0 || ' - ' || sdh.bpdnam_0) as cliente, sdh.bpdaddlig_0 as direccion, sdh.rep_0 as Vendedor, sdh.xsector_0 as sector,' ' AS fechaenvio, xruta_0 as ruta, ' ' as fecharuta, xobserva_0 as obs, ordinvati_0 as Importe, sdh.sohnum_0  as pedido "
+        Sql = "SELECT dlvdat_0 as FechaRemito, "
+        Sql &= "      sdhnum_0 as numero, "
+        Sql &= "      (sdh.bpcord_0 || ' - ' || sdh.bpdnam_0) as cliente, "
+        Sql &= "      sdh.bpdaddlig_0 as direccion, "
+        Sql &= "      sdh.rep_0 as Vendedor, "
+        Sql &= "      sdh.xsector_0 as sector, "
+        Sql &= "      sysdate AS fechaenvio,"
+        Sql &= "      xruta_0 as ruta, "
+        Sql &= "      sysdate as fecharuta, "
+        Sql &= "      xobserva_0 as obs, "
+        Sql &= "      ordinvati_0 as Importe, "
+        Sql &= "      sdh.sohnum_0 as pedido "
         Sql &= "FROM sdelivery sdh left join "
         Sql &= "     sorder soh on (sdh.sohnum_0 = soh.sohnum_0) "
         Sql &= "WHERE lnd_0 = 1 And "
@@ -42,7 +53,7 @@ Public Class frmRptRto
         Sql &= "      sdhnum_0 NOT IN (SELECT DISTINCT sdhnum_0 FROM sdeliveryd WHERE rtnqty_0 > 0) and "
 
         If sector = "ADM" Then
-            Sql &= "      (sdh.xsector_0 = :sector or sdh.xsector_0 = ' ') "
+            Sql &= "     (sdh.xsector_0 = :sector or sdh.xsector_0 = ' ') "
         Else
             Sql &= "      sdh.xsector_0 = :sector "
         End If
@@ -52,6 +63,14 @@ Public Class frmRptRto
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("sector", OracleType.VarChar).Value = sector
         da.Fill(dt)
+
+        For Each dr As DataRow In dt.Rows
+            dr.BeginEdit()
+            dr("fechaenvio") = DBNull.Value
+            dr("fecharuta") = DBNull.Value
+            dr.EndEdit()
+        Next
+        dt.AcceptChanges()
 
         Return dt
     End Function
@@ -80,11 +99,11 @@ Public Class frmRptRto
             dt.Clear()
             da.Fill(dt)
 
+            dr.BeginEdit()
             If dt.Rows.Count > 0 Then
-                dr.BeginEdit()
-                dr("fechaenvio") = CDate(dt.Rows(0).Item("fecha_0")).ToString("dd/MM/yyyy")
-                dr.EndEdit()
+                dr("fechaenvio") = CDate(dt.Rows(0).Item("fecha_0"))
             End If
+            dr.EndEdit()
         Next
 
         dtOrigen.AcceptChanges()
@@ -107,11 +126,11 @@ Public Class frmRptRto
                 dt.Clear()
                 da.Fill(dt)
 
+                dr.BeginEdit()
                 If dt.Rows.Count > 0 Then
-                    dr.BeginEdit()
-                    dr("fecharuta") = CDate(dt.Rows(0).Item("fecha_0").ToString).ToString("dd/MM/yyyy")
-                    dr.EndEdit()
+                    dr("fecharuta") = CDate(dt.Rows(0).Item("fecha_0")) '.ToString).ToString("dd/MM/yyyy")
                 End If
+                dr.EndEdit()
             End If
         Next
         dtOrigen.AcceptChanges()
@@ -164,17 +183,17 @@ Public Class frmRptRto
             dt = CType(dgv.DataSource, DataTable)
 
         Else
-            Fecha.DataPropertyName = "FechaRemito"
-            Numero.DataPropertyName = "Numero"
-            Cliente.DataPropertyName = "Cliente"
-            Direccion.DataPropertyName = "direccion"
-            Vendedor.DataPropertyName = "Vendedor"
-            Sector.DataPropertyName = "Sector"
-            importe.DataPropertyName = "Importe"
-            FechaEnvio.DataPropertyName = "Fechaenvio"
-            Ruta.DataPropertyName = "Ruta"
-            FechaRuta.DataPropertyName = "Fecharuta"
-            observa.DataPropertyName = "obs"
+            colFecha.DataPropertyName = "FechaRemito"
+            colNumero.DataPropertyName = "Numero"
+            colCliente.DataPropertyName = "Cliente"
+            colDireccion.DataPropertyName = "direccion"
+            colVendedor.DataPropertyName = "Vendedor"
+            colSector.DataPropertyName = "Sector"
+            colImporte.DataPropertyName = "Importe"
+            colFechaEnvio.DataPropertyName = "Fechaenvio"
+            colRuta.DataPropertyName = "Ruta"
+            colFechaRuta.DataPropertyName = "Fecharuta"
+            colObserva.DataPropertyName = "obs"
             colPedido.DataPropertyName = "pedido"
         End If
 

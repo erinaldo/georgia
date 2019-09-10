@@ -23,6 +23,9 @@ Partial Class frmRptRto
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.txtboxTotal = New System.Windows.Forms.TextBox
         Me.Label12 = New System.Windows.Forms.Label
@@ -57,18 +60,18 @@ Partial Class frmRptRto
         Me.btnCalcular = New System.Windows.Forms.Button
         Me.titulo = New System.Windows.Forms.Label
         Me.lblTitulo = New System.Windows.Forms.Label
-        Me.Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Numero = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colNumero = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colPedido = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Direccion = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Vendedor = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.importe = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Sector = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.FechaEnvio = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.Ruta = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.FechaRuta = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.observa = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colDireccion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colVendedor = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colImporte = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colSector = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colFechaEnvio = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colRuta = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colFechaRuta = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colObserva = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Menu1.SuspendLayout()
@@ -343,7 +346,7 @@ Partial Class frmRptRto
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Fecha, Me.Numero, Me.colPedido, Me.Cliente, Me.Direccion, Me.Vendedor, Me.importe, Me.Sector, Me.FechaEnvio, Me.Ruta, Me.FechaRuta, Me.observa})
+        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colFecha, Me.colNumero, Me.colPedido, Me.colCliente, Me.colDireccion, Me.colVendedor, Me.colImporte, Me.colSector, Me.colFechaEnvio, Me.colRuta, Me.colFechaRuta, Me.colObserva})
         Me.dgv.ContextMenuStrip = Me.Menu1
         Me.dgv.Location = New System.Drawing.Point(184, 47)
         Me.dgv.Name = "dgv"
@@ -411,19 +414,19 @@ Partial Class frmRptRto
         Me.lblTitulo.TabIndex = 3
         Me.lblTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Fecha
+        'colFecha
         '
-        Me.Fecha.HeaderText = "Fecha"
-        Me.Fecha.Name = "Fecha"
-        Me.Fecha.ReadOnly = True
+        Me.colFecha.HeaderText = "Fecha"
+        Me.colFecha.Name = "colFecha"
+        Me.colFecha.ReadOnly = True
         '
-        'Numero
+        'colNumero
         '
-        Me.Numero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.Numero.HeaderText = "Numero"
-        Me.Numero.Name = "Numero"
-        Me.Numero.ReadOnly = True
-        Me.Numero.Width = 69
+        Me.colNumero.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colNumero.HeaderText = "Numero"
+        Me.colNumero.Name = "colNumero"
+        Me.colNumero.ReadOnly = True
+        Me.colNumero.Width = 69
         '
         'colPedido
         '
@@ -431,72 +434,83 @@ Partial Class frmRptRto
         Me.colPedido.Name = "colPedido"
         Me.colPedido.ReadOnly = True
         '
-        'Cliente
+        'colCliente
         '
-        Me.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.Cliente.HeaderText = "Cliente"
-        Me.Cliente.Name = "Cliente"
-        Me.Cliente.ReadOnly = True
-        Me.Cliente.Width = 64
+        Me.colCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.colCliente.HeaderText = "Cliente"
+        Me.colCliente.Name = "colCliente"
+        Me.colCliente.ReadOnly = True
+        Me.colCliente.Width = 64
         '
-        'Direccion
+        'colDireccion
         '
-        Me.Direccion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.Direccion.HeaderText = "Direccion"
-        Me.Direccion.Name = "Direccion"
-        Me.Direccion.ReadOnly = True
-        Me.Direccion.Width = 77
+        Me.colDireccion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
+        Me.colDireccion.HeaderText = "Direccion"
+        Me.colDireccion.Name = "colDireccion"
+        Me.colDireccion.ReadOnly = True
+        Me.colDireccion.Width = 77
         '
-        'Vendedor
+        'colVendedor
         '
-        Me.Vendedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Vendedor.HeaderText = "Vendedor"
-        Me.Vendedor.Name = "Vendedor"
-        Me.Vendedor.ReadOnly = True
-        Me.Vendedor.Width = 78
+        Me.colVendedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colVendedor.HeaderText = "Vendedor"
+        Me.colVendedor.Name = "colVendedor"
+        Me.colVendedor.ReadOnly = True
+        Me.colVendedor.Width = 78
         '
-        'importe
+        'colImporte
         '
-        Me.importe.HeaderText = "importe"
-        Me.importe.Name = "importe"
-        Me.importe.ReadOnly = True
+        Me.colImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N2"
+        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle1
+        Me.colImporte.HeaderText = "Importe"
+        Me.colImporte.Name = "colImporte"
+        Me.colImporte.ReadOnly = True
+        Me.colImporte.Width = 67
         '
-        'Sector
+        'colSector
         '
-        Me.Sector.HeaderText = "Sector"
-        Me.Sector.Name = "Sector"
-        Me.Sector.ReadOnly = True
-        Me.Sector.Visible = False
+        Me.colSector.HeaderText = "Sector"
+        Me.colSector.Name = "colSector"
+        Me.colSector.ReadOnly = True
+        Me.colSector.Visible = False
         '
-        'FechaEnvio
+        'colFechaEnvio
         '
-        Me.FechaEnvio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.FechaEnvio.HeaderText = "Fecha de Envio"
-        Me.FechaEnvio.Name = "FechaEnvio"
-        Me.FechaEnvio.ReadOnly = True
-        Me.FechaEnvio.Width = 74
+        Me.colFechaEnvio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle2.Format = "d"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.colFechaEnvio.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colFechaEnvio.HeaderText = "Fecha de Envio"
+        Me.colFechaEnvio.Name = "colFechaEnvio"
+        Me.colFechaEnvio.ReadOnly = True
+        Me.colFechaEnvio.Width = 74
         '
-        'Ruta
+        'colRuta
         '
-        Me.Ruta.HeaderText = "Ruta"
-        Me.Ruta.Name = "Ruta"
-        Me.Ruta.ReadOnly = True
+        Me.colRuta.HeaderText = "Ruta"
+        Me.colRuta.Name = "colRuta"
+        Me.colRuta.ReadOnly = True
         '
-        'FechaRuta
+        'colFechaRuta
         '
-        Me.FechaRuta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.FechaRuta.HeaderText = "Fecha de Ruta"
-        Me.FechaRuta.Name = "FechaRuta"
-        Me.FechaRuta.ReadOnly = True
-        Me.FechaRuta.Width = 74
+        Me.colFechaRuta.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle3.Format = "d"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.colFechaRuta.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colFechaRuta.HeaderText = "Fecha de Ruta"
+        Me.colFechaRuta.Name = "colFechaRuta"
+        Me.colFechaRuta.ReadOnly = True
+        Me.colFechaRuta.Width = 74
         '
-        'observa
+        'colObserva
         '
-        Me.observa.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.observa.HeaderText = "Comentarios"
-        Me.observa.Name = "observa"
-        Me.observa.ReadOnly = True
-        Me.observa.Width = 90
+        Me.colObserva.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colObserva.HeaderText = "Comentarios"
+        Me.colObserva.Name = "colObserva"
+        Me.colObserva.ReadOnly = True
+        Me.colObserva.Width = 90
         '
         'frmRptRto
         '
@@ -552,16 +566,16 @@ Partial Class frmRptRto
     Friend WithEvents VerRemitoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SeguimientoDeDocumentacionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents VerRemitoEscaneadoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Numero As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colNumero As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPedido As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Cliente As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Direccion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Vendedor As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents importe As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Sector As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents FechaEnvio As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Ruta As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents FechaRuta As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents observa As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDireccion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colVendedor As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colImporte As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colSector As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colFechaEnvio As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colRuta As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colFechaRuta As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colObserva As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class
