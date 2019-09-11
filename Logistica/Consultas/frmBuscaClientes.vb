@@ -8,16 +8,6 @@ Public Class frmBuscaClientes
 
     'SUB
     Private Sub RegistrarLlamado()
-        'Dim f As frmMailClientes
-        'Dim dr As DataRowView
-
-        ''Obtengo registro seleccionado
-        'dr = CType(dgv.CurrentRow.DataBoundItem, DataRowView)
-
-        'f = New frmMailClientes(dr)
-        'f.ShowDialog(Me)
-        'f.Dispose()
-
         Dim dr As DataRowView
         Dim f As frmTicket
         Dim Cliente As String
@@ -99,7 +89,7 @@ Public Class frmBuscaClientes
         End If
     End Sub
     Private Sub txt_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtfantasia.GotFocus, txtCodigo.GotFocus, txtNombre.GotFocus, txtDireccion.GotFocus, txtCUIT.GotFocus, txtPresupuesto.GotFocus, txtLoc.GotFocus, txtMail.GotFocus
-        dt.Clear()
+        'dt.Clear()
         txt = CType(sender, TextBox) 'Guardo el Texbox que está activo
         txt.BackColor = Drawing.Color.Pink
         btnProv.Enabled = False
@@ -110,8 +100,6 @@ Public Class frmBuscaClientes
             .BackColor = System.Drawing.SystemColors.Window
         End With
     End Sub
-
-    
     Private Sub txt_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtfantasia.KeyUp, txtCodigo.KeyUp, txtNombre.KeyUp, txtDireccion.KeyUp, txtCUIT.KeyUp, txtPresupuesto.KeyUp, txtLoc.KeyUp, cboprov.KeyUp, txtMail.KeyUp
         Dim Sql As String
         Dim da As OracleDataAdapter

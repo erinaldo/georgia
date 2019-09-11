@@ -214,46 +214,35 @@ Public Class frmSaldos
                     GenerarArchivo(Archivo, drv.Cells("colCodigo").Value.ToString)
 
                     'Armo el mail a enviar
+                    oMail = New CorreoElectronico
+
                     With oMail
+                        .Nuevo()
+
                         For Each Mail In Mails 'Agrego destinatarios
                             .AgregarDestinatario(Mail)
-                            '.AgregarDestinatario("martin77mino@gmail.com")
                         Next
 
                         .Remitente(usr.Mail, usr.Nombre)
                         .AgregarDestinatario(usr.Mail, True)
                         .ResponderA("cobranzas@georgia.com.ar")
                         .Asunto = "Composición de deuda"
-                        .EsHtml = False
+                        .EsHtml = True
 
                         .AdjuntarArchivo(Archivo)
 
                         If cboTipos.SelectedValue.ToString = "10" Then
-                            .Cuerpo = "Estimado cliente:" & vbCrLf & vbCrLf
-                            .Cuerpo &= "Le adjuntamos su resumen de cuenta que pasaremos a cobrar el dia que Ud. nos informe o que ya tiene pre asignado." & vbCrLf
-                            .Cuerpo &= "Por favor aclararnos por esta via, que fecha y consorcio y/o cuota abonara, asi nuestro cobrador concurre con los recibos oficiales ya confeccionados." & vbCrLf & vbCrLf
-                            .Cuerpo &= "Lo saludamos muy atentamente," & vbCrLf & vbCrLf
-                            .Cuerpo &= "Cobranzas" & vbCrLf & vbCrLf
-                            .Cuerpo &= "Matafuegos Georgia" & vbCrLf
-                            .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
-                            .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
-                            .Cuerpo &= "www.matafuegosgeorgia.com"
+                            .CuerpoDesdeArchivo("plantillas\composicion-de-deuda-1.html")
 
                         Else
-                            .Cuerpo = "Estimado cliente:" & vbCrLf & vbCrLf
-                            .Cuerpo &= "Adjuntamos su resumen de cuenta actualizado, a fin de verificar/realizar cualquier conciliación que considere oportuna," & vbCrLf
-                            .Cuerpo &= "como asi tambien la de informarnos fecha y horario para su cancelación." & vbCrLf & vbCrLf
-                            .Cuerpo &= "Lo saludamos muy atentamente," & vbCrLf & vbCrLf
-                            .Cuerpo &= "Cobranzas" & vbCrLf & vbCrLf
-                            .Cuerpo &= "Matafuegos Georgia" & vbCrLf
-                            .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
-                            .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
-                            .Cuerpo &= "www.matafuegosgeorgia.com"
+                            .CuerpoDesdeArchivo("plantillas\composicion-de-deuda-2.html")
 
                         End If
 
-                        .Enviar(True)
+                        .Enviar()
+
                         MessageBox.Show("Envio finalizado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                         .Dispose()
 
                     End With
