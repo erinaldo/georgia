@@ -668,7 +668,7 @@ Public Class frmIntervencionesAutomaticas
         bpa = bpc.Sucursal(mac.SucursalNumero)
 
         itm = mac.Servicio
-        Precio = tar.ObtenerPrecio(bpc, itm.Codigo, cpy.PlantaVenta)
+        Precio = tar.ObtenerPrecio(bpc, itm.Codigo, cpy.PlantaVenta(False))
 
         'Creo la nueva Solicitud de Servicio
         sre.Nueva(mac.Cliente, cpy)

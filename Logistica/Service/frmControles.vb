@@ -205,7 +205,7 @@ Public Class frmControles
                 cpy.abrir(company(mac.ClienteNumero))
                 bpc.Abrir(mac.ClienteNumero)
 
-                Precio = Tar.ObtenerPrecio(bpc, itm, cpy.PlantaVenta)
+                Precio = Tar.ObtenerPrecio(bpc, itm, cpy.PlantaVenta(False))
 
                 'Creo la nueva Solicitud de Servicio
                 sre.Nueva(mac.Cliente, cpy)

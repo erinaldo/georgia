@@ -1037,6 +1037,7 @@ Public Class frmCotizadorV2
             txtDesde2.Clear()
             txtHasta1.Clear()
             txtHasta2.Clear()
+            chkMunro.Checked = False
 
         Else
             txtCodigoSucursal.Text = ctz.Sucursal.Sucursal
@@ -1049,6 +1050,7 @@ Public Class frmCotizadorV2
             txtHasta1.Text = ctz.HoraMananaHasta
             txtDesde2.Text = ctz.HoraTardeDesde
             txtHasta2.Text = ctz.HoraTardeHasta
+            chkMunro.Checked = ctz.SaleDesdeMunro
 
         End If
 
@@ -1058,6 +1060,7 @@ Public Class frmCotizadorV2
         txtDesde2.Enabled = txtCodigoSucursal.Text.Trim <> ""
         txtHasta1.Enabled = txtCodigoSucursal.Text.Trim <> ""
         txtHasta2.Enabled = txtCodigoSucursal.Text.Trim <> ""
+        chkMunro.Enabled = txtCodigoSucursal.Text.Trim <> ""
         txtCodigoExpreso.Enabled = txtCodigoSucursal.Text.Trim <> ""
         txtCodigoSucursal.ReadOnly = ctz.Cliente IsNot Nothing AndAlso (ctz.PresupuestoAdonix <> "" OrElse ctz.PedidoAdonix <> "")
 
@@ -1755,5 +1758,9 @@ Public Class frmCotizadorV2
         Return flg
 
     End Function
+
+    Private Sub chkMunro_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkMunro.CheckedChanged
+        ctz.SaleDesdeMunro = chkMunro.Checked
+    End Sub
 
 End Class

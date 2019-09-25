@@ -622,6 +622,7 @@ Public Class frmInspecciones
         End If
 
         dt = CType(dgvSigex.DataSource, DataTable)
+        dt.AcceptChanges()
 
         For Each r As DataGridViewRow In dgvSigex.SelectedRows
             Try
