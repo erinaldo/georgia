@@ -663,4 +663,11 @@ Public Class frmBuscaClientes
         'crystal.Show()
 
     End Sub
+
+    Private Sub btnBuscarCilindro_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBuscarCilindro.Click
+        Dim f As New frmRastreo
+
+        f.ShowDialog()
+
+    End Sub
 End Class
