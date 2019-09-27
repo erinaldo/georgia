@@ -19,15 +19,9 @@ Public Class frmRastreo
         Sql &= "      mac.ynrocil_0 as cilindro, "
         Sql &= "      srm.credat_0 as ingreso, "
         Sql &= "      srm.pallet_0 as pallet, "
-        Sql &= "      srm.yitnnum_0 as intervencion, "
-        Sql &= "      bpc.bpcnum_0 as cliente, "
-        Sql &= "      bpc.bpcnam_0 as nombre, "
-        Sql &= "      mac.fcyitn_0 as suc, "
-        Sql &= "      bpa.bpaaddlig_0 as direccion "
+        Sql &= "      srm.yitnnum_0 as intervencion "
         Sql &= "FROM machines mac inner join "
-        Sql &= "	 sremac srm on (mac.macnum_0 = srm.macnum_0) inner join "
-        Sql &= "	 bpcustomer bpc on (bpc.bpcnum_0 = mac.bpcnum_0) inner join "
-        Sql &= "	 bpaddress bpa on (bpa.bpanum_0 = mac.bpcnum_0 and bpa.bpaadd_0 = mac.fcyitn_0) "
+        Sql &= "	 sremac srm on (mac.macnum_0 = srm.macnum_0) "
         Sql &= "where mac.macnum_0 = :codigo or mac.ynrocil_0 = :codigo "
         Sql &= "order by srm.credat_0 desc"
 
@@ -44,14 +38,7 @@ Public Class frmRastreo
         da.Fill(dt)
         da.Dispose()
 
-        If dgv.DataSource Is Nothing Then
-            dgv.DataSource = dt
-
-            For Each c As DataGridViewColumn In dgv.Columns
-                c.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            Next
-
-        End If
+        If dgv.DataSource Is Nothing Then dgv.DataSource = dt
 
     End Sub
 

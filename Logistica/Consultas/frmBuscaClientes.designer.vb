@@ -49,7 +49,6 @@ Partial Class frmBuscaClientes
         Me.DatosClienteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TerceroPagadorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.IntervencionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Me.PedidosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PresupuestosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.PresupuestoPorSucursalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -63,7 +62,7 @@ Partial Class frmBuscaClientes
         Me.RemitosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConsorciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnBuscarCilindro = New System.Windows.Forms.Button
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -122,7 +121,7 @@ Partial Class frmBuscaClientes
         Label6.Location = New System.Drawing.Point(12, 301)
         Label6.Name = "Label6"
         Label6.Size = New System.Drawing.Size(155, 13)
-        Label6.TabIndex = 13
+        Label6.TabIndex = 10
         Label6.Text = "Buscador por presupuesto (F9):"
         '
         'Label7
@@ -140,7 +139,7 @@ Partial Class frmBuscaClientes
         Label8.Location = New System.Drawing.Point(6, 398)
         Label8.Name = "Label8"
         Label8.Size = New System.Drawing.Size(146, 13)
-        Label8.TabIndex = 17
+        Label8.TabIndex = 14
         Label8.Text = "Buscador por provincia (F12):"
         '
         'Label9
@@ -149,7 +148,7 @@ Partial Class frmBuscaClientes
         Label9.Location = New System.Drawing.Point(6, 340)
         Label9.Name = "Label9"
         Label9.Size = New System.Drawing.Size(149, 13)
-        Label9.TabIndex = 15
+        Label9.TabIndex = 12
         Label9.Text = "Buscador por Localidad (F11):"
         '
         'Label10
@@ -158,7 +157,7 @@ Partial Class frmBuscaClientes
         Label10.Location = New System.Drawing.Point(6, 225)
         Label10.Name = "Label10"
         Label10.Size = New System.Drawing.Size(143, 13)
-        Label10.TabIndex = 10
+        Label10.TabIndex = 18
         Label10.Text = "Buscador por Mail (Shift+F8):"
         '
         'SplitContainer1
@@ -170,7 +169,6 @@ Partial Class frmBuscaClientes
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.btnBuscarCilindro)
         Me.SplitContainer1.Panel1.Controls.Add(Me.txtMail)
         Me.SplitContainer1.Panel1.Controls.Add(Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btnProv)
@@ -204,7 +202,7 @@ Partial Class frmBuscaClientes
         Me.txtMail.Location = New System.Drawing.Point(9, 241)
         Me.txtMail.Name = "txtMail"
         Me.txtMail.Size = New System.Drawing.Size(231, 20)
-        Me.txtMail.TabIndex = 11
+        Me.txtMail.TabIndex = 19
         Me.ToolTip1.SetToolTip(Me.txtMail, "Apriete Enter despues de ingresar  los datos")
         '
         'btnProv
@@ -213,7 +211,7 @@ Partial Class frmBuscaClientes
         Me.btnProv.Location = New System.Drawing.Point(158, 412)
         Me.btnProv.Name = "btnProv"
         Me.btnProv.Size = New System.Drawing.Size(85, 23)
-        Me.btnProv.TabIndex = 19
+        Me.btnProv.TabIndex = 16
         Me.btnProv.Text = "Buscar"
         Me.btnProv.UseVisualStyleBackColor = True
         '
@@ -224,14 +222,14 @@ Partial Class frmBuscaClientes
         Me.cboprov.Location = New System.Drawing.Point(9, 414)
         Me.cboprov.Name = "cboprov"
         Me.cboprov.Size = New System.Drawing.Size(137, 21)
-        Me.cboprov.TabIndex = 18
+        Me.cboprov.TabIndex = 15
         '
         'txtLoc
         '
         Me.txtLoc.Location = New System.Drawing.Point(9, 356)
         Me.txtLoc.Name = "txtLoc"
         Me.txtLoc.Size = New System.Drawing.Size(234, 20)
-        Me.txtLoc.TabIndex = 16
+        Me.txtLoc.TabIndex = 13
         Me.ToolTip1.SetToolTip(Me.txtLoc, "Apriete Enter despues de ingresar  los datos")
         '
         'txtfantasia
@@ -247,7 +245,7 @@ Partial Class frmBuscaClientes
         Me.txtPresupuesto.Location = New System.Drawing.Point(9, 317)
         Me.txtPresupuesto.Name = "txtPresupuesto"
         Me.txtPresupuesto.Size = New System.Drawing.Size(231, 20)
-        Me.txtPresupuesto.TabIndex = 14
+        Me.txtPresupuesto.TabIndex = 11
         Me.ToolTip1.SetToolTip(Me.txtPresupuesto, "Apriete Enter despues de ingresar  los datos")
         '
         'Label5
@@ -260,7 +258,7 @@ Partial Class frmBuscaClientes
         Me.Label5.Location = New System.Drawing.Point(45, 465)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(159, 42)
-        Me.Label5.TabIndex = 20
+        Me.Label5.TabIndex = 17
         Me.Label5.Text = "No se encontraron" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "resultados"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.Label5.Visible = False
@@ -318,7 +316,7 @@ Partial Class frmBuscaClientes
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatosClienteToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.ToolStripMenuItem1, Me.PedidosToolStripMenuItem, Me.PresupuestosToolStripMenuItem, Me.FacturasToolStripMenuItem1, Me.ParqueDelClienteToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.ConsorciosToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 224)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 246)
         '
         'DatosClienteToolStripMenuItem
         '
@@ -337,12 +335,6 @@ Partial Class frmBuscaClientes
         Me.IntervencionesToolStripMenuItem.Name = "IntervencionesToolStripMenuItem"
         Me.IntervencionesToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
         Me.IntervencionesToolStripMenuItem.Text = "Intervenciones"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(192, 22)
-        Me.ToolStripMenuItem1.Text = "Intervenciones Totales"
         '
         'PedidosToolStripMenuItem
         '
@@ -419,14 +411,11 @@ Partial Class frmBuscaClientes
         Me.ConsorciosToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
         Me.ConsorciosToolStripMenuItem.Text = "Consorcios"
         '
-        'btnBuscarCilindro
+        'ToolStripMenuItem1
         '
-        Me.btnBuscarCilindro.Location = New System.Drawing.Point(12, 268)
-        Me.btnBuscarCilindro.Name = "btnBuscarCilindro"
-        Me.btnBuscarCilindro.Size = New System.Drawing.Size(228, 23)
-        Me.btnBuscarCilindro.TabIndex = 12
-        Me.btnBuscarCilindro.Text = "Buscar Cilindro"
-        Me.btnBuscarCilindro.UseVisualStyleBackColor = True
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(192, 22)
+        Me.ToolStripMenuItem1.Text = "Intervenciones Totales"
         '
         'frmBuscaClientes
         '
@@ -478,6 +467,5 @@ Partial Class frmBuscaClientes
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents txtMail As System.Windows.Forms.TextBox
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents btnBuscarCilindro As System.Windows.Forms.Button
 
 End Class
