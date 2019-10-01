@@ -206,6 +206,7 @@ Partial Class frmMain
         Me.ListadoDeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TerceroPagadorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.TableroCAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.SistemasFijosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCliente = New System.Windows.Forms.ToolStripMenuItem
         Me.RRHHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -220,6 +221,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.mnuRptServicios = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -989,7 +991,7 @@ Partial Class frmMain
         '
         'InformesToolStripMenuItem
         '
-        Me.InformesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContabilidadToolStripMenuItem, Me.mnuRptVtas, Me.mnuRptVtasA, Me.mnuRptSat1, Me.ReporteDeVentasPorProvinciasAnualToolStripMenuItem, Me.mnuRptTipo, Me.ReporteDeVentasPorTipoClientesAnualToolStripMenuItem, Me.ReporteDeVentasPorFliaToolStripMenuItem, Me.ReporteDeVentasPorFliaAnualToolStripMenuItem, Me.mnuDistribuidoresInactivos, Me.ToolStripMenuItem6, Me.mnuRptRecargas, Me.ToolStripSeparator4, Me.mnuHoras, Me.ToolStripMenuItem11, Me.RemitosSinDespacharToolStripMenuItem, Me.ToolStripMenuItem18, Me.LogisticaToolStripMenuItem, Me.Informes639ToolStripMenuItem, Me.ToolStripSeparator5, Me.ReporteToolStripMenuItem})
+        Me.InformesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContabilidadToolStripMenuItem, Me.mnuRptVtas, Me.mnuRptVtasA, Me.mnuRptSat1, Me.ReporteDeVentasPorProvinciasAnualToolStripMenuItem, Me.mnuRptTipo, Me.ReporteDeVentasPorTipoClientesAnualToolStripMenuItem, Me.ReporteDeVentasPorFliaToolStripMenuItem, Me.ReporteDeVentasPorFliaAnualToolStripMenuItem, Me.mnuDistribuidoresInactivos, Me.ToolStripMenuItem6, Me.mnuRptRecargas, Me.mnuRptServicios, Me.ToolStripSeparator4, Me.mnuHoras, Me.ToolStripMenuItem11, Me.RemitosSinDespacharToolStripMenuItem, Me.ToolStripMenuItem18, Me.LogisticaToolStripMenuItem, Me.Informes639ToolStripMenuItem, Me.ToolStripSeparator5, Me.ReporteToolStripMenuItem})
         Me.InformesToolStripMenuItem.Name = "InformesToolStripMenuItem"
         Me.InformesToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
         Me.InformesToolStripMenuItem.Text = "Informes"
@@ -1274,7 +1276,7 @@ Partial Class frmMain
         '
         'ConsultasToolStripMenuItem
         '
-        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StockToolStripMenuItem, Me.ZetiToolStripMenuItem, Me.mnuBuscaCliente, Me.PresupuestoToolStripMenuItem, Me.ReporteRecargasToolStripMenuItem, Me.ImpresionesToolStripMenuItem, Me.ArticulosToolStripMenuItem, Me.ListadoFacturasDeVentaToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.OCToolStripMenuItem, Me.ToolStripSeparator2, Me.EstadoDePedidosToolStripMenuItem, Me.PedidosToolStripMenuItem, Me.ToolStripSeparator3, Me.ListadoDeToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem, Me.TableroCAToolStripMenuItem})
+        Me.ConsultasToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StockToolStripMenuItem, Me.ZetiToolStripMenuItem, Me.mnuBuscaCliente, Me.PresupuestoToolStripMenuItem, Me.ReporteRecargasToolStripMenuItem, Me.ImpresionesToolStripMenuItem, Me.ArticulosToolStripMenuItem, Me.ListadoFacturasDeVentaToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.OCToolStripMenuItem, Me.ToolStripSeparator2, Me.EstadoDePedidosToolStripMenuItem, Me.PedidosToolStripMenuItem, Me.ToolStripSeparator3, Me.ListadoDeToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem, Me.TableroCAToolStripMenuItem, Me.SistemasFijosToolStripMenuItem})
         Me.ConsultasToolStripMenuItem.Name = "ConsultasToolStripMenuItem"
         Me.ConsultasToolStripMenuItem.Size = New System.Drawing.Size(71, 20)
         Me.ConsultasToolStripMenuItem.Text = "Consultas"
@@ -1411,6 +1413,12 @@ Partial Class frmMain
         Me.TableroCAToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
         Me.TableroCAToolStripMenuItem.Text = "TableroCA"
         '
+        'SistemasFijosToolStripMenuItem
+        '
+        Me.SistemasFijosToolStripMenuItem.Name = "SistemasFijosToolStripMenuItem"
+        Me.SistemasFijosToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
+        Me.SistemasFijosToolStripMenuItem.Text = "Sistemas Fijos"
+        '
         'ClientesToolStripMenuItem
         '
         Me.ClientesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCliente})
@@ -1512,6 +1520,13 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
+        '
+        'mnuRptServicios
+        '
+        Me.mnuRptServicios.Name = "mnuRptServicios"
+        Me.mnuRptServicios.Size = New System.Drawing.Size(281, 22)
+        Me.mnuRptServicios.Tag = "mnuRptServicios"
+        Me.mnuRptServicios.Text = "Reporte de Servicios realizados..."
         '
         'frmMain
         '
@@ -1733,6 +1748,8 @@ Partial Class frmMain
     Friend WithEvents mnuMailsClientesMostrador As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem26 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripMenuItem27 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents SistemasFijosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuRptServicios As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

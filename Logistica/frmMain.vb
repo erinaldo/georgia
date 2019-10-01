@@ -1169,13 +1169,15 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-
     Private Sub mnuRelevadores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRelevadores.Click
         Dim f As New frmABMRelevadores
 
         f.MdiParent = Me
         f.Show()
     End Sub
-
-
+    Private Sub mnuRptServicios_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuRptServicios.Click
+        Dim f As New frmReporteServicios
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class
