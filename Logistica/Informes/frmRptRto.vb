@@ -321,7 +321,7 @@ Public Class frmRptRto
     End Sub
     Private Sub VerRemitoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerRemitoToolStripMenuItem.Click
         Dim rpt As New ReportDocument
-        Dim numero As String = dgv.CurrentRow.Cells("Numero").Value.ToString
+        Dim numero As String = dgv.CurrentRow.Cells("colNumero").Value.ToString
         Dim crystal As frmCrystal
         rpt.Load(RPTX3 & "bonliv50.rpt")
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
@@ -334,7 +334,7 @@ Public Class frmRptRto
     End Sub
     Private Sub SeguimientoDeDocumentacionToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SeguimientoDeDocumentacionToolStripMenuItem.Click
         Dim rpt As New ReportDocument
-        Dim numero As String = dgv.CurrentRow.Cells("Numero").Value.ToString
+        Dim numero As String = dgv.CurrentRow.Cells("colNumero").Value.ToString
         Dim crystal As frmCrystal
         rpt.Load(RPTX3 & "xsegto_rto.rpt")
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
@@ -344,7 +344,7 @@ Public Class frmRptRto
         crystal.Show()
     End Sub
     Private Sub VerRemitoEscaneadoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerRemitoEscaneadoToolStripMenuItem.Click
-        Dim numero As String = dgv.CurrentRow.Cells("Numero").Value.ToString
+        Dim numero As String = dgv.CurrentRow.Cells("colNumero").Value.ToString
         Try
             Process.Start("\\srv\Z\Remitos\" & numero & ".pdf")
         Catch ex As Exception
@@ -352,7 +352,7 @@ Public Class frmRptRto
         End Try
     End Sub
     Private Sub Menu1_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles Menu1.Opening
-        Dim numero As String = dgv.CurrentRow.Cells("Numero").Value.ToString
+        Dim numero As String = dgv.CurrentRow.Cells("colNumero").Value.ToString
         If File.Exists("\\srv\Z\Remitos\" & numero & ".pdf") Then
             VerRemitoEscaneadoToolStripMenuItem.Enabled = True
         Else
