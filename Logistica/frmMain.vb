@@ -274,7 +274,7 @@ Public Class frmMain
         cm2.Dispose()
 
     End Sub
-    Private Sub frm415_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub frm415_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frm415.Click
         Dim f As New frm415
         f.MdiParent = Me
         f.Show()
@@ -1179,5 +1179,9 @@ Public Class frmMain
         Dim f As New frmReporteServicios
         f.MdiParent = Me
         f.Show()
+    End Sub
+
+    Private Sub frmItnAbo_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmItnAbo.Click
+
     End Sub
 End Class

@@ -57,7 +57,6 @@ Partial Class frmMain
         Me.ToolStripMenuItem24 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuItnAuto = New System.Windows.Forms.ToolStripMenuItem
         Me.frmControles = New System.Windows.Forms.ToolStripMenuItem
-        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
         Me.frm415 = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuDestribucionVenc = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem22 = New System.Windows.Forms.ToolStripMenuItem
@@ -154,6 +153,7 @@ Partial Class frmMain
         Me.mnuDistribuidoresInactivos = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuRptRecargas = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuRptServicios = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuHoras = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem11 = New System.Windows.Forms.ToolStripSeparator
@@ -221,7 +221,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuRptServicios = New System.Windows.Forms.ToolStripMenuItem
+        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -420,7 +420,7 @@ Partial Class frmMain
         '
         'mnuIntervenciones
         '
-        Me.mnuIntervenciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuIntervencion, Me.ToolStripMenuItem24, Me.mnuItnAuto, Me.frmControles, Me.frm415})
+        Me.mnuIntervenciones.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuIntervencion, Me.ToolStripMenuItem24, Me.mnuItnAuto, Me.frmItnAbo, Me.frmControles, Me.frm415})
         Me.mnuIntervenciones.Name = "mnuIntervenciones"
         Me.mnuIntervenciones.Size = New System.Drawing.Size(274, 22)
         Me.mnuIntervenciones.Text = "Intervenciones"
@@ -446,25 +446,17 @@ Partial Class frmMain
         '
         'frmControles
         '
-        Me.frmControles.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmItnAbo})
         Me.frmControles.Name = "frmControles"
         Me.frmControles.Size = New System.Drawing.Size(230, 22)
         Me.frmControles.Tag = "frmCtrles"
         Me.frmControles.Text = "Intervenciones Ctrles..."
-        '
-        'frmItnAbo
-        '
-        Me.frmItnAbo.Name = "frmItnAbo"
-        Me.frmItnAbo.Size = New System.Drawing.Size(261, 22)
-        Me.frmItnAbo.Tag = "frmItnAbo"
-        Me.frmItnAbo.Text = "Generar Intervenciones Abonados..."
         '
         'frm415
         '
         Me.frm415.Name = "frm415"
         Me.frm415.Size = New System.Drawing.Size(230, 22)
         Me.frm415.Tag = "frm415"
-        Me.frm415.Text = "Intervenciones 639..."
+        Me.frm415.Text = "Intervenciones Agua..."
         '
         'mnuDestribucionVenc
         '
@@ -1083,6 +1075,13 @@ Partial Class frmMain
         Me.mnuRptRecargas.Tag = "frmRptRecargas"
         Me.mnuRptRecargas.Text = "Reporte de Recargas"
         '
+        'mnuRptServicios
+        '
+        Me.mnuRptServicios.Name = "mnuRptServicios"
+        Me.mnuRptServicios.Size = New System.Drawing.Size(281, 22)
+        Me.mnuRptServicios.Tag = "mnuRptServicios"
+        Me.mnuRptServicios.Text = "Reporte de Servicios realizados..."
+        '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
@@ -1521,12 +1520,12 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'mnuRptServicios
+        'frmItnAbo
         '
-        Me.mnuRptServicios.Name = "mnuRptServicios"
-        Me.mnuRptServicios.Size = New System.Drawing.Size(281, 22)
-        Me.mnuRptServicios.Tag = "mnuRptServicios"
-        Me.mnuRptServicios.Text = "Reporte de Servicios realizados..."
+        Me.frmItnAbo.Name = "frmItnAbo"
+        Me.frmItnAbo.Size = New System.Drawing.Size(230, 22)
+        Me.frmItnAbo.Tag = "frmItnAbo"
+        Me.frmItnAbo.Text = "Intervenciones Abonados..."
         '
         'frmMain
         '
@@ -1728,7 +1727,6 @@ Partial Class frmMain
 
     Friend WithEvents mnuIntervencion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmControles As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frmItnAbo As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frm415 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuItnAuto As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem24 As System.Windows.Forms.ToolStripSeparator
@@ -1750,6 +1748,7 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem27 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents SistemasFijosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRptServicios As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frmItnAbo As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class
