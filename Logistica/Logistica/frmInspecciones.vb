@@ -445,9 +445,11 @@ Public Class frmInspecciones
             End If
         Next
 
+        dt.AcceptChanges()
+
     End Sub
     Private Sub CargarControlesParaConfirmar()
-        ''
+        '
         '------------------------------------
         ' FUNCION DESACTIVADA POR EL MOMENTO -- 23.08.2019
         '------------------------------------
@@ -455,37 +457,40 @@ Public Class frmInspecciones
         '
         'Se carga la grilla con los controles que se deben comparar con el anterior
         'para confirmar o modificar
-        Dim da As OracleDataAdapter
-        Dim dt As New DataTable
-        Dim sql As String
-        Dim dv As DataGridView = dgvAdonix
+        Exit Sub
+        '----------------------------
 
-        If dv.DataSource Is Nothing Then
-            dt = New DataTable
-        Else
-            dt = CType(dv.DataSource, DataTable)
+        'Dim da As OracleDataAdapter
+        'Dim dt As New DataTable
+        'Dim sql As String
+        'Dim dv As DataGridView = dgvAdonix
 
-        End If
+        'If dv.DataSource Is Nothing Then
+        '    dt = New DataTable
+        'Else
+        '    dt = CType(dv.DataSource, DataTable)
 
-        sql = "select xco.itn_0, xco.dat_0, xco.bpcnum_0, bpc.bpcnam_0, xco.bpaadd_0, bpa.bpaaddlig_0 "
-        sql &= "from xcontroles xco inner join "
-        sql &= "	 bpaddress bpa on (xco.bpcnum_0 = bpa.bpanum_0 AND xco.bpaadd_0 = bpa.bpaadd_0) inner join "
-        sql &= "	 bpcustomer bpc on (bpa.bpanum_0 = bpc.bpcnum_0) "
-        sql &= "where xco.estado_0 = 1"
-        da = New OracleDataAdapter(sql, cn)
+        'End If
 
-        dt.Clear()
-        da.Fill(dt)
+        'sql = "select xco.itn_0, xco.dat_0, xco.bpcnum_0, bpc.bpcnam_0, xco.bpaadd_0, bpa.bpaaddlig_0 "
+        'sql &= "from xcontroles xco inner join "
+        'sql &= "	 bpaddress bpa on (xco.bpcnum_0 = bpa.bpanum_0 AND xco.bpaadd_0 = bpa.bpaadd_0) inner join "
+        'sql &= "	 bpcustomer bpc on (bpa.bpanum_0 = bpc.bpcnum_0) "
+        'sql &= "where xco.estado_0 = 1"
+        'da = New OracleDataAdapter(sql, cn)
 
-        If dv.DataSource Is Nothing Then
-            col2Intervencion.DataPropertyName = "itn_0"
-            col2Fecha.DataPropertyName = "dat_0"
-            col2Cliente.DataPropertyName = "bpcnum_0"
-            col2Nombre.DataPropertyName = "bpcnam_0"
-            col2Sucursal.DataPropertyName = "bpaadd_0"
-            col2Direccion.DataPropertyName = "bpaaddlig_0"
-            dv.DataSource = dt
-        End If
+        'dt.Clear()
+        'da.Fill(dt)
+
+        'If dv.DataSource Is Nothing Then
+        '    col2Intervencion.DataPropertyName = "itn_0"
+        '    col2Fecha.DataPropertyName = "dat_0"
+        '    col2Cliente.DataPropertyName = "bpcnum_0"
+        '    col2Nombre.DataPropertyName = "bpcnam_0"
+        '    col2Sucursal.DataPropertyName = "bpaadd_0"
+        '    col2Direccion.DataPropertyName = "bpaaddlig_0"
+        '    dv.DataSource = dt
+        'End If
 
     End Sub
     Private Sub mnuTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuTransferir.Click
@@ -607,7 +612,6 @@ Public Class frmInspecciones
 
     End Sub
     Private Sub btnEliminar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEliminar.Click
-        Dim dt As DataTable
         Dim n As Integer
         Dim s As String
 
@@ -620,9 +624,6 @@ Public Class frmInspecciones
         If MessageBox.Show(s, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
             Exit Sub
         End If
-
-        dt = CType(dgvSigex.DataSource, DataTable)
-        dt.AcceptChanges()
 
         For Each r As DataGridViewRow In dgvSigex.SelectedRows
             Try
@@ -637,7 +638,9 @@ Public Class frmInspecciones
             End Try
         Next
 
-        ctrles.UpdateTable(dt)
+        ctrles.UpdateTable(CType(dgvSigex.DataSource, DataTable))
+
+        CargarControlesPendientes()
 
     End Sub
 
