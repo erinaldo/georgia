@@ -121,7 +121,10 @@ Public Class frmTransferencia
             cm.ExecuteNonQuery()
 
             Sql = "UPDATE machines "
-            Sql &= "SET bpcnum_0 = :bpcnum_1, fcyitn_0 = :fcyitn_1, ple_0 = :ple_0 "
+            Sql &= "SET bpcnum_0 = :bpcnum_1, "
+            Sql &= "    maccutbpc_0 = :bpcnum_1, "
+            Sql &= "    fcyitn_0 = :fcyitn_1, "
+            Sql &= "    ple_0 = :ple_0 "
             Sql &= "WHERE bpcnum_0 = :bpcnum_0 AND fcyitn_0 = :fcyitn_0"
             cm = New OracleCommand(Sql, cn)
             cm.Parameters.Add("bpcnum_1", OracleType.VarChar).Value = txtCliente2.Text
