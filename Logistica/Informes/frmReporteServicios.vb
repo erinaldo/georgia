@@ -11,6 +11,10 @@ Public Class frmReporteServicios
 
         AddHandler dgv.RowPostPaint, AddressOf NumeracionGrillas
 
+        For Each c As DataGridViewColumn In dgv.Columns
+            c.SortMode = DataGridViewColumnSortMode.Automatic
+        Next
+
     End Sub
     Private Sub btnFiltro_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFiltro.Click
         ApplicarFiltros()
@@ -70,10 +74,12 @@ Public Class frmReporteServicios
         End If
 
         If dgv.DataSource Is Nothing Then
+            colTipo.DataPropertyName = "tsccod_1"
             colCliente.DataPropertyName = "bpc_0"
             colNombre.DataPropertyName = "bpcnam_0"
             colSucursal.DataPropertyName = "bpaadd_0"
             colDireccion.DataPropertyName = "bpaaddlig_0"
+            colProvincia.DataPropertyName = "sat_0"
             colVendedor.DataPropertyName = "rep_0"
             colRecarga.DataPropertyName = "recarga"
             colAgua.DataPropertyName = "agua"
@@ -90,7 +96,17 @@ Public Class frmReporteServicios
         Dim Sql As String
         Dim da As OracleDataAdapter
 
-        Sql = "SELECT DISTINCT itn.bpc_0, bpc.bpcnam_0, itn.bpaadd_0, bpa.bpaaddlig_0, bpc.rep_0, 1 as recarga, 0 as agua, 0 as deteccion, 0 as cocinas "
+        Sql = "SELECT DISTINCT bpc.tsccod_1, "
+        Sql &= "               itn.bpc_0, "
+        Sql &= "               bpc.bpcnam_0, "
+        Sql &= "               itn.bpaadd_0, "
+        Sql &= "               bpa.bpaaddlig_0, "
+        Sql &= "               bpa.sat_0, "
+        Sql &= "               bpc.rep_0, "
+        Sql &= "               yit.tqty_0 as recarga,"
+        Sql &= "               0 as agua, "
+        Sql &= "               0 as deteccion, "
+        Sql &= "               0 as cocinas "
         Sql &= "FROM interven itn INNER JOIN "
         Sql &= "	 yitndet yit ON (yit.num_0 = itn.num_0 AND yit.typlig_0 = 1) INNER JOIN "
         Sql &= "	 itmmaster itm ON (itm.itmref_0 = yit.itmref_0) INNER JOIN "
@@ -111,7 +127,13 @@ Public Class frmReporteServicios
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
 
-        Sql = "SELECT DISTINCT itn.bpc_0, bpc.bpcnam_0, itn.bpaadd_0, bpa.bpaaddlig_0, bpc.rep_0 "
+        Sql = "SELECT DISTINCT bpc.tsccod_1, "
+        Sql &= "               itn.bpc_0, "
+        Sql &= "               bpc.bpcnam_0, "
+        Sql &= "               itn.bpaadd_0, "
+        Sql &= "               bpa.bpaaddlig_0, "
+        Sql &= "               bpa.sat_0, "
+        Sql &= "               bpc.rep_0 "
         Sql &= "FROM interven itn INNER JOIN "
         Sql &= "	 yitndet yit ON (yit.num_0 = itn.num_0 AND yit.typlig_0 = 1) INNER JOIN "
         Sql &= "	 itmmaster itm ON (itm.itmref_0 = yit.itmref_0) INNER JOIN "
@@ -137,7 +159,13 @@ Public Class frmReporteServicios
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
 
-        Sql = "SELECT DISTINCT itn.bpc_0, bpc.bpcnam_0, itn.bpaadd_0, bpa.bpaaddlig_0, bpc.rep_0 "
+        Sql = "SELECT DISTINCT bpc.tsccod_1, "
+        Sql &= "               itn.bpc_0, "
+        Sql &= "               bpc.bpcnam_0, "
+        Sql &= "               itn.bpaadd_0, "
+        Sql &= "               bpa.bpaaddlig_0, "
+        Sql &= "               bpa.sat_0, "
+        Sql &= "               bpc.rep_0 "
         Sql &= "FROM interven itn INNER JOIN "
         Sql &= "	 yitndet yit ON (yit.num_0 = itn.num_0 AND yit.typlig_0 = 1) INNER JOIN "
         Sql &= "	 itmmaster itm ON (itm.itmref_0 = yit.itmref_0) INNER JOIN "
@@ -162,7 +190,13 @@ Public Class frmReporteServicios
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
 
-        Sql = "SELECT DISTINCT itn.bpc_0, bpc.bpcnam_0, itn.bpaadd_0, bpa.bpaaddlig_0, bpc.rep_0 "
+        Sql = "SELECT DISTINCT bpc.tsccod_1, "
+        Sql &= "               itn.bpc_0, "
+        Sql &= "               bpc.bpcnam_0, "
+        Sql &= "               itn.bpaadd_0, "
+        Sql &= "               bpa.bpaaddlig_0, "
+        Sql &= "               bpa.sat_0, "
+        Sql &= "               bpc.rep_0 "
         Sql &= "FROM interven itn INNER JOIN "
         Sql &= "	 hdktask hdk ON (hdk.itnnum_0 = itn.num_0) INNER JOIN "
         Sql &= "	 itmmaster itm ON (itm.itmref_0 = hdk.hdtitm_0) INNER JOIN "
@@ -216,13 +250,13 @@ Public Class frmReporteServicios
 
         Select Case chkRecargas.CheckState
             Case CheckState.Checked
-                f = "recarga = 1"
+                f = "recarga > 0"
 
             Case CheckState.Unchecked
                 f = "recarga = 0"
 
             Case CheckState.Indeterminate
-                f = "recarga in (0,1)"
+                f = "recarga >= 0"
 
         End Select
 

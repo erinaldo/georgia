@@ -26,27 +26,31 @@ Partial Class frmReporteServicios
         Dim SplitContainer1 As System.Windows.Forms.SplitContainer
         Dim GroupBox2 As System.Windows.Forms.GroupBox
         Dim GroupBox1 As System.Windows.Forms.GroupBox
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.btnFiltro = New System.Windows.Forms.Button
         Me.chkRecargas = New System.Windows.Forms.CheckBox
         Me.chkCocinas = New System.Windows.Forms.CheckBox
         Me.chkAgua = New System.Windows.Forms.CheckBox
         Me.chkDeteccion = New System.Windows.Forms.CheckBox
         Me.lstVendedores = New System.Windows.Forms.CheckedListBox
+        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuMarcarTodos = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem
         Me.dtpFecha = New System.Windows.Forms.DateTimePicker
         Me.btnBuscar = New System.Windows.Forms.Button
         Me.dgv = New System.Windows.Forms.DataGridView
+        Me.colTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colNombre = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colSucursal = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colDireccion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colProvincia = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colVendedor = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colRecarga = New System.Windows.Forms.DataGridViewCheckBoxColumn
+        Me.colRecarga = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colAgua = New System.Windows.Forms.DataGridViewCheckBoxColumn
         Me.colDeteccion = New System.Windows.Forms.DataGridViewCheckBoxColumn
         Me.colCocinas = New System.Windows.Forms.DataGridViewCheckBoxColumn
-        Me.ContextMenuStrip2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuMarcarTodos = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuDesmarcarTodos = New System.Windows.Forms.ToolStripMenuItem
         SplitContainer1 = New System.Windows.Forms.SplitContainer
         GroupBox2 = New System.Windows.Forms.GroupBox
         GroupBox1 = New System.Windows.Forms.GroupBox
@@ -55,8 +59,8 @@ Partial Class frmReporteServicios
         SplitContainer1.SuspendLayout()
         GroupBox2.SuspendLayout()
         GroupBox1.SuspendLayout()
-        CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip2.SuspendLayout()
+        CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -178,6 +182,24 @@ Partial Class frmReporteServicios
         Me.lstVendedores.Size = New System.Drawing.Size(198, 154)
         Me.lstVendedores.TabIndex = 3
         '
+        'ContextMenuStrip2
+        '
+        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMarcarTodos, Me.mnuDesmarcarTodos})
+        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
+        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 48)
+        '
+        'mnuMarcarTodos
+        '
+        Me.mnuMarcarTodos.Name = "mnuMarcarTodos"
+        Me.mnuMarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.mnuMarcarTodos.Text = "Marcar todos"
+        '
+        'mnuDesmarcarTodos
+        '
+        Me.mnuDesmarcarTodos.Name = "mnuDesmarcarTodos"
+        Me.mnuDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
+        Me.mnuDesmarcarTodos.Text = "Desmarcar todos"
+        '
         'dtpFecha
         '
         Me.dtpFecha.Location = New System.Drawing.Point(12, 23)
@@ -199,13 +221,19 @@ Partial Class frmReporteServicios
         Me.dgv.AllowUserToAddRows = False
         Me.dgv.AllowUserToDeleteRows = False
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colCliente, Me.colNombre, Me.colSucursal, Me.colDireccion, Me.colVendedor, Me.colRecarga, Me.colAgua, Me.colDeteccion, Me.colCocinas})
+        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colTipo, Me.colCliente, Me.colNombre, Me.colSucursal, Me.colDireccion, Me.colProvincia, Me.colVendedor, Me.colRecarga, Me.colAgua, Me.colDeteccion, Me.colCocinas})
         Me.dgv.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgv.Location = New System.Drawing.Point(0, 0)
         Me.dgv.Name = "dgv"
         Me.dgv.ReadOnly = True
         Me.dgv.Size = New System.Drawing.Size(629, 470)
         Me.dgv.TabIndex = 0
+        '
+        'colTipo
+        '
+        Me.colTipo.HeaderText = "Tipo"
+        Me.colTipo.Name = "colTipo"
+        Me.colTipo.ReadOnly = True
         '
         'colCliente
         '
@@ -231,17 +259,29 @@ Partial Class frmReporteServicios
         Me.colDireccion.Name = "colDireccion"
         Me.colDireccion.ReadOnly = True
         '
+        'colProvincia
+        '
+        Me.colProvincia.HeaderText = "Provincia"
+        Me.colProvincia.Name = "colProvincia"
+        Me.colProvincia.ReadOnly = True
+        '
         'colVendedor
         '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.colVendedor.DefaultCellStyle = DataGridViewCellStyle1
         Me.colVendedor.HeaderText = "Vendedor"
         Me.colVendedor.Name = "colVendedor"
         Me.colVendedor.ReadOnly = True
         '
         'colRecarga
         '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.colRecarga.DefaultCellStyle = DataGridViewCellStyle2
         Me.colRecarga.HeaderText = "Recarga"
         Me.colRecarga.Name = "colRecarga"
         Me.colRecarga.ReadOnly = True
+        Me.colRecarga.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colRecarga.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
         'colAgua
         '
@@ -261,31 +301,13 @@ Partial Class frmReporteServicios
         Me.colCocinas.Name = "colCocinas"
         Me.colCocinas.ReadOnly = True
         '
-        'ContextMenuStrip2
-        '
-        Me.ContextMenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMarcarTodos, Me.mnuDesmarcarTodos})
-        Me.ContextMenuStrip2.Name = "ContextMenuStrip2"
-        Me.ContextMenuStrip2.Size = New System.Drawing.Size(164, 48)
-        '
-        'mnuMarcarTodos
-        '
-        Me.mnuMarcarTodos.Name = "mnuMarcarTodos"
-        Me.mnuMarcarTodos.Size = New System.Drawing.Size(163, 22)
-        Me.mnuMarcarTodos.Text = "Marcar todos"
-        '
-        'mnuDesmarcarTodos
-        '
-        Me.mnuDesmarcarTodos.Name = "mnuDesmarcarTodos"
-        Me.mnuDesmarcarTodos.Size = New System.Drawing.Size(163, 22)
-        Me.mnuDesmarcarTodos.Text = "Desmarcar todos"
-        '
-        'frmReporteSistemasFijos
+        'frmReporteServicios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(869, 470)
         Me.Controls.Add(SplitContainer1)
-        Me.Name = "frmReporteSistemasFijos"
+        Me.Name = "frmReporteServicios"
         Me.Text = "Reporte Sistemas Fijos"
         SplitContainer1.Panel1.ResumeLayout(False)
         SplitContainer1.Panel2.ResumeLayout(False)
@@ -293,8 +315,8 @@ Partial Class frmReporteServicios
         GroupBox2.ResumeLayout(False)
         GroupBox2.PerformLayout()
         GroupBox1.ResumeLayout(False)
-        CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip2.ResumeLayout(False)
+        CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -305,18 +327,20 @@ Partial Class frmReporteServicios
     Friend WithEvents chkAgua As System.Windows.Forms.CheckBox
     Friend WithEvents dtpFecha As System.Windows.Forms.DateTimePicker
     Friend WithEvents dgv As System.Windows.Forms.DataGridView
-    Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colNombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colSucursal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDireccion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colVendedor As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colRecarga As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents colAgua As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents colDeteccion As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents colCocinas As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents btnFiltro As System.Windows.Forms.Button
     Friend WithEvents lstVendedores As System.Windows.Forms.CheckedListBox
     Friend WithEvents ContextMenuStrip2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnuMarcarTodos As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuDesmarcarTodos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents colTipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colNombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colSucursal As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDireccion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colProvincia As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colVendedor As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colRecarga As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colAgua As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents colDeteccion As System.Windows.Forms.DataGridViewCheckBoxColumn
+    Friend WithEvents colCocinas As System.Windows.Forms.DataGridViewCheckBoxColumn
 End Class
