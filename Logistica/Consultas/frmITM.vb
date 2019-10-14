@@ -66,8 +66,8 @@ Public Class frmITM
     Private Sub VerStockToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles VerStockToolStripMenuItem.Click
         Dim numero As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim f As New frmStock
-        f.txtbtn_stock.Text = numero
-        f.buscar()
+        f.txtCodigo.Text = numero
+        f.Consultar()
         f.Show()
     End Sub
 End Class
