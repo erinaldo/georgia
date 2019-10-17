@@ -34,11 +34,9 @@ Partial Class frmCAE
         Me.prn = New System.Windows.Forms.PrintDialog
         Me.Label1 = New System.Windows.Forms.Label
         Me.gbSociedades = New System.Windows.Forms.GroupBox
-        Me.cboLia = New System.Windows.Forms.ComboBox
-        Me.rbLia = New System.Windows.Forms.RadioButton
-        Me.cboGru = New System.Windows.Forms.ComboBox
+        Me.cboSch = New System.Windows.Forms.ComboBox
         Me.cboDny = New System.Windows.Forms.ComboBox
-        Me.rbGru = New System.Windows.Forms.RadioButton
+        Me.rbSch = New System.Windows.Forms.RadioButton
         Me.rbDny = New System.Windows.Forms.RadioButton
         Me.gbBtn = New System.Windows.Forms.GroupBox
         Me.btnFCA = New System.Windows.Forms.Button
@@ -128,11 +126,9 @@ Partial Class frmCAE
         'gbSociedades
         '
         Me.gbSociedades.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.gbSociedades.Controls.Add(Me.cboLia)
-        Me.gbSociedades.Controls.Add(Me.rbLia)
-        Me.gbSociedades.Controls.Add(Me.cboGru)
+        Me.gbSociedades.Controls.Add(Me.cboSch)
         Me.gbSociedades.Controls.Add(Me.cboDny)
-        Me.gbSociedades.Controls.Add(Me.rbGru)
+        Me.gbSociedades.Controls.Add(Me.rbSch)
         Me.gbSociedades.Controls.Add(Me.rbDny)
         Me.gbSociedades.Location = New System.Drawing.Point(2, 319)
         Me.gbSociedades.Name = "gbSociedades"
@@ -141,35 +137,15 @@ Partial Class frmCAE
         Me.gbSociedades.TabStop = False
         Me.gbSociedades.Text = "Sociedades"
         '
-        'cboLia
+        'cboSch
         '
-        Me.cboLia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboLia.FormattingEnabled = True
-        Me.cboLia.Location = New System.Drawing.Point(77, 81)
-        Me.cboLia.Name = "cboLia"
-        Me.cboLia.Size = New System.Drawing.Size(52, 21)
-        Me.cboLia.TabIndex = 12
-        Me.cboLia.Tag = "LIA"
-        '
-        'rbLia
-        '
-        Me.rbLia.AutoSize = True
-        Me.rbLia.Location = New System.Drawing.Point(6, 82)
-        Me.rbLia.Name = "rbLia"
-        Me.rbLia.Size = New System.Drawing.Size(41, 17)
-        Me.rbLia.TabIndex = 11
-        Me.rbLia.Text = "LIA"
-        Me.rbLia.UseVisualStyleBackColor = True
-        '
-        'cboGru
-        '
-        Me.cboGru.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboGru.FormattingEnabled = True
-        Me.cboGru.Location = New System.Drawing.Point(77, 51)
-        Me.cboGru.Name = "cboGru"
-        Me.cboGru.Size = New System.Drawing.Size(52, 21)
-        Me.cboGru.TabIndex = 10
-        Me.cboGru.Tag = "GRU"
+        Me.cboSch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboSch.FormattingEnabled = True
+        Me.cboSch.Location = New System.Drawing.Point(77, 51)
+        Me.cboSch.Name = "cboSch"
+        Me.cboSch.Size = New System.Drawing.Size(52, 21)
+        Me.cboSch.TabIndex = 10
+        Me.cboSch.Tag = "SCH"
         '
         'cboDny
         '
@@ -181,15 +157,15 @@ Partial Class frmCAE
         Me.cboDny.TabIndex = 9
         Me.cboDny.Tag = "DNY"
         '
-        'rbGru
+        'rbSch
         '
-        Me.rbGru.AutoSize = True
-        Me.rbGru.Location = New System.Drawing.Point(6, 51)
-        Me.rbGru.Name = "rbGru"
-        Me.rbGru.Size = New System.Drawing.Size(49, 17)
-        Me.rbGru.TabIndex = 1
-        Me.rbGru.Text = "GRU"
-        Me.rbGru.UseVisualStyleBackColor = True
+        Me.rbSch.AutoSize = True
+        Me.rbSch.Location = New System.Drawing.Point(6, 51)
+        Me.rbSch.Name = "rbSch"
+        Me.rbSch.Size = New System.Drawing.Size(47, 17)
+        Me.rbSch.TabIndex = 1
+        Me.rbSch.Text = "SCH"
+        Me.rbSch.UseVisualStyleBackColor = True
         '
         'rbDny
         '
@@ -307,7 +283,7 @@ Partial Class frmCAE
     Friend WithEvents prn As System.Windows.Forms.PrintDialog
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents gbSociedades As System.Windows.Forms.GroupBox
-    Friend WithEvents rbGru As System.Windows.Forms.RadioButton
+    Friend WithEvents rbSch As System.Windows.Forms.RadioButton
     Friend WithEvents rbDny As System.Windows.Forms.RadioButton
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuCAE As System.Windows.Forms.ToolStripMenuItem
@@ -318,8 +294,6 @@ Partial Class frmCAE
     Friend WithEvents btnFCB As System.Windows.Forms.Button
     Friend WithEvents btnNCB As System.Windows.Forms.Button
     Friend WithEvents btnNCA As System.Windows.Forms.Button
-    Friend WithEvents cboGru As System.Windows.Forms.ComboBox
+    Friend WithEvents cboSch As System.Windows.Forms.ComboBox
     Friend WithEvents cboDny As System.Windows.Forms.ComboBox
-    Friend WithEvents cboLia As System.Windows.Forms.ComboBox
-    Friend WithEvents rbLia As System.Windows.Forms.RadioButton
 End Class

@@ -87,17 +87,15 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
+
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -115,17 +113,14 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -143,17 +138,14 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -171,17 +163,14 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -199,17 +188,14 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -227,17 +213,14 @@ Public Class frmCAE
 
             Soc = "DNY"
             PV = Strings.Right("000" & cboDny.SelectedValue.ToString, 4)
-        ElseIf rbGru.Checked Then
-            If cboGru.SelectedValue Is Nothing Then Exit Sub
+        ElseIf rbSch.Checked Then
+            If cboSch.SelectedValue Is Nothing Then Exit Sub
 
-            Soc = "GRU"
-            PV = Strings.Right("000" & cboGru.SelectedValue.ToString, 4)
+            Soc = "SCH"
+            PV = Strings.Right("000" & cboSch.SelectedValue.ToString, 4)
 
         Else
-            If cboLia.SelectedValue Is Nothing Then Exit Sub
-
-            Soc = "LIA"
-            PV = Strings.Right("000" & cboLia.SelectedValue.ToString, 4)
+            Exit Sub
 
         End If
 
@@ -770,12 +753,15 @@ Public Class frmCAE
         Select Case Sociedad
             Case "DNY", "GRU"
                 NombreTicket = "fe_dny.xml"
-                'NombreCertificado = "dny.pfx"
                 NombreCertificado = "dny.p12"
 
             Case "LIA"
                 NombreTicket = "fe_lia.xml"
                 NombreCertificado = "lia.p12"
+
+            Case "SCH"
+                NombreTicket = "fe_sch.xml"
+                NombreCertificado = "sch.p12"
 
         End Select
         'Intento abrir un ticket existente
