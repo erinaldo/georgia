@@ -12,7 +12,7 @@ Public Class frmSucursal
     'Usada cuando se edita un registro que debe ser actualizado al registrar y cerrar la ventana
     Public GrabarAlSalir As Boolean = False
 
-    Public Sub New(ByVal bpc As Cliente, Optional ByVal puc As PadronAfip = Nothing)
+    Public Sub New(ByVal bpc As Cliente)
         ' Llamada necesaria para el Diseñador de Windows Forms.
         InitializeComponent()
 

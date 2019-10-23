@@ -56,6 +56,7 @@ Partial Class frmMain
         Me.mnuIntervencion = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem24 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuItnAuto = New System.Windows.Forms.ToolStripMenuItem
+        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
         Me.frmControles = New System.Windows.Forms.ToolStripMenuItem
         Me.frm415 = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuDestribucionVenc = New System.Windows.Forms.ToolStripMenuItem
@@ -221,7 +222,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.frmItnAbo = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuFCE = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -444,6 +445,13 @@ Partial Class frmMain
         Me.mnuItnAuto.Tag = "frmItnAutomaticas"
         Me.mnuItnAuto.Text = "Intervenciones Automáticas..."
         '
+        'frmItnAbo
+        '
+        Me.frmItnAbo.Name = "frmItnAbo"
+        Me.frmItnAbo.Size = New System.Drawing.Size(230, 22)
+        Me.frmItnAbo.Tag = "frmItnAbo"
+        Me.frmItnAbo.Text = "Intervenciones Abonados..."
+        '
         'frmControles
         '
         Me.frmControles.Name = "frmControles"
@@ -651,7 +659,7 @@ Partial Class frmMain
         '
         'mnuVentas
         '
-        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.CotizadorInternoToolStripMenuItem})
+        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.CotizadorInternoToolStripMenuItem, Me.mnuFCE})
         Me.mnuVentas.Name = "mnuVentas"
         Me.mnuVentas.Size = New System.Drawing.Size(54, 20)
         Me.mnuVentas.Text = "Ventas"
@@ -1520,12 +1528,11 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'frmItnAbo
+        'mnuFCE
         '
-        Me.frmItnAbo.Name = "frmItnAbo"
-        Me.frmItnAbo.Size = New System.Drawing.Size(230, 22)
-        Me.frmItnAbo.Tag = "frmItnAbo"
-        Me.frmItnAbo.Text = "Intervenciones Abonados..."
+        Me.mnuFCE.Name = "mnuFCE"
+        Me.mnuFCE.Size = New System.Drawing.Size(299, 22)
+        Me.mnuFCE.Text = "Registro Factura de Crédito..."
         '
         'frmMain
         '
@@ -1749,6 +1756,7 @@ Partial Class frmMain
     Friend WithEvents SistemasFijosToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuRptServicios As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmItnAbo As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuFCE As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

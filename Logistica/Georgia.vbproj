@@ -666,6 +666,12 @@
     <Compile Include="Ventas\frmCotizadorV2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ventas\frmFce.Designer.vb">
+      <DependentUpon>frmFce.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\frmFce.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ventas\frmFiscal.Designer.vb">
       <DependentUpon>frmFiscal.vb</DependentUpon>
     </Compile>
@@ -1421,6 +1427,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas\frmCotizadorV2.resx">
       <DependentUpon>frmCotizadorV2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventas\frmFce.resx">
+      <DependentUpon>frmFce.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas\frmFiscal.resx">
       <DependentUpon>frmFiscal.vb</DependentUpon>

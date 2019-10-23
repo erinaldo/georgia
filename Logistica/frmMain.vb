@@ -1181,7 +1181,10 @@ Public Class frmMain
         f.Show()
     End Sub
 
-    Private Sub frmItnAbo_Click_1(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmItnAbo.Click
-
+    Private Sub mnuFCE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuFCE.Click
+        Dim f As New frmFce
+        f.MdiParent = Me
+        f.Show()
     End Sub
+
 End Class

@@ -277,7 +277,7 @@ Public Class frmFiscal
                                          H(sih.DireccionFactura, 40), _
                                          "", _
                                          "", _
-                                         sih.DocOrigen, _
+                                         sih.CbteOrigenNumero, _
                                          sih.CondicionPagoFactura.Descripcion, _
                                          "C")
 
@@ -295,11 +295,11 @@ Public Class frmFiscal
                         e = FiscalHasar.OpenFiscalReceipt(HTipo(sih.TipoComprobante, sih.LetraComprobante), _
                                                           "S")
                     Case "ABO"
-                        e = FiscalHasar.SetEmbarkNumber("2", sih.DocOrigen)
+                        e = FiscalHasar.SetEmbarkNumber("2", sih.CbteOrigenNumero)
 
                         e = FiscalHasar.OpenDNFH(HTipo(sih.TipoComprobante, sih.LetraComprobante), _
                                                "S", _
-                                               sih.DocOrigen)
+                                               sih.CbteOrigenNumero)
                 End Select
 
         End Select
