@@ -97,7 +97,7 @@ Public Class frmRecepcion
 
         'Desactivo menu Equipos procesados en el dia
         'al usuario RECEP
-        mnuConsulta.Enabled = usr.Codigo <> "RECEP"
+        'mnuConsulta.Enabled = usr.Codigo <> "RECEP"
 
     End Sub
     Private Sub frmRecepcion_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
@@ -741,7 +741,8 @@ Public Class frmRecepcion
 
         Try
             rpt.Load(RPTX3 & "XINGRESOS.rpt")
-            rpt.SetParameterValue("DAT", Date.Today)
+            rpt.SetParameterValue("datdeb", Date.Today)
+            rpt.SetParameterValue("datfin", Date.Today)
             rpt.SetParameterValue("X3TIT", "Ingresos del : " & Date.Today)
             f = New frmCrystal(rpt)
             f.MdiParent = Me.MdiParent
