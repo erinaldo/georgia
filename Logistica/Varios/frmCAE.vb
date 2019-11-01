@@ -1158,27 +1158,4 @@ Public Class frmCAE
 
     End Function
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Dim cpy As New Sociedad(cn)
-        Dim ta As Ticket
-        Dim fe As FacturaElectronica
-
-        cpy.abrir("DNY")
-        ta = ObtenerTicket("DNY")
-
-        If ta IsNot Nothing Then
-            Try
-                fe = New FacturaElectronica(ta, CLng(cpy.Cuit))
-
-                fe.RecuperarCAE(9, 1, 169025)
-
-            Catch ex As Exception
-                MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-            End Try
-
-        End If
-
-
-    End Sub
 End Class

@@ -55,7 +55,6 @@ Partial Class frmCAE
         Me.btnNCBc = New System.Windows.Forms.Button
         Me.btnFCBc = New System.Windows.Forms.Button
         Me.Label1 = New System.Windows.Forms.Label
-        Me.Button1 = New System.Windows.Forms.Button
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ctxMenu.SuspendLayout()
         Me.gbSociedades.SuspendLayout()
@@ -366,21 +365,11 @@ Partial Class frmCAE
         Me.Label1.TabIndex = 2
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(822, 333)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(43, 100)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'frmCAE
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(868, 434)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.gbBtn2)
         Me.Controls.Add(Me.gbBtn1)
         Me.Controls.Add(Me.gbSociedades)
@@ -426,5 +415,4 @@ Partial Class frmCAE
     Friend WithEvents btnNCBc As System.Windows.Forms.Button
     Friend WithEvents btnFCBc As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
