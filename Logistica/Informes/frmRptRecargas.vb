@@ -843,9 +843,15 @@ Public Class frmRptRecargas '948 - 880
         Dim i As Integer = 0
 
         Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, equipos_1 + equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from (interven itn  inner join xrutad xrd on (itn.num_0 = xrd.vcrnum_0)) "
-        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where tipo_0 = 'RET' and typ_0 <> 'G1' and estado_0 = 3 and zflgtrip_0 = 2 and xsector_0 = :xsector and itn.bpc_0 <> '402000' "
+        Sql &= "from interven itn  inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      estado_0 = 3 and "
+        Sql &= "      zflgtrip_0 = 2 and "
+        Sql &= "      xsector_0 = :xsector and "
+        Sql &= "      itn.bpc_0 <> '402000' "
         Sql &= "order by num_0"
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
@@ -853,9 +859,14 @@ Public Class frmRptRecargas '948 - 880
         da.Dispose()
 
         Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-        Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
-        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where zflgtrip_0 = 1 and typ_0 = 'D1' and xsector_0 = :xsector and itn.bpc_0 <> '402000' "
+        Sql &= "from interven itn inner join "
+        Sql &= "     yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where zflgtrip_0 = 1 and "
+        Sql &= "      typ_0 = 'D1' and "
+        'Sql &= "      yotr_0 <> 0 and "
+        Sql &= "      xsector_0 = :xsector and "
+        Sql &= "      itn.bpc_0 <> '402000'"
         Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
         Sql &= "order by num_0"
         da = New OracleDataAdapter(Sql, cn)
