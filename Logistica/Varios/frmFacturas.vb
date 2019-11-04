@@ -317,7 +317,7 @@ Public Class frmfacturas2
                     .Cuerpo &= "Departamento de Cobranzas" & vbCrLf
                     .Cuerpo &= "+54 (11) 4585-4400" & vbCrLf
                     .Cuerpo &= "cobranzas@georgia.com.ar" & vbCrLf
-                    .Cuerpo &= "www.matafuegosgeorgia.com" & vbCrLf
+                    .Cuerpo &= "www.georgia.com.ar" & vbCrLf
                     .Cuerpo &= "</pre>"
 
                 End With

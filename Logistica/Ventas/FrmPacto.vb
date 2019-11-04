@@ -97,7 +97,7 @@ Public Class FrmPacto
     End Sub
     Private Sub EnvioPrimerMail(ByVal mails As String)
         mail.Nuevo()
-        mail.Remitente(mails, "Matafuegos Georgia")
+        mail.Remitente(mails, "Georgia Seguridad contra Incendios")
         mail.AgregarDestinatarioArchivo("mails\Pacto.txt", 2)
         mail.AgregarDestinatarioCopia("sdiaz@georgia.com.ar")
         mail.AgregarDestinatarioCopia(mails)
@@ -107,7 +107,7 @@ Public Class FrmPacto
     End Sub
     Private Sub EnvioSegundoMail()
         mail.Nuevo()
-        mail.Remitente("sdiaz@georgia.com.ar", "Matafuegos Georgia")
+        mail.Remitente("sdiaz@georgia.com.ar", "Georgia Seguridad contra Incendios")
         mail.AgregarDestinatarioArchivo("Pacto.txt", 2)
         mail.AgregarDestinatarioCopia("sdiaz@georgia.com.ar")
         mail.Asunto = "PACTO"

@@ -94,7 +94,7 @@ Public Class frmCotizadorInterno
     Private Sub EnviarMail(ByVal direccion As String, ByVal asunto As String, ByVal cuerpo As String)
         With correo
             .Nuevo()
-            .Remitente("noreply@matafuegosgeorgia.com", "Matafuegos Georgia")
+            .Remitente("noreply@matafuegosgeorgia.com", "Georgia Seguridad contra Incendios")
             .AgregarDestinatario(direccion)
             .Asunto = asunto
             .Cuerpo = cuerpo
