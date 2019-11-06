@@ -36,7 +36,6 @@ Public Class frmCAE
             da.FillSchema(dt, SchemaType.Mapped)
 
         Catch ex As Exception
-
         End Try
 
         dgv.DataSource = dt
@@ -105,7 +104,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 1, PV)
+        ObtenerComprobantes(Soc, 1, PV)
 
     End Sub
     Private Sub btnFCB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFCB.Click
@@ -130,7 +129,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 6, PV)
+        ObtenerComprobantes(Soc, 6, PV)
 
     End Sub
     Private Sub btnNCA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNCA.Click
@@ -155,7 +154,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 3, PV)
+        ObtenerComprobantes(Soc, 3, PV)
 
     End Sub
     Private Sub btnNCB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNCB.Click
@@ -180,7 +179,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 8, PV)
+        ObtenerComprobantes(Soc, 8, PV)
 
     End Sub
     Private Sub btnNDA_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNDA.Click
@@ -205,7 +204,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 2, PV)
+        ObtenerComprobantes(Soc, 2, PV)
 
     End Sub
     Private Sub btnNDB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNDB.Click
@@ -230,10 +229,9 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 7, PV)
+        ObtenerComprobantes(Soc, 7, PV)
 
     End Sub
-
     Private Sub btnFCAc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFCAc.Click
         Dim Soc As String
         Dim PV As String
@@ -257,7 +255,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 201, PV)
+        ObtenerComprobantes(Soc, 201, PV)
 
     End Sub
     Private Sub btnFCBc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFCBc.Click
@@ -282,7 +280,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 206, PV)
+        ObtenerComprobantes(Soc, 206, PV)
 
     End Sub
     Private Sub btnNCAc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNCAc.Click
@@ -307,7 +305,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 203, PV)
+        ObtenerComprobantes(Soc, 203, PV)
 
     End Sub
     Private Sub btnNCBc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNCBc.Click
@@ -332,7 +330,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 208, PV)
+        ObtenerComprobantes(Soc, 208, PV)
 
     End Sub
     Private Sub btnNDAc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNDAc.Click
@@ -357,7 +355,7 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 202, PV)
+        ObtenerComprobantes(Soc, 202, PV)
 
     End Sub
     Private Sub btnNDBc_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNDBc.Click
@@ -382,14 +380,11 @@ Public Class frmCAE
 
         End If
 
-        SolicitarCae(Soc, 207, PV)
+        ObtenerComprobantes(Soc, 207, PV)
 
     End Sub
 
-    Private Sub SolicitarCae(ByVal Soc As String, ByVal TipoCbte As Integer, ByVal PtoVta As String)
-        Dim ta As Ticket
-        Dim sih As New Factura(cn)
-
+    Private Sub ObtenerComprobantes(ByVal Soc As String, ByVal TipoCbte As Integer, ByVal PtoVta As String)
         gbBtn1.Enabled = False
         gbBtn2.Enabled = False
         gbSociedades.Enabled = False
@@ -406,243 +401,280 @@ Public Class frmCAE
             dt.Clear()
             da.Fill(dt)
 
-            Application.DoEvents()
-            Application.DoEvents()
-            Application.DoEvents()
+
+        Catch ex As Exception
+            Exit Sub
+
+        End Try
+
+        Application.DoEvents()
+        Application.DoEvents()
+        Application.DoEvents()
 
 
-            If dt.Rows.Count = 0 Then
-                Label1.Text = "No se encontraron comprobantes para autorizar"
-                Exit Sub
-            End If
+        If dt.Rows.Count = 0 Then
+            Label1.Text = "No se encontraron comprobantes para autorizar"
+            Exit Sub
+        End If
 
-            'Cabecera
-            Dim FEreq As New FECAERequest
-            FEreq.FeCabReq = New FECAECabRequest
-            FEreq.FeCabReq.PtoVta = CInt(PtoVta)
-            FEreq.FeCabReq.CbteTipo = TipoCbte
-            FEreq.FeCabReq.CantReg = dt.Rows.Count
-            'Detalle
-            Dim FEDetalle(dt.Rows.Count - 1) As FECAEDetRequest
+        SolicitarCAE(Soc, TipoCbte, PtoVta)
 
-            For i As Integer = 0 To dt.Rows.Count - 1
-                Dim dr As DataRow = dt.Rows(i)
-                Dim Iva() As AlicIva = Nothing
-                Dim Trib() As Tributo = Nothing
+        gbBtn1.Enabled = True
+        gbBtn2.Enabled = True
+        gbSociedades.Enabled = True
 
-                sih.Abrir(dr("num_0").ToString)
+    End Sub
+    Private Sub SolicitarCAE(ByVal Soc As String, ByVal TipoCbte As Integer, ByVal PtoVta As String)
+        Dim ta As Ticket
+        Dim sih As New Factura(cn)
+        Dim CantidadMaximaRegistros As Integer
+        Dim dv As New DataView(dt)
 
-                FEDetalle(i) = New FECAEDetRequest
+        'Establezco la cantidad maxima de registros que se pueden enviar por Request
+        'Para FCE MiPyme, la cantidad máxima es 1
+        If TipoCbte > 200 Then
+            CantidadMaximaRegistros = 1
+        Else
+            CantidadMaximaRegistros = dt.Rows.Count
+        End If
 
-                With FEDetalle(i)
-                    .Concepto = 1
-                    .DocTipo = CInt(IIf(sih.TipoDoc = " ", 0, sih.TipoDoc))
+        dv.RowFilter = "xcae_0 = ' '"
 
-                    If IsNumeric(sih.Cuit) Then
-                        .DocNro = CLng(IIf(sih.Cuit = " ", 0, sih.Cuit))
-                    Else
-                        .DocNro = 0
-                    End If
+        Try
+            While dv.Count > 0
 
-                    .CbteDesde = CLng(Strings.Right(sih.Numero, 8))
-                    .CbteHasta = .CbteDesde
-                    .CbteFch = sih.Fecha.ToString("yyyyMMdd")
-                    .ImpTotal = sih.ImporteII ' CDbl(dr("amtati_0")) 'Importe Total
-                    .ImpTotConc = 0 'Neto No Gravado
-                    .ImpNeto = 0    'Neto Gravado
-                    .ImpIVA = 0     'IVA
-                    .ImpOpEx = 0    'Importe Exento
-                    .ImpTrib = 0 'Tributos provinciales
-                    .MonId = sih.Divisa.CodigoAFIP
-                    .MonCotiz = sih.Cotizacion
+                'Detalle
+                Dim FEDetalle(CantidadMaximaRegistros - 1) As FECAEDetRequest
 
-                    'Recorro los impuetos de la factura
-                    For z = 0 To sih.CantImpuestos - 1
+                For i As Integer = 0 To dv.Count - 1
+                    Dim dr As DataRow = CType(dv(i), DataRowView).Row
 
-                        Select Case sih.TipoImpuesto(z)
-                            Case "I00"
-                                .ImpNeto += sih.ImpuestoBase(z)
+                    Dim Iva() As AlicIva = Nothing
+                    Dim Trib() As Tributo = Nothing
 
-                                If Iva Is Nothing Then
-                                    ReDim Preserve Iva(0)
-                                Else
-                                    ReDim Preserve Iva(Iva.Length)
+                    sih.Abrir(dr("num_0").ToString)
+
+                    FEDetalle(i) = New FECAEDetRequest
+
+                    With FEDetalle(i)
+                        .Concepto = 1
+                        .DocTipo = CInt(IIf(sih.TipoDoc = " ", 0, sih.TipoDoc))
+
+                        If IsNumeric(sih.Cuit) Then
+                            .DocNro = CLng(IIf(sih.Cuit = " ", 0, sih.Cuit))
+                        Else
+                            .DocNro = 0
+                        End If
+
+                        .CbteDesde = CLng(Strings.Right(sih.Numero, 8))
+                        .CbteHasta = .CbteDesde
+                        .CbteFch = sih.Fecha.ToString("yyyyMMdd")
+                        .ImpTotal = sih.ImporteII ' CDbl(dr("amtati_0")) 'Importe Total
+                        .ImpTotConc = 0 'Neto No Gravado
+                        .ImpNeto = 0    'Neto Gravado
+                        .ImpIVA = 0     'IVA
+                        .ImpOpEx = 0    'Importe Exento
+                        .ImpTrib = 0 'Tributos provinciales
+                        .MonId = sih.Divisa.CodigoAFIP
+                        .MonCotiz = sih.Cotizacion
+
+                        'Recorro los impuetos de la factura
+                        For z = 0 To sih.CantImpuestos - 1
+
+                            Select Case sih.TipoImpuesto(z)
+                                Case "I00"
+                                    .ImpNeto += sih.ImpuestoBase(z)
+
+                                    If Iva Is Nothing Then
+                                        ReDim Preserve Iva(0)
+                                    Else
+                                        ReDim Preserve Iva(Iva.Length)
+                                    End If
+
+                                    Iva(Iva.Length - 1) = New AlicIva
+                                    With Iva(Iva.Length - 1)
+                                        .Id = 3
+                                        .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
+                                        .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
+                                    End With
+
+                                Case "I10"
+                                    .ImpNeto += sih.ImpuestoBase(z)
+                                    .ImpIVA += sih.ImpuestoImporte(z)
+
+                                    If Iva Is Nothing Then
+                                        ReDim Preserve Iva(0)
+                                    Else
+                                        ReDim Preserve Iva(Iva.Length)
+                                    End If
+
+                                    Iva(Iva.Length - 1) = New AlicIva
+                                    With Iva(Iva.Length - 1)
+                                        .Id = 4
+                                        .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
+                                        .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
+                                    End With
+
+                                Case "I21"
+                                    .ImpNeto += sih.ImpuestoBase(z)
+                                    .ImpIVA += sih.ImpuestoImporte(z)
+
+                                    If Iva Is Nothing Then
+                                        ReDim Preserve Iva(0)
+                                    Else
+                                        ReDim Preserve Iva(Iva.Length)
+                                    End If
+
+                                    Iva(Iva.Length - 1) = New AlicIva
+                                    With Iva(Iva.Length - 1)
+                                        .Id = 5
+                                        .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
+                                        .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
+                                    End With
+
+                                Case "I99", "999"
+                                    .ImpOpEx += sih.ImpuestoBase(z)
+
+                                Case Else
+                                    .ImpTrib += sih.ImpuestoImporte(z)
+
+                                    If Trib Is Nothing Then
+                                        ReDim Preserve Trib(0)
+                                    Else
+                                        ReDim Preserve Trib(Trib.Length)
+                                    End If
+
+                                    Trib(Trib.Length - 1) = New Tributo
+
+                                    With Trib(Trib.Length - 1)
+                                        .Id = 2 'Buscar con tiempo cual es codigo correcto.
+                                        .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
+                                        .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
+                                        .Desc = "Percepción IB CABA"
+                                    End With
+
+                            End Select
+                        Next
+
+                        If Iva IsNot Nothing Then .Iva = Iva
+                        If Trib IsNot Nothing Then .Tributos = Trib
+
+                        'FIX - Correccion de decimales
+                        .ImpTotal = Math.Round(.ImpTotal, 2)
+                        .ImpTotConc = Math.Round(.ImpTotConc, 2)
+                        .ImpNeto = Math.Round(.ImpNeto, 2)
+                        .ImpIVA = Math.Round(.ImpIVA, 2)
+                        .ImpOpEx = Math.Round(.ImpOpEx, 2)
+                        .ImpTrib = Math.Round(.ImpTrib, 2)
+
+                        'Factura de Crédito Electrónica
+                        Dim Opcionales() As Opcional = Nothing
+
+                        Select Case TipoCbte
+                            Case 201, 206 'Facturas A y B
+                                Dim ban As Banco = sih.Banco
+
+                                If ban IsNot Nothing Then
+                                    ReDim Opcionales(1)
+
+                                    Opcionales(0) = New Opcional
+                                    Opcionales(1) = New Opcional
+
+                                    Opcionales(0).Id = "2101" : Opcionales(0).Valor = ban.CBU
+                                    Opcionales(1).Id = "2102" : Opcionales(1).Valor = ban.AAlias
+                                    .Opcionales = Opcionales
                                 End If
 
-                                Iva(Iva.Length - 1) = New AlicIva
-                                With Iva(Iva.Length - 1)
-                                    .Id = 3
-                                    .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
-                                    .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
-                                End With
+                                .FchVtoPago = sih.FechaVtoPago.ToString("yyyyMMdd")
 
-                            Case "I10"
-                                .ImpNeto += sih.ImpuestoBase(z)
-                                .ImpIVA += sih.ImpuestoImporte(z)
+                            Case 202, 207 'Notas de Débito
+                                Dim f As Factura = sih.CbteOrigen
 
-                                If Iva Is Nothing Then
-                                    ReDim Preserve Iva(0)
-                                Else
-                                    ReDim Preserve Iva(Iva.Length)
-                                End If
+                                If f Is Nothing Then Exit Select
 
-                                Iva(Iva.Length - 1) = New AlicIva
-                                With Iva(Iva.Length - 1)
-                                    .Id = 4
-                                    .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
-                                    .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
-                                End With
+                                Dim CbteAsoc(0) As CbteAsoc
 
-                            Case "I21"
-                                .ImpNeto += sih.ImpuestoBase(z)
-                                .ImpIVA += sih.ImpuestoImporte(z)
+                                CbteAsoc(0) = New CbteAsoc
+                                CbteAsoc(0).Tipo = f.AFIPTipoDoc
+                                CbteAsoc(0).PtoVta = CInt(f.PuntoVenta)
+                                CbteAsoc(0).Nro = CLng(Strings.Right(f.Numero, 8))
+                                CbteAsoc(0).Cuit = f.Sociedad.Cuit
+                                CbteAsoc(0).CbteFch = f.Fecha.ToString("yyyyMMdd")
+                                .CbtesAsoc = CbteAsoc
 
-                                If Iva Is Nothing Then
-                                    ReDim Preserve Iva(0)
-                                Else
-                                    ReDim Preserve Iva(Iva.Length)
-                                End If
+                            Case 203, 209 'Notas de Crédito
+                                ReDim Opcionales(0)
+                                Opcionales(0) = New Opcional
+                                Opcionales(0).Id = "22"
+                                Opcionales(0).Valor = IIf(sih.FCEAnula, "S", "N").ToString
+                                .Opcionales = Opcionales
 
-                                Iva(Iva.Length - 1) = New AlicIva
-                                With Iva(Iva.Length - 1)
-                                    .Id = 5
-                                    .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
-                                    .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
-                                End With
+                                Dim CbteAsoc(0) As CbteAsoc
+                                Dim f As Factura = sih.CbteOrigen
 
-                            Case "I99", "999"
-                                .ImpOpEx += sih.ImpuestoBase(z)
-
-                            Case Else
-                                .ImpTrib += sih.ImpuestoImporte(z)
-
-                                If Trib Is Nothing Then
-                                    ReDim Preserve Trib(0)
-                                Else
-                                    ReDim Preserve Trib(Trib.Length)
-                                End If
-
-                                Trib(Trib.Length - 1) = New Tributo
-                                With Trib(Trib.Length - 1)
-                                    .Id = 2 'Buscar con tiempo cual es codigo correcto.
-                                    .BaseImp = Math.Round(sih.ImpuestoBase(z), 2)
-                                    .Importe = Math.Round(sih.ImpuestoImporte(z), 2)
-                                End With
+                                CbteAsoc(0) = New CbteAsoc
+                                CbteAsoc(0).Tipo = f.AFIPTipoDoc
+                                CbteAsoc(0).PtoVta = CInt(f.PuntoVenta)
+                                CbteAsoc(0).Nro = CLng(Strings.Right(f.Numero, 8))
+                                CbteAsoc(0).Cuit = f.Sociedad.Cuit
+                                CbteAsoc(0).CbteFch = f.Fecha.ToString("yyyyMMdd")
+                                .CbtesAsoc = CbteAsoc
 
                         End Select
-                    Next
 
-                    If Iva IsNot Nothing Then .Iva = Iva
-                    If Trib IsNot Nothing Then .Tributos = Trib
+                    End With
 
-                    'FIX - Correccion de decimales
-                    .ImpTotal = Math.Round(.ImpTotal, 2)
-                    .ImpTotConc = Math.Round(.ImpTotConc, 2)
-                    .ImpNeto = Math.Round(.ImpNeto, 2)
-                    .ImpIVA = Math.Round(.ImpIVA, 2)
-                    .ImpOpEx = Math.Round(.ImpOpEx, 2)
-                    .ImpTrib = Math.Round(.ImpTrib, 2)
+                    If CantidadMaximaRegistros = 1 Then Exit For
 
-                    'Factura de Crédito Electrónica
-                    Dim Opcionales() As Opcional = Nothing
+                Next
 
-                    Select Case TipoCbte
-                        Case 201, 206 'Facturas A y B
-                            Dim ban As Banco = sih.Banco
 
-                            If ban IsNot Nothing Then
-                                ReDim Opcionales(1)
+                'Cabecera
+                Dim FEreq As New FECAERequest
+                FEreq.FeCabReq = New FECAECabRequest
+                FEreq.FeCabReq.PtoVta = CInt(PtoVta)
+                FEreq.FeCabReq.CbteTipo = TipoCbte
+                FEreq.FeCabReq.CantReg = CantidadMaximaRegistros
+                FEreq.FeDetReq = FEDetalle
 
-                                Opcionales(0) = New Opcional
-                                Opcionales(1) = New Opcional
+                Dim res As FECAEResponse
 
-                                Opcionales(0).Id = "2101" : Opcionales(0).Valor = ban.CBU
-                                Opcionales(1).Id = "2102" : Opcionales(1).Valor = ban.AAlias
-                                .Opcionales = Opcionales
-                            End If
+                Label1.Text = "Solicitando autorización a AFIP..."
+                Application.DoEvents()
+                Application.DoEvents()
 
-                            .FchVtoPago = sih.FechaVtoPago.ToString("yyyyMMdd")
+                Dim fe As FacturaElectronica = Nothing
 
-                        Case 202, 207 'Notas de Débito
-                            Dim f As Factura = sih.CbteOrigen
+                ta = ObtenerTicket(Soc)
 
-                            If f Is Nothing Then Exit Select
+                If ta Is Nothing Then
+                    MessageBox.Show("No se pudo obtener un Ticket de Acceso válido", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                    Exit Sub
+                End If
 
-                            Dim CbteAsoc(0) As CbteAsoc
+                Dim Cpy As New Sociedad(cn)
+                Cpy.abrir(Soc)
 
-                            CbteAsoc(0) = New CbteAsoc
-                            CbteAsoc(0).Tipo = f.AFIPTipoDoc
-                            CbteAsoc(0).PtoVta = CInt(f.PuntoVenta)
-                            CbteAsoc(0).Nro = CLng(Strings.Right(f.Numero, 8))
-                            CbteAsoc(0).Cuit = f.Sociedad.Cuit
-                            CbteAsoc(0).CbteFch = f.Fecha.ToString("yyyyMMdd")
-                            .CbtesAsoc = CbteAsoc
+                fe = New FacturaElectronica(ta, CLng(Cpy.Cuit))
+                res = fe.SolicitarCAE(FEreq)
 
-                        Case 203, 209 'Notas de Crédito
-                            ReDim Opcionales(0)
-                            Opcionales(0) = New Opcional
-                            Opcionales(0).Id = "22"
-                            Opcionales(0).Valor = IIf(sih.FCEAnula, "S", "N").ToString
-                            .Opcionales = Opcionales
 
-                            Dim CbteAsoc(0) As CbteAsoc
-                            Dim f As Factura = sih.CbteOrigen
+                'Analizo la cabecera de la respuesta
+                If res.Errors IsNot Nothing Then
+                    MessageBox.Show(res.Errors(0).Msg, res.Errors(0).Code.ToString, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Exit While
 
-                            CbteAsoc(0) = New CbteAsoc
-                            CbteAsoc(0).Tipo = f.AFIPTipoDoc
-                            CbteAsoc(0).PtoVta = CInt(f.PuntoVenta)
-                            CbteAsoc(0).Nro = CLng(Strings.Right(f.Numero, 8))
-                            CbteAsoc(0).Cuit = f.Sociedad.Cuit
-                            CbteAsoc(0).CbteFch = f.Fecha.ToString("yyyyMMdd")
-                            .CbtesAsoc = CbteAsoc
+                Else
+                    ProcesarRespuestaAfip(res, Soc)
 
-                    End Select
+                End If
 
-                End With
+            End While
 
-            Next
-
-            FEreq.FeDetReq = FEDetalle
-
-            Dim res As FECAEResponse
-
-            Label1.Text = "Solicitando autorización a AFIP..."
-            Application.DoEvents()
-            Application.DoEvents()
-
-            Dim fe As FacturaElectronica = Nothing
-
-            ta = ObtenerTicket(Soc)
-
-            If ta Is Nothing Then
-                MessageBox.Show("No se pudo obtener un Ticket de Acceso válido", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Exit Sub
-            End If
-
-            Dim Cpy As New Sociedad(cn)
-            Cpy.abrir(Soc)
-
-            fe = New FacturaElectronica(ta, CLng(Cpy.Cuit))
-            res = fe.SolicitarCAE(FEreq)
-
-            'Analizo la cabecera de la respuesta
-            If res.Errors IsNot Nothing Then
-                MessageBox.Show(res.Errors(0).Msg, res.Errors(0).Code.ToString, MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-            Else
-                ProcesarRespuestaAfip(res, Soc)
-
-                ImprimirTodo()
-
-            End If
+            ImprimirTodo()
 
         Catch ex As Exception
             MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
-
-        Finally
-            gbBtn1.Enabled = True
-            gbBtn2.Enabled = True
-            gbSociedades.Enabled = True
 
         End Try
 
@@ -699,15 +731,15 @@ Public Class frmCAE
         Return txt
 
     End Function
-    Private Sub ProcesarRespuestaAfip(ByVal e As wsfe.FECAEResponse, ByVal cpy As String)
+    Private Function ProcesarRespuestaAfip(ByVal e As wsfe.FECAEResponse, ByVal cpy As String) As Boolean
         Dim txt As String = ""
         Dim dr As DataRow
         Dim Cbte As String = ""
+        Dim Cancel As Boolean = False
 
         If e.FeDetResp IsNot Nothing Then
 
             For i = 0 To e.FeDetResp.Length - 1
-                Dim Cancel As Boolean = False
 
                 With e.FeDetResp(i)
                     Cbte = ConvertirCbteAdonix(cpy, .CbteDesde, e.FeCabResp.CbteTipo, e.FeCabResp.PtoVta)
@@ -745,7 +777,9 @@ Public Class frmCAE
 
         End If
 
-    End Sub
+        Return Cancel
+
+    End Function
     Private Sub ctxMenu_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles ctxMenu.Opening
         Dim i As Integer = 0
 
