@@ -181,6 +181,7 @@ Public Class frmSectoresPuestos
             colPuestoExtintorOrden.DataPropertyName = "orden_0"
             colPuestoExtintorSector.DataPropertyName = "idsector_0"
             colPuestoExtintorTipo.DataPropertyName = "tipo_0"
+            colPuestoExtintorCilindro.DataPropertyName = "cilindro_0"
 
             Dim tb As New TablaVaria(cn, 22, True)
             tb.EnlazarComboBox(colPuestoExtintorAgente, "agente_0")
@@ -210,6 +211,7 @@ Public Class frmSectoresPuestos
             colPuestoHidranteCapacidad.DataPropertyName = "capacidad_0"
             colPuestoHidranteEquipo.DataPropertyName = "equipo_0"
             colPuestoHidranteInspeccion.DataPropertyName = "inspeccion_0"
+            colPuestoHidranteCilindro.DataPropertyName = "cilindro_0"
 
             Dim dv As New DataView(dtPuestos)
             dv.RowFilter = "tipo_0 = 2"
@@ -607,6 +609,7 @@ Public Class frmSectoresPuestos
         Try
             rpt.Load(RPTX3 & "XINSPECC.rpt")
             rpt.SetParameterValue("ITN", Itn)
+            rpt.SetParameterValue("X3DOS", X3DOS)
 
             f = New frmCrystal(rpt, False)
             f.MdiParent = frmMain
@@ -717,6 +720,7 @@ Public Class frmSectoresPuestos
                 Pue.EquipoId = mac.Serie
                 Pue.Agente = mac.Articulo.Familia(2)
                 Pue.Capacidad = mac.Articulo.Familia(1)
+                Pue.Cilindro = mac.Cilindro
             End If
             Pue.Grabar()
 

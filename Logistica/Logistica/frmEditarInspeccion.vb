@@ -196,6 +196,7 @@ Public Class frmEditarInspeccion
         End If
 
         p.EquipoId = i.Equipo
+        p.Cilindro = i.Cilindro
         p.Agente = i.Agente
         p.Capacidad = i.Capacidad
         p.NroPuesto = i.Nro
@@ -463,6 +464,7 @@ Public Class frmEditarInspeccion
                     p = i.Puesto
 
                     p.EquipoId = i.Equipo
+                    p.Cilindro = i.Cilindro
                     p.Agente = i.Agente
                     p.Capacidad = i.Capacidad
                     p.Grabar()

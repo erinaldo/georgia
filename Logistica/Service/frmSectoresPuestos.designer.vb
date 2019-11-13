@@ -57,6 +57,7 @@ Partial Class frmSectoresPuestos
         Me.colInspeccionesRelevador = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.mnuInspecciones = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuVerInspeccion = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuEditarInspeccion = New System.Windows.Forms.ToolStripMenuItem
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer
         Me.dgvPuestosExtintores = New System.Windows.Forms.DataGridView
         Me.colPuestoExtintorId = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -67,6 +68,7 @@ Partial Class frmSectoresPuestos
         Me.colPuestoExtintorTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colPuestoExtintorAgente = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colPuestoExtintorCapacidad = New System.Windows.Forms.DataGridViewComboBoxColumn
+        Me.colPuestoExtintorCilindro = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colPuestoExtintorEquipo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colPuestoExtintorInspeccion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.mnuPuestosExtintores = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -79,16 +81,6 @@ Partial Class frmSectoresPuestos
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuPuestoVacio = New System.Windows.Forms.ToolStripMenuItem
         Me.dgvPuestosHidrantes = New System.Windows.Forms.DataGridView
-        Me.colPuestoHidranteId = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteNro = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteUbicacion = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteOrden = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteSector = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteAgente = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteCapacidad = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteEquipo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colPuestoHidranteInspeccion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.mnuPuestosHidrantes = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuNuevoPuestoHidrante = New System.Windows.Forms.ToolStripMenuItem
         Me.EditarPuestoHidranteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -101,7 +93,17 @@ Partial Class frmSectoresPuestos
         Me.btnCancelar = New System.Windows.Forms.Button
         Me.txtCliente = New System.Windows.Forms.TextBox
         Me.btnSalir = New System.Windows.Forms.Button
-        Me.mnuEditarInspeccion = New System.Windows.Forms.ToolStripMenuItem
+        Me.colPuestoHidranteId = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteNro = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteUbicacion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteOrden = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteSector = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteAgente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteCapacidad = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteEquipo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteInspeccion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colPuestoHidranteCilindro = New System.Windows.Forms.DataGridViewTextBoxColumn
         Label1 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
         Label4 = New System.Windows.Forms.Label
@@ -374,13 +376,19 @@ Partial Class frmSectoresPuestos
         '
         Me.mnuInspecciones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVerInspeccion, Me.mnuEditarInspeccion})
         Me.mnuInspecciones.Name = "cmenuPuestos"
-        Me.mnuInspecciones.Size = New System.Drawing.Size(174, 70)
+        Me.mnuInspecciones.Size = New System.Drawing.Size(174, 48)
         '
         'mnuVerInspeccion
         '
         Me.mnuVerInspeccion.Name = "mnuVerInspeccion"
         Me.mnuVerInspeccion.Size = New System.Drawing.Size(173, 22)
         Me.mnuVerInspeccion.Text = "Ver inspección..."
+        '
+        'mnuEditarInspeccion
+        '
+        Me.mnuEditarInspeccion.Name = "mnuEditarInspeccion"
+        Me.mnuEditarInspeccion.Size = New System.Drawing.Size(173, 22)
+        Me.mnuEditarInspeccion.Text = "Editar inspección..."
         '
         'SplitContainer2
         '
@@ -418,7 +426,7 @@ Partial Class frmSectoresPuestos
         DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvPuestosExtintores.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.dgvPuestosExtintores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPuestosExtintores.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPuestoExtintorId, Me.colPuestoExtintorNro, Me.colPuestoExtintorUbicacion, Me.colPuestoExtintorOrden, Me.colPuestoExtintorSector, Me.colPuestoExtintorTipo, Me.colPuestoExtintorAgente, Me.colPuestoExtintorCapacidad, Me.colPuestoExtintorEquipo, Me.colPuestoExtintorInspeccion})
+        Me.dgvPuestosExtintores.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPuestoExtintorId, Me.colPuestoExtintorNro, Me.colPuestoExtintorUbicacion, Me.colPuestoExtintorOrden, Me.colPuestoExtintorSector, Me.colPuestoExtintorTipo, Me.colPuestoExtintorAgente, Me.colPuestoExtintorCapacidad, Me.colPuestoExtintorCilindro, Me.colPuestoExtintorEquipo, Me.colPuestoExtintorInspeccion})
         Me.dgvPuestosExtintores.ContextMenuStrip = Me.mnuPuestosExtintores
         DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
@@ -494,9 +502,14 @@ Partial Class frmSectoresPuestos
         Me.colPuestoExtintorCapacidad.ReadOnly = True
         Me.colPuestoExtintorCapacidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         '
+        'colPuestoExtintorCilindro
+        '
+        Me.colPuestoExtintorCilindro.HeaderText = "Cilindro"
+        Me.colPuestoExtintorCilindro.Name = "colPuestoExtintorCilindro"
+        '
         'colPuestoExtintorEquipo
         '
-        Me.colPuestoExtintorEquipo.HeaderText = "Equipo"
+        Me.colPuestoExtintorEquipo.HeaderText = "Serie"
         Me.colPuestoExtintorEquipo.Name = "colPuestoExtintorEquipo"
         Me.colPuestoExtintorEquipo.ReadOnly = True
         '
@@ -574,7 +587,7 @@ Partial Class frmSectoresPuestos
         DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvPuestosHidrantes.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
         Me.dgvPuestosHidrantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvPuestosHidrantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPuestoHidranteId, Me.colPuestoHidranteNro, Me.colPuestoHidranteUbicacion, Me.colPuestoHidranteOrden, Me.colPuestoHidranteSector, Me.colPuestoHidranteTipo, Me.colPuestoHidranteAgente, Me.colPuestoHidranteCapacidad, Me.colPuestoHidranteEquipo, Me.colPuestoHidranteInspeccion})
+        Me.dgvPuestosHidrantes.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPuestoHidranteId, Me.colPuestoHidranteNro, Me.colPuestoHidranteUbicacion, Me.colPuestoHidranteOrden, Me.colPuestoHidranteSector, Me.colPuestoHidranteTipo, Me.colPuestoHidranteAgente, Me.colPuestoHidranteCapacidad, Me.colPuestoHidranteEquipo, Me.colPuestoHidranteInspeccion, Me.colPuestoHidranteCilindro})
         Me.dgvPuestosHidrantes.ContextMenuStrip = Me.mnuPuestosHidrantes
         DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window
@@ -597,68 +610,6 @@ Partial Class frmSectoresPuestos
         Me.dgvPuestosHidrantes.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
         Me.dgvPuestosHidrantes.Size = New System.Drawing.Size(868, 226)
         Me.dgvPuestosHidrantes.TabIndex = 3
-        '
-        'colPuestoHidranteId
-        '
-        Me.colPuestoHidranteId.HeaderText = "Id"
-        Me.colPuestoHidranteId.Name = "colPuestoHidranteId"
-        Me.colPuestoHidranteId.Visible = False
-        '
-        'colPuestoHidranteNro
-        '
-        Me.colPuestoHidranteNro.HeaderText = "Nro"
-        Me.colPuestoHidranteNro.Name = "colPuestoHidranteNro"
-        '
-        'colPuestoHidranteUbicacion
-        '
-        Me.colPuestoHidranteUbicacion.HeaderText = "Ubicacion"
-        Me.colPuestoHidranteUbicacion.Name = "colPuestoHidranteUbicacion"
-        '
-        'colPuestoHidranteOrden
-        '
-        Me.colPuestoHidranteOrden.HeaderText = "Orden"
-        Me.colPuestoHidranteOrden.Name = "colPuestoHidranteOrden"
-        '
-        'colPuestoHidranteSector
-        '
-        Me.colPuestoHidranteSector.HeaderText = "Sector"
-        Me.colPuestoHidranteSector.Name = "colPuestoHidranteSector"
-        Me.colPuestoHidranteSector.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colPuestoHidranteSector.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colPuestoHidranteSector.Visible = False
-        '
-        'colPuestoHidranteTipo
-        '
-        Me.colPuestoHidranteTipo.HeaderText = "Tipo"
-        Me.colPuestoHidranteTipo.Name = "colPuestoHidranteTipo"
-        Me.colPuestoHidranteTipo.Visible = False
-        '
-        'colPuestoHidranteAgente
-        '
-        Me.colPuestoHidranteAgente.HeaderText = "Agente"
-        Me.colPuestoHidranteAgente.Name = "colPuestoHidranteAgente"
-        Me.colPuestoHidranteAgente.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colPuestoHidranteAgente.Visible = False
-        '
-        'colPuestoHidranteCapacidad
-        '
-        Me.colPuestoHidranteCapacidad.HeaderText = "Capacidad"
-        Me.colPuestoHidranteCapacidad.Name = "colPuestoHidranteCapacidad"
-        Me.colPuestoHidranteCapacidad.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.colPuestoHidranteCapacidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.colPuestoHidranteCapacidad.Visible = False
-        '
-        'colPuestoHidranteEquipo
-        '
-        Me.colPuestoHidranteEquipo.HeaderText = "Equipo"
-        Me.colPuestoHidranteEquipo.Name = "colPuestoHidranteEquipo"
-        Me.colPuestoHidranteEquipo.Visible = False
-        '
-        'colPuestoHidranteInspeccion
-        '
-        Me.colPuestoHidranteInspeccion.HeaderText = "Inspeccion"
-        Me.colPuestoHidranteInspeccion.Name = "colPuestoHidranteInspeccion"
-        Me.colPuestoHidranteInspeccion.ReadOnly = True
         '
         'mnuPuestosHidrantes
         '
@@ -762,11 +713,73 @@ Partial Class frmSectoresPuestos
         Me.btnSalir.Text = "Salir"
         Me.btnSalir.UseVisualStyleBackColor = True
         '
-        'mnuEditarInspeccion
+        'colPuestoHidranteId
         '
-        Me.mnuEditarInspeccion.Name = "mnuEditarInspeccion"
-        Me.mnuEditarInspeccion.Size = New System.Drawing.Size(173, 22)
-        Me.mnuEditarInspeccion.Text = "Editar inspección..."
+        Me.colPuestoHidranteId.HeaderText = "Id"
+        Me.colPuestoHidranteId.Name = "colPuestoHidranteId"
+        Me.colPuestoHidranteId.Visible = False
+        '
+        'colPuestoHidranteNro
+        '
+        Me.colPuestoHidranteNro.HeaderText = "Nro"
+        Me.colPuestoHidranteNro.Name = "colPuestoHidranteNro"
+        '
+        'colPuestoHidranteUbicacion
+        '
+        Me.colPuestoHidranteUbicacion.HeaderText = "Ubicacion"
+        Me.colPuestoHidranteUbicacion.Name = "colPuestoHidranteUbicacion"
+        '
+        'colPuestoHidranteOrden
+        '
+        Me.colPuestoHidranteOrden.HeaderText = "Orden"
+        Me.colPuestoHidranteOrden.Name = "colPuestoHidranteOrden"
+        '
+        'colPuestoHidranteSector
+        '
+        Me.colPuestoHidranteSector.HeaderText = "Sector"
+        Me.colPuestoHidranteSector.Name = "colPuestoHidranteSector"
+        Me.colPuestoHidranteSector.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colPuestoHidranteSector.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colPuestoHidranteSector.Visible = False
+        '
+        'colPuestoHidranteTipo
+        '
+        Me.colPuestoHidranteTipo.HeaderText = "Tipo"
+        Me.colPuestoHidranteTipo.Name = "colPuestoHidranteTipo"
+        Me.colPuestoHidranteTipo.Visible = False
+        '
+        'colPuestoHidranteAgente
+        '
+        Me.colPuestoHidranteAgente.HeaderText = "Agente"
+        Me.colPuestoHidranteAgente.Name = "colPuestoHidranteAgente"
+        Me.colPuestoHidranteAgente.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colPuestoHidranteAgente.Visible = False
+        '
+        'colPuestoHidranteCapacidad
+        '
+        Me.colPuestoHidranteCapacidad.HeaderText = "Capacidad"
+        Me.colPuestoHidranteCapacidad.Name = "colPuestoHidranteCapacidad"
+        Me.colPuestoHidranteCapacidad.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colPuestoHidranteCapacidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.colPuestoHidranteCapacidad.Visible = False
+        '
+        'colPuestoHidranteEquipo
+        '
+        Me.colPuestoHidranteEquipo.HeaderText = "Equipo"
+        Me.colPuestoHidranteEquipo.Name = "colPuestoHidranteEquipo"
+        Me.colPuestoHidranteEquipo.Visible = False
+        '
+        'colPuestoHidranteInspeccion
+        '
+        Me.colPuestoHidranteInspeccion.HeaderText = "Inspeccion"
+        Me.colPuestoHidranteInspeccion.Name = "colPuestoHidranteInspeccion"
+        Me.colPuestoHidranteInspeccion.ReadOnly = True
+        '
+        'colPuestoHidranteCilindro
+        '
+        Me.colPuestoHidranteCilindro.HeaderText = "Cilindro"
+        Me.colPuestoHidranteCilindro.Name = "colPuestoHidranteCilindro"
+        Me.colPuestoHidranteCilindro.Visible = False
         '
         'frmSectoresPuestos
         '
@@ -842,6 +855,16 @@ Partial Class frmSectoresPuestos
     Friend WithEvents mnuNuevoPuestoHidrante As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuEditarPuestoExtintor As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditarPuestoHidranteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SplitContainer3 As System.Windows.Forms.SplitContainer
+    Friend WithEvents dgvInspecciones As System.Windows.Forms.DataGridView
+    Friend WithEvents mnuInspecciones As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents mnuVerInspeccion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuCambiarSectorExtintor As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuCambiarSectorHidrante As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents colInspeccionesFecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colInspeccionesIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colInspeccionesRelevador As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents mnuEditarInspeccion As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents colPuestoExtintorId As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoExtintorNro As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoExtintorUbicacion As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -850,6 +873,7 @@ Partial Class frmSectoresPuestos
     Friend WithEvents colPuestoExtintorTipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoExtintorAgente As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colPuestoExtintorCapacidad As System.Windows.Forms.DataGridViewComboBoxColumn
+    Friend WithEvents colPuestoExtintorCilindro As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoExtintorEquipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoExtintorInspeccion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoHidranteId As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -862,14 +886,5 @@ Partial Class frmSectoresPuestos
     Friend WithEvents colPuestoHidranteCapacidad As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoHidranteEquipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colPuestoHidranteInspeccion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SplitContainer3 As System.Windows.Forms.SplitContainer
-    Friend WithEvents dgvInspecciones As System.Windows.Forms.DataGridView
-    Friend WithEvents mnuInspecciones As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents mnuVerInspeccion As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuCambiarSectorExtintor As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuCambiarSectorHidrante As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents colInspeccionesFecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colInspeccionesIntervencion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colInspeccionesRelevador As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents mnuEditarInspeccion As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents colPuestoHidranteCilindro As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

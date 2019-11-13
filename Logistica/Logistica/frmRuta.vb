@@ -1933,8 +1933,8 @@ Class frmRuta
                     .VencimientoVidaUtil = New Date(Mac.FinVidaUtil, 1, 1)
                     .VencimientoPH = Mac.VtoPH
                     .VencimientoCarga = Mac.VtoCarga
-                    .Agente = Agentes.AdonixToSigex(Mac.Articulo.Familia(3))
-                    .Capacidad = Capacidades.AdonixToSigex(Mac.Articulo.Familia(2))
+                    .Agente = Agentes.AdonixToSigex(Mac.Articulo.Familia(2))
+                    .Capacidad = Capacidades.AdonixToSigex(Mac.Articulo.Familia(1))
                     .Grabar()
                 End With
             Next
