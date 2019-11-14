@@ -14,8 +14,7 @@ Public Class frmSectoresPuestos
 
     Private ds As New DataSet
 
-    Private bpc As New Cliente(cn)
-    Private suc As SucursalCollection
+    Private bpc As Cliente
     Private bpa As Sucursal
 
     Private Sub Adaptadores()
@@ -59,27 +58,9 @@ Public Class frmSectoresPuestos
         daInspecciones.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar)
 
     End Sub
-    Private Sub AbrirCliente()
-        'Busco datos cliente
-
-        If bpc.Abrir(txtCliente.Text) Then
-            txtNombre.Text = bpc.Nombre
-            txtCliente.Tag = bpc.Codigo
-
-        Else
-            MessageBox.Show("Cliente no encontrado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            txtCliente.Focus()
-            Exit Sub
-        End If
-
-        'Cargo todas las sucursales
-        suc = bpc.Sucursales
-        cboSucursales.DataSource = suc.dt
-
-        With cboSucursales
-            .ValueMember = "bpaadd_0"
-            .DisplayMember = "direccion"
-        End With
+    Private Sub CargarDatos()
+        CargarSectores()
+        CargarInspecciones()
 
         dgvSectores.Enabled = True
         dgvPuestosExtintores.Enabled = True
@@ -116,19 +97,10 @@ Public Class frmSectoresPuestos
         ds.Tables.Add(dtPuestos)
 
     End Sub
-    Private Sub cboSucursales_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboSucursales.SelectedIndexChanged
-        If cboSucursales.SelectedValue Is Nothing Then Exit Sub
-
-        bpa = bpc.Sucursal(cboSucursales.SelectedValue.ToString)
-
-        CargarSectores()
-        CargarInspecciones()
-
-    End Sub
     Private Sub CargarSectores()
         With daSectores.SelectCommand
-            .Parameters("bpcnum_0").Value = txtCliente.Tag.ToString
-            .Parameters("fcyitn_0").Value = cboSucursales.SelectedValue.ToString
+            .Parameters("bpcnum_0").Value = bpc.Codigo
+            .Parameters("fcyitn_0").Value = bpa.Sucursal
         End With
         dtSectores.Clear()
         daSectores.Fill(dtSectores)
@@ -159,8 +131,8 @@ Public Class frmSectoresPuestos
     End Sub
     Private Sub CargarInspecciones()
         With daInspecciones.SelectCommand
-            .Parameters("bpcnum_0").Value = txtCliente.Tag.ToString
-            .Parameters("bpaadd_0").Value = cboSucursales.SelectedValue.ToString
+            .Parameters("bpcnum_0").Value = bpc.Codigo
+            .Parameters("bpaadd_0").Value = bpa.Sucursal
         End With
         dtInspecciones.Clear()
         daInspecciones.Fill(dtInspecciones)
@@ -362,7 +334,7 @@ Public Class frmSectoresPuestos
         Dim dr As DataRow = CType(dgvPuestosExtintores.CurrentRow.DataBoundItem, DataRowView).Row
         Dim mac As New Parque(cn)
 
-        mac.Nuevo(txtCliente.Tag.ToString, cboSucursales.SelectedValue.ToString)
+        mac.Nuevo(bpc.Codigo, bpa.Codigo)
 
         f = New frmParque(mac)
         f.ShowDialog()
@@ -389,7 +361,7 @@ Public Class frmSectoresPuestos
 
         If dgvPuestosExtintores.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
 
-        Dim f As New frmParqueCliente(txtCliente.Tag.ToString, cboSucursales.SelectedValue.ToString)
+        Dim f As New frmParqueCliente(bpc.Codigo, bpa.Codigo)
         Dim dr As DataRow
 
         f.ShowDialog()
@@ -412,8 +384,8 @@ Public Class frmSectoresPuestos
                 dr("equipo_0") = mac.Serie
 
                 'Si el equipo era de otra sucursal, lo paso a la sucursal actual
-                If cboSucursales.SelectedValue.ToString <> mac.SucursalNumero Then
-                    mac.SucursalNumero = cboSucursales.SelectedValue.ToString
+                If bpa.Codigo <> mac.SucursalNumero Then
+                    mac.SucursalNumero = bpa.Codigo
                     mac.Grabar()
                 End If
 
@@ -492,9 +464,6 @@ Public Class frmSectoresPuestos
     End Sub
 #End Region
 #Region "BOTONES"
-    Private Sub btnAbrir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbrir.Click
-        AbrirCliente()
-    End Sub
     Private Sub btnSectores_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSectores.Click
         If CInt(btnSectores.Tag) = 0 Then
             SplitContainer1.Panel1Collapsed = False
@@ -569,14 +538,6 @@ Public Class frmSectoresPuestos
     Private Sub dtPuestos_RowDeleted(ByVal sender As Object, ByVal e As System.Data.DataRowChangeEventArgs) Handles dtPuestos.RowDeleted
         btnRegistrar.Enabled = ds.HasChanges
         btnCancelar.Enabled = ds.HasChanges
-    End Sub
-    Private Sub txtCliente_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtCliente.KeyUp
-        If e.KeyCode = Keys.Enter Then
-            AbrirCliente()
-        End If
-    End Sub
-    Private Sub txtCliente_Validating(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles txtCliente.Validating
-        AbrirCliente()
     End Sub
     Private Sub dgvSectores_SelectionChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvSectores.SelectionChanged
 
@@ -752,6 +713,23 @@ Public Class frmSectoresPuestos
     End Sub
     Private Sub mnuCambiarSectorExtintor_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuCambiarSectorExtintor.Click
         CambiarSector(dgvPuestosExtintores)
+    End Sub
+    Private Sub btnAbrir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAbrir.Click
+        Dim f As New frmAbrirClienteSucursal
+
+        f.ShowDialog()
+
+        If f.DialogResult = Windows.Forms.DialogResult.OK Then
+            bpc = f.bpc
+            bpa = f.bpa
+
+            txtCodigoCliente.Text = bpc.Codigo
+            txtCliente.Text = bpc.Nombre
+            txtCodigoSucursal.Text = bpa.Sucursal
+            txtSucursal.Text = bpa.Direccion
+
+            CargarDatos()
+        End If
     End Sub
 
 End Class

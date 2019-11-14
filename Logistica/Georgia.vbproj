@@ -600,6 +600,12 @@
     <Compile Include="Tickets\frmTickets.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Varios\frmAbrirClienteSucursal.Designer.vb">
+      <DependentUpon>frmAbrirClienteSucursal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Varios\frmAbrirClienteSucursal.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Varios\frmClientesSinMovimiento.Designer.vb">
       <DependentUpon>frmClientesSinMovimiento.vb</DependentUpon>
     </Compile>
@@ -1392,6 +1398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tickets\frmTickets.resx">
       <DependentUpon>frmTickets.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Varios\frmAbrirClienteSucursal.resx">
+      <DependentUpon>frmAbrirClienteSucursal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Varios\frmClientesSinMovimiento.resx">
       <DependentUpon>frmClientesSinMovimiento.vb</DependentUpon>
