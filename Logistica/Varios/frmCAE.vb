@@ -1078,19 +1078,22 @@ Public Class frmCAE
     End Function
     Private Function Copias(ByVal Tipo As String, ByVal cpy As String) As Integer
         Select Case Tipo
-            Case "FC"
+            Case "FC", "XF"
                 If cpy = "DNY" Then
                     Return 1
                 Else
-                    Return 2
+                    Return 1
                 End If
+
+            Case "ND", "XD"
                 Return 2
-            Case "ND"
-                Return 2
-            Case "NC"
+
+            Case "NC", "XC"
                 Return 1
+
             Case Else
-                Return 2
+                Return 1
+
         End Select
     End Function
     Private Function HayAceptados() As Boolean
