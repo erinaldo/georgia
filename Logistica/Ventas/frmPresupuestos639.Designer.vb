@@ -25,9 +25,9 @@ Partial Class frmPresupuestos639
         Me.components = New System.ComponentModel.Container
         Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgv = New System.Windows.Forms.DataGridView
         Me.colPresupuesto = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -60,6 +60,7 @@ Partial Class frmPresupuestos639
         Me.rbOpcion2 = New System.Windows.Forms.RadioButton
         Me.rbOpcion1 = New System.Windows.Forms.RadioButton
         Me.rbContado = New System.Windows.Forms.RadioButton
+        Me.mnuQuitar4 = New System.Windows.Forms.ToolStripMenuItem
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -162,9 +163,9 @@ Partial Class frmPresupuestos639
         'colImporte
         '
         Me.colImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N2"
-        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle4
         Me.colImporte.HeaderText = "Importe"
         Me.colImporte.Name = "colImporte"
         Me.colImporte.ReadOnly = True
@@ -200,8 +201,8 @@ Partial Class frmPresupuestos639
         '
         'colTipo
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colTipo.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colTipo.DefaultCellStyle = DataGridViewCellStyle5
         Me.colTipo.HeaderText = "Tipo"
         Me.colTipo.Name = "colTipo"
         Me.colTipo.ReadOnly = True
@@ -209,8 +210,8 @@ Partial Class frmPresupuestos639
         'colHidrantes
         '
         Me.colHidrantes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colHidrantes.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colHidrantes.DefaultCellStyle = DataGridViewCellStyle6
         Me.colHidrantes.HeaderText = "Hidrantes"
         Me.colHidrantes.Name = "colHidrantes"
         Me.colHidrantes.ReadOnly = True
@@ -220,7 +221,7 @@ Partial Class frmPresupuestos639
         '
         Me.cm.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVerPresupuesto, Me.munQuitar})
         Me.cm.Name = "cm"
-        Me.cm.Size = New System.Drawing.Size(169, 48)
+        Me.cm.Size = New System.Drawing.Size(169, 70)
         '
         'mnuVerPresupuesto
         '
@@ -230,7 +231,7 @@ Partial Class frmPresupuestos639
         '
         'munQuitar
         '
-        Me.munQuitar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuQuitar1, Me.mnuQuitar2, Me.mnuQuitar3})
+        Me.munQuitar.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuQuitar1, Me.mnuQuitar2, Me.mnuQuitar3, Me.mnuQuitar4})
         Me.munQuitar.Name = "munQuitar"
         Me.munQuitar.Size = New System.Drawing.Size(168, 22)
         Me.munQuitar.Text = "Quitar de la lista"
@@ -238,20 +239,20 @@ Partial Class frmPresupuestos639
         'mnuQuitar1
         '
         Me.mnuQuitar1.Name = "mnuQuitar1"
-        Me.mnuQuitar1.Size = New System.Drawing.Size(210, 22)
+        Me.mnuQuitar1.Size = New System.Drawing.Size(262, 22)
         Me.mnuQuitar1.Text = "Acompañar"
         '
         'mnuQuitar2
         '
         Me.mnuQuitar2.Name = "mnuQuitar2"
-        Me.mnuQuitar2.Size = New System.Drawing.Size(210, 22)
+        Me.mnuQuitar2.Size = New System.Drawing.Size(262, 22)
         Me.mnuQuitar2.Text = "No lo hace"
         '
         'mnuQuitar3
         '
         Me.mnuQuitar3.Name = "mnuQuitar3"
-        Me.mnuQuitar3.Size = New System.Drawing.Size(210, 22)
-        Me.mnuQuitar3.Text = "Perdido con otra empresa"
+        Me.mnuQuitar3.Size = New System.Drawing.Size(262, 22)
+        Me.mnuQuitar3.Text = "Perdido con otra empresa (Precio)"
         '
         'btnBuscar
         '
@@ -382,6 +383,12 @@ Partial Class frmPresupuestos639
         Me.rbContado.Text = "Precio contado"
         Me.rbContado.UseVisualStyleBackColor = True
         '
+        'mnuQuitar4
+        '
+        Me.mnuQuitar4.Name = "mnuQuitar4"
+        Me.mnuQuitar4.Size = New System.Drawing.Size(262, 22)
+        Me.mnuQuitar4.Text = "Perdido con otra empresa (Servicio)"
+        '
         'frmPresupuestos639
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -433,4 +440,5 @@ Partial Class frmPresupuestos639
     Friend WithEvents col639 As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colTipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHidrantes As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents mnuQuitar4 As System.Windows.Forms.ToolStripMenuItem
 End Class

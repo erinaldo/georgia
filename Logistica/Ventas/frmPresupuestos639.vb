@@ -446,7 +446,9 @@ Public Class frmPresupuestos639
     Private Sub mnuQuitar3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuQuitar3.Click
         Quitar(3)
     End Sub
-
+    Private Sub mnuQuitar4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuQuitar4.Click
+        Quitar(4)
+    End Sub
     Private Sub Quitar(ByVal Op As Integer)
         Dim flg As Boolean
         Dim txt As String
