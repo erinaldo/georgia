@@ -33,6 +33,7 @@ Partial Class frmBuscaClientes
         Dim Label9 As System.Windows.Forms.Label
         Dim Label10 As System.Windows.Forms.Label
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
+        Me.btnBuscarCilindro = New System.Windows.Forms.Button
         Me.txtMail = New System.Windows.Forms.TextBox
         Me.btnProv = New System.Windows.Forms.Button
         Me.cboprov = New System.Windows.Forms.ComboBox
@@ -63,7 +64,7 @@ Partial Class frmBuscaClientes
         Me.RemitosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ConsorciosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.btnBuscarCilindro = New System.Windows.Forms.Button
+        Me.mnuInspecciones = New System.Windows.Forms.ToolStripMenuItem
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -199,6 +200,15 @@ Partial Class frmBuscaClientes
         Me.SplitContainer1.SplitterDistance = 249
         Me.SplitContainer1.TabIndex = 0
         '
+        'btnBuscarCilindro
+        '
+        Me.btnBuscarCilindro.Location = New System.Drawing.Point(12, 268)
+        Me.btnBuscarCilindro.Name = "btnBuscarCilindro"
+        Me.btnBuscarCilindro.Size = New System.Drawing.Size(228, 23)
+        Me.btnBuscarCilindro.TabIndex = 12
+        Me.btnBuscarCilindro.Text = "Buscar Cilindro"
+        Me.btnBuscarCilindro.UseVisualStyleBackColor = True
+        '
         'txtMail
         '
         Me.txtMail.Location = New System.Drawing.Point(9, 241)
@@ -318,7 +328,7 @@ Partial Class frmBuscaClientes
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatosClienteToolStripMenuItem, Me.TerceroPagadorToolStripMenuItem, Me.IntervencionesToolStripMenuItem, Me.ToolStripMenuItem1, Me.PedidosToolStripMenuItem, Me.PresupuestosToolStripMenuItem, Me.FacturasToolStripMenuItem1, Me.ParqueDelClienteToolStripMenuItem, Me.RemitosToolStripMenuItem, Me.ConsorciosToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 224)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 246)
         '
         'DatosClienteToolStripMenuItem
         '
@@ -390,7 +400,7 @@ Partial Class frmBuscaClientes
         '
         'ParqueDelClienteToolStripMenuItem
         '
-        Me.ParqueDelClienteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ParqueDeLaSucursalToolStripMenuItem, Me.ParqueGeneralToolStripMenuItem})
+        Me.ParqueDelClienteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ParqueDeLaSucursalToolStripMenuItem, Me.ParqueGeneralToolStripMenuItem, Me.mnuInspecciones})
         Me.ParqueDelClienteToolStripMenuItem.Name = "ParqueDelClienteToolStripMenuItem"
         Me.ParqueDelClienteToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
         Me.ParqueDelClienteToolStripMenuItem.Text = "Parque del cliente"
@@ -419,14 +429,11 @@ Partial Class frmBuscaClientes
         Me.ConsorciosToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
         Me.ConsorciosToolStripMenuItem.Text = "Consorcios"
         '
-        'btnBuscarCilindro
+        'mnuInspecciones
         '
-        Me.btnBuscarCilindro.Location = New System.Drawing.Point(12, 268)
-        Me.btnBuscarCilindro.Name = "btnBuscarCilindro"
-        Me.btnBuscarCilindro.Size = New System.Drawing.Size(228, 23)
-        Me.btnBuscarCilindro.TabIndex = 12
-        Me.btnBuscarCilindro.Text = "Buscar Cilindro"
-        Me.btnBuscarCilindro.UseVisualStyleBackColor = True
+        Me.mnuInspecciones.Name = "mnuInspecciones"
+        Me.mnuInspecciones.Size = New System.Drawing.Size(185, 22)
+        Me.mnuInspecciones.Text = "Inspecciones"
         '
         'frmBuscaClientes
         '
@@ -479,5 +486,6 @@ Partial Class frmBuscaClientes
     Friend WithEvents txtMail As System.Windows.Forms.TextBox
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnBuscarCilindro As System.Windows.Forms.Button
+    Friend WithEvents mnuInspecciones As System.Windows.Forms.ToolStripMenuItem
 
 End Class

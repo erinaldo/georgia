@@ -650,24 +650,24 @@ Public Class frmBuscaClientes
 
         End If
 
-        'Dim rpt As New ReportDocument
-        'Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
-        'Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
-        'Dim crystal As frmCrystal
-        'rpt.Load(RPTX3 & "xintervenB2.rpt")
-        'rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        'rpt.SetParameterValue("sucursal", sucursal)
-        'rpt.SetParameterValue("cliente", cliente)
-        'crystal = New frmCrystal(rpt)
-        'crystal.MdiParent = Me.ParentForm
-        'crystal.Show()
-
     End Sub
 
     Private Sub btnBuscarCilindro_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBuscarCilindro.Click
         Dim f As New frmRastreo
 
         f.ShowDialog()
+
+    End Sub
+
+    Private Sub mnuInspecciones_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuInspecciones.Click
+        Dim f As New frmSectoresPuestos
+        Dim Cli As String = dgv.CurrentRow.Cells("codigo").Value.ToString
+        Dim Suc As String = dgv.CurrentRow.Cells("suc").Value.ToString
+
+        f.AbrirClienteSucursal(Cli, Suc)
+
+        f.MdiParent = frmMain
+        f.Show()
 
     End Sub
 End Class

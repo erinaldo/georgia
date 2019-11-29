@@ -9,6 +9,9 @@ Public Class frmFlete
     Private dtTarifas As DataTable
     Private CantBaseCFE As Integer
     Private CantBaseGBA As Integer
+    Private Minutos As Double
+    Private MinutosCfe As Double
+    Private MinutosGba As Double
     Private Peso As Double
     Private PesoCfe As Double
     Private PesoGba As Double
@@ -18,8 +21,9 @@ Public Class frmFlete
     Private DomiciliosGba As Integer
     Private Acomp1 As Integer = 0
     Private Acomp2 As Integer = 0
-    Private bpt As String
-    Private pat As String
+    'Private bpt As String
+    'Private pat As String
+    Private Vehiculo As New Camioneta(cn)
     Private ruta As New Ruta(cn)
 
 
@@ -109,24 +113,24 @@ Public Class frmFlete
         Dim da As OracleDataAdapter
         Dim Sql As String
 
-        Sql = "SELECT DISTINCT c.ruta_0, c.fecha_0, cliente_0, ' ' AS suc_0, transporte_0, patente_0, bpa.sat_0, c.acomp_0, c.acomp_1, interno_0, bpagcba_0, bpaaddnro_0 "
+        Sql = "SELECT DISTINCT c.ruta_0, c.fecha_0, cliente_0, ' ' as suc_0, transporte_0, patente_0, bpa.sat_0, c.acomp_0, c.acomp_1, interno_0, bpagcba_0, bpaaddnro_0 "
         Sql &= "FROM xrutac c INNER JOIN xrutad d ON (c.ruta_0 = d.ruta_0) "
         Sql &= "     INNER JOIN bpaddress bpa ON (d.cliente_0 = bpa.bpanum_0 AND d.suc_0 = bpa.bpaadd_0) "
         Sql &= "     INNER JOIN zunitrans zun ON (transporte_0 = bptnum_0 AND patente_0 = patnum_0) "
         Sql &= "WHERE c.fecha_0 BETWEEN :desde AND :hasta AND "
         Sql &= "	  estado_0 in (2, 3) AND "
-        Sql &= "	  tipo_0 in ('RET', 'ENT', 'NUE', 'NCI') AND "
-        'Sql &= "      zun.xsector_0 = 2 AND "
+        Sql &= "	  tipo_0 in ('RET', 'ENT', 'NUE', 'NCI', 'CTL') AND "
         Sql &= "      sat_0 = 'CFE' "
+
         Sql &= "UNION "
+
         Sql &= "SELECT DISTINCT c.ruta_0, c.fecha_0, cliente_0, suc_0, transporte_0, patente_0, bpa.sat_0, c.acomp_0, c.acomp_1, interno_0, bpagcba_0, bpaaddnro_0 "
         Sql &= "FROM xrutac c INNER JOIN xrutad d ON (c.ruta_0 = d.ruta_0) "
         Sql &= "     INNER JOIN bpaddress bpa ON (d.cliente_0 = bpa.bpanum_0 AND d.suc_0 = bpa.bpaadd_0) "
         Sql &= "     INNER JOIN zunitrans zun ON (transporte_0 = bptnum_0 AND patente_0 = patnum_0) "
         Sql &= "WHERE c.fecha_0 BETWEEN :desde AND :hasta AND "
         Sql &= "	  estado_0 in (2, 3) AND "
-        Sql &= "	  tipo_0 in ('RET', 'ENT', 'NUE', 'NCI') AND "
-        'Sql &= "      zun.xsector_0 = 2 AND "
+        Sql &= "	  tipo_0 in ('RET', 'ENT', 'NUE', 'NCI', 'CTL') AND "
         Sql &= "      sat_0 <> 'CFE' "
         Sql &= "ORDER BY ruta_0, cliente_0, suc_0"
 
@@ -152,13 +156,17 @@ Public Class frmFlete
             'Guardo el numero de ruta actual
             RutaActual = CInt(dr("ruta_0"))
             FechaRuta = CDate(dr("fecha_0"))
-            bpt = dr("transporte_0").ToString
-            pat = dr("patente_0").ToString
+
+            Vehiculo.Abrir(dr("transporte_0").ToString, dr("patente_0").ToString)
+
+            'bpt = dr("transporte_0").ToString
+            'pat = dr("patente_0").ToString
+
             Acomp1 = CInt(dr("acomp_0"))
             Acomp2 = CInt(dr("acomp_1"))
 
             'Calculo el peso de todas las intervenciones del cliente/sucursal en la ruta
-            Peso = CalculoPeso(dr) 'dr("ruta_0").ToString, dr("cliente_0").ToString, dr("suc_0").ToString)
+            CalculoPesoMinutos(dr, Peso, Minutos) 'dr("ruta_0").ToString, dr("cliente_0").ToString, dr("suc_0").ToString)
 
             'Registro datos para calculo de FLETEROS
             With tmp1
@@ -180,9 +188,11 @@ Public Class frmFlete
             If dr("sat_0").ToString = "BUE" Then
                 DomiciliosGba += 1
                 PesoGba += Peso
+                MinutosGba += Minutos
             Else
                 DomiciliosCfe += 1
                 PesoCfe += Peso
+                MinutosCfe += Minutos
             End If
 
             If i = dt.Rows.Count - 1 Then
@@ -198,18 +208,25 @@ Public Class frmFlete
         tmp2.Grabar()
 
     End Sub
-    Private Function CalculoPeso(ByVal dr As DataRow) As Double
+    Private Sub CalculoPesoMinutos(ByVal dr As DataRow, ByRef Peso As Double, ByRef Minutos As Double)
         Dim Sql As String
-        Dim Peso As Double = 0
-        Dim da1, da2 As OracleDataAdapter
-        Dim dt1, dt2 As DataTable
+        Dim da1 As OracleDataAdapter
+        Dim da2 As OracleDataAdapter
+        Dim da3 As OracleDataAdapter
+        Dim dt1 As DataTable
+        Dim dt2 As DataTable
+        Dim dt3 As DataTable
+
+        Peso = 0
+        Minutos = 0
 
         If dr("sat_0").ToString = "CFE" Then
             Sql = "SELECT prestamos_1, prestamos_3, itmwei_0 "
-            Sql &= "FROM xrutad xrd INNER JOIN sremac sre ON (vcrnum_0 = yitnnum_0) "
-            Sql &= "	 INNER JOIN machines mac ON (sre.macnum_0 = mac.macnum_0) "
-            Sql &= "	 INNER JOIN itmmaster itm ON (macpdtcod_0 = itmref_0) "
-            Sql &= "	 INNER JOIN bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "     sremac sre ON (vcrnum_0 = yitnnum_0) INNER JOIN "
+            Sql &= "	 machines mac ON (sre.macnum_0 = mac.macnum_0) INNER JOIN "
+            Sql &= "	 itmmaster itm ON (macpdtcod_0 = itmref_0) INNER JOIN "
+            Sql &= "	 bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
@@ -223,8 +240,8 @@ Public Class frmFlete
             da1.SelectCommand.Parameters.Add("bpaaddnro", OracleType.Number).Value = CLng(dr("bpaaddnro_0"))
 
             Sql = "SELECT kilos_0 "
-            Sql &= "FROM xrutad xrd "
-            Sql &= "	 INNER JOIN bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "	 bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
@@ -237,11 +254,28 @@ Public Class frmFlete
             da2.SelectCommand.Parameters.Add("bpagcba", OracleType.VarChar).Value = dr("bpagcba_0").ToString
             da2.SelectCommand.Parameters.Add("bpaaddnro", OracleType.Number).Value = CLng(dr("bpaaddnro_0"))
 
+            Sql = "SELECT tqty_0, xminutos_0 "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
+            Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) inner join "
+            Sql &= "	 bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
+            Sql &= "WHERE ruta_0 = :ruta AND "
+            Sql &= "	  cliente_0 = :cliente AND "
+            Sql &= "	  bpagcba_0 = :bpagcba AND "
+            Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
+            Sql &= "	  estado_0 in (2, 3) "
+            da3 = New OracleDataAdapter(Sql, cn)
+            da3.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = CLng(dr("ruta_0"))
+            da3.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
+            da3.SelectCommand.Parameters.Add("bpagcba", OracleType.VarChar).Value = dr("bpagcba_0").ToString
+            da3.SelectCommand.Parameters.Add("bpaaddnro", OracleType.Number).Value = CLng(dr("bpaaddnro_0"))
+
         Else
             Sql = "SELECT prestamos_1, prestamos_3, itmwei_0 "
-            Sql &= "FROM xrutad xrd inner join sremac sre on (vcrnum_0 = yitnnum_0) "
-            Sql &= "	 INNER JOIN machines mac ON (sre.macnum_0 = mac.macnum_0) "
-            Sql &= "	 INNER JOIN itmmaster itm ON (macpdtcod_0 = itmref_0) "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "     sremac sre on (vcrnum_0 = yitnnum_0) INNER JOIN "
+            Sql &= "	 machines mac ON (sre.macnum_0 = mac.macnum_0) INNER JOIN "
+            Sql &= "	 itmmaster itm ON (macpdtcod_0 = itmref_0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  suc_0 = :suc AND "
@@ -264,14 +298,29 @@ Public Class frmFlete
             da2.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
             da2.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = dr("suc_0").ToString
 
+            Sql = "SELECT tqty_0, xminutos_0 "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
+            Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) "
+            Sql &= "WHERE ruta_0 = :ruta AND "
+            Sql &= "	  cliente_0 = :cliente AND "
+            Sql &= "	  suc_0 = :suc AND "
+            Sql &= "	  estado_0 in (2, 3) "
+            da3 = New OracleDataAdapter(Sql, cn)
+            da3.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = dr("ruta_0").ToString
+            da3.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
+            da3.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = dr("suc_0").ToString
+
         End If
 
         Try
             dt1 = New DataTable
             dt2 = New DataTable
+            dt3 = New DataTable
 
             da1.Fill(dt1)
             da2.Fill(dt2)
+            da3.Fill(dt3)
 
             For Each dr2 As DataRow In dt1.Rows
                 Peso += CDbl(dr2("itmwei_0"))
@@ -281,13 +330,15 @@ Public Class frmFlete
                 Peso += CDbl(dr2("kilos_0"))
             Next
 
+            For Each dr2 As DataRow In dt3.Rows
+                Minutos += CDbl(dr2(0)) * CDbl(dr2(1))
+            Next
+
         Catch ex As Exception
 
         End Try
 
-        Return Peso
-
-    End Function
+    End Sub
     Private Function BuscarTarifa(ByVal Peso As Double, ByVal sat As String, Optional ByVal Interno As Integer = 2) As Double
         Dim dr As DataRow = Nothing
         Dim tar As Double = 0
@@ -320,6 +371,7 @@ Public Class frmFlete
         'Tarifa por kilos movido
         Tarifa += PesoCfe * BuscarTarifa(-2, "CFE")
         Tarifa += PesoGba * BuscarTarifa(-2, "GBA")
+
         'Tarifa por domicilios efectuados
         If DomiciliosGba > DomiciliosCfe Then
             Extra = DomiciliosCfe + DomiciliosGba - CantBaseGBA
@@ -333,6 +385,10 @@ Public Class frmFlete
 
         End If
 
+        'Tarifa por minutos
+        Tarifa += MinutosCfe * BuscarTarifa(-4, "CFE")
+        Tarifa += MinutosGba * BuscarTarifa(-4, "GBA")
+
         For i = 0 To j - 1
             'Si el acompañante está seleccionado en el ListBox
             If i = 0 AndAlso (Acomp1 = 0 OrElse isCheck(Acomp1) = False) Then Continue For
@@ -342,8 +398,8 @@ Public Class frmFlete
                 ruta.Abrir(RutaActual)
                 .Nuevo(usr.Codigo, "ACOMP")
 
-                .Cadena(0) = bpt
-                .Cadena(1) = pat
+                .Cadena(0) = Vehiculo.Codigo
+                .Cadena(1) = Vehiculo.Patente
 
                 .Numero(0) = RutaActual
                 .Numero(1) = CDbl(IIf(i = 0, Acomp1, Acomp2))
@@ -352,8 +408,18 @@ Public Class frmFlete
                 .Numero(4) = PesoGba
                 .Numero(5) = DomiciliosCfe
                 .Numero(6) = DomiciliosGba
-                If ruta.EstuvoMicrocentro = 2 Then .Numero(8) = 1
-                .Numero(7) = Tarifa / j
+
+                If Vehiculo.ChoferInterno Then
+                    .Numero(7) = Tarifa / (j + 1)
+                Else
+                    .Numero(7) = Tarifa / j
+                End If
+
+                If ruta.EstuvoMicrocentro = 2 Then
+                    .Numero(8) = 1
+                End If
+                .Numero(9) = MinutosCfe + MinutosGba
+
                 .Fecha(0) = dtpDesde.Value
                 .Fecha(1) = dtpHasta.Value
                 .Fecha(2) = FechaRuta
@@ -364,6 +430,8 @@ Public Class frmFlete
         PesoGba = 0
         DomiciliosCfe = 0
         DomiciliosGba = 0
+        MinutosCfe = 0
+        MinutosGba = 0
 
     End Sub
     Private Sub MarcarTodos(ByVal flg As Boolean)

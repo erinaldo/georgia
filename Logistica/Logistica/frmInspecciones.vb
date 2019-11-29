@@ -116,6 +116,7 @@ Public Class frmInspecciones
 
             Try
                 rpt.Load(RPTX3 & "XINSPECC.rpt")
+                rpt.SetDatabaseLogon(DB_USR, DB_PWD)
                 rpt.SetParameterValue("itn", Control.id)
                 rpt.SetParameterValue("X3DOS", X3DOS)
                 rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Archivo)
@@ -128,7 +129,7 @@ Public Class frmInspecciones
                     .Cuerpo = "Verificar acciones a tomar"
                     .EsHtml = False
                     .AdjuntarArchivo(Archivo)
-                    .AgregarDestinatarioArchivo("inspecciones.txt", 0)
+                    .AgregarDestinatarioArchivo("MAILS\" & "inspecciones.txt", 0)
                     .Enviar()
                 End With
                 oMail.Dispose()
@@ -502,13 +503,12 @@ Public Class frmInspecciones
     Private Sub mnuTransferir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuTransferir.Click
         Dim dr As DataRow
 
-        If dgvSigex.SelectedRows.Count <> 1 Then Exit Sub 'salgo si no hay fila seleccionada
-
-        dr = CType(dgvSigex.SelectedRows(0).DataBoundItem, DataRowView).Row
-
-        If CInt(dr("estado")) <> 1 Then Exit Sub
-
-        Transferir(dr)
+        For i As Integer = 0 To dgvSigex.SelectedRows.Count - 1
+            dr = CType(dgvSigex.SelectedRows(i).DataBoundItem, DataRowView).Row
+            If CInt(dr("estado")) = 1 Then
+                Transferir(dr)
+            End If
+        Next
 
         CargarControlesPendientes()
 

@@ -17,6 +17,15 @@ Public Class frmSectoresPuestos
     Private bpc As Cliente
     Private bpa As Sucursal
 
+    Public Sub New()
+
+        ' Llamada necesaria para el Diseñador de Windows Forms.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        Adaptadores()
+
+    End Sub
     Private Sub Adaptadores()
         Dim Sql As String
 
@@ -89,8 +98,6 @@ Public Class frmSectoresPuestos
         End If
     End Sub
     Private Sub frmSectoresPuestos_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Adaptadores()
-
         AddHandler dgvPuestosExtintores.RowPostPaint, AddressOf NumeracionGrillas
         AddHandler dgvSectores.RowPostPaint, AddressOf NumeracionGrillas
 
@@ -459,6 +466,9 @@ Public Class frmSectoresPuestos
     Private Sub mnuVerInspeccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVerInspeccion.Click
         VerInspeccion()
     End Sub
+    Private Sub mnuVerInspeccionActualizada_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVerInspeccionActualizada.Click
+        VerInspeccionActualizada()
+    End Sub
     Private Sub mnuEditarInspeccion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuEditarInspeccion.Click
         EditarInspeccion()
     End Sub
@@ -496,7 +506,6 @@ Public Class frmSectoresPuestos
         Me.Close()
     End Sub
 #End Region
-
     Private Sub dgvPuestos_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvPuestosExtintores.CellDoubleClick
         If e.RowIndex < 0 Then Exit Sub
         If e.ColumnIndex < 0 Then Exit Sub
@@ -569,6 +578,33 @@ Public Class frmSectoresPuestos
 
         Try
             rpt.Load(RPTX3 & "XINSPECC.rpt")
+            rpt.SetParameterValue("ITN", Itn)
+            rpt.SetParameterValue("X3DOS", X3DOS)
+
+            f = New frmCrystal(rpt, False)
+            f.MdiParent = frmMain
+            f.Show()
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+        End Try
+    End Sub
+    Private Sub VerInspeccionActualizada()
+        Dim rpt As New ReportDocument
+        Dim f As frmCrystal
+        Dim Itn As String
+        Dim dr As DataRow
+
+        'Obtengo la fila seleccionada
+        If dgvInspecciones.CurrentRow Is Nothing Then Exit Sub 'salgo si no hay fila seleccionada
+
+        'Obtengo el puesto actual
+        dr = CType(CType(dgvInspecciones.CurrentRow, DataGridViewRow).DataBoundItem, DataRowView).Row
+        Itn = dr("itn_0").ToString
+
+        Try
+            rpt.Load(RPTX3 & "XINSPECC2.rpt")
             rpt.SetParameterValue("ITN", Itn)
             rpt.SetParameterValue("X3DOS", X3DOS)
 
@@ -720,16 +756,23 @@ Public Class frmSectoresPuestos
         f.ShowDialog()
 
         If f.DialogResult = Windows.Forms.DialogResult.OK Then
-            bpc = f.bpc
-            bpa = f.bpa
-
-            txtCodigoCliente.Text = bpc.Codigo
-            txtCliente.Text = bpc.Nombre
-            txtCodigoSucursal.Text = bpa.Sucursal
-            txtSucursal.Text = bpa.Direccion
-
-            CargarDatos()
+            AbrirClienteSucursal(f.bpc.Codigo, f.bpa.Sucursal)
         End If
+    End Sub
+    Public Sub AbrirClienteSucursal(ByVal Cliente As String, ByVal Sucursal As String)
+
+        If bpc Is Nothing Then bpc = New Cliente(cn)
+        If bpa Is Nothing Then bpa = New Sucursal(cn)
+
+        bpc.Abrir(Cliente)
+        bpa.Abrir(Cliente, Sucursal)
+
+        txtCodigoCliente.Text = bpc.Codigo
+        txtCliente.Text = bpc.Nombre
+        txtCodigoSucursal.Text = bpa.Sucursal
+        txtSucursal.Text = bpa.Direccion
+
+        CargarDatos()
     End Sub
 
 End Class
