@@ -1785,7 +1785,6 @@ Public Class frmIntervencion
                     Articulo = "551002" Or _
                     Articulo = "551022" Or _
                     Articulo = "551001" Or _
-                    Articulo = "551000" Or _
                     Articulo = "551059" Or _
                     Articulo = "551061" Or _
                     Articulo = "501019" Or _
@@ -1806,7 +1805,6 @@ Public Class frmIntervencion
                        Articulo = "551022" Or _
                        Articulo = "551001" Or _
                        Articulo = "551036" Or _
-                       Articulo = "551000" Or _
                        Articulo = "551059" Or _
                        Articulo = "551061" Or _
                        Articulo = "551035" Or _
