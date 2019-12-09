@@ -665,7 +665,8 @@ Public Class frmCAE
                     Exit While
 
                 Else
-                    ProcesarRespuestaAfip(res, Soc)
+
+                    If ProcesarRespuestaAfip(res, Soc) Then Exit While
 
                 End If
 
