@@ -1540,17 +1540,16 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 1, "991003")
             Case "991069"
                 CaseArticulos(itn, Cantidad, 3, "991070")
-
             Case "993010"
                 CaseArticulos(itn, Cantidad, 3, "993011")
-
             Case "991072"
                 CaseArticulos(itn, Cantidad, 1, "991073")
             Case "991019"
                 CaseArticulos(itn, Cantidad, 1, "991075")
             Case "991015"
                 CaseArticulos(itn, Cantidad, 1, "991003")
-
+            Case "991084"
+                CaseArticulos(itn, Cantidad, 1, "991085")
             Case "993010"
                 Dim f As Date = dtpFecha.Value
 
