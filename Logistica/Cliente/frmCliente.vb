@@ -664,6 +664,9 @@ Public Class frmCliente
                     i = 2 'Administraciones
                 End If
 
+            Case "11" 'Roberto Navarro
+                i = 23
+
             Case "12"
                 i = 19 'Andres B
 
@@ -739,6 +742,9 @@ Public Class frmCliente
 
             Case "33" 'Federico Henze
                 i = 3
+
+            Case "34" 'Hernan Vignona
+                i = 23
 
             Case Else
                 i = 12
