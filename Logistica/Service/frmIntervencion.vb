@@ -1172,7 +1172,7 @@ Public Class frmIntervencion
            dtpTarea.Value.DayOfWeek = DayOfWeek.Sunday OrElse _
            Fer.Existe(dtpTarea.Value) Then
 
-            MessageBox.Show("La fecha de impresión es un día hábil", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            MessageBox.Show("La fecha de impresión no es un día hábil", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return False
         End If
         '--------------------------------------------------------------------------------

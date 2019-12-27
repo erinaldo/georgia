@@ -1165,7 +1165,7 @@ Public Class frmVencimientos '2034
 
 
         'Pongo fecha minima si el mes no es el actual
-        If dtp.Value.Month <> Date.Today.Month AndAlso lstTipos.SelectedValue.ToString <> "F1" Then
+        If dtp.Value.Month <> Date.Today.Month Then
             Dim x As Date = New Date(dtp.Value.Year, dtp.Value.Month, 1)
             Dim Fer As New Feriados(cn)
             x = Fer.ObtenerSiguienteDiaHabil(x)
