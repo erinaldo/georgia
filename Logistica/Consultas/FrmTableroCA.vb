@@ -58,11 +58,11 @@ Public Class FrmTableroCA
 
         Sql = "select to_char(sih.accdat_0, 'YYYY-MM') AS mes , sih.sivtyp_0 as tipo, sum(qty_0) as recargas "
         Sql &= "from sinvoice sih inner join "
-        Sql &= "sinvoicev siv on (sih.num_0 = siv.num_0) "
-        Sql &= "inner join  sinvoiced sivd on (sih.num_0 = sivd.num_0) "
-        Sql &= "where rep_0 in ('CA', 'CAA') "
-        Sql &= " and accdat_0 >= :datini and accdat_0 <= :datfin "
-        Sql &= "and (sivd.tsicod_3 = '303' and sivd.TSICOD_4	= '521') "
+        Sql &= "     sinvoicev siv on (sih.num_0 = siv.num_0) inner join "
+        Sql &= "     sinvoiced sivd on (sih.num_0 = sivd.num_0) "
+        Sql &= "where rep_0 in ('CA', 'CAA') and "
+        Sql &= "      accdat_0 >= :datini and accdat_0 <= :datfin and "
+        Sql &= "      (sivd.tsicod_3 = '303' and sivd.TSICOD_4	= '521') "
         Sql &= "group by to_char(sih.accdat_0, 'YYYY-MM'), sih.sivtyp_0 "
 
 
@@ -122,9 +122,9 @@ Public Class FrmTableroCA
 
         Sql = "select COUNT(*)  as cantidad "
         Sql &= "from sinvoice sih inner join "
-        Sql &= "sinvoicev siv on (sih.num_0 = siv.num_0) "
+        Sql &= "     sinvoicev siv on (sih.num_0 = siv.num_0) "
         Sql &= "where rep_0 in ('CA', 'CAA') and "
-        Sql &= "      sih.sivtyp_0 = 'FAC' and "
+        Sql &= "      sih.invtyp_0 = 1 and "
         Sql &= "      sih.accdat_0 >= :datini and sih.accdat_0 <= :datfin and "
         Sql &= "      sih.bpr_0 not in ("
         Sql &= "	  	select distinct bpr_0 "
