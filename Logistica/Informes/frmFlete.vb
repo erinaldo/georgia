@@ -231,7 +231,7 @@ Public Class frmFlete
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
             Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
-            Sql &= "	  estado_0 IN (2, 3) AND "
+            Sql &= "	  estado_0 = 3 AND "
             Sql &= "	  tipo_0 IN ('ENT', 'RET')"
             da1 = New OracleDataAdapter(Sql, cn)
             da1.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = CLng(dr("ruta_0"))
@@ -246,7 +246,7 @@ Public Class frmFlete
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
             Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
-            Sql &= "	  estado_0 in (2, 3) AND "
+            Sql &= "	  estado_0 = 3 AND "
             Sql &= "	  tipo_0 in ('NUE', 'NCI')"
             da2 = New OracleDataAdapter(Sql, cn)
             da2.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = CLng(dr("ruta_0"))
@@ -254,16 +254,28 @@ Public Class frmFlete
             da2.SelectCommand.Parameters.Add("bpagcba", OracleType.VarChar).Value = dr("bpagcba_0").ToString
             da2.SelectCommand.Parameters.Add("bpaaddnro", OracleType.Number).Value = CLng(dr("bpaaddnro_0"))
 
-            Sql = "SELECT tqty_0, xminutos_0 "
+            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, equipos_1+equipos_3 as cantidad, numlig_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
             Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
             Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) inner join "
-            Sql &= "	 bpaddress bpa ON (cliente_0 = bpanum_0 AND suc_0 = bpaadd_0) "
+            Sql &= "	 bpaddress bpa ON (cliente_0 = bpa.bpanum_0 AND suc_0 = bpa.bpaadd_0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
             Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
-            Sql &= "	  estado_0 in (2, 3) "
+            Sql &= "	  estado_0 = 3 "
+            Sql &= "UNION "
+            Sql &= "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, install_1 as cantidad, sddlin_0 as orden "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "	 sdeliveryd sdd on (sdd.sdhnum_0 = xrd.vcrnum_0) inner join "
+            Sql &= "	 itmmaster itm on (sdd.itmref_0 = itm.itmref_0 and xminutos_0 > 0) inner join "
+            Sql &= "	 bpaddress bpa ON (cliente_0 = bpa.bpanum_0 AND suc_0 = bpa.bpaadd_0) "
+            Sql &= "WHERE ruta_0 = :ruta AND "
+            Sql &= "	  cliente_0 = :cliente AND "
+            Sql &= "	  bpagcba_0 = :bpagcba AND "
+            Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
+            Sql &= "	  estado_0 = 3 "
+            Sql &= "ORDER BY vcrnum_0, orden"
             da3 = New OracleDataAdapter(Sql, cn)
             da3.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = CLng(dr("ruta_0"))
             da3.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
@@ -279,7 +291,7 @@ Public Class frmFlete
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  suc_0 = :suc AND "
-            Sql &= "	  estado_0 in (2, 3) AND "
+            Sql &= "	  estado_0 = 3 AND "
             Sql &= "	  tipo_0 in ('ENT', 'RET')"
             da1 = New OracleDataAdapter(Sql, cn)
             da1.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = dr("ruta_0").ToString
@@ -291,21 +303,31 @@ Public Class frmFlete
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  suc_0 = :suc AND "
-            Sql &= "	  estado_0 in (2, 3) AND "
+            Sql &= "	  estado_0 = 3 AND "
             Sql &= "	  tipo_0 in ('NUE', 'NCI')"
             da2 = New OracleDataAdapter(Sql, cn)
             da2.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = dr("ruta_0").ToString
             da2.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
             da2.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = dr("suc_0").ToString
 
-            Sql = "SELECT tqty_0, xminutos_0 "
+            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, equipos_1+equipos_3 as cantidad, numlig_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
             Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
             Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  suc_0 = :suc AND "
-            Sql &= "	  estado_0 in (2, 3) "
+            Sql &= "	  estado_0 = 3 "
+            Sql &= "UNION "
+            Sql &= "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, install_1 as cantidad, sddlin_0 as orden "
+            Sql &= "FROM xrutad xrd INNER JOIN "
+            Sql &= "	 sdeliveryd sdd on (sdd.sdhnum_0 = xrd.vcrnum_0) inner join "
+            Sql &= "	 itmmaster itm on (sdd.itmref_0 = itm.itmref_0 and xminutos_0 > 0) "
+            Sql &= "WHERE ruta_0 = :ruta AND "
+            Sql &= "	  cliente_0 = :cliente AND "
+            Sql &= "	  suc_0 = :suc AND "
+            Sql &= "	  estado_0 = 3 "
+            Sql &= "ORDER BY vcrnum_0, orden"
             da3 = New OracleDataAdapter(Sql, cn)
             da3.SelectCommand.Parameters.Add("ruta", OracleType.Number).Value = dr("ruta_0").ToString
             da3.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
@@ -330,8 +352,13 @@ Public Class frmFlete
                 Peso += CDbl(dr2("kilos_0"))
             Next
 
+            Dim d As String = ""
             For Each dr2 As DataRow In dt3.Rows
-                Minutos += CDbl(dr2(0)) * CDbl(dr2(1))
+                If dr2("vcrnum_0").ToString <> d Then
+                    Minutos += CDbl(dr2("cantidad")) * CDbl(dr2("xminutos_0"))
+                    d = dr2("vcrnum_0").ToString
+                End If
+
             Next
 
         Catch ex As Exception
