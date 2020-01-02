@@ -2055,7 +2055,17 @@ Class frmRuta
                     End Select
 
                 Next
+
             Next
+
+            'Aqui borrar los puestos en Sigex que ya no están en Adonix
+            EliminarPuestos(ClienteSigex, SucursalSigex, itn)
+            'Aqui borrar los sectores en Sigex que ya no están en Adonix
+            Try
+                EliminarSectores(ClienteSigex, SucursalSigex, itn)
+            Catch ex As Exception
+                MessageBox.Show("Sincronizacion de sectores finalizada")
+            End Try
 
             'Busco si existe control para la intervencion
             If ControlesSigex.BuscarPorIntervencion(itn.Numero) Then
@@ -2118,6 +2128,41 @@ Class frmRuta
         Catch ex As Exception
 
         End Try
+
+    End Sub
+    Private Sub EliminarPuestos(ByVal ClienteSigex As Sigex.Cliente, ByVal SucursalSIgex As Sigex.Sucursal, ByVal itn As Intervencion)
+        'Elimina los puestos de Sigex que ya no están en Adonix
+        Dim PuestosSigex As New Sigex.PuestosCollection
+        Dim PuestosAdonix As New Clases.Puestos2Collection(cn)
+        PuestosSigex.AbrirPuestos(ClienteSigex.id, SucursalSIgex.id)
+        PuestosAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+
+        For Each PuestoSigex As Sigex.Puesto In PuestosSigex
+            'Busco si el puesto sigue existiendo en Adonix
+            Dim PuestoAdonix As Clases.Puesto2
+            PuestoAdonix = PuestosAdonix.BuscarPuestoPorId(CInt(PuestoSigex.Adonix))
+            If PuestoAdonix Is Nothing Then
+                PuestoSigex.Borrar()
+                PuestoSigex.Grabar()
+            End If
+        Next
+    End Sub
+    Private Sub EliminarSectores(ByVal ClienteSigex As Sigex.Cliente, ByVal SucursalSIgex As Sigex.Sucursal, ByVal itn As Intervencion)
+        'Elimina los sectores de Sigex que ya no están en Adonix
+        Dim SectoresSigex As New Sigex.SectoresCollection
+        Dim SectoresAdonix As New Clases.Sectores2(cn)
+        SectoresSigex.AbrirSectores(ClienteSigex.id, SucursalSIgex.id)
+        SectoresAdonix.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+
+        For Each SectorSigex As Sigex.Sector In SectoresSigex
+            'Busco si el puesto sigue existiendo en Adonix
+            Dim SectorAdonix As Clases.Sector2
+            SectorAdonix = SectoresAdonix.BuscarSectorPorId(SectorSigex.Adonix)
+            If SectorAdonix Is Nothing Then
+                SectorSigex.Borrar()
+                SectorSigex.Grabar()
+            End If
+        Next
 
     End Sub
 

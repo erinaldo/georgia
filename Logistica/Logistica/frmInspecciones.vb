@@ -170,7 +170,10 @@ Public Class frmInspecciones
             If s.Adonix = 0 Then
                 s2.Nuevo(bpc.Codigo, bpa.Sucursal)
             Else
-                s2.Abrir(s.Adonix)
+                If Not s2.Abrir(s.Adonix) Then
+                    's2.Nuevo(bpc.Codigo, bpa.Sucursal)
+                    Continue For
+                End If
             End If
             s2.Nombre = s.Nombre
             s2.Numero = s.Numero
@@ -185,11 +188,14 @@ Public Class frmInspecciones
 
             'Se recorren los puestos sigex
             For Each p As Sigex.Puesto In p1
+
                 'El sector no figura en Adonix porque es nuevo
                 If p.Adonix = "" Then
                     p2.Nuevo(s2.Id, p.Nro, p.Ubicacion, p.TipoId)
                 Else
-                    p2.Abrir(CInt(p.Adonix))
+                    If Not p2.Abrir(CInt(p.Adonix)) Then
+                        p2.Nuevo(s2.Id, p.Nro, p.Ubicacion, p.TipoId)
+                    End If
                 End If
 
                 If p.Tipo = Sigex.Puesto.PUESTO_EXTINTOR Then
@@ -217,8 +223,6 @@ Public Class frmInspecciones
                 End If
 
             Next
-
-
         Next
 
     End Sub
@@ -229,7 +233,6 @@ Public Class frmInspecciones
         Dim Suc As New Sigex.Sucursal
         Dim bpc As New Clases.Cliente(cn)
         Dim bpa As Clases.Sucursal
-
 
         cli.Abrir(ClienteId)
         Suc.Abrir(SucursalId)
@@ -285,7 +288,10 @@ Public Class frmInspecciones
 
         Else 'Puesto extintor o hidrante
             pa = New Puesto2(cn)
-            pa.Abrir(CInt(i.Puesto.Adonix))
+            Dim x As Integer = i.Puesto.Id
+            If Not pa.Abrir(CInt(i.Puesto.Adonix)) Then
+                Exit Sub
+            End If
 
             ia.PuestoId = pa.id
             ia.Sector = pa.SectorId

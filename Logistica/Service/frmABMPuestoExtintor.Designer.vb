@@ -69,6 +69,7 @@ Partial Class frmABMPuestos
         Label3.Size = New System.Drawing.Size(39, 13)
         Label3.TabIndex = 4
         Label3.Text = "Orden:"
+        Label3.Visible = False
         '
         'Label4
         '
@@ -130,6 +131,8 @@ Partial Class frmABMPuestos
         Me.txtOrden.Name = "txtOrden"
         Me.txtOrden.Size = New System.Drawing.Size(52, 20)
         Me.txtOrden.TabIndex = 5
+        Me.txtOrden.Text = "0"
+        Me.txtOrden.Visible = False
         '
         'cboAgente
         '
