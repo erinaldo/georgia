@@ -467,8 +467,37 @@ Public Class frmPresupuestos639
             sqh.EstadoAprobacion = 3
             sqh.MotivoPerdida = Op
             sqh.Grabar()
+
+            Try
+                EnviarMailEliminacion(sqh)
+            Catch ex As Exception
+            End Try
+
             Buscar()
         End If
+
+    End Sub
+    Private Sub EnviarMailEliminacion(ByVal Sqh As Presupuesto)
+        Dim eMail As New CorreoElectronico
+        Dim txt As String
+        Dim bpc As Cliente
+
+        bpc = Sqh.Cliente
+
+        txt = "El cliente {CLI}-{SUC} {NOMBRE} NO RENUEVA" & vbCrLf
+        txt = txt.Replace("{CLI}", bpc.Codigo)
+        txt = txt.Replace("{SUC}", Sqh.SucursalCodigo)
+        txt = txt.Replace("{NOMBRE}", bpc.Nombre)
+
+        With eMail
+            .Nuevo()
+            .Asunto = "Presupuesto " & Sqh.Numero & " eliminado"
+            .Cuerpo = txt
+            .EsHtml = False
+            .Remitente(usr.Mail, usr.Nombre)
+            .AgregarDestinatarioArchivo(PATH_MAIL & "639eliminado.txt")
+            .Enviar()
+        End With
 
     End Sub
 

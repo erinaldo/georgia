@@ -13,6 +13,7 @@ Module Module1
     Public Const RPTX3 As String = "\\" & DB_SRV & "\Folders\" & DB_USR & "\REPORT\SPA\"
     Public Const PATH_OC As String = "\\srv\Z\OC\"
     Public Const PATH_SCAN As String = "\\srv\z\remitos\"
+    Public Const PATH_MAIL As String = "MAILS\"
     Public Const DB As String = "Data Source=" & DB_SID & ";User ID=" & DB_USR & ";Password=" & DB_PWD
     Public Const ARTICULO_PRESTAMO_EXT As String = "601003"
     Public Const ARTICULO_PRESTAMO_MAN As String = "607003"
