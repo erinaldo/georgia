@@ -124,7 +124,7 @@ Public Class frmInspecciones
                 Dim oMail As New CorreoElectronico
 
                 With oMail
-                    .Remitente("info@matafuegosgeorgia.com")
+                    .Remitente("no-responder@georgia.com.ar")
                     .Asunto = "Control Nro. " & Control.id
                     .Cuerpo = "Verificar acciones a tomar"
                     .EsHtml = False
