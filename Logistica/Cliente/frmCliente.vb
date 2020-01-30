@@ -450,7 +450,7 @@ Public Class frmCliente
 
         With oMail
             .Nuevo()
-            .Remitente("noreply@matafuegosgeorgia.com", "Georgia Seguridad contra Incendios")
+            .Remitente("no-responder@georgia.com.ar", "Georgia Seguridad contra Incendios")
             .AgregarDestinatarioArchivo("mails\CreacionCliente.txt", 0)
             .Asunto = "Se creo un nuevo cliente"
             .EsHtml = False

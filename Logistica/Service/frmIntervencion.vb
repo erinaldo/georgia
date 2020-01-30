@@ -662,7 +662,7 @@ Public Class frmIntervencion
                 Dim m As New CorreoElectronico
 
                 With m
-                    m.Remitente("noreply@matafuegosgeorgia.com")
+                    m.Remitente("no-responder@georgia.com.ar")
                     If DB_USR = "GEOPROD" Then
                         m.AgregarDestinatario("wsimonetti@georgia.com.ar")
                         m.AgregarDestinatario("mlucas@georgia.com.ar")

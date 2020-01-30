@@ -807,7 +807,7 @@ Public Class frmCotizadorV2
 
                     With mail
                         .Nuevo()
-                        .Remitente("noreply@matafuegosgeorgia.com", "Georgia Seguridad contra Incendios")
+                        .Remitente("no-responder@georgia.com.ar", "Georgia Seguridad contra Incendios")
                         .AgregarDestinatario("jrodriguez@georgia.com.ar", False)
                         .Asunto = "Pedido creado sin OC"
                         .Cuerpo = "El cliente: " & ctz.Cliente.Codigo & "-" & ctz.Cliente.Nombre & ", con el pedido: " & ctz.PedidoAdonix & " fue creado sin OC "

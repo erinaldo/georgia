@@ -73,7 +73,7 @@ Public Class frmCertificadoMantenimiento
         Application.DoEvents()
 
         eml.Nuevo()
-        eml.Remitente("noreply@matafuegosgeorgia.com", "Sistema Automático")
+        eml.Remitente("no-responder@georgia.com.ar", "Sistema Automático")
         eml.Asunto = "Mantenimiento de Sistema Fijo"
         eml.AgregarDestinatario(rep.Mail)
 

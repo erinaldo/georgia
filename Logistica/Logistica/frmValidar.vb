@@ -623,7 +623,7 @@ Public Class frmValidar
 
                 Dim eMail As New CorreoElectronico
                 eMail.Nuevo()
-                eMail.Remitente("noreply@matafuegosgeorgia.com", "Sistema Automatico")
+                eMail.Remitente("no-responder@georgia.com.ar", "Sistema Automatico")
                 eMail.Asunto = "Validación de ruta " & txtRuta.Text
                 eMail.EsHtml = False
                 eMail.Cuerpo = txt

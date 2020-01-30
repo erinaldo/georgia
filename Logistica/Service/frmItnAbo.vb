@@ -206,7 +206,7 @@ Public Class frmItnAbo
         'Envio log con los alertas
         With eml
             .Nuevo()
-            .Remitente(usr.Mail) '"noreply@matafuegosgeorgia.com")
+            .Remitente(usr.Mail) '"no-responder@georgia.com.ar")
             .AgregarDestinatarioArchivo("mails\itn_auto_abonos.txt", 1)
             .Asunto = "Alertas de Intervenciones Automáticas " & Today.ToString("dd/MM/yy")
             .CuerpoDesdeArchivo("logs\" & NombreArchivo)

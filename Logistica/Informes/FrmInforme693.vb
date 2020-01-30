@@ -50,7 +50,7 @@ Public Class FrmInforme693
                 bpc.Abrir(file.Name.Substring(0, 6))
                 rep.Abrir(bpc.Representante(0))
                 .Nuevo()
-                .Remitente("noreply@matafuegosgeorgia.com", "Sistema Automático")
+                .Remitente("no-responder@georgia.com.ar", "Sistema Automático")
                 .Asunto = "Nuevo informe 639 Cliente: " & bpc.Codigo & " - " & bpc.Nombre
                 .AgregarDestinatario(rep.Mail)
                 '.AgregarDestinatario("mbarcudes@matafuegosgeorgia.com")
