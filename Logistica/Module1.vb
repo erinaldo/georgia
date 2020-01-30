@@ -357,7 +357,52 @@ Module Module1
     Public Function ValidarMail(ByVal sMail As String) As Boolean
         Return Regex.IsMatch(sMail, "^([\w-]+\.)*?[\w-]+@[\w-]+\.([\w-]+\.)*?[\w]+$")
     End Function
+    Public Function Company(ByVal bpc As String) As String
+        Dim dr As DataRow
+        Dim da As OracleDataAdapter
+        Dim dt As New DataTable
+        Dim sql As String
+        Dim compania As String = "SCH"
 
+        sql = "select salfcy_0 from interven where bpc_0 = :bpc and typ_0 = 'B1' order by dat_0 desc"
+        da = New OracleDataAdapter(sql, cn)
+        da.SelectCommand.Parameters.Add("bpc", OracleType.VarChar).Value = bpc
+        da.Fill(dt)
+
+        If dt.Rows.Count > 0 Then
+
+            dr = dt.Rows(0)
+            If dr("salfcy_0").ToString = "D01" Then
+                compania = "DNY"
+            Else
+                compania = "SCH"
+            End If
+
+        Else
+
+            Dim dr1 As DataRow
+            Dim da1 As OracleDataAdapter
+            Dim dt1 As New DataTable
+            Dim sql1 As String
+            sql1 = "select salfcy_0 from interven where bpc_0 = :bpc and typ_0 = 'A1' order by dat_0 desc"
+            da1 = New OracleDataAdapter(sql1, cn)
+            da1.SelectCommand.Parameters.Add("bpc", OracleType.VarChar).Value = bpc
+            da1.Fill(dt1)
+
+            If dt1.Rows.Count > 1 Then
+                dr1 = dt1.Rows(0)
+                If dr1("salfcy_0").ToString = "D01" Then
+                    compania = "DNY"
+                Else
+                    compania = "SCH"
+                End If
+            End If
+
+        End If
+
+        Return compania
+
+    End Function
     'DGV
     Public Sub NumeracionGrillas(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewRowPostPaintEventArgs)
         On Error Resume Next
