@@ -84,10 +84,11 @@ Public Class FrmTableroCA
     Private Function Cantidad639Aprobadas() As Integer
         Dim dt As New DataTable
         Dim dr As DataRow
-        Sql = "select count(*) as cantidad from CONTSERV  "
+        Sql = "select count(*) as cantidad "
+        Sql &= "from CONTSERV  "
         Sql &= "where constrdat_0 >= :datini and constrdat_0 <= :datfin AND "
         Sql &= "      salrep_0 IN ('CA', 'CAA') AND "
-        Sql &= "      itmref_0 in ('553010','553015','553016','553017')"
+        Sql &= "      itmref_0 in ('553010', '553015', '553016', '553017', '452015', '551015', '551000', '551001', '551002')"
 
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("datini", OracleType.DateTime).Value = FechaInicio
