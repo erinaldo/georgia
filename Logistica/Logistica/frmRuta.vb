@@ -2139,8 +2139,11 @@ Class frmRuta
 
         For Each PuestoSigex As Sigex.Puesto In PuestosSigex
             'Busco si el puesto sigue existiendo en Adonix
-            Dim PuestoAdonix As Clases.Puesto2
-            PuestoAdonix = PuestosAdonix.BuscarPuestoPorId(CInt(PuestoSigex.Adonix))
+            Dim PuestoAdonix As Clases.Puesto2 = Nothing
+
+            If PuestoSigex.Adonix <> "" Then
+                PuestoAdonix = PuestosAdonix.BuscarPuestoPorId(CInt(PuestoSigex.Adonix))
+            End If
             If PuestoAdonix Is Nothing Then
                 PuestoSigex.Borrar()
                 PuestoSigex.Grabar()
