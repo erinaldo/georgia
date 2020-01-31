@@ -254,7 +254,7 @@ Public Class frmFlete
             da2.SelectCommand.Parameters.Add("bpagcba", OracleType.VarChar).Value = dr("bpagcba_0").ToString
             da2.SelectCommand.Parameters.Add("bpaaddnro", OracleType.Number).Value = CLng(dr("bpaaddnro_0"))
 
-            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, equipos_1+equipos_3 as cantidad, numlig_0 as orden "
+            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, tqty_0 as cantidad, numlig_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
             Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
             Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) inner join "
@@ -263,7 +263,8 @@ Public Class frmFlete
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  bpagcba_0 = :bpagcba AND "
             Sql &= "	  bpaaddnro_0 = :bpaaddnro AND "
-            Sql &= "	  estado_0 = 3 "
+            Sql &= "	  estado_0 = 3 AND "
+            Sql &= "      numlig_0 = 1000 "
             Sql &= "UNION "
             Sql &= "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, install_1 as cantidad, sddlin_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
@@ -310,14 +311,15 @@ Public Class frmFlete
             da2.SelectCommand.Parameters.Add("cliente", OracleType.VarChar).Value = dr("cliente_0").ToString
             da2.SelectCommand.Parameters.Add("suc", OracleType.VarChar).Value = dr("suc_0").ToString
 
-            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, equipos_1+equipos_3 as cantidad, numlig_0 as orden "
+            Sql = "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, tqty_0 as cantidad, numlig_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
             Sql &= "	 yitndet yit on (xrd.vcrnum_0 = yit.num_0 and yit.typlig_0 = 1) inner join "
             Sql &= "	 itmmaster itm on (yit.itmref_0 = itm.itmref_0 and xminutos_0 > 0) "
             Sql &= "WHERE ruta_0 = :ruta AND "
             Sql &= "	  cliente_0 = :cliente AND "
             Sql &= "	  suc_0 = :suc AND "
-            Sql &= "	  estado_0 = 3 "
+            Sql &= "	  estado_0 = 3 AND "
+            Sql &= "      numlig_0 = 1000 "
             Sql &= "UNION "
             Sql &= "SELECT itmref_0, itmdes1_0, xminutos_0, vcrnum_0, install_1 as cantidad, sddlin_0 as orden "
             Sql &= "FROM xrutad xrd INNER JOIN "
