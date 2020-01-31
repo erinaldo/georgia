@@ -25,10 +25,29 @@ Partial Class frmPresupuestos639
         Me.components = New System.ComponentModel.Container
         Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.dgv = New System.Windows.Forms.DataGridView
+        Me.cm = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuVerPresupuesto = New System.Windows.Forms.ToolStripMenuItem
+        Me.munQuitar = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuQuitar1 = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuQuitar2 = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuQuitar3 = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuQuitar4 = New System.Windows.Forms.ToolStripMenuItem
+        Me.btnBuscar = New System.Windows.Forms.Button
+        Me.gbPago = New System.Windows.Forms.GroupBox
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.txtObs = New System.Windows.Forms.TextBox
+        Me.cboCondicionPago = New System.Windows.Forms.ComboBox
+        Me.txtDescuento = New System.Windows.Forms.TextBox
+        Me.btnAprobar = New System.Windows.Forms.Button
+        Me.btnActualizar = New System.Windows.Forms.Button
+        Me.txtPrecio = New System.Windows.Forms.TextBox
+        Me.rbOpcion2 = New System.Windows.Forms.RadioButton
+        Me.rbOpcion1 = New System.Windows.Forms.RadioButton
+        Me.rbContado = New System.Windows.Forms.RadioButton
         Me.colPresupuesto = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colCliente = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -42,25 +61,7 @@ Partial Class frmPresupuestos639
         Me.col639 = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colTipo = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colHidrantes = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.cm = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuVerPresupuesto = New System.Windows.Forms.ToolStripMenuItem
-        Me.munQuitar = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuQuitar1 = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuQuitar2 = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuQuitar3 = New System.Windows.Forms.ToolStripMenuItem
-        Me.btnBuscar = New System.Windows.Forms.Button
-        Me.gbPago = New System.Windows.Forms.GroupBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.txtObs = New System.Windows.Forms.TextBox
-        Me.cboCondicionPago = New System.Windows.Forms.ComboBox
-        Me.txtDescuento = New System.Windows.Forms.TextBox
-        Me.btnAprobar = New System.Windows.Forms.Button
-        Me.btnActualizar = New System.Windows.Forms.Button
-        Me.txtPrecio = New System.Windows.Forms.TextBox
-        Me.rbOpcion2 = New System.Windows.Forms.RadioButton
-        Me.rbOpcion1 = New System.Windows.Forms.RadioButton
-        Me.rbContado = New System.Windows.Forms.RadioButton
-        Me.mnuQuitar4 = New System.Windows.Forms.ToolStripMenuItem
+        Me.colRenovacion = New System.Windows.Forms.DataGridViewComboBoxColumn
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -95,7 +96,7 @@ Partial Class frmPresupuestos639
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPresupuesto, Me.colFecha, Me.colCliente, Me.colSucursal, Me.colNombre, Me.colDomicilio, Me.colVendedor, Me.colImporte, Me.colEstado, Me.colDeteccion, Me.col639, Me.colTipo, Me.colHidrantes})
+        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colPresupuesto, Me.colFecha, Me.colCliente, Me.colSucursal, Me.colNombre, Me.colDomicilio, Me.colVendedor, Me.colImporte, Me.colEstado, Me.colDeteccion, Me.col639, Me.colTipo, Me.colHidrantes, Me.colRenovacion})
         Me.dgv.ContextMenuStrip = Me.cm
         Me.dgv.Location = New System.Drawing.Point(12, 12)
         Me.dgv.Name = "dgv"
@@ -104,124 +105,11 @@ Partial Class frmPresupuestos639
         Me.dgv.Size = New System.Drawing.Size(887, 372)
         Me.dgv.TabIndex = 0
         '
-        'colPresupuesto
-        '
-        Me.colPresupuesto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colPresupuesto.HeaderText = "Presupuesto"
-        Me.colPresupuesto.Name = "colPresupuesto"
-        Me.colPresupuesto.ReadOnly = True
-        Me.colPresupuesto.Width = 91
-        '
-        'colFecha
-        '
-        Me.colFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colFecha.HeaderText = "Fecha"
-        Me.colFecha.Name = "colFecha"
-        Me.colFecha.ReadOnly = True
-        Me.colFecha.Width = 62
-        '
-        'colCliente
-        '
-        Me.colCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.colCliente.HeaderText = "Cliente"
-        Me.colCliente.Name = "colCliente"
-        Me.colCliente.ReadOnly = True
-        Me.colCliente.Width = 64
-        '
-        'colSucursal
-        '
-        Me.colSucursal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.colSucursal.HeaderText = "Sucursal"
-        Me.colSucursal.Name = "colSucursal"
-        Me.colSucursal.ReadOnly = True
-        Me.colSucursal.Width = 73
-        '
-        'colNombre
-        '
-        Me.colNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colNombre.HeaderText = "Nombre"
-        Me.colNombre.Name = "colNombre"
-        Me.colNombre.ReadOnly = True
-        Me.colNombre.Width = 69
-        '
-        'colDomicilio
-        '
-        Me.colDomicilio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDomicilio.HeaderText = "Domicilio"
-        Me.colDomicilio.Name = "colDomicilio"
-        Me.colDomicilio.ReadOnly = True
-        Me.colDomicilio.Width = 74
-        '
-        'colVendedor
-        '
-        Me.colVendedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.colVendedor.HeaderText = "Vendedor"
-        Me.colVendedor.Name = "colVendedor"
-        Me.colVendedor.ReadOnly = True
-        Me.colVendedor.Width = 78
-        '
-        'colImporte
-        '
-        Me.colImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N2"
-        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle4
-        Me.colImporte.HeaderText = "Importe"
-        Me.colImporte.Name = "colImporte"
-        Me.colImporte.ReadOnly = True
-        Me.colImporte.Width = 67
-        '
-        'colEstado
-        '
-        Me.colEstado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colEstado.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.colEstado.HeaderText = "Estado"
-        Me.colEstado.Name = "colEstado"
-        Me.colEstado.ReadOnly = True
-        Me.colEstado.Width = 46
-        '
-        'colDeteccion
-        '
-        Me.colDeteccion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colDeteccion.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.colDeteccion.HeaderText = "Deteccion"
-        Me.colDeteccion.Name = "colDeteccion"
-        Me.colDeteccion.ReadOnly = True
-        Me.colDeteccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.colDeteccion.Width = 81
-        '
-        'col639
-        '
-        Me.col639.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.col639.HeaderText = "639"
-        Me.col639.Name = "col639"
-        Me.col639.ReadOnly = True
-        Me.col639.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.col639.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        '
-        'colTipo
-        '
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colTipo.DefaultCellStyle = DataGridViewCellStyle5
-        Me.colTipo.HeaderText = "Tipo"
-        Me.colTipo.Name = "colTipo"
-        Me.colTipo.ReadOnly = True
-        '
-        'colHidrantes
-        '
-        Me.colHidrantes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.colHidrantes.DefaultCellStyle = DataGridViewCellStyle6
-        Me.colHidrantes.HeaderText = "Hidrantes"
-        Me.colHidrantes.Name = "colHidrantes"
-        Me.colHidrantes.ReadOnly = True
-        Me.colHidrantes.Width = 77
-        '
         'cm
         '
         Me.cm.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuVerPresupuesto, Me.munQuitar})
         Me.cm.Name = "cm"
-        Me.cm.Size = New System.Drawing.Size(169, 70)
+        Me.cm.Size = New System.Drawing.Size(169, 48)
         '
         'mnuVerPresupuesto
         '
@@ -253,6 +141,12 @@ Partial Class frmPresupuestos639
         Me.mnuQuitar3.Name = "mnuQuitar3"
         Me.mnuQuitar3.Size = New System.Drawing.Size(262, 22)
         Me.mnuQuitar3.Text = "Perdido con otra empresa (Precio)"
+        '
+        'mnuQuitar4
+        '
+        Me.mnuQuitar4.Name = "mnuQuitar4"
+        Me.mnuQuitar4.Size = New System.Drawing.Size(262, 22)
+        Me.mnuQuitar4.Text = "Perdido con otra empresa (Servicio)"
         '
         'btnBuscar
         '
@@ -383,11 +277,129 @@ Partial Class frmPresupuestos639
         Me.rbContado.Text = "Precio contado"
         Me.rbContado.UseVisualStyleBackColor = True
         '
-        'mnuQuitar4
+        'colPresupuesto
         '
-        Me.mnuQuitar4.Name = "mnuQuitar4"
-        Me.mnuQuitar4.Size = New System.Drawing.Size(262, 22)
-        Me.mnuQuitar4.Text = "Perdido con otra empresa (Servicio)"
+        Me.colPresupuesto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colPresupuesto.HeaderText = "Presupuesto"
+        Me.colPresupuesto.Name = "colPresupuesto"
+        Me.colPresupuesto.ReadOnly = True
+        Me.colPresupuesto.Width = 91
+        '
+        'colFecha
+        '
+        Me.colFecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colFecha.HeaderText = "Fecha"
+        Me.colFecha.Name = "colFecha"
+        Me.colFecha.ReadOnly = True
+        Me.colFecha.Width = 62
+        '
+        'colCliente
+        '
+        Me.colCliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colCliente.HeaderText = "Cliente"
+        Me.colCliente.Name = "colCliente"
+        Me.colCliente.ReadOnly = True
+        Me.colCliente.Width = 64
+        '
+        'colSucursal
+        '
+        Me.colSucursal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colSucursal.HeaderText = "Sucursal"
+        Me.colSucursal.Name = "colSucursal"
+        Me.colSucursal.ReadOnly = True
+        Me.colSucursal.Width = 73
+        '
+        'colNombre
+        '
+        Me.colNombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colNombre.HeaderText = "Nombre"
+        Me.colNombre.Name = "colNombre"
+        Me.colNombre.ReadOnly = True
+        Me.colNombre.Width = 69
+        '
+        'colDomicilio
+        '
+        Me.colDomicilio.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDomicilio.HeaderText = "Domicilio"
+        Me.colDomicilio.Name = "colDomicilio"
+        Me.colDomicilio.ReadOnly = True
+        Me.colDomicilio.Width = 74
+        '
+        'colVendedor
+        '
+        Me.colVendedor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.colVendedor.HeaderText = "Vendedor"
+        Me.colVendedor.Name = "colVendedor"
+        Me.colVendedor.ReadOnly = True
+        Me.colVendedor.Width = 78
+        '
+        'colImporte
+        '
+        Me.colImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N2"
+        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle1
+        Me.colImporte.HeaderText = "Importe"
+        Me.colImporte.Name = "colImporte"
+        Me.colImporte.ReadOnly = True
+        Me.colImporte.Width = 67
+        '
+        'colEstado
+        '
+        Me.colEstado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colEstado.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.colEstado.HeaderText = "Estado"
+        Me.colEstado.Name = "colEstado"
+        Me.colEstado.ReadOnly = True
+        Me.colEstado.Width = 46
+        '
+        'colDeteccion
+        '
+        Me.colDeteccion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colDeteccion.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.colDeteccion.HeaderText = "Deteccion"
+        Me.colDeteccion.Name = "colDeteccion"
+        Me.colDeteccion.ReadOnly = True
+        Me.colDeteccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colDeteccion.Width = 81
+        '
+        'col639
+        '
+        Me.col639.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.col639.HeaderText = "639"
+        Me.col639.Name = "col639"
+        Me.col639.ReadOnly = True
+        Me.col639.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.col639.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        '
+        'colTipo
+        '
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colTipo.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colTipo.HeaderText = "Tipo"
+        Me.colTipo.Name = "colTipo"
+        Me.colTipo.ReadOnly = True
+        '
+        'colHidrantes
+        '
+        Me.colHidrantes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.colHidrantes.DefaultCellStyle = DataGridViewCellStyle3
+        Me.colHidrantes.HeaderText = "Hidrantes"
+        Me.colHidrantes.Name = "colHidrantes"
+        Me.colHidrantes.ReadOnly = True
+        Me.colHidrantes.Width = 77
+        '
+        'colRenovacion
+        '
+        Me.colRenovacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colRenovacion.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.colRenovacion.HeaderText = "Renovación"
+        Me.colRenovacion.Name = "colRenovacion"
+        Me.colRenovacion.ReadOnly = True
+        Me.colRenovacion.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.colRenovacion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.colRenovacion.Width = 90
         '
         'frmPresupuestos639
         '
@@ -427,6 +439,7 @@ Partial Class frmPresupuestos639
     Friend WithEvents mnuQuitar1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuQuitar2 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuQuitar3 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuQuitar4 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents colPresupuesto As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colCliente As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -440,5 +453,5 @@ Partial Class frmPresupuestos639
     Friend WithEvents col639 As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colTipo As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colHidrantes As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents mnuQuitar4 As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents colRenovacion As System.Windows.Forms.DataGridViewComboBoxColumn
 End Class

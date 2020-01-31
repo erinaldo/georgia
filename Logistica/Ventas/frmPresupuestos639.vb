@@ -81,6 +81,11 @@ Public Class frmPresupuestos639
             mnu.Enlazar(col639)
             col639.DataPropertyName = "x415_0"
 
+            mnu = New MenuLocal(cn)
+            mnu.AbrirMenu(1, False)
+            mnu.Enlazar(colRenovacion)
+            colRenovacion.DataPropertyName = "xflgren_0"
+
             dgv.DataSource = sqh.PresupuestosPendientesAutorizacion(usr)
 
         End If
