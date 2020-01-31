@@ -810,6 +810,12 @@
     <Compile Include="Ventas\frmPresupuestos639.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ventas\frmPresupuestosRecargaPendientes.Designer.vb">
+      <DependentUpon>frmPresupuestosRecargaPendientes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\frmPresupuestosRecargaPendientes.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ventas\frmTarjetasNuevo.Designer.vb">
       <DependentUpon>frmTarjetasNuevo.vb</DependentUpon>
     </Compile>
@@ -1521,6 +1527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas\frmPresupuestos639.resx">
       <DependentUpon>frmPresupuestos639.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventas\frmPresupuestosRecargaPendientes.resx">
+      <DependentUpon>frmPresupuestosRecargaPendientes.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas\frmTarjetasNuevo.resx">
       <DependentUpon>frmTarjetasNuevo.vb</DependentUpon>

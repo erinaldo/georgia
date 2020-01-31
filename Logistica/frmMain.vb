@@ -1187,4 +1187,10 @@ Public Class frmMain
         f.Show()
     End Sub
 
+    Private Sub frmPresupuestosRecargasPendientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmPresupuestosRecargasPendientes.Click
+        Dim f As New frmPresupuestosRecargaPendientes
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
 End Class
