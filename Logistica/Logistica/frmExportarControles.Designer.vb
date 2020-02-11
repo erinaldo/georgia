@@ -26,6 +26,7 @@ Partial Class frmExportarControles
         Me.btnExportar = New System.Windows.Forms.Button
         Me.sd = New System.Windows.Forms.SaveFileDialog
         Me.lbl = New System.Windows.Forms.Label
+        Me.cboTipo = New System.Windows.Forms.ComboBox
         Me.SuspendLayout()
         '
         'mcal
@@ -36,7 +37,7 @@ Partial Class frmExportarControles
         '
         'btnExportar
         '
-        Me.btnExportar.Location = New System.Drawing.Point(87, 214)
+        Me.btnExportar.Location = New System.Drawing.Point(88, 236)
         Me.btnExportar.Name = "btnExportar"
         Me.btnExportar.Size = New System.Drawing.Size(91, 23)
         Me.btnExportar.TabIndex = 1
@@ -50,18 +51,28 @@ Partial Class frmExportarControles
         'lbl
         '
         Me.lbl.AutoSize = True
-        Me.lbl.Location = New System.Drawing.Point(15, 189)
+        Me.lbl.Location = New System.Drawing.Point(15, 216)
         Me.lbl.Name = "lbl"
         Me.lbl.Size = New System.Drawing.Size(39, 13)
         Me.lbl.TabIndex = 2
         Me.lbl.Text = "Label1"
         Me.lbl.Visible = False
         '
+        'cboTipo
+        '
+        Me.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboTipo.FormattingEnabled = True
+        Me.cboTipo.Location = New System.Drawing.Point(18, 192)
+        Me.cboTipo.Name = "cboTipo"
+        Me.cboTipo.Size = New System.Drawing.Size(227, 21)
+        Me.cboTipo.TabIndex = 3
+        '
         'frmExportarControles
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(264, 249)
+        Me.ClientSize = New System.Drawing.Size(264, 288)
+        Me.Controls.Add(Me.cboTipo)
         Me.Controls.Add(Me.lbl)
         Me.Controls.Add(Me.btnExportar)
         Me.Controls.Add(Me.mcal)
@@ -75,4 +86,5 @@ Partial Class frmExportarControles
     Friend WithEvents btnExportar As System.Windows.Forms.Button
     Friend WithEvents sd As System.Windows.Forms.SaveFileDialog
     Friend WithEvents lbl As System.Windows.Forms.Label
+    Friend WithEvents cboTipo As System.Windows.Forms.ComboBox
 End Class

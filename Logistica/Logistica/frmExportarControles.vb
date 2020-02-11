@@ -8,6 +8,17 @@ Public Class frmExportarControles
     Private dvPartes As DataView
     Private calle As New Callejero(cn)
 
+    Public Sub New()
+
+        ' Llamada necesaria para el Diseñador de Windows Forms.
+        InitializeComponent()
+
+        ' Agregue cualquier inicialización después de la llamada a InitializeComponent().
+        Dim tb As New TablaVaria(cn, 407, False)
+        tb.EnlazarComboBox(cboTipo)
+
+    End Sub
+
     Private Sub btnExportar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportar.Click
         Dim f1, f2 As Date
         Dim txt As String
@@ -55,7 +66,7 @@ Public Class frmExportarControles
         'Exportación de Intervenciones
         lbl.Visible = True
         'Recupero intervenciones
-        dt = Intervenciones()
+        dt = Intervenciones(cboTipo.SelectedValue.ToString)
 
         Dim x As Integer = dt.Rows.Count
 
@@ -74,7 +85,7 @@ Public Class frmExportarControles
         sw.Close()
         sw.Dispose()
     End Sub
-    Private Function Intervenciones() As DataTable
+    Private Function Intervenciones(ByVal Tipo As String) As DataTable
         Dim Sql As String
         Dim da As OracleDataAdapter
         Dim dt As New DataTable
@@ -84,13 +95,14 @@ Public Class frmExportarControles
         Sql &= "WHERE zflgtrip_0 in (1, 6) AND "
         Sql &= "      dat_0 < :dat_0 AND "
         Sql &= "      dat_0 >= to_date('01/01/2017', 'dd/mm/yyyy') and "
-        Sql &= "      typ_0 = 'A1' and "
+        Sql &= "      typ_0 = :typ_0 and "
         Sql &= "      mdl_0 = '1' AND "
         Sql &= "      tripnum_0 = ' ' AND "
         Sql &= "      sat_0 = 'CFE'"
 
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("dat_0", OracleType.DateTime).Value = mcal.SelectionRange.Start
+        da.SelectCommand.Parameters.Add("typ_0", OracleType.VarChar).Value = Tipo
         da.Fill(dt)
         da.Dispose()
 
