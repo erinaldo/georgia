@@ -92,6 +92,8 @@ Partial Class frmMain
         Me.CotizadorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.frmNuevoCotizador = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuPrecios = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem28 = New System.Windows.Forms.ToolStripSeparator
+        Me.frmPresupuestosRecargasPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuPresupuestos639 = New System.Windows.Forms.ToolStripMenuItem
         Me.frmContratos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuEstadoClientes = New System.Windows.Forms.ToolStripMenuItem
@@ -223,8 +225,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStripMenuItem28 = New System.Windows.Forms.ToolStripSeparator
-        Me.frmPresupuestosRecargasPendientes = New System.Windows.Forms.ToolStripMenuItem
+        Me.frmTazaCierre = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -668,7 +669,7 @@ Partial Class frmMain
         '
         'CotizadorToolStripMenuItem
         '
-        Me.CotizadorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmNuevoCotizador, Me.mnuPrecios, Me.ToolStripMenuItem28, Me.frmPresupuestosRecargasPendientes})
+        Me.CotizadorToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.frmNuevoCotizador, Me.mnuPrecios, Me.ToolStripMenuItem28, Me.frmPresupuestosRecargasPendientes, Me.frmTazaCierre})
         Me.CotizadorToolStripMenuItem.Name = "CotizadorToolStripMenuItem"
         Me.CotizadorToolStripMenuItem.Size = New System.Drawing.Size(299, 22)
         Me.CotizadorToolStripMenuItem.Text = "Cotizador"
@@ -676,15 +677,27 @@ Partial Class frmMain
         'frmNuevoCotizador
         '
         Me.frmNuevoCotizador.Name = "frmNuevoCotizador"
-        Me.frmNuevoCotizador.Size = New System.Drawing.Size(271, 22)
+        Me.frmNuevoCotizador.Size = New System.Drawing.Size(214, 22)
         Me.frmNuevoCotizador.Text = "Cotizador..."
         '
         'mnuPrecios
         '
         Me.mnuPrecios.Name = "mnuPrecios"
-        Me.mnuPrecios.Size = New System.Drawing.Size(271, 22)
+        Me.mnuPrecios.Size = New System.Drawing.Size(214, 22)
         Me.mnuPrecios.Tag = "frmPrecios"
         Me.mnuPrecios.Text = "Lista de precios"
+        '
+        'ToolStripMenuItem28
+        '
+        Me.ToolStripMenuItem28.Name = "ToolStripMenuItem28"
+        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(211, 6)
+        '
+        'frmPresupuestosRecargasPendientes
+        '
+        Me.frmPresupuestosRecargasPendientes.Name = "frmPresupuestosRecargasPendientes"
+        Me.frmPresupuestosRecargasPendientes.Size = New System.Drawing.Size(214, 22)
+        Me.frmPresupuestosRecargasPendientes.Tag = "frmPresupuestoRecPend"
+        Me.frmPresupuestosRecargasPendientes.Text = "Presupuestos Pendientes..."
         '
         'mnuPresupuestos639
         '
@@ -1536,17 +1549,12 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'ToolStripMenuItem28
+        'frmTazaCierre
         '
-        Me.ToolStripMenuItem28.Name = "ToolStripMenuItem28"
-        Me.ToolStripMenuItem28.Size = New System.Drawing.Size(268, 6)
-        '
-        'frmPresupuestosRecargasPendientes
-        '
-        Me.frmPresupuestosRecargasPendientes.Name = "frmPresupuestosRecargasPendientes"
-        Me.frmPresupuestosRecargasPendientes.Size = New System.Drawing.Size(271, 22)
-        Me.frmPresupuestosRecargasPendientes.Tag = "frmPresupuestoRecPend"
-        Me.frmPresupuestosRecargasPendientes.Text = "Presupuestos de Recargas Pendientes"
+        Me.frmTazaCierre.Name = "frmTazaCierre"
+        Me.frmTazaCierre.Size = New System.Drawing.Size(214, 22)
+        Me.frmTazaCierre.Tag = "frmTazaCierre"
+        Me.frmTazaCierre.Text = "Taza de Cierre..."
         '
         'frmMain
         '
@@ -1773,6 +1781,7 @@ Partial Class frmMain
     Friend WithEvents mnuFCE As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem28 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents frmPresupuestosRecargasPendientes As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents frmTazaCierre As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

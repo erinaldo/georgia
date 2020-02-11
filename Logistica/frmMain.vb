@@ -1188,9 +1188,14 @@ Public Class frmMain
     End Sub
 
     Private Sub frmPresupuestosRecargasPendientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmPresupuestosRecargasPendientes.Click
-        Dim f As New frmPresupuestosRecargaPendientes
+        Dim f As New frmPresupuestosPendientes
         f.MdiParent = Me
         f.Show()
     End Sub
 
+    Private Sub frmTazaCierre_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmTazaCierre.Click
+        Dim f As New frmTazaCierrePresupuestos
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class

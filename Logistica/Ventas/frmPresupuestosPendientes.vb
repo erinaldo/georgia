@@ -1,6 +1,6 @@
 ﻿Imports System.Data.OracleClient
 
-Public Class frmPresupuestosRecargaPendientes
+Public Class frmPresupuestosPendientes
 
     Public Sub New()
 
@@ -15,6 +15,15 @@ Public Class frmPresupuestosRecargaPendientes
         Dim da As OracleDataAdapter
         Dim dt As DataTable
         Dim Sql As String
+
+        If chkNuevo.Checked = False And chkRecarga.Checked = False Then
+            Exit Sub
+        End If
+
+        btnConsultar.Enabled = False
+        Application.DoEvents()
+        Application.DoEvents()
+        Application.DoEvents()
 
         Sql = "SELECT xco.nro_0, sqh.sqhnum_0, sqh.quodat_0, sqh.quoinvnot_0, bpc.bpcnum_0, bpc.bpcnam_0, bpaadd_0, bpa.bpaaddlig_0, rep_0 "
         Sql &= "FROM xcotiza    xco INNER JOIN "
@@ -36,18 +45,35 @@ Public Class frmPresupuestosRecargaPendientes
         dt.Clear()
         da.Fill(dt)
 
-        Dim ctz As New Cotizacion(cn)
+        If Not (chkNuevo.Checked And chkRecarga.Checked) Then
 
-        For Each dr As DataRow In dt.Rows()
-            ctz.Abrir(CLng(dr("nro_0")))
-            If Not ctz.TieneArticulosTipo(1) Then
-                dr.Delete()
-            Else
-                If ctz.TieneIntervencion() Then dr.Delete()
-            End If
-        Next
-        ctz = Nothing
+            Dim ctz As New Cotizacion(cn)
 
+            For Each dr As DataRow In dt.Rows()
+
+                ctz.Abrir(CLng(dr("nro_0")))
+
+                If chkRecarga.Checked Then
+
+                    If Not ctz.TieneArticulosTipo(1) Then
+                        dr.Delete()
+                    Else
+                        If ctz.TieneIntervencion() Then dr.Delete()
+                    End If
+
+                End If
+
+                If chkNuevo.Checked Then
+
+                    ctz.Abrir(CLng(dr("nro_0")))
+                    If Not ctz.TieneArticulosTipo(2) Then dr.Delete()
+
+                End If
+
+            Next
+            ctz = Nothing
+
+        End If
 
         If dgv.DataSource Is Nothing Then
             colNro.DataPropertyName = "nro_0"
@@ -62,6 +88,7 @@ Public Class frmPresupuestosRecargaPendientes
             dgv.DataSource = dt
         End If
 
+        btnConsultar.Enabled = True
     End Sub
 
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmPresupuestosRecargaPendientes
+Partial Class frmPresupuestosPendientes
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
@@ -22,7 +22,7 @@ Partial Class frmPresupuestosRecargaPendientes
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.Label1 = New System.Windows.Forms.Label
         Me.dtpFechaDesde = New System.Windows.Forms.DateTimePicker
         Me.btnConsultar = New System.Windows.Forms.Button
@@ -36,13 +36,15 @@ Partial Class frmPresupuestosRecargaPendientes
         Me.colSucursal = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colDireccion = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colVendedor = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.chkRecarga = New System.Windows.Forms.CheckBox
+        Me.chkNuevo = New System.Windows.Forms.CheckBox
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 9)
+        Me.Label1.Location = New System.Drawing.Point(12, 12)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(74, 13)
         Me.Label1.TabIndex = 0
@@ -51,16 +53,16 @@ Partial Class frmPresupuestosRecargaPendientes
         'dtpFechaDesde
         '
         Me.dtpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaDesde.Location = New System.Drawing.Point(92, 9)
+        Me.dtpFechaDesde.Location = New System.Drawing.Point(93, 7)
         Me.dtpFechaDesde.Name = "dtpFechaDesde"
-        Me.dtpFechaDesde.Size = New System.Drawing.Size(85, 20)
+        Me.dtpFechaDesde.Size = New System.Drawing.Size(83, 20)
         Me.dtpFechaDesde.TabIndex = 1
         '
         'btnConsultar
         '
-        Me.btnConsultar.Location = New System.Drawing.Point(183, 9)
+        Me.btnConsultar.Location = New System.Drawing.Point(333, 7)
         Me.btnConsultar.Name = "btnConsultar"
-        Me.btnConsultar.Size = New System.Drawing.Size(75, 23)
+        Me.btnConsultar.Size = New System.Drawing.Size(83, 23)
         Me.btnConsultar.TabIndex = 2
         Me.btnConsultar.Text = "Consultar"
         Me.btnConsultar.UseVisualStyleBackColor = True
@@ -72,9 +74,9 @@ Partial Class frmPresupuestosRecargaPendientes
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colNro, Me.colPresupuesto, Me.colFecha, Me.colImporte, Me.colCliente, Me.colNombre, Me.colSucursal, Me.colDireccion, Me.colVendedor})
-        Me.dgv.Location = New System.Drawing.Point(1, 38)
+        Me.dgv.Location = New System.Drawing.Point(2, 36)
         Me.dgv.Name = "dgv"
-        Me.dgv.Size = New System.Drawing.Size(762, 367)
+        Me.dgv.Size = New System.Drawing.Size(986, 451)
         Me.dgv.TabIndex = 3
         '
         'colNro
@@ -100,9 +102,9 @@ Partial Class frmPresupuestosRecargaPendientes
         'colImporte
         '
         Me.colImporte.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N2"
-        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N2"
+        Me.colImporte.DefaultCellStyle = DataGridViewCellStyle4
         Me.colImporte.HeaderText = "Importe (AI)"
         Me.colImporte.Name = "colImporte"
         Me.colImporte.Width = 86
@@ -142,17 +144,39 @@ Partial Class frmPresupuestosRecargaPendientes
         Me.colVendedor.Name = "colVendedor"
         Me.colVendedor.Width = 57
         '
-        'frmPresupuestosRecargaPendientes
+        'chkRecarga
+        '
+        Me.chkRecarga.AutoSize = True
+        Me.chkRecarga.Location = New System.Drawing.Point(260, 10)
+        Me.chkRecarga.Name = "chkRecarga"
+        Me.chkRecarga.Size = New System.Drawing.Size(67, 17)
+        Me.chkRecarga.TabIndex = 1
+        Me.chkRecarga.Text = "Recarga"
+        Me.chkRecarga.UseVisualStyleBackColor = True
+        '
+        'chkNuevo
+        '
+        Me.chkNuevo.AutoSize = True
+        Me.chkNuevo.Location = New System.Drawing.Point(196, 10)
+        Me.chkNuevo.Name = "chkNuevo"
+        Me.chkNuevo.Size = New System.Drawing.Size(58, 17)
+        Me.chkNuevo.TabIndex = 0
+        Me.chkNuevo.Text = "Nuevo"
+        Me.chkNuevo.UseVisualStyleBackColor = True
+        '
+        'frmPresupuestosPendientes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(766, 407)
+        Me.ClientSize = New System.Drawing.Size(990, 485)
+        Me.Controls.Add(Me.chkRecarga)
         Me.Controls.Add(Me.dgv)
-        Me.Controls.Add(Me.btnConsultar)
-        Me.Controls.Add(Me.dtpFechaDesde)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "frmPresupuestosRecargaPendientes"
-        Me.Text = "Presupuestos de Recargas Pendientes"
+        Me.Controls.Add(Me.chkNuevo)
+        Me.Controls.Add(Me.dtpFechaDesde)
+        Me.Controls.Add(Me.btnConsultar)
+        Me.Name = "frmPresupuestosPendientes"
+        Me.Text = "Presupuestos de Pendientes"
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -171,4 +195,6 @@ Partial Class frmPresupuestosRecargaPendientes
     Friend WithEvents colSucursal As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDireccion As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colVendedor As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents chkRecarga As System.Windows.Forms.CheckBox
+    Friend WithEvents chkNuevo As System.Windows.Forms.CheckBox
 End Class
