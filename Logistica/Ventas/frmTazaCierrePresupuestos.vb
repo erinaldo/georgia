@@ -18,6 +18,13 @@ Public Class frmTazaCierrePresupuestos
         Application.DoEvents()
         Application.DoEvents()
 
+        PesosTotal = 0
+        PesosAprobados = 0
+        PesosNoAprobados = 0
+        CantTotal = 0
+        CantAprobados = 0
+        CantNoAprobados = 0
+
         If chkNuevos.Checked Then CalculoNuevo()
         If chkRecargas.Checked Then CalculoRecarga()
 
@@ -91,7 +98,6 @@ Public Class frmTazaCierrePresupuestos
             CantTotal += 1
             PesosTotal += CDbl(dr("quoinvnot_0"))
         Next
-
 
         MostrarDatos()
 
