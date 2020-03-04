@@ -585,6 +585,8 @@ Public Class frmFiscal
                         TipoDocumento = "L"
                     Case "96"
                         TipoDocumento = "2"
+                    Case Else
+                        TipoDocumento = "-"
                 End Select
         End Select
 
