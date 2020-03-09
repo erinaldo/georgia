@@ -1452,7 +1452,8 @@ Public Class frmValidar
                 Art = "991063" Or _
                 Art = "991070" Or _
                 Art = "991073" Or _
-                Art = "991075" Then
+                Art = "991075" Or _
+                Art = "991087" Then
                     Continue For
                 End If
 
@@ -1550,6 +1551,8 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 1, "991003")
             Case "991084"
                 CaseArticulos(itn, Cantidad, 1, "991085")
+            Case "991086"
+                CaseArticulos(itn, Cantidad, 6, "991087")
             Case "993010"
                 Dim f As Date = dtpFecha.Value
 
