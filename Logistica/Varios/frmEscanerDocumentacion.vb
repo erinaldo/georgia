@@ -112,7 +112,7 @@ Public Class frmEscanerDocumentacion
             sto.EnviarA("ADM", usr.Codigo, True)
         End If
 
-        ImprimeIram(itn)
+        'ImprimeIram(itn)
 
     End Sub
     Private Sub ProcesarIntervencionArchivo(ByVal itn As Intervencion)
@@ -127,7 +127,7 @@ Public Class frmEscanerDocumentacion
             sto.EnviarA("ACH", usr.Codigo, True)
         End If
 
-        ImprimeIram(itn)
+        'ImprimeIram(itn)
 
     End Sub
     Private Sub ProcesarRemito(ByVal rto As Remito)
@@ -156,43 +156,43 @@ Public Class frmEscanerDocumentacion
         End If
 
     End Sub
-    Private Sub ImprimeIram(ByVal itn As Intervencion)
-        Dim rpt As ReportDocument
-        Dim suc As New Sucursal(cn)
+    'Private Sub ImprimeIram(ByVal itn As Intervencion)
+    '    Dim rpt As ReportDocument
+    '    Dim suc As New Sucursal(cn)
 
-        'Controles antes de imprimir
-        If itn.Cliente.EsAbonado Then Exit Sub
-        If itn.Estado <> 5 Then Exit Sub
-        If itn.Tipo <> "A1" Then Exit Sub
-        'agregado a pedido de Isa 26-09-2018
-        If Not itn.ExisteArticulo("652001") Then Exit Sub
+    '    'Controles antes de imprimir
+    '    If itn.Cliente.EsAbonado Then Exit Sub
+    '    If itn.Estado <> 5 Then Exit Sub
+    '    If itn.Tipo <> "A1" Then Exit Sub
+    '    'agregado a pedido de Isa 26-09-2018
+    '    If Not itn.ExisteArticulo("652001") Then Exit Sub
 
-        'Abro informacion de la sucursal
-        suc.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
+    '    'Abro informacion de la sucursal
+    '    suc.Abrir(itn.Cliente.Codigo, itn.SucursalCodigo)
 
-        Try
-            rpt = New ReportDocument
+    '    Try
+    '        rpt = New ReportDocument
 
-            If suc.CumpleIram = False Then
-                rpt.Load(RPTX3 & "XCTRL.rpt")
-                rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-                rpt.SetParameterValue("BPC", itn.Cliente.Codigo)
-                rpt.SetParameterValue("ADD", itn.SucursalCodigo)
-            Else
-                rpt.Load(RPTX3 & "XCTRLPE2B_2.rpt")
-                rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-                rpt.SetParameterValue("ITN", itn.Numero)
-                rpt.SetParameterValue("OBS", " ")
-            End If
+    '        If suc.CumpleIram = False Then
+    '            rpt.Load(RPTX3 & "XCTRL.rpt")
+    '            rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+    '            rpt.SetParameterValue("BPC", itn.Cliente.Codigo)
+    '            rpt.SetParameterValue("ADD", itn.SucursalCodigo)
+    '        Else
+    '            rpt.Load(RPTX3 & "XCTRLPE2B_2.rpt")
+    '            rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+    '            rpt.SetParameterValue("ITN", itn.Numero)
+    '            rpt.SetParameterValue("OBS", " ")
+    '        End If
 
-            rpt.PrintToPrinter(1, False, 1, 100)
+    '        rpt.PrintToPrinter(1, False, 1, 100)
 
-            rpt.Dispose()
+    '        rpt.Dispose()
 
-        Catch ex As Exception
-        End Try
+    '    Catch ex As Exception
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub btn_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn.Click
         btn.Enabled = False
