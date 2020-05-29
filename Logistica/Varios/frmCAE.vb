@@ -602,6 +602,12 @@ Public Class frmCAE
                                 CbteAsoc(0).CbteFch = f.Fecha.ToString("yyyyMMdd")
                                 .CbtesAsoc = CbteAsoc
 
+                                ReDim Opcionales(0)
+                                Opcionales(0) = New Opcional
+                                Opcionales(0).Id = "22"
+                                Opcionales(0).Valor = "N"
+                                .Opcionales = Opcionales
+
                             Case 203, 209 'Notas de Crédito
                                 ReDim Opcionales(0)
                                 Opcionales(0) = New Opcional
@@ -624,10 +630,9 @@ Public Class frmCAE
 
                     End With
 
-                    If CantidadMaximaRegistros = 1 Then Exit For
+                    If i + 1 = CantidadMaximaRegistros Then Exit For
 
                 Next
-
 
                 'Cabecera
                 Dim FEreq As New FECAERequest
@@ -665,7 +670,9 @@ Public Class frmCAE
                     Exit While
 
                 Else
-                    ProcesarRespuestaAfip(res, Soc)
+                    If ProcesarRespuestaAfip(res, Soc) Then
+                        Exit While
+                    End If
 
                 End If
 
@@ -746,7 +753,11 @@ Public Class frmCAE
 
                     'Cancelo por encontrar error
                     If .Resultado = "R" Then
-                        MessageBox.Show(.Observaciones(0).Msg, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                        txt = .Observaciones(0).Code.ToString
+                        txt &= " "
+                        txt &= .Observaciones(0).Msg
+
+                        MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                         Cancel = True
 
                     Else
@@ -1006,7 +1017,6 @@ Public Class frmCAE
             .SetParameterValue("facturedeb", Desde)
             .SetParameterValue("facturefin", Hasta)
             .SetParameterValue("CERO", False)
-
             .SetParameterValue("ENVIAR", FiltrarRequiereFacturaFisica)
         End With
 
