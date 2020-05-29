@@ -47,6 +47,9 @@ Public Class frmLogin
                 USR.CerrarSesion()
 
             Else
+                'Guardo en el registro el usuario actual
+                Registro.setDato("login", txtUser.Text.Trim)
+
                 Me.DialogResult = Windows.Forms.DialogResult.OK
                 Me.Close()
 
@@ -64,11 +67,10 @@ Public Class frmLogin
             txtUser.Text = "mmino"
             txtPass.Text = "hola"
         Else
-            txtUser.Text = Environment.UserName.ToLower
-            txtPass.Select()
+            'Obtengo el ultimo usuario logeado
+            txtUser.Text = Registro.getDato("login")
         End If
 
     End Sub
-
     
 End Class
