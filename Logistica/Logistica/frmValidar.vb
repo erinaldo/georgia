@@ -1389,6 +1389,7 @@ Public Class frmValidar
         Dim itm As New Articulo(cn)
 
         For Each dr In dtRutad.Rows
+
             'Salto si no puedo abrir la intervencion
             If Not itn.Abrir(dr("vcrnum_0").ToString) Then Continue For
             'Salgo si la intervencion no está conforme
@@ -1553,6 +1554,8 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 1, "991085")
             Case "991086"
                 CaseArticulos(itn, Cantidad, 6, "991087")
+            Case "991088"
+                CaseArticulos(itn, Cantidad, 3, "991089")
             Case "993010"
                 Dim f As Date = dtpFecha.Value
 
@@ -1652,11 +1655,12 @@ Public Class frmValidar
         End Select
 
     End Sub
-    Private Sub CaseArticulos(ByVal itn As Intervencion, ByVal cantidad As Integer, ByVal qty As Integer, ByVal articulo As String)
+    Private Sub CaseArticulos(ByVal itn As Intervencion, ByVal cantidad As Integer, ByVal qty As Integer, ByVal Articulo As String)
         Dim f As Date = dtpFecha.Value
         Dim mac As New Parque(cn)
+
         'Elimino todos los controles 415 para agendar los nuevos
-        Parque.EliminarPorCodigo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, "993011")
+        Parque.EliminarPorCodigo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, Articulo)
 
         For i As Integer = 1 To qty
             mac.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
