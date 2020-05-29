@@ -101,7 +101,7 @@ Public Class frmRecepcion
 
     End Sub
     Private Sub frmRecepcion_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
-        GuardarResumen()
+        'GuardarResumen()
     End Sub
     Private Sub TratarVidaUtil()
         Dim f As New frmVidaUtil(mac)
@@ -188,12 +188,16 @@ Public Class frmRecepcion
             da.Update(dt)
 
             'Imprimir etiqueta de codigo de barras
-            If DB_USR = "GEOPROD" Then
-                If Not mac.Rechazado Then mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
-            Else
-                If Not mac.Rechazado AndAlso MessageBox.Show("¿Imprimir etiqueta?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-                    mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
+            If Not itn.Reclamo Then
+
+                If DB_USR = "GEOPROD" Then
+                    If Not mac.Rechazado Then mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
+                Else
+                    If Not mac.Rechazado AndAlso MessageBox.Show("¿Imprimir etiqueta?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+                        mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
+                    End If
                 End If
+
             End If
 
         Catch ex As Exception
@@ -265,7 +269,11 @@ Public Class frmRecepcion
         End If
 
         'Procesa el equipo
-        If Not mac.Rechazado Then mac.ProcesarExtintor()
+        If Not mac.Rechazado Then
+            If Not itn.Reclamo Then
+                mac.ProcesarExtintor()
+            End If
+        End If
 
         '2019.01.23 - FIN VIDA UTIL EDENOR
         'Al cliente EDENOR no se les rechaza los equipos durante su ultimo año de vida util
@@ -455,11 +463,11 @@ Public Class frmRecepcion
             'dgv.Enabled = False
             dgv.ReadOnly = True
 
-        ElseIf itn.Reclamo Then
-            MessageBox.Show("Esta intervención está marcada como reclamo.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            txtBuscar.Enabled = False
-            'dgv.Enabled = False
-            dgv.ReadOnly = True
+            'ElseIf itn.Reclamo Then
+            '    MessageBox.Show("Esta intervención está marcada como reclamo.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            '    txtBuscar.Enabled = False
+            '    'dgv.Enabled = False
+            '    dgv.ReadOnly = True
 
         ElseIf itn.Tipo = "H1" Then
             MessageBox.Show("Intervencion tipo " & itn.Tipo & ". No se puede recepcionar.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -518,6 +526,16 @@ Public Class frmRecepcion
 
         dgv.DataSource = dv
 
+        'Pongo la fecha en que la intervencion fue abierta por primera vez en service
+        Dim xsg As New Segto2(cn)
+        xsg.Nuevo(itn.Numero)
+
+        If xsg.FechaIngresoService = #12/31/1599# Then
+            xsg.FechaIngresoService = Date.Today
+            xsg.Grabar()
+        End If
+        xsg = Nothing
+
     End Sub
     Private Sub dgv_RowPostPaint(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewRowPostPaintEventArgs) Handles dgv.RowPostPaint
         On Error Resume Next
@@ -575,7 +593,7 @@ Public Class frmRecepcion
         MessageBox.Show("¡ATENCION!" & vbCrLf & vbCrLf & "A este equipo le corresponde cambio de polvo", "Aviso de cambio de Polvo", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
     Private Sub Cerrar()
-        GuardarResumen()
+        'GuardarResumen()
 
         txtCodigo.Clear()
         txtDireccion.Clear()
@@ -590,68 +608,68 @@ Public Class frmRecepcion
         mnuCilindro.Enabled = False
 
     End Sub
-    Private Sub GuardarResumen()
-        'Salgo si no hay intervencion abierta
-        If txtItn.Text = "" Then Exit Sub
+    'Private Sub GuardarResumen()
+    '    'Salgo si no hay intervencion abierta
+    '    If txtItn.Text = "" Then Exit Sub
 
-        'Guarda en la tabla XSEGTO2 la cantidad de equipos y mangas
-        'que entraron a fabrica con la intervención
-        Dim xsg As New Segto2(cn)
-        Dim Cant(1) As Integer
-        Dim Rech(1) As Integer
-        Dim dr As DataRow
-        Dim i As Integer = 0
+    '    'Guarda en la tabla XSEGTO2 la cantidad de equipos y mangas
+    '    'que entraron a fabrica con la intervención
+    '    Dim xsg As New Segto2(cn)
+    '    Dim Cant(1) As Integer
+    '    Dim Rech(1) As Integer
+    '    Dim dr As DataRow
+    '    Dim i As Integer = 0
 
-        'Inicio variable a cero
-        For i = 0 To 1
-            Cant(i) = 0
-            Rech(i) = 0
-        Next
+    '    'Inicio variable a cero
+    '    For i = 0 To 1
+    '        Cant(i) = 0
+    '        Rech(i) = 0
+    '    Next
 
-        'Hago recuento de extintores y mangas
-        For i = 0 To dv.Count - 1
-            dr = dv.Item(i).Row
+    '    'Hago recuento de extintores y mangas
+    '    For i = 0 To dv.Count - 1
+    '        dr = dv.Item(i).Row
 
-            If dr("macdes_0").ToString.StartsWith("EXT") Then
-                If CInt(dr("macitntyp_0")) = 1 Then
-                    Cant(0) += 1
+    '        If dr("macdes_0").ToString.StartsWith("EXT") Then
+    '            If CInt(dr("macitntyp_0")) = 1 Then
+    '                Cant(0) += 1
 
-                ElseIf CInt(dr("macitntyp_0")) = 5 Then
-                    Rech(0) += 1
+    '            ElseIf CInt(dr("macitntyp_0")) = 5 Then
+    '                Rech(0) += 1
 
-                End If
+    '            End If
 
-            ElseIf dr("macdes_0").ToString.StartsWith("MANG") Then
-                If CInt(dr("macitntyp_0")) = 1 Then
-                    Cant(1) += 1
+    '        ElseIf dr("macdes_0").ToString.StartsWith("MANG") Then
+    '            If CInt(dr("macitntyp_0")) = 1 Then
+    '                Cant(1) += 1
 
-                ElseIf CInt(dr("macitntyp_0")) = 5 Then
-                    Rech(1) += 1
+    '            ElseIf CInt(dr("macitntyp_0")) = 5 Then
+    '                Rech(1) += 1
 
-                End If
+    '            End If
 
-            End If
+    '        End If
 
-        Next
+    '    Next
 
-        If xsg.Abrir(txtItn.Text) Then 'Intento abrir la intervencion
+    '    If xsg.Abrir(txtItn.Text) Then 'Intento abrir la intervencion
 
-            If xsg.FechaIngresoService = #12/31/1599# Then xsg.FechaIngresoService = Date.Today
+    '        If xsg.FechaIngresoService = #12/31/1599# Then xsg.FechaIngresoService = Date.Today
 
-        Else
-            xsg.Nuevo(txtItn.Text)
-            xsg.FechaIngresoPlanta = Date.Today
-            xsg.FechaIngresoService = Date.Today
-            xsg.Equipos = Cant(0) + Cant(1)
-        End If
+    '    Else
+    '        xsg.Nuevo(txtItn.Text)
+    '        xsg.FechaIngresoPlanta = Date.Today
+    '        xsg.FechaIngresoService = Date.Today
+    '        xsg.Equipos = Cant(0) + Cant(1)
+    '    End If
 
-        xsg.EquiposLeidos = Cant(0)
-        xsg.EquiposRechazados = Rech(0)
-        xsg.MangasLeidas = Cant(1)
-        xsg.MangasRechazadas = Rech(1)
-        xsg.Grabar()
+    '    xsg.EquiposLeidos = Cant(0)
+    '    xsg.EquiposRechazados = Rech(0)
+    '    xsg.MangasLeidas = Cant(1)
+    '    xsg.MangasRechazadas = Rech(1)
+    '    xsg.Grabar()
 
-    End Sub
+    'End Sub
 
     'MENU
     Private Sub mnuAbrir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuAbrir.Click
