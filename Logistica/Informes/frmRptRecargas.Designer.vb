@@ -25,17 +25,12 @@ Partial Class frmRptRecargas
         Me.components = New System.ComponentModel.Container
         Dim Label2 As System.Windows.Forms.Label
         Dim Label5 As System.Windows.Forms.Label
-        Dim Label6 As System.Windows.Forms.Label
-        Dim Label7 As System.Windows.Forms.Label
-        Dim Label8 As System.Windows.Forms.Label
-        Dim Label9 As System.Windows.Forms.Label
         Dim Label12 As System.Windows.Forms.Label
         Dim Label13 As System.Windows.Forms.Label
         Dim Label14 As System.Windows.Forms.Label
         Dim Label15 As System.Windows.Forms.Label
         Dim Label16 As System.Windows.Forms.Label
         Dim Label17 As System.Windows.Forms.Label
-        Dim Label19 As System.Windows.Forms.Label
         Dim Label31 As System.Windows.Forms.Label
         Dim Label28 As System.Windows.Forms.Label
         Dim Label29 As System.Windows.Forms.Label
@@ -51,13 +46,8 @@ Partial Class frmRptRecargas
         Dim Label32 As System.Windows.Forms.Label
         Dim Label1 As System.Windows.Forms.Label
         Dim Label4 As System.Windows.Forms.Label
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
@@ -88,18 +78,6 @@ Partial Class frmRptRecargas
         Me.colTab4Sectores = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colTab4Intervenciones = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.txtTot3 = New System.Windows.Forms.TextBox
-        Me.txtTot5 = New System.Windows.Forms.TextBox
-        Me.txtTot4 = New System.Windows.Forms.TextBox
-        Me.txtTot2 = New System.Windows.Forms.TextBox
-        Me.txtTot1 = New System.Windows.Forms.TextBox
-        Me.dgvSeguimiento = New System.Windows.Forms.DataGridView
-        Me.col5Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col5Retirados = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col5Ingresados = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col5Prefacturacion = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col5Logistica = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col5Entregados = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.btnConsultar = New System.Windows.Forms.Button
         Me.dtpHasta = New System.Windows.Forms.DateTimePicker
         Me.dtpDesde = New System.Windows.Forms.DateTimePicker
@@ -158,19 +136,15 @@ Partial Class frmRptRecargas
         Me.txt2 = New System.Windows.Forms.TextBox
         Me.txt1b = New System.Windows.Forms.TextBox
         Me.btnSalir = New System.Windows.Forms.Button
+        Me.crv = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Label2 = New System.Windows.Forms.Label
         Label5 = New System.Windows.Forms.Label
-        Label6 = New System.Windows.Forms.Label
-        Label7 = New System.Windows.Forms.Label
-        Label8 = New System.Windows.Forms.Label
-        Label9 = New System.Windows.Forms.Label
         Label12 = New System.Windows.Forms.Label
         Label13 = New System.Windows.Forms.Label
         Label14 = New System.Windows.Forms.Label
         Label15 = New System.Windows.Forms.Label
         Label16 = New System.Windows.Forms.Label
         Label17 = New System.Windows.Forms.Label
-        Label19 = New System.Windows.Forms.Label
         Label31 = New System.Windows.Forms.Label
         Label28 = New System.Windows.Forms.Label
         Label29 = New System.Windows.Forms.Label
@@ -194,7 +168,6 @@ Partial Class frmRptRecargas
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvSectores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
-        CType(Me.dgvSeguimiento, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage3.SuspendLayout()
         CType(Me.dgvHistorial, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvBusqueda, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -220,46 +193,6 @@ Partial Class frmRptRecargas
         Label5.Size = New System.Drawing.Size(38, 13)
         Label5.TabIndex = 3
         Label5.Text = "Hasta:"
-        '
-        'Label6
-        '
-        Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Label6.AutoSize = True
-        Label6.Location = New System.Drawing.Point(10, 346)
-        Label6.Name = "Label6"
-        Label6.Size = New System.Drawing.Size(79, 13)
-        Label6.TabIndex = 9
-        Label6.Text = "Total Retirados"
-        '
-        'Label7
-        '
-        Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Label7.AutoSize = True
-        Label7.Location = New System.Drawing.Point(105, 346)
-        Label7.Name = "Label7"
-        Label7.Size = New System.Drawing.Size(86, 13)
-        Label7.TabIndex = 11
-        Label7.Text = "Total Ingresados"
-        '
-        'Label8
-        '
-        Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Label8.AutoSize = True
-        Label8.Location = New System.Drawing.Point(341, 346)
-        Label8.Name = "Label8"
-        Label8.Size = New System.Drawing.Size(76, 13)
-        Label8.TabIndex = 13
-        Label8.Text = "Total Logistica"
-        '
-        'Label9
-        '
-        Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Label9.AutoSize = True
-        Label9.Location = New System.Drawing.Point(469, 346)
-        Label9.Name = "Label9"
-        Label9.Size = New System.Drawing.Size(91, 13)
-        Label9.TabIndex = 15
-        Label9.Text = "Total: Entregados"
         '
         'Label12
         '
@@ -314,16 +247,6 @@ Partial Class frmRptRecargas
         Label17.Size = New System.Drawing.Size(92, 13)
         Label17.TabIndex = 17
         Label17.Text = "Fecha Entregado:"
-        '
-        'Label19
-        '
-        Label19.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Label19.AutoSize = True
-        Label19.Location = New System.Drawing.Point(218, 346)
-        Label19.Name = "Label19"
-        Label19.Size = New System.Drawing.Size(103, 13)
-        Label19.TabIndex = 16
-        Label19.Text = "Total Prefacturación"
         '
         'Label31
         '
@@ -737,9 +660,9 @@ Partial Class frmRptRecargas
         'colTab4Intervenciones
         '
         Me.colTab4Intervenciones.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N0"
-        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "N0"
+        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle3
         Me.colTab4Intervenciones.HeaderText = "Intervenciones"
         Me.colTab4Intervenciones.Name = "colTab4Intervenciones"
         Me.colTab4Intervenciones.ReadOnly = True
@@ -747,17 +670,7 @@ Partial Class frmRptRecargas
         '
         'TabPage2
         '
-        Me.TabPage2.Controls.Add(Me.txtTot3)
-        Me.TabPage2.Controls.Add(Label19)
-        Me.TabPage2.Controls.Add(Label9)
-        Me.TabPage2.Controls.Add(Me.txtTot5)
-        Me.TabPage2.Controls.Add(Label8)
-        Me.TabPage2.Controls.Add(Me.txtTot4)
-        Me.TabPage2.Controls.Add(Label7)
-        Me.TabPage2.Controls.Add(Me.txtTot2)
-        Me.TabPage2.Controls.Add(Label6)
-        Me.TabPage2.Controls.Add(Me.txtTot1)
-        Me.TabPage2.Controls.Add(Me.dgvSeguimiento)
+        Me.TabPage2.Controls.Add(Me.crv)
         Me.TabPage2.Controls.Add(Me.btnConsultar)
         Me.TabPage2.Controls.Add(Label5)
         Me.TabPage2.Controls.Add(Label2)
@@ -771,138 +684,9 @@ Partial Class frmRptRecargas
         Me.TabPage2.Text = "Seguimiento"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'txtTot3
-        '
-        Me.txtTot3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTot3.Location = New System.Drawing.Point(221, 362)
-        Me.txtTot3.Name = "txtTot3"
-        Me.txtTot3.ReadOnly = True
-        Me.txtTot3.Size = New System.Drawing.Size(90, 20)
-        Me.txtTot3.TabIndex = 17
-        Me.txtTot3.Text = "0"
-        Me.txtTot3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtTot5
-        '
-        Me.txtTot5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTot5.Location = New System.Drawing.Point(472, 362)
-        Me.txtTot5.Name = "txtTot5"
-        Me.txtTot5.ReadOnly = True
-        Me.txtTot5.Size = New System.Drawing.Size(91, 20)
-        Me.txtTot5.TabIndex = 14
-        Me.txtTot5.Text = "0"
-        Me.txtTot5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtTot4
-        '
-        Me.txtTot4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTot4.Location = New System.Drawing.Point(344, 362)
-        Me.txtTot4.Name = "txtTot4"
-        Me.txtTot4.ReadOnly = True
-        Me.txtTot4.Size = New System.Drawing.Size(100, 20)
-        Me.txtTot4.TabIndex = 12
-        Me.txtTot4.Text = "0"
-        Me.txtTot4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtTot2
-        '
-        Me.txtTot2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTot2.Location = New System.Drawing.Point(108, 362)
-        Me.txtTot2.Name = "txtTot2"
-        Me.txtTot2.ReadOnly = True
-        Me.txtTot2.Size = New System.Drawing.Size(86, 20)
-        Me.txtTot2.TabIndex = 10
-        Me.txtTot2.Text = "0"
-        Me.txtTot2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtTot1
-        '
-        Me.txtTot1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTot1.Location = New System.Drawing.Point(13, 362)
-        Me.txtTot1.Name = "txtTot1"
-        Me.txtTot1.ReadOnly = True
-        Me.txtTot1.Size = New System.Drawing.Size(74, 20)
-        Me.txtTot1.TabIndex = 8
-        Me.txtTot1.Text = "0"
-        Me.txtTot1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'dgvSeguimiento
-        '
-        Me.dgvSeguimiento.AllowUserToAddRows = False
-        Me.dgvSeguimiento.AllowUserToDeleteRows = False
-        Me.dgvSeguimiento.AllowUserToResizeRows = False
-        Me.dgvSeguimiento.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvSeguimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSeguimiento.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col5Fecha, Me.col5Retirados, Me.col5Ingresados, Me.col5Prefacturacion, Me.col5Logistica, Me.col5Entregados})
-        Me.dgvSeguimiento.Location = New System.Drawing.Point(3, 40)
-        Me.dgvSeguimiento.Name = "dgvSeguimiento"
-        Me.dgvSeguimiento.ReadOnly = True
-        Me.dgvSeguimiento.Size = New System.Drawing.Size(852, 303)
-        Me.dgvSeguimiento.TabIndex = 5
-        '
-        'col5Fecha
-        '
-        Me.col5Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        Me.col5Fecha.HeaderText = "Fecha"
-        Me.col5Fecha.Name = "col5Fecha"
-        Me.col5Fecha.ReadOnly = True
-        Me.col5Fecha.Width = 62
-        '
-        'col5Retirados
-        '
-        Me.col5Retirados.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col5Retirados.DefaultCellStyle = DataGridViewCellStyle2
-        Me.col5Retirados.HeaderText = "Retirados"
-        Me.col5Retirados.Name = "col5Retirados"
-        Me.col5Retirados.ReadOnly = True
-        Me.col5Retirados.Width = 77
-        '
-        'col5Ingresados
-        '
-        Me.col5Ingresados.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col5Ingresados.DefaultCellStyle = DataGridViewCellStyle3
-        Me.col5Ingresados.HeaderText = "Ingresados"
-        Me.col5Ingresados.Name = "col5Ingresados"
-        Me.col5Ingresados.ReadOnly = True
-        Me.col5Ingresados.Width = 84
-        '
-        'col5Prefacturacion
-        '
-        Me.col5Prefacturacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col5Prefacturacion.DefaultCellStyle = DataGridViewCellStyle4
-        Me.col5Prefacturacion.HeaderText = "Prefacturación"
-        Me.col5Prefacturacion.Name = "col5Prefacturacion"
-        Me.col5Prefacturacion.ReadOnly = True
-        Me.col5Prefacturacion.Width = 101
-        '
-        'col5Logistica
-        '
-        Me.col5Logistica.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col5Logistica.DefaultCellStyle = DataGridViewCellStyle5
-        Me.col5Logistica.HeaderText = "Logistica"
-        Me.col5Logistica.Name = "col5Logistica"
-        Me.col5Logistica.ReadOnly = True
-        Me.col5Logistica.Width = 74
-        '
-        'col5Entregados
-        '
-        Me.col5Entregados.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col5Entregados.DefaultCellStyle = DataGridViewCellStyle6
-        Me.col5Entregados.HeaderText = "Entregados"
-        Me.col5Entregados.Name = "col5Entregados"
-        Me.col5Entregados.ReadOnly = True
-        Me.col5Entregados.Width = 86
-        '
         'btnConsultar
         '
-        Me.btnConsultar.Location = New System.Drawing.Point(314, 11)
+        Me.btnConsultar.Location = New System.Drawing.Point(303, 11)
         Me.btnConsultar.Name = "btnConsultar"
         Me.btnConsultar.Size = New System.Drawing.Size(75, 23)
         Me.btnConsultar.TabIndex = 4
@@ -1286,9 +1070,9 @@ Partial Class frmRptRecargas
         'col7Cantidad
         '
         Me.col7Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle7.Format = "N0"
-        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "N0"
+        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle4
         Me.col7Cantidad.HeaderText = "Cantidad"
         Me.col7Cantidad.Name = "col7Cantidad"
         Me.col7Cantidad.ReadOnly = True
@@ -1482,6 +1266,24 @@ Partial Class frmRptRecargas
         Me.btnSalir.Text = "&Salir"
         Me.btnSalir.UseVisualStyleBackColor = True
         '
+        'crv
+        '
+        Me.crv.ActiveViewIndex = -1
+        Me.crv.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.crv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.crv.DisplayGroupTree = False
+        Me.crv.Location = New System.Drawing.Point(11, 38)
+        Me.crv.Name = "crv"
+        Me.crv.SelectionFormula = ""
+        Me.crv.ShowCloseButton = False
+        Me.crv.ShowGroupTreeButton = False
+        Me.crv.ShowRefreshButton = False
+        Me.crv.Size = New System.Drawing.Size(1037, 474)
+        Me.crv.TabIndex = 7
+        Me.crv.ViewTimeSelectionFormula = ""
+        '
         'frmRptRecargas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1502,7 +1304,6 @@ Partial Class frmRptRecargas
         CType(Me.dgvSectores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
-        CType(Me.dgvSeguimiento, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.dgvHistorial, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1520,11 +1321,6 @@ Partial Class frmRptRecargas
     Friend WithEvents dtpHasta As System.Windows.Forms.DateTimePicker
     Friend WithEvents dtpDesde As System.Windows.Forms.DateTimePicker
     Friend WithEvents btnConsultar As System.Windows.Forms.Button
-    Friend WithEvents dgvSeguimiento As System.Windows.Forms.DataGridView
-    Friend WithEvents txtTot5 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTot4 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTot2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTot1 As System.Windows.Forms.TextBox
     Friend WithEvents TabPage3 As System.Windows.Forms.TabPage
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtBuscarItn As System.Windows.Forms.TextBox
@@ -1545,7 +1341,6 @@ Partial Class frmRptRecargas
     Friend WithEvents txt6Ingreso As System.Windows.Forms.TextBox
     Friend WithEvents txt6Retiro As System.Windows.Forms.TextBox
     Friend WithEvents txt6Creacion As System.Windows.Forms.TextBox
-    Friend WithEvents txtTot3 As System.Windows.Forms.TextBox
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
     Friend WithEvents dgvSectores As System.Windows.Forms.DataGridView
     Friend WithEvents colTab4Sectores As System.Windows.Forms.DataGridViewComboBoxColumn
@@ -1574,12 +1369,6 @@ Partial Class frmRptRecargas
     Friend WithEvents colTab4Abonado As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colTab4Sector As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colTab4Ruta As System.Windows.Forms.DataGridViewComboBoxColumn
-    Friend WithEvents col5Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col5Retirados As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col5Ingresados As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col5Prefacturacion As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col5Logistica As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col5Entregados As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
     Friend WithEvents txt6 As System.Windows.Forms.TextBox
     Friend WithEvents txt5c As System.Windows.Forms.TextBox
@@ -1614,4 +1403,5 @@ Partial Class frmRptRecargas
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuPallet As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents crv As CrystalDecisions.Windows.Forms.CrystalReportViewer
 End Class

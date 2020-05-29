@@ -4,7 +4,6 @@ Imports CrystalDecisions.CrystalReports.Engine
 Public Class frmRptRecargas '948 - 880
 
     Private Sub frmRptRecargas_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        AddHandler dgvSeguimiento.RowPostPaint, AddressOf NumeracionGrillas
         AddHandler dgvHistorial.RowPostPaint, AddressOf NumeracionGrillas
         AddHandler dgv.RowPostPaint, AddressOf NumeracionGrillas
         AddHandler dgv5.RowPostPaint, AddressOf NumeracionGrillas
@@ -25,87 +24,70 @@ Public Class frmRptRecargas '948 - 880
 
         ElseIf Tab Is TabPage2 Then
 
-            Dim dt As DataTable
-            Dim Sql As String = "SELECT dat_0 AS fecha, equipos_0 AS retirado, equipos_0 AS ingresados, equipos_0 AS prefacturacion, equipos_0 AS logistica, equipos_0 AS entregados FROM xsegto2 WHERE 1 = 2"
-            Dim da As OracleDataAdapter
-
-            Me.UseWaitCursor = True
-            Application.DoEvents()
-
-            If dgvSeguimiento.DataSource Is Nothing Then
-                dt = New DataTable
-                da = New OracleDataAdapter(Sql, cn)
-                da.Fill(dt)
-
-                'Enlazo las columnas
-                col5Fecha.DataPropertyName = "fecha"
-                col5Retirados.DataPropertyName = "retirado"
-                col5Ingresados.DataPropertyName = "ingresados"
-                col5Prefacturacion.DataPropertyName = "prefacturacion"
-                col5Logistica.DataPropertyName = "logistica"
-                col5Entregados.DataPropertyName = "entregados"
-
-                dgvSeguimiento.DataSource = dt
-            End If
-
-            dt = Nothing
-            da = Nothing
-
-            Me.UseWaitCursor = False
+            dtpDesde.Value = New Date(Today.Year, Today.Month, 1)
+            dtpHasta.Value = Today
 
         End If
 
     End Sub
     Private Sub btnConsultar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnConsultar.Click
-        Dim dt As DataTable
-        Dim dr As DataRow
+        Dim tmp As Temporal
+        Dim rr As New ReporteRecargas(cn)
+        Dim rpt As New ReportDocument
         Dim Fecha As Date
-        Dim Tot1 As Integer = 0
-        Dim Tot2 As Integer = 0
-        Dim Tot3 As Integer = 0
-        Dim Tot4 As Integer = 0
-        Dim tot5 As Integer = 0
 
         Me.UseWaitCursor = True
         btnConsultar.Enabled = False
         Application.DoEvents()
 
-        'Obtengo la tabla asociada a la grilla
-        dt = CType(dgvSeguimiento.DataSource, DataTable)
-
-        dt.Clear() 'Limpio los resultados anteriores
+        tmp = New Temporal(cn, usr.Codigo, "SRV")
+        tmp.Abrir()
+        tmp.LimpiarTabla()
 
         'Armo la grilla con los nuevos resultados
         Fecha = dtpDesde.Value
         Do
-            'If EsDiaHabil(Fecha) Then
-            dr = dt.NewRow
-            dr("fecha") = Fecha.Date
-            dr("retirado") = ObtenerRetirados(Fecha.Date)
-            dr("ingresados") = ObtenerIngresados(Fecha.Date)
-            dr("prefacturacion") = ObtenerPrefacturacion(Fecha.Date)
-            dr("logistica") = ObtenerLogistica(Fecha.Date)
-            dr("entregados") = ObtenerEntregados(Fecha.Date)
-            dt.Rows.Add(dr)
-            'End If
+
+            If EsDiaHabil(Fecha) Then
+                tmp.Nuevo()
+                tmp.Fecha(0) = Fecha.Date
+
+                rr.BuscarRetirados(Fecha.Date)
+                tmp.Numero(0) = rr.Extintores
+                tmp.Numero(1) = rr.Mangueras
+
+                rr.BuscarRecepcionados(Fecha.Date)
+                tmp.Numero(2) = rr.Extintores
+                tmp.Numero(3) = rr.ExtintoresRechazados
+                tmp.Numero(4) = rr.ExtintoresSustitutos
+
+                tmp.Numero(5) = rr.Mangueras
+                tmp.Numero(6) = rr.ManguerasRechazadas
+                tmp.Numero(7) = rr.ManguerasSustitutas
+
+                rr.BuscarAPrefacturacion(Fecha.Date)
+                tmp.Numero(8) = rr.TotalExtintores
+                tmp.Numero(9) = rr.TotalMangueras
+
+                rr.BuscarALogistica(Fecha.Date)
+                tmp.Numero(10) = rr.TotalExtintores
+                tmp.Numero(11) = rr.TotalMangueras
+
+                rr.BuscarEntregados(Fecha.Date)
+                tmp.Numero(12) = rr.TotalExtintores
+                tmp.Numero(13) = rr.TotalMangueras
+
+            End If
 
             Fecha = Fecha.AddDays(1)
         Loop Until Fecha > dtpHasta.Value Or Fecha > Date.Today
 
-        'Calculo de totales
-        For Each dr In dt.Rows
-            Tot1 += CInt(dr("retirado"))
-            Tot2 += CInt(dr("ingresados"))
-            Tot3 += CInt(dr("prefacturacion"))
-            Tot4 += CInt(dr("logistica"))
-            tot5 += CInt(dr("entregados"))
-        Next
+        tmp.Grabar()
 
-        txtTot1.Text = Tot1.ToString("N0")
-        txtTot2.Text = Tot2.ToString("N0")
-        txtTot3.Text = Tot3.ToString("N0")
-        txtTot4.Text = Tot4.ToString("N0")
-        txtTot5.Text = tot5.ToString("N0")
+        rpt.Load(RPTX3 & "xrptsrv.rpt")
+        rpt.SetParameterValue("USR", usr.Codigo)
+        rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+        crv.ReportSource = rpt
 
         btnConsultar.Enabled = True
         Me.UseWaitCursor = False
@@ -246,10 +228,18 @@ Public Class frmRptRecargas '948 - 880
 
     End Sub
     Private Function ObtenerRetirados(ByVal Fecha As Date) As Integer
+        Dim Sql As String
         Dim dt As New DataTable
-        Dim da As New OracleDataAdapter("SELECT SUM(equipos_0) FROM xsegto2 WHERE dat_0 = :dat", cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
+        Dim da As OracleDataAdapter
 
+        Sql = "SELECT SUM(equipos_0) "
+        Sql &= "FROM xsegto2 xsg inner join "
+        Sql &= "     interven itn on (xsg.itn_0 = itn.num_0) "
+        Sql &= "WHERE xsg.dat_0 = :dat and "
+        Sql &= "      itn.bpc_0 <> '402000'"
+
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
         da.Fill(dt)
         da.Dispose()
 
@@ -262,70 +252,6 @@ Public Class frmRptRecargas '948 - 880
         End If
 
     End Function
-    Private Function ObtenerIngresados(ByVal Fecha As Date) As Integer
-        Dim dt As New DataTable
-        Dim da As New OracleDataAdapter("SELECT * FROM sremac WHERE creusr_0 = 'RECEP' AND credat_0 = :dat", cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
-
-        da.Fill(dt)
-        da.Dispose()
-
-        Return dt.Rows.Count
-
-    End Function
-    Private Function ObtenerPrefacturacion(ByVal Fecha As Date) As Integer
-        Dim dt As New DataTable
-        Dim da As New OracleDataAdapter("SELECT SUM(cant_0+cant_1+rech_0+rech_1) FROM xsegto2 WHERE dat_2 = :dat", cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
-
-        da.Fill(dt)
-        da.Dispose()
-
-        If IsDBNull(dt.Rows(0).Item(0)) Then
-            Return 0
-
-        Else
-            Return CInt(dt.Rows(0).Item(0))
-
-        End If
-
-    End Function
-    Private Function ObtenerLogistica(ByVal Fecha As Date) As Integer
-        Dim dt As New DataTable
-        Dim da As New OracleDataAdapter("SELECT SUM(cant_0+cant_1+rech_0+rech_1) FROM xsegto2 WHERE dat_3 = :dat", cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
-
-        da.Fill(dt)
-        da.Dispose()
-
-        If IsDBNull(dt.Rows(0).Item(0)) Then
-            Return 0
-
-        Else
-            Return CInt(dt.Rows(0).Item(0))
-
-        End If
-
-    End Function
-    Private Function ObtenerEntregados(ByVal Fecha As Date) As Integer
-        Dim dt As New DataTable
-        Dim da As New OracleDataAdapter("SELECT SUM(cant_0+cant_1+rech_0+rech_1) FROM xsegto2 WHERE dat_4 = :dat", cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
-
-        da.Fill(dt)
-        da.Dispose()
-
-        If IsDBNull(dt.Rows(0).Item(0)) Then
-            Return 0
-
-        Else
-            Return CInt(dt.Rows(0).Item(0))
-
-        End If
-
-    End Function
-
-    'TAB DE BUSQUEDA - PROGRAMACION
     Private Sub txtBuscarItn_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtBuscarItn.KeyUp
         If e.KeyCode = Keys.Enter Then
             Dim Sql As String
