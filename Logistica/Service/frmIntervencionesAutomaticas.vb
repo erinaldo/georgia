@@ -207,16 +207,16 @@ Public Class frmIntervencionesAutomaticas
                 ' CREACION DE INTERVENCION PARA 639
                 '---------------------------------------------------------------------
 
-                If bpc.Familia2 = "11" And (bpa.TipoSistema = 1 Or bpa.TipoSistema = 2) Then
-                    Dim mac2 As Parque
+                'If bpc.Familia2 = "11" And (bpa.TipoSistema = 1 Or bpa.TipoSistema = 2) Then
+                '    Dim mac2 As Parque
 
-                    'Busco Parque de 639
-                    mac2 = BuscarParque639(Desde, Hasta, mac.ClienteNumero, mac.SucursalNumero)
-                    'Creo intervencion para 639
-                    If mac2 IsNot Nothing Then
-                        CrearIntervencion(mac2, "A1")
-                    End If
-                End If
+                '    'Busco Parque de 639
+                '    mac2 = BuscarParque639(Desde, Hasta, mac.ClienteNumero, mac.SucursalNumero)
+                '    'Creo intervencion para 639
+                '    If mac2 IsNot Nothing Then
+                '        CrearIntervencion(mac2, "A1")
+                '    End If
+                'End If
 
             End If
         Next
@@ -266,13 +266,13 @@ Public Class frmIntervencionesAutomaticas
                 bpc = mac.Cliente
 
                 'Se genera intervencion si no es consorcio o 639 vencio hace 2 meses
-                If bpc.Familia2 = "11" And (bpa.TipoSistema = 1 Or bpa.TipoSistema = 2) Then
-                    CrearIntervencion(mac, "A1")
+                'If bpc.Familia2 = "11" And (bpa.TipoSistema = 1 Or bpa.TipoSistema = 2) Then
+                '    CrearIntervencion(mac, "A1")
 
-                Else
-                    CrearIntervencion(mac, "F1")
+                'Else
+                CrearIntervencion(mac, "F1")
 
-                End If
+                'End If
 
             End If
         Next
@@ -492,7 +492,7 @@ Public Class frmIntervencionesAutomaticas
         Sql &= "	 bomd bod ON (mac.macpdtcod_0 = bod.itmref_0 AND yit.cpnitmref_0 = bod.cpnitmref_0 AND bomalt_0 = 99 AND bomseq_0 = 10) INNER JOIN "
         Sql &= "	 bpcustomer bpc ON (mac.bpcnum_0 = bpc.bpcnum_0) INNER JOIN "
         Sql &= "	 bpdlvcust bpd ON (mac.bpcnum_0 = bpd.bpcnum_0 and mac.fcyitn_0 = bpd.bpaadd_0) "
-        Sql &= "WHERE yit.cpnitmref_0 IN ('551021','551034','551035','551036','551037','551075') and "
+        Sql &= "WHERE yit.cpnitmref_0 IN ('551021','551034','551035','551036','551037','551075', '551086', '551087') and "
         Sql &= "	  xitn_0 = ' ' and "
         Sql &= "	  datnext_0 >= :desde AND datnext_0 < :hasta and "
         Sql &= "	  bpcsta_0 = 2 and "             'Cliente activo
