@@ -76,6 +76,8 @@ Partial Class frmMain
         Me.mnuTranferencia = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCilindrosDuplicados = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIngreso = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuIngresosPlanta = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem29 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuRecepcion = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRegistroManguera = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem12 = New System.Windows.Forms.ToolStripSeparator
@@ -94,6 +96,7 @@ Partial Class frmMain
         Me.mnuPrecios = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem28 = New System.Windows.Forms.ToolStripSeparator
         Me.frmPresupuestosRecargasPendientes = New System.Windows.Forms.ToolStripMenuItem
+        Me.frmTazaCierre = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuPresupuestos639 = New System.Windows.Forms.ToolStripMenuItem
         Me.frmContratos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuEstadoClientes = New System.Windows.Forms.ToolStripMenuItem
@@ -225,7 +228,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.frmTazaCierre = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -576,24 +578,36 @@ Partial Class frmMain
         '
         'mnuIngreso
         '
-        Me.mnuIngreso.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRecepcion, Me.mnuRegistroManguera})
+        Me.mnuIngreso.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuIngresosPlanta, Me.ToolStripMenuItem29, Me.mnuRecepcion, Me.mnuRegistroManguera})
         Me.mnuIngreso.Name = "mnuIngreso"
         Me.mnuIngreso.Size = New System.Drawing.Size(274, 22)
         Me.mnuIngreso.Text = "Recepción de equipos"
+        '
+        'mnuIngresosPlanta
+        '
+        Me.mnuIngresosPlanta.Name = "mnuIngresosPlanta"
+        Me.mnuIngresosPlanta.Size = New System.Drawing.Size(235, 22)
+        Me.mnuIngresosPlanta.Tag = "frmIngresoPlanta"
+        Me.mnuIngresosPlanta.Text = "Ingresos a planta..."
+        '
+        'ToolStripMenuItem29
+        '
+        Me.ToolStripMenuItem29.Name = "ToolStripMenuItem29"
+        Me.ToolStripMenuItem29.Size = New System.Drawing.Size(232, 6)
         '
         'mnuRecepcion
         '
         Me.mnuRecepcion.Name = "mnuRecepcion"
         Me.mnuRecepcion.ShortcutKeys = CType(((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Alt) _
                     Or System.Windows.Forms.Keys.I), System.Windows.Forms.Keys)
-        Me.mnuRecepcion.Size = New System.Drawing.Size(234, 22)
+        Me.mnuRecepcion.Size = New System.Drawing.Size(235, 22)
         Me.mnuRecepcion.Tag = "frmRecepcion"
-        Me.mnuRecepcion.Text = "Ingreso de equipos"
+        Me.mnuRecepcion.Text = "Ingresos a service..."
         '
         'mnuRegistroManguera
         '
         Me.mnuRegistroManguera.Name = "mnuRegistroManguera"
-        Me.mnuRegistroManguera.Size = New System.Drawing.Size(234, 22)
+        Me.mnuRegistroManguera.Size = New System.Drawing.Size(235, 22)
         Me.mnuRegistroManguera.Tag = "frmRecepcion"
         Me.mnuRegistroManguera.Text = "Registro de mangueras..."
         '
@@ -698,6 +712,13 @@ Partial Class frmMain
         Me.frmPresupuestosRecargasPendientes.Size = New System.Drawing.Size(214, 22)
         Me.frmPresupuestosRecargasPendientes.Tag = "frmPresupuestoRecPend"
         Me.frmPresupuestosRecargasPendientes.Text = "Presupuestos Pendientes..."
+        '
+        'frmTazaCierre
+        '
+        Me.frmTazaCierre.Name = "frmTazaCierre"
+        Me.frmTazaCierre.Size = New System.Drawing.Size(214, 22)
+        Me.frmTazaCierre.Tag = "frmTazaCierre"
+        Me.frmTazaCierre.Text = "Taza de Cierre..."
         '
         'mnuPresupuestos639
         '
@@ -1549,13 +1570,6 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'frmTazaCierre
-        '
-        Me.frmTazaCierre.Name = "frmTazaCierre"
-        Me.frmTazaCierre.Size = New System.Drawing.Size(214, 22)
-        Me.frmTazaCierre.Tag = "frmTazaCierre"
-        Me.frmTazaCierre.Text = "Taza de Cierre..."
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1782,6 +1796,8 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem28 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents frmPresupuestosRecargasPendientes As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents frmTazaCierre As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIngresosPlanta As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem29 As System.Windows.Forms.ToolStripSeparator
 
 
 End Class

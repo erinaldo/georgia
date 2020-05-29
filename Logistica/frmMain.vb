@@ -352,6 +352,12 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+    Private Sub mnuIngresosPlanta_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuIngresosPlanta.Click
+        With frmRetiros
+            .MdiParent = Me
+            .Show()
+        End With
+    End Sub
 #End Region
 #Region "Menu: Contabilidad"
     Private Sub mnuBuscadorCheques_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuBuscadorCheques.Click
@@ -1198,4 +1204,5 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
 End Class
