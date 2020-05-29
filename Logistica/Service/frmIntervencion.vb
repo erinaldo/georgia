@@ -1793,6 +1793,8 @@ Public Class frmIntervencion
                     Articulo = "551067" Or _
                     Articulo = "551066" Or _
                     Articulo = "551077" Or _
+                       Articulo = "551086" Or _
+                       Articulo = "551087" Or _
                     Articulo = "551032" Then
                         flg = True
                     End If
@@ -1817,6 +1819,8 @@ Public Class frmIntervencion
                        Articulo = "551066" Or _
                        Articulo = "551021" Or _
                        Articulo = "551077" Or _
+                       Articulo = "551086" Or _
+                       Articulo = "551087" Or _
                        Articulo = "551032" Then
                         flg = True
                     End If
