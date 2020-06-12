@@ -1387,104 +1387,106 @@ Public Class frmValidar
         Dim i As Integer
         Dim Art As String
         Dim itm As New Articulo(cn)
-
+        
         For Each dr In dtRutad.Rows
+            Try
+                'Salto si no puedo abrir la intervencion
+                If Not itn.Abrir(dr("vcrnum_0").ToString) Then Continue For
+                'Salgo si la intervencion no está conforme
+                If CInt(dr("estado_0")) <> 3 Then Continue For
 
-            'Salto si no puedo abrir la intervencion
-            If Not itn.Abrir(dr("vcrnum_0").ToString) Then Continue For
-            'Salgo si la intervencion no está conforme
-            If CInt(dr("estado_0")) <> 3 Then Continue For
+                If dr("tipo_0").ToString = "RET" Then
 
-            If dr("tipo_0").ToString = "RET" Then
+                    If Not itn.ExisteRetira("553010") Then Continue For
 
-                If Not itn.ExisteRetira("553010") Then Continue For
+                ElseIf dr("tipo_0").ToString <> "CTL" Then
 
-            ElseIf dr("tipo_0").ToString <> "CTL" Then
-
-                Continue For
-
-            End If
-
-            'Recorrer todos los servicios de la intervencion
-            For i = 0 To itn.Detalle.Count - 1
-                'Convierto codigo de servico a codigo de parque (ej 652001 a 992001)
-                Art = itn.Detalle(i).Item(2).ToString
-                Art = "99" & Strings.Right(Art, 4)
-
-                'Carga automatica de consumos de control periodicos para clientes NO abonados
-                If (Art = "992001" Or Art = "992002") AndAlso itn.Tipo = "A1" AndAlso itn.Cliente.EsAbonado = False Then
-                    Dim cantidad As Integer = (CInt(dr("equipos_1")))
-                    Dim articulos As String = itn.Detalle(i).Item(2).ToString
-                    Dim tar As New Tarifa(cn)
-                    Dim Precio As Double
-
-                    'Agrego consumo de Control Periódico
-                    itm.Abrir(articulos)
-                    itn.AgregarConsumo(itm, cantidad, itn.FechaFin, CDbl(itn.Detalle(i).Item(10)))
-                    'Agergo consumo de 705035 ESTAMPILLA CONTROL PERIODICO
-                    itm.Abrir("705035")
-                    Precio = tar.ObtenerPrecio(itn.Cliente, "705035")
-                    itn.AgregarConsumo(itm, cantidad, itn.FechaFin, Precio)
-
-                    itn.Efectuado = True
-                    itn.SolicitudSatisfecha = True
-
-                    Try
-                        itn.Grabar()
-
-                    Catch ex As Exception
-                    End Try
-
-                End If
-
-                'Listado de codigos que no deben ser reagendados.
-                If Art = "993011" Or _
-                Art = "993001" Or _
-                Art = "991003" Or _
-                Art = "991016" Or _
-                Art = "991021" Or _
-                Art = "991034" Or _
-                Art = "991035" Or _
-                Art = "991036" Or _
-                Art = "991037" Or _
-                Art = "991056" Or _
-                Art = "991058" Or _
-                Art = "991060" Or _
-                Art = "991063" Or _
-                Art = "991070" Or _
-                Art = "991073" Or _
-                Art = "991075" Or _
-                Art = "991087" Then
                     Continue For
-                End If
-
-                'Salto si no existe estructura comercial para el articulo
-                If Not Parque.ExisteExtructuraComercial(cn, Art) Then Continue For
-
-                'Elimino vencimientos segun el grupo
-                Parque.LimpiarParqueGrupo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, Art)
-
-                'Reagendo el vencimiento
-                ReagendarControl(itn, Art, CInt(dr("equipos_1")) + CInt(dr("equipos_3")))
-
-                'Si el cliente no tiene parque de recargas, se crea un vencimiento futuro
-                If (Art = "992002" Or Art = "992001") AndAlso itn.Cliente.TieneParque(itn.SucursalCodigo) = False Then
-                    Dim mac As New Parque(cn)
-                    Dim cantidad As Integer = (CInt(dr("equipos_1")))
-                    mac.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
-                    mac.ArticuloCodigo = "999003"
-                    mac.Cantidad = cantidad
-                    mac.Procesar(dtpFecha.Value)
-                    mac.Observaciones = "Vencimiento a futuro creado automaticamente por validacion de ruta"
-                    Try
-                        mac.Grabar()
-                    Catch ex As Exception
-                    End Try
 
                 End If
 
-            Next
+                'Recorrer todos los servicios de la intervencion
+                For i = 0 To itn.Detalle.Count - 1
+                    'Convierto codigo de servico a codigo de parque (ej 652001 a 992001)
+                    Art = itn.Detalle(i).Item(2).ToString
+                    Art = "99" & Strings.Right(Art, 4)
 
+                    'Carga automatica de consumos de control periodicos para clientes NO abonados
+                    If (Art = "992001" Or Art = "992002") AndAlso itn.Tipo = "A1" AndAlso itn.Cliente.EsAbonado = False Then
+                        Dim cantidad As Integer = (CInt(dr("equipos_1")))
+                        Dim articulos As String = itn.Detalle(i).Item(2).ToString
+                        Dim tar As New Tarifa(cn)
+                        Dim Precio As Double
+
+                        'Agrego consumo de Control Periódico
+                        itm.Abrir(articulos)
+                        itn.AgregarConsumo(itm, cantidad, itn.FechaFin, CDbl(itn.Detalle(i).Item(10)))
+                        'Agergo consumo de 705035 ESTAMPILLA CONTROL PERIODICO
+                        itm.Abrir("705035")
+                        Precio = tar.ObtenerPrecio(itn.Cliente, "705035")
+                        itn.AgregarConsumo(itm, cantidad, itn.FechaFin, Precio)
+
+                        itn.Efectuado = True
+                        itn.SolicitudSatisfecha = True
+
+                        Try
+                            itn.Grabar()
+
+                        Catch ex As Exception
+                        End Try
+
+                    End If
+
+                    'Listado de codigos que no deben ser reagendados.
+                    If Art = "993011" Or _
+                    Art = "993001" Or _
+                    Art = "991003" Or _
+                    Art = "991016" Or _
+                    Art = "991021" Or _
+                    Art = "991034" Or _
+                    Art = "991035" Or _
+                    Art = "991036" Or _
+                    Art = "991037" Or _
+                    Art = "991056" Or _
+                    Art = "991058" Or _
+                    Art = "991060" Or _
+                    Art = "991063" Or _
+                    Art = "991070" Or _
+                    Art = "991073" Or _
+                    Art = "991075" Or _
+                    Art = "991087" Then
+                        Continue For
+                    End If
+
+                    'Salto si no existe estructura comercial para el articulo
+                    If Not Parque.ExisteExtructuraComercial(cn, Art) Then Continue For
+
+                    'Elimino vencimientos segun el grupo
+                    Parque.LimpiarParqueGrupo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, Art)
+
+                    'Reagendo el vencimiento
+                    ReagendarControl(itn, Art, CInt(dr("equipos_1")) + CInt(dr("equipos_3")))
+
+                    'Si el cliente no tiene parque de recargas, se crea un vencimiento futuro
+                    If (Art = "992002" Or Art = "992001") AndAlso itn.Cliente.TieneParque(itn.SucursalCodigo) = False Then
+                        Dim mac As New Parque(cn)
+                        Dim cantidad As Integer = (CInt(dr("equipos_1")))
+                        mac.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
+                        mac.ArticuloCodigo = "999003"
+                        mac.Cantidad = cantidad
+                        mac.Procesar(dtpFecha.Value)
+                        mac.Observaciones = "Vencimiento a futuro creado automaticamente por validacion de ruta"
+                        Try
+                            mac.Grabar()
+                        Catch ex As Exception
+                        End Try
+
+                    End If
+
+                Next
+
+            Catch ex As Exception
+            End Try
         Next
 
     End Sub
