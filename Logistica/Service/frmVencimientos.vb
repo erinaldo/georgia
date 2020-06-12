@@ -418,13 +418,6 @@ Public Class frmVencimientos '2034
                 Next
 
             Case "E1"
-                'For Each dr In dtVencimientos.Rows
-                '    If dr("cpnitmref_0").ToString.StartsWith("55") Then
-
-                '    Else
-                '        dr.Delete()
-                '    End If
-                'Next
 
                 For Each dr In dtVencimientos.Rows
                     If dr("cpnitmref_0").ToString = "551015" OrElse _
@@ -444,6 +437,7 @@ Public Class frmVencimientos '2034
                     dr("cpnitmref_0").ToString = "551072" OrElse _
                     dr("cpnitmref_0").ToString = "551073" OrElse _
                     dr("cpnitmref_0").ToString = "551074" OrElse _
+                    dr("cpnitmref_0").ToString = "551075" OrElse _
                     dr("cpnitmref_0").ToString = "551070" OrElse _
                     dr("cpnitmref_0").ToString = "551071" OrElse _
                     dr("cpnitmref_0").ToString = "551078" OrElse _
@@ -461,24 +455,25 @@ Public Class frmVencimientos '2034
                 'Agrego a la tabla todos los artículos que son de ctrl periodicos
 
                 For Each dr In dtVencimientos.Rows
-                    If dr("cpnitmref_0").ToString = "551000" OrElse _
-                        dr("cpnitmref_0").ToString = "551022" OrElse _
-                        dr("cpnitmref_0").ToString = "551035" OrElse _
-                        dr("cpnitmref_0").ToString = "551032" OrElse _
-                        dr("cpnitmref_0").ToString = "551002" OrElse _
-                        dr("cpnitmref_0").ToString = "551037" OrElse _
+                    If dr("cpnitmref_0").ToString = "501019" OrElse _
+                        dr("cpnitmref_0").ToString = "551000" OrElse _
                         dr("cpnitmref_0").ToString = "551001" OrElse _
+                        dr("cpnitmref_0").ToString = "551002" OrElse _
+                        dr("cpnitmref_0").ToString = "551021" OrElse _
+                        dr("cpnitmref_0").ToString = "551022" OrElse _
+                        dr("cpnitmref_0").ToString = "551032" OrElse _
+                        dr("cpnitmref_0").ToString = "551034" OrElse _
+                        dr("cpnitmref_0").ToString = "551035" OrElse _
                         dr("cpnitmref_0").ToString = "551036" OrElse _
-                        dr("cpnitmref_0").ToString = "501019" OrElse _
-                        dr("cpnitmref_0").ToString = "551075" OrElse _
+                        dr("cpnitmref_0").ToString = "551037" OrElse _
                         dr("cpnitmref_0").ToString = "551059" OrElse _
                         dr("cpnitmref_0").ToString = "551061" OrElse _
-                        dr("cpnitmref_0").ToString = "551076" OrElse _
                         dr("cpnitmref_0").ToString = "551065" OrElse _
-                        dr("cpnitmref_0").ToString = "551034" OrElse _
-                        dr("cpnitmref_0").ToString = "551067" OrElse _
                         dr("cpnitmref_0").ToString = "551066" OrElse _
-                        dr("cpnitmref_0").ToString = "551021" OrElse _
+                        dr("cpnitmref_0").ToString = "551067" OrElse _
+                        dr("cpnitmref_0").ToString = "551075" OrElse _
+                        dr("cpnitmref_0").ToString = "551076" OrElse _
+                        dr("cpnitmref_0").ToString = "551087" OrElse _
                         dr("cpnitmref_0").ToString = "659012" Then
 
                     Else
