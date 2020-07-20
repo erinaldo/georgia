@@ -190,7 +190,7 @@ Public Class frmInspecciones
             For Each p As Sigex.Puesto In p1
 
                 'El sector no figura en Adonix porque es nuevo
-                If p.Adonix = "" Then
+                If p.Adonix = 0 Then
                     p2.Nuevo(s2.Id, p.Nro, p.Ubicacion, p.TipoId)
                 Else
                     If Not p2.Abrir(CInt(p.Adonix)) Then
@@ -217,8 +217,8 @@ Public Class frmInspecciones
                 p2.Ubicacion = p.Ubicacion
                 p2.Grabar()
 
-                If p.Adonix = "" Then
-                    p.Adonix = p2.id.ToString
+                If p.Adonix = 0 Then
+                    p.Adonix = p2.id '.ToString
                     p.Grabar()
                 End If
 
@@ -233,6 +233,8 @@ Public Class frmInspecciones
         Dim Suc As New Sigex.Sucursal
         Dim bpc As New Clases.Cliente(cn)
         Dim bpa As Clases.Sucursal
+        'Variable que indica si se encontro un parque sin fecha vto
+        Dim HaySinVto As Boolean = False
 
         cli.Abrir(ClienteId)
         Suc.Abrir(SucursalId)
@@ -254,8 +256,19 @@ Public Class frmInspecciones
                 mac.Nuevo(bpc.Codigo, bpa.Sucursal)
                 mac.ArticuloCodigo = itm.ArticuloParaParque(Agente, Capacidad)
                 mac.Cilindro = e.Cilindro
-                mac.VtoCarga = e.VencimientoCarga
-                mac.VtoPH = e.VencimientoPH
+                If IsDBNull(e.VencimientoCarga) Then
+                    mac.VtoCarga = #12/31/1599#
+                    HaySinVto = True
+                Else
+                    mac.VtoCarga = e.VencimientoCarga
+                End If
+                If IsDBNull(e.VencimientoPH) Then
+                    HaySinVto = True
+                    mac.VtoPH = #12/31/1599#
+                Else
+                    mac.VtoPH = e.VencimientoPH
+                End If
+
                 mac.FabricacionLargo = e.Fabricacion
                 mac.Observaciones = "Creado desde App Sigex"
                 mac.Grabar()
@@ -264,6 +277,31 @@ Public Class frmInspecciones
                 e.Grabar()
             End If
         Next
+
+        'Si se encontró fecha vto null, le pongo la fecha que
+        'tiene la mayoria del parque
+        If HaySinVto Then
+            'Busco vencimientos generales en el parque
+            Dim FechaVto As Date
+            Dim FechaPh As Date
+            Dim Parques As New ParqueCollection(cn)
+
+            Parques.AbrirParqueCliente(bpc.Codigo, bpa.Sucursal)
+
+            FechaVto = Parques.VtoGeneral
+            FechaPh = Parques.VtoPhGeneral
+
+            For Each p As Parque In Parques
+                If p.VtoCarga = #12/31/1599# Then
+                    p.VtoCarga = FechaVto
+                    p.Grabar()
+                End If
+                If p.VtoPH = #12/31/1599# Then
+                    p.VtoCarga = FechaPh
+                    p.Grabar()
+                End If
+            Next
+        End If
 
     End Sub
     Private Sub ProcesarInspeccion(ByVal i As Sigex.Inspeccion)
@@ -289,7 +327,7 @@ Public Class frmInspecciones
         Else 'Puesto extintor o hidrante
             pa = New Puesto2(cn)
             Dim x As Integer = i.Puesto.Id
-            If Not pa.Abrir(CInt(i.Puesto.Adonix)) Then
+            If Not pa.Abrir(i.Puesto.Adonix) Then
                 Exit Sub
             End If
 
