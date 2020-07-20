@@ -249,6 +249,8 @@ Public Class frmSectoresPuestos
 
         'Verifico que el sector no se esté usando en algun puesto
         For Each dr2 As DataRow In dtPuestos.Rows
+            If dr2.RowState = DataRowState.Deleted Then Continue For
+
             If CLng(dr2("idsector_0")) = CLng(dr("id_0")) Then
                 Usado = True
                 Exit For
