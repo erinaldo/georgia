@@ -264,23 +264,34 @@ Public Class frmItnAbo
             If dtVtos.Rows.Count > 0 Then
                 drVtos = dtVtos.Rows(0)
                 AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
-            ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
+            Else
+                'ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
+
                 'Alerta(con, ss, bpa.Sucursal, "No se encontro parque " & Cod)
                 AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
             End If
         End If
         'Incluyo visita mensual hidrantes
         Cod = "652010"
-        If con.ArticuloCubierto(Cod) AndAlso Not ExisteIntervencionA1(con.Cliente, bpa.Sucursal, Cod) Then
-            'AgregarRetiro(Cod, con.CoberturaPorArticulo("505"))
-            dtVtos = Vencimientos(con, bpa.Sucursal, dIni, dFin, Cod)
+        If con.ArticuloCubierto(Cod) Then
+            If Not ExisteIntervencionA1(con.Cliente, bpa.Sucursal, Cod) Then
 
-            If dtVtos.Rows.Count > 0 Then
-                drVtos = dtVtos.Rows(0)
-                AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
-            ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
-                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
+                'AgregarRetiro(Cod, con.CoberturaPorArticulo("505"))
+                dtVtos = Vencimientos(con, bpa.Sucursal, dIni, dFin, Cod)
+
+                If dtVtos.Rows.Count > 0 Then
+                    drVtos = dtVtos.Rows(0)
+                    AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
+                Else
+                    'ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
+                    AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
+                End If
+
+            Else
+                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero existe intervencion A1 pendiente para este codigo. Cliente: " & con.Cliente & "-" & bpa.Sucursal)
+
             End If
+
         End If
         'Incluyo Control Periódico 652002
         Cod = "652002"
@@ -296,6 +307,10 @@ Public Class frmItnAbo
                 ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
                     AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
                 End If
+
+            Else
+                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero existe intervencion A1 pendiente para este codigo. Cliente: " & con.Cliente & "-" & bpa.Sucursal)
+
             End If
         End If
         'Se incluye únicamente por si alguien cargo el codigo por error. 
@@ -312,21 +327,29 @@ Public Class frmItnAbo
                 ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
                     AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
                 End If
+
+            Else
+                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero existe intervencion A1 pendiente para este codigo. Cliente: " & con.Cliente & "-" & bpa.Sucursal)
+
             End If
         End If
 
         'Incluyo Control Lavaojos
         Cod = "659021"
-        If con.ArticuloCubierto(Cod) AndAlso Not ExisteIntervencionA1(con.Cliente, bpa.Sucursal, Cod) Then
-            dtVtos = Vencimientos(con, bpa.Sucursal, dIni, dFin, Cod)
+        If con.ArticuloCubierto(Cod) Then
+            If Not ExisteIntervencionA1(con.Cliente, bpa.Sucursal, Cod) Then
 
-            If dtVtos.Rows.Count > 0 Then
-                drVtos = dtVtos.Rows(0)
-                AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
+                dtVtos = Vencimientos(con, bpa.Sucursal, dIni, dFin, Cod)
+
+                If dtVtos.Rows.Count > 0 Then
+                    drVtos = dtVtos.Rows(0)
+                    AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
+                Else
+                    AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
+                End If
             Else
-                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
+                AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero existe intervencion A1 pendiente para este codigo. Cliente: " & con.Cliente & "-" & bpa.Sucursal)
             End If
-
         End If
 
         'Se eliminan los articulos que exceden cobertura
@@ -439,7 +462,8 @@ Public Class frmItnAbo
         Dim sql As String = ""
 
         sql = "select distinct con.connum_0, constrdat_0, conenddat_0 "
-        sql &= "from contserv con inner join contcob cob on (con.connum_0 = cob.connum_0) "
+        sql &= "from contserv con inner join "
+        sql &= "     contcob cob on (con.connum_0 = cob.connum_0) "
         sql &= "where rsiflg_0 <> 2 and "
         sql &= "	  fddflg_0 <> 2 and "
         sql &= "	  xsuspend_0 <> 2 and "
@@ -515,7 +539,11 @@ Public Class frmItnAbo
         Dim dt As New DataTable
 
         Sql = "SELECT itm.itmref_0, SUM(mac.macqty_0) AS CANT "
-        Sql &= "FROM (((machines mac INNER JOIN ymacitm ymc ON (mac.macnum_0 = ymc.macnum_0)) INNER JOIN bomd bmd ON (macpdtcod_0 = itmref_0 AND ymc.cpnitmref_0 = bmd.cpnitmref_0)) INNER JOIN bpcustomer bpc ON (mac.bpcnum_0 = bpc.bpcnum_0)) INNER JOIN itmmaster itm ON (ymc.cpnitmref_0 = itm.itmref_0) "
+        Sql &= "FROM machines mac INNER JOIN  "
+        Sql &= "     ymacitm ymc ON (mac.macnum_0 = ymc.macnum_0) INNER JOIN "
+        Sql &= "     bomd bmd ON (macpdtcod_0 = itmref_0 AND ymc.cpnitmref_0 = bmd.cpnitmref_0) INNER JOIN "
+        Sql &= "     bpcustomer bpc ON (mac.bpcnum_0 = bpc.bpcnum_0) INNER JOIN "
+        Sql &= "     itmmaster itm ON (ymc.cpnitmref_0 = itm.itmref_0)"
         Sql &= "WHERE bomalt_0 = 99 AND "
         Sql &= "	  bomseq_0 = 10 AND "
         Sql &= "	  macitntyp_0 = 1 AND "
@@ -617,11 +645,12 @@ Public Class frmItnAbo
         Dim da As OracleDataAdapter
 
         sql = "select itn.* "
-        sql &= "from interven itn inner join yitndet yit on (itn.num_0 = yit.num_0) "
-        sql &= "where dat_0 >= :desde and dat_0 < :hasta and "
-        sql &= "	 itmref_0 = :cod and "
-        sql &= "	 itn.bpc_0 = :bpc and "
-        sql &= "	 itn.bpaadd_0 = :suc"
+        sql &= "from interven itn inner join  "
+        sql &= "     yitndet yit on (itn.num_0 = yit.num_0) "
+        sql &= "where (itn.dat_0 >= :desde and itn.dat_0 < :hasta) and "
+        sql &= "	  yit.itmref_0 = :cod and "
+        sql &= "	  itn.bpc_0 = :bpc and "
+        sql &= "	  itn.bpaadd_0 = :suc "
 
         da = New OracleDataAdapter(sql, cn)
         With da.SelectCommand.Parameters
@@ -632,8 +661,10 @@ Public Class frmItnAbo
             .Add("suc", OracleType.VarChar).Value = suc
         End With
 
+        dt.Clear()
         da.Fill(dt)
         flg = dt.Rows.Count > 0
+
         da.Dispose()
         dt.Dispose()
 
