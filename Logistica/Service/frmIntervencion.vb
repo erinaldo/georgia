@@ -1746,6 +1746,7 @@ Public Class frmIntervencion
               Articulo = "551072" Or _
               Articulo = "551074" Or _
               Articulo = "551071" Or _
+              Articulo = "551014" Or _
               Articulo = "659012" Then
                         flg = True
                     End If
@@ -1771,6 +1772,7 @@ Public Class frmIntervencion
               Articulo = "551078" Or _
               Articulo = "551079" Or _
               Articulo = "551080" Or _
+              Articulo = "551014" Or _
               Articulo = "659012" Then
                         flg = True
                     End If
@@ -1780,6 +1782,8 @@ Public Class frmIntervencion
             Case "E2"
                 If usr.Codigo.Length = 2 Then
                     If Articulo = "551000" Or _
+                    Articulo = "551012" Or _
+                    Articulo = "551013" Or _
                     Articulo = "551022" Or _
                     Articulo = "659012" Or _
                     Articulo = "551002" Or _
@@ -1793,13 +1797,15 @@ Public Class frmIntervencion
                     Articulo = "551067" Or _
                     Articulo = "551066" Or _
                     Articulo = "551077" Or _
-                       Articulo = "551086" Or _
-                       Articulo = "551087" Or _
+                    Articulo = "551086" Or _
+                    Articulo = "551087" Or _
                     Articulo = "551032" Then
                         flg = True
                     End If
                 Else
                     If Articulo = "551000" Or _
+                       Articulo = "551012" Or _
+                       Articulo = "551013" Or _
                        Articulo = "551022" Or _
                        Articulo = "659012" Or _
                        Articulo = "551002" Or _

@@ -421,6 +421,7 @@ Public Class frmVencimientos '2034
 
                 For Each dr In dtVencimientos.Rows
                     If dr("cpnitmref_0").ToString = "551015" OrElse _
+                    dr("cpnitmref_0").ToString = "551014" OrElse _
                     dr("cpnitmref_0").ToString = "551068" OrElse _
                     dr("cpnitmref_0").ToString = "551003" OrElse _
                     dr("cpnitmref_0").ToString = "551004" OrElse _
@@ -459,6 +460,8 @@ Public Class frmVencimientos '2034
                         dr("cpnitmref_0").ToString = "551000" OrElse _
                         dr("cpnitmref_0").ToString = "551001" OrElse _
                         dr("cpnitmref_0").ToString = "551002" OrElse _
+                        dr("cpnitmref_0").ToString = "551012" OrElse _
+                        dr("cpnitmref_0").ToString = "551013" OrElse _
                         dr("cpnitmref_0").ToString = "551021" OrElse _
                         dr("cpnitmref_0").ToString = "551022" OrElse _
                         dr("cpnitmref_0").ToString = "551032" OrElse _
