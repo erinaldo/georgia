@@ -15,8 +15,6 @@ Public Class frmRptRecargas '948 - 880
         dtpDesde.MinDate = #1/1/2010# : dtpDesde.MaxDate = Date.Today
         dtpHasta.MinDate = #1/1/2010# : dtpHasta.MaxDate = Date.Today
 
-        Panel1.Visible = (usr.Codigo = "MMIN")
-
     End Sub
     Private Sub TabPage_Enter(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim Tab As TabPage = CType(sender, TabPage)
