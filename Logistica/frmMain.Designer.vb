@@ -75,6 +75,7 @@ Partial Class frmMain
         Me.mnuParqueAbono = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuTranferencia = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCilindrosDuplicados = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuTransferenciaIntervenciones = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIngreso = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIngresosPlanta = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem29 = New System.Windows.Forms.ToolStripSeparator
@@ -216,9 +217,6 @@ Partial Class frmMain
         Me.SistemasFijosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ClientesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCliente = New System.Windows.Forms.ToolStripMenuItem
-        Me.RRHHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.IngresarAusenciasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.frmRetenciones = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuVentana = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCascada = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMosaicoH = New System.Windows.Forms.ToolStripMenuItem
@@ -228,14 +226,13 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuTransferenciaIntervenciones = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMenu, Me.mnuLogistica, Me.mnuService, Me.mnuVentas, Me.mnuContabilidad, Me.mnuVarios, Me.InformesToolStripMenuItem, Me.mnuDocumentacion, Me.ConsultasToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.RRHHToolStripMenuItem, Me.mnuVentana})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMenu, Me.mnuLogistica, Me.mnuService, Me.mnuVentas, Me.mnuContabilidad, Me.mnuVarios, Me.InformesToolStripMenuItem, Me.mnuDocumentacion, Me.ConsultasToolStripMenuItem, Me.ClientesToolStripMenuItem, Me.mnuVentana})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.MdiWindowListItem = Me.mnuVentana
         Me.MenuStrip1.Name = "MenuStrip1"
@@ -576,6 +573,13 @@ Partial Class frmMain
         Me.mnuCilindrosDuplicados.Name = "mnuCilindrosDuplicados"
         Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(250, 22)
         Me.mnuCilindrosDuplicados.Text = "Cilindros Duplicados..."
+        '
+        'mnuTransferenciaIntervenciones
+        '
+        Me.mnuTransferenciaIntervenciones.Name = "mnuTransferenciaIntervenciones"
+        Me.mnuTransferenciaIntervenciones.Size = New System.Drawing.Size(250, 22)
+        Me.mnuTransferenciaIntervenciones.Tag = "frmTransferenciaIntervenciones"
+        Me.mnuTransferenciaIntervenciones.Text = "Transferencia de Intervenciones..."
         '
         'mnuIngreso
         '
@@ -1479,30 +1483,9 @@ Partial Class frmMain
         'mnuCliente
         '
         Me.mnuCliente.Name = "mnuCliente"
-        Me.mnuCliente.Size = New System.Drawing.Size(152, 22)
+        Me.mnuCliente.Size = New System.Drawing.Size(111, 22)
         Me.mnuCliente.Tag = "frmCliente"
         Me.mnuCliente.Text = "Cliente"
-        '
-        'RRHHToolStripMenuItem
-        '
-        Me.RRHHToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IngresarAusenciasToolStripMenuItem, Me.frmRetenciones})
-        Me.RRHHToolStripMenuItem.Name = "RRHHToolStripMenuItem"
-        Me.RRHHToolStripMenuItem.Size = New System.Drawing.Size(51, 20)
-        Me.RRHHToolStripMenuItem.Text = "RRHH"
-        '
-        'IngresarAusenciasToolStripMenuItem
-        '
-        Me.IngresarAusenciasToolStripMenuItem.Name = "IngresarAusenciasToolStripMenuItem"
-        Me.IngresarAusenciasToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
-        Me.IngresarAusenciasToolStripMenuItem.Tag = "IngresarAusencias"
-        Me.IngresarAusenciasToolStripMenuItem.Text = "Ingresar ausencias"
-        '
-        'frmRetenciones
-        '
-        Me.frmRetenciones.Name = "frmRetenciones"
-        Me.frmRetenciones.Size = New System.Drawing.Size(170, 22)
-        Me.frmRetenciones.Tag = "frmReten"
-        Me.frmRetenciones.Text = "Retenciones..."
         '
         'mnuVentana
         '
@@ -1570,13 +1553,6 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
-        '
-        'mnuTransferenciaIntervenciones
-        '
-        Me.mnuTransferenciaIntervenciones.Name = "mnuTransferenciaIntervenciones"
-        Me.mnuTransferenciaIntervenciones.Size = New System.Drawing.Size(250, 22)
-        Me.mnuTransferenciaIntervenciones.Tag = "frmTransferenciaIntervenciones"
-        Me.mnuTransferenciaIntervenciones.Text = "Transferencia de Intervenciones..."
         '
         'frmMain
         '
@@ -1722,10 +1698,7 @@ Partial Class frmMain
     Friend WithEvents RemitosSinDespacharToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem17 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ProcesarDocumentacionEscaneadaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents RRHHToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents IngresarAusenciasToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUnificacion As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents frmRetenciones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ReporteDeVentasPorFliaToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents PremioRelevadoresToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem18 As System.Windows.Forms.ToolStripSeparator
