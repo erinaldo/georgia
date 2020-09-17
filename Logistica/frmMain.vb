@@ -879,11 +879,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-    Private Sub IngresarAusenciasToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles IngresarAusenciasToolStripMenuItem.Click
-        Dim f As New IngresoAusencias
-        f.MdiParent = Me
-        f.Show()
-    End Sub
     Private Sub mnuUnificacion_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuUnificacion.Click
         Dim f As New frmUnificarParque
         f.MdiParent = Me
@@ -891,11 +886,6 @@ Public Class frmMain
     End Sub
     Private Sub frmItnAbo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmItnAbo.Click
         Dim f As New frmItnAbo
-        f.MdiParent = Me
-        f.Show()
-    End Sub
-    Private Sub frmRetenciones_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles frmRetenciones.Click
-        Dim f As New frmRetenciones
         f.MdiParent = Me
         f.Show()
     End Sub

@@ -3,7 +3,6 @@ Imports System.Text.RegularExpressions
 
 Module Module1
 
-    Public Const CONEXIONBD As String = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=\\srv\z\programas\ausencias\ausencias.mdb;"
     Public Const DB_USR As String = "GEOPROD"
     Public Const DB_PWD As String = "tiger"
     Public Const DB_SRV As String = "adx"

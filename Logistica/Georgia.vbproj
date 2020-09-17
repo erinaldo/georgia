@@ -396,18 +396,6 @@
     <Compile Include="Presup\frmPresuVentas.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RRHH\frmRetenciones.Designer.vb">
-      <DependentUpon>frmRetenciones.vb</DependentUpon>
-    </Compile>
-    <Compile Include="RRHH\frmRetenciones.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RRHH\IngresoAusencias.Designer.vb">
-      <DependentUpon>IngresoAusencias.vb</DependentUpon>
-    </Compile>
-    <Compile Include="RRHH\IngresoAusencias.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Service\frmABMPuestoExtintor.Designer.vb">
       <DependentUpon>frmABMPuestoExtintor.vb</DependentUpon>
     </Compile>
@@ -1312,12 +1300,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presup\frmPresuVentas.resx">
       <DependentUpon>frmPresuVentas.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RRHH\frmRetenciones.resx">
-      <DependentUpon>frmRetenciones.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RRHH\IngresoAusencias.resx">
-      <DependentUpon>IngresoAusencias.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Service\frmABMPuestoExtintor.resx">
       <DependentUpon>frmABMPuestoExtintor.vb</DependentUpon>
