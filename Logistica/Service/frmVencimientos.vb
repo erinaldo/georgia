@@ -480,6 +480,7 @@ Public Class frmVencimientos '2034
                         dr("cpnitmref_0").ToString = "551075" OrElse _
                         dr("cpnitmref_0").ToString = "551076" OrElse _
                         dr("cpnitmref_0").ToString = "551087" OrElse _
+                        dr("cpnitmref_0").ToString = "551090" OrElse _
                         dr("cpnitmref_0").ToString = "551093" OrElse _
                         dr("cpnitmref_0").ToString = "551094" OrElse _
                         dr("cpnitmref_0").ToString = "659012" Then
