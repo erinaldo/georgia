@@ -46,8 +46,8 @@ Partial Class frmRptRecargas
         Dim Label32 As System.Windows.Forms.Label
         Dim Label1 As System.Windows.Forms.Label
         Dim Label4 As System.Windows.Forms.Label
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
@@ -78,6 +78,7 @@ Partial Class frmRptRecargas
         Me.colTab4Sectores = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colTab4Intervenciones = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.TabPage2 = New System.Windows.Forms.TabPage
+        Me.crv = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Me.btnConsultar = New System.Windows.Forms.Button
         Me.dtpHasta = New System.Windows.Forms.DateTimePicker
         Me.dtpDesde = New System.Windows.Forms.DateTimePicker
@@ -102,6 +103,7 @@ Partial Class frmRptRecargas
         Me.col5Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.Label10 = New System.Windows.Forms.Label
         Me.TabPage5 = New System.Windows.Forms.TabPage
+        Me.Label6 = New System.Windows.Forms.Label
         Me.Button2 = New System.Windows.Forms.Button
         Me.lblTitulo = New System.Windows.Forms.Label
         Me.txt2b = New System.Windows.Forms.TextBox
@@ -136,7 +138,6 @@ Partial Class frmRptRecargas
         Me.txt2 = New System.Windows.Forms.TextBox
         Me.txt1b = New System.Windows.Forms.TextBox
         Me.btnSalir = New System.Windows.Forms.Button
-        Me.crv = New CrystalDecisions.Windows.Forms.CrystalReportViewer
         Label2 = New System.Windows.Forms.Label
         Label5 = New System.Windows.Forms.Label
         Label12 = New System.Windows.Forms.Label
@@ -660,9 +661,9 @@ Partial Class frmRptRecargas
         'colTab4Intervenciones
         '
         Me.colTab4Intervenciones.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N0"
-        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N0"
+        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle1
         Me.colTab4Intervenciones.HeaderText = "Intervenciones"
         Me.colTab4Intervenciones.Name = "colTab4Intervenciones"
         Me.colTab4Intervenciones.ReadOnly = True
@@ -683,6 +684,24 @@ Partial Class frmRptRecargas
         Me.TabPage2.TabIndex = 3
         Me.TabPage2.Text = "Seguimiento"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'crv
+        '
+        Me.crv.ActiveViewIndex = -1
+        Me.crv.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.crv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.crv.DisplayGroupTree = False
+        Me.crv.Location = New System.Drawing.Point(11, 38)
+        Me.crv.Name = "crv"
+        Me.crv.SelectionFormula = ""
+        Me.crv.ShowCloseButton = False
+        Me.crv.ShowGroupTreeButton = False
+        Me.crv.ShowRefreshButton = False
+        Me.crv.Size = New System.Drawing.Size(1037, 474)
+        Me.crv.TabIndex = 7
+        Me.crv.ViewTimeSelectionFormula = ""
         '
         'btnConsultar
         '
@@ -908,6 +927,7 @@ Partial Class frmRptRecargas
         '
         'TabPage5
         '
+        Me.TabPage5.Controls.Add(Me.Label6)
         Me.TabPage5.Controls.Add(Me.Button2)
         Me.TabPage5.Controls.Add(Me.lblTitulo)
         Me.TabPage5.Controls.Add(Me.txt2b)
@@ -948,6 +968,15 @@ Partial Class frmRptRecargas
         Me.TabPage5.TabIndex = 7
         Me.TabPage5.Text = "Totales"
         Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(357, 491)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(262, 13)
+        Me.Label6.TabIndex = 82
+        Me.Label6.Text = "Se excluye el cliente 402000 MATAFUEGOS DONNY"
         '
         'Button2
         '
@@ -1026,7 +1055,7 @@ Partial Class frmRptRecargas
         Me.dgv5.Name = "dgv5"
         Me.dgv5.ReadOnly = True
         Me.dgv5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv5.Size = New System.Drawing.Size(701, 479)
+        Me.dgv5.Size = New System.Drawing.Size(701, 450)
         Me.dgv5.TabIndex = 72
         '
         'col7Fecha
@@ -1070,9 +1099,9 @@ Partial Class frmRptRecargas
         'col7Cantidad
         '
         Me.col7Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N0"
-        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N0"
+        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle2
         Me.col7Cantidad.HeaderText = "Cantidad"
         Me.col7Cantidad.Name = "col7Cantidad"
         Me.col7Cantidad.ReadOnly = True
@@ -1266,24 +1295,6 @@ Partial Class frmRptRecargas
         Me.btnSalir.Text = "&Salir"
         Me.btnSalir.UseVisualStyleBackColor = True
         '
-        'crv
-        '
-        Me.crv.ActiveViewIndex = -1
-        Me.crv.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.crv.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.crv.DisplayGroupTree = False
-        Me.crv.Location = New System.Drawing.Point(11, 38)
-        Me.crv.Name = "crv"
-        Me.crv.SelectionFormula = ""
-        Me.crv.ShowCloseButton = False
-        Me.crv.ShowGroupTreeButton = False
-        Me.crv.ShowRefreshButton = False
-        Me.crv.Size = New System.Drawing.Size(1037, 474)
-        Me.crv.TabIndex = 7
-        Me.crv.ViewTimeSelectionFormula = ""
-        '
         'frmRptRecargas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1404,4 +1415,5 @@ Partial Class frmRptRecargas
     Friend WithEvents mnuPallet As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents crv As CrystalDecisions.Windows.Forms.CrystalReportViewer
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class

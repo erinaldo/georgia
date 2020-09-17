@@ -15,6 +15,8 @@ Public Class frmRptRecargas '948 - 880
         dtpDesde.MinDate = #1/1/2010# : dtpDesde.MaxDate = Date.Today
         dtpHasta.MinDate = #1/1/2010# : dtpHasta.MaxDate = Date.Today
 
+        Panel1.Visible = (usr.Codigo = "MMIN")
+
     End Sub
     Private Sub TabPage_Enter(ByVal sender As Object, ByVal e As System.EventArgs)
         Dim Tab As TabPage = CType(sender, TabPage)
@@ -66,8 +68,8 @@ Public Class frmRptRecargas '948 - 880
                 tmp.Numero(7) = rr.ManguerasSustitutas
 
                 rr.BuscarAPrefacturacion(Fecha.Date)
-                tmp.Numero(8) = rr.TotalExtintores
-                tmp.Numero(9) = rr.TotalMangueras
+                tmp.Numero(8) = rr.Extintores + rr.ExtintoresRechazados
+                tmp.Numero(9) = rr.Mangueras + rr.ManguerasRechazadas
 
                 rr.BuscarALogistica(Fecha.Date)
                 tmp.Numero(10) = rr.TotalExtintores
@@ -628,11 +630,11 @@ Public Class frmRptRecargas '948 - 880
         txt3.Text = Calculo2("CTD").ToString
         i += CInt(txt3.Text)
         Application.DoEvents()
-        txt4a.Text = Calculo2("LOG").ToString
+        txt4a.Text = CalculoLogistica("LOG").ToString
         i += CInt(txt4a.Text)
         Application.DoEvents()
 
-        txt4b.Text = Calculo2("ABO").ToString
+        txt4b.Text = CalculoLogistica("ABO").ToString
         i += CInt(txt4b.Text)
         Application.DoEvents()
 
@@ -824,11 +826,71 @@ Public Class frmRptRecargas '948 - 880
         Dim i As Integer = 0
 
         Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, xrd.equipos_1 + xrd.equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from ((interven itn  inner join xrutad xrd on (itn.num_0 = xrd.vcrnum_0)) "
-        Sql &= "	 inner join xrutac xrc on (xrd.ruta_0 = xrc.ruta_0)) "
-        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "from interven itn inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
         Sql &= "where xsector_0 = '" & Sector & "' and "
         Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
+        Sql &= "	  estado_0 = 3 and "
+        Sql &= "	  valid_0 = 1 and "
+        Sql &= "	  itn.tripnum_0 = ' ' and "
+        Sql &= "	  tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "order by num_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        dt = New DataTable
+        da.Fill(dt)
+
+        '2016.08.31 se quita para que no aparezca duplicado
+        '--------------------------------------------------
+        If Sector <> "LOG" And Sector <> "ING" And Sector <> "ABO" Then
+            Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
+            Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
+            Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+            Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
+            Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
+            Sql &= "order by num_0"
+            da = New OracleDataAdapter(Sql, cn)
+            da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
+            da.Fill(dt)
+            da.Dispose()
+        End If
+
+        'Eliminacion de documentos duplicados
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+
+        Next
+
+        da.Dispose()
+        dt.Dispose()
+
+        If xdt IsNot Nothing Then xdt = dt
+        Return i
+
+    End Function
+    Private Function CalculoLogistica(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, xrd.equipos_1 + xrd.equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where xsector_0 = '" & Sector & "' and "
+        Sql &= "	  (zflgtrip_0 IN (3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
         Sql &= "	  estado_0 = 3 and "
         Sql &= "	  valid_0 = 1 and "
         Sql &= "	  itn.tripnum_0 = ' ' and "
@@ -1257,7 +1319,4 @@ Public Class frmRptRecargas '948 - 880
 
     End Sub
 
-    Private Sub txt2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txt2.TextChanged
-
-    End Sub
 End Class
