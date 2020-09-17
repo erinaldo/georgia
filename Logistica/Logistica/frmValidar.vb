@@ -1486,6 +1486,8 @@ Public Class frmValidar
                 Next
 
             Catch ex As Exception
+                MessageBox.Show(ex.Message)
+
             End Try
         Next
 
@@ -1521,6 +1523,7 @@ Public Class frmValidar
         mac.Observaciones = "Reagendado automáticamente por validación de ruta " & txtRuta.Text
         mac.Grabar()
 
+
         Select Case Articulo
             Case "991059"
                 CaseArticulos(itn, Cantidad, 3, "991060")
@@ -1536,6 +1539,12 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 5, "991036")
             Case "991000"
                 CaseArticulos(itn, Cantidad, 11, "991035")
+            Case "991005"
+                CaseArticulos(itn, Cantidad, 11, "991090")
+            Case "991006"
+                CaseArticulos(itn, Cantidad, 6, "991091")
+            Case "991007"
+                CaseArticulos(itn, Cantidad, 4, "991092")
             Case "991065"
                 CaseArticulos(itn, Cantidad, 3, "991034")
             Case "991066"
@@ -1558,25 +1567,8 @@ Public Class frmValidar
                 CaseArticulos(itn, Cantidad, 6, "991087")
             Case "991088"
                 CaseArticulos(itn, Cantidad, 3, "991089")
-            Case "993010"
-                Dim f As Date = dtpFecha.Value
-
-                'Elimino todos los controles 415 para agendar los nuevos
-                Parque.EliminarPorCodigo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, "993011")
-
-                For i As Integer = 1 To 3
-                    f = f.AddMonths(4)
-
-                    mac.Nuevo(itn.Cliente.Codigo, itn.SucursalCodigo)
-                    mac.ArticuloCodigo = "993011"
-                    mac.FabricacionCorto = Date.Today.Year
-                    mac.Cantidad = Cantidad
-                    mac.VtoCarga = f
-                    mac.Observaciones = "Creado automáticamente por validación de ruta " & txtRuta.Text & vbCrLf & vbCrLf
-                    mac.Observaciones &= "Ctrl. Nro. " & i.ToString
-                    mac.Grabar()
-                Next
-
+            Case "991093"
+                CaseArticulos(itn, Cantidad, 11, "991094")
             Case "993015"
                 'Elimino todos los controles 415 para agendar los nuevos
                 Parque.EliminarPorCodigo(cn, itn.Cliente.Codigo, itn.SucursalCodigo, "993011")
