@@ -460,6 +460,9 @@ Public Class frmVencimientos '2034
                         dr("cpnitmref_0").ToString = "551000" OrElse _
                         dr("cpnitmref_0").ToString = "551001" OrElse _
                         dr("cpnitmref_0").ToString = "551002" OrElse _
+                        dr("cpnitmref_0").ToString = "551005" OrElse _
+                        dr("cpnitmref_0").ToString = "551006" OrElse _
+                        dr("cpnitmref_0").ToString = "551007" OrElse _
                         dr("cpnitmref_0").ToString = "551012" OrElse _
                         dr("cpnitmref_0").ToString = "551013" OrElse _
                         dr("cpnitmref_0").ToString = "551021" OrElse _
@@ -477,6 +480,8 @@ Public Class frmVencimientos '2034
                         dr("cpnitmref_0").ToString = "551075" OrElse _
                         dr("cpnitmref_0").ToString = "551076" OrElse _
                         dr("cpnitmref_0").ToString = "551087" OrElse _
+                        dr("cpnitmref_0").ToString = "551093" OrElse _
+                        dr("cpnitmref_0").ToString = "551094" OrElse _
                         dr("cpnitmref_0").ToString = "659012" Then
 
                     Else

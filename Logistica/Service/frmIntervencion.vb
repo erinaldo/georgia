@@ -1787,6 +1787,9 @@ Public Class frmIntervencion
                     Articulo = "551022" Or _
                     Articulo = "659012" Or _
                     Articulo = "551002" Or _
+                    Articulo = "551005" Or _
+                    Articulo = "551006" Or _
+                    Articulo = "551007" Or _
                     Articulo = "551022" Or _
                     Articulo = "551001" Or _
                     Articulo = "551059" Or _
@@ -1799,11 +1802,16 @@ Public Class frmIntervencion
                     Articulo = "551077" Or _
                     Articulo = "551086" Or _
                     Articulo = "551087" Or _
+                    Articulo = "551093" Or _
+                    Articulo = "551094" Or _
                     Articulo = "551032" Then
                         flg = True
                     End If
                 Else
                     If Articulo = "551000" Or _
+                       Articulo = "551005" Or _
+                       Articulo = "551006" Or _
+                       Articulo = "551007" Or _
                        Articulo = "551012" Or _
                        Articulo = "551013" Or _
                        Articulo = "551022" Or _
@@ -1827,6 +1835,8 @@ Public Class frmIntervencion
                        Articulo = "551077" Or _
                        Articulo = "551086" Or _
                        Articulo = "551087" Or _
+                       Articulo = "551093" Or _
+                       Articulo = "551094" Or _
                        Articulo = "551032" Then
                         flg = True
                     End If
