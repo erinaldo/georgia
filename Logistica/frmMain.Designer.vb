@@ -228,6 +228,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.mnuTransferenciaIntervenciones = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -544,7 +545,7 @@ Partial Class frmMain
         '
         'mnuParque
         '
-        Me.mnuParque.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSectoresPuestos, Me.mnuParqueAbono, Me.mnuTranferencia, Me.mnuCilindrosDuplicados})
+        Me.mnuParque.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSectoresPuestos, Me.mnuParqueAbono, Me.mnuTranferencia, Me.mnuCilindrosDuplicados, Me.mnuTransferenciaIntervenciones})
         Me.mnuParque.Name = "mnuParque"
         Me.mnuParque.Size = New System.Drawing.Size(274, 22)
         Me.mnuParque.Text = "Parque"
@@ -552,28 +553,28 @@ Partial Class frmMain
         'mnuSectoresPuestos
         '
         Me.mnuSectoresPuestos.Name = "mnuSectoresPuestos"
-        Me.mnuSectoresPuestos.Size = New System.Drawing.Size(237, 22)
+        Me.mnuSectoresPuestos.Size = New System.Drawing.Size(250, 22)
         Me.mnuSectoresPuestos.Tag = "frmColector"
         Me.mnuSectoresPuestos.Text = "Sectores y Puestos Abonados..."
         '
         'mnuParqueAbono
         '
         Me.mnuParqueAbono.Name = "mnuParqueAbono"
-        Me.mnuParqueAbono.Size = New System.Drawing.Size(237, 22)
+        Me.mnuParqueAbono.Size = New System.Drawing.Size(250, 22)
         Me.mnuParqueAbono.Tag = "frmColector"
         Me.mnuParqueAbono.Text = "Parque de clientes abonados..."
         '
         'mnuTranferencia
         '
         Me.mnuTranferencia.Name = "mnuTranferencia"
-        Me.mnuTranferencia.Size = New System.Drawing.Size(237, 22)
+        Me.mnuTranferencia.Size = New System.Drawing.Size(250, 22)
         Me.mnuTranferencia.Tag = "frmTransferencia"
         Me.mnuTranferencia.Text = "Transferencia de parque..."
         '
         'mnuCilindrosDuplicados
         '
         Me.mnuCilindrosDuplicados.Name = "mnuCilindrosDuplicados"
-        Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(237, 22)
+        Me.mnuCilindrosDuplicados.Size = New System.Drawing.Size(250, 22)
         Me.mnuCilindrosDuplicados.Text = "Cilindros Duplicados..."
         '
         'mnuIngreso
@@ -1478,7 +1479,7 @@ Partial Class frmMain
         'mnuCliente
         '
         Me.mnuCliente.Name = "mnuCliente"
-        Me.mnuCliente.Size = New System.Drawing.Size(111, 22)
+        Me.mnuCliente.Size = New System.Drawing.Size(152, 22)
         Me.mnuCliente.Tag = "frmCliente"
         Me.mnuCliente.Text = "Cliente"
         '
@@ -1569,6 +1570,13 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
+        '
+        'mnuTransferenciaIntervenciones
+        '
+        Me.mnuTransferenciaIntervenciones.Name = "mnuTransferenciaIntervenciones"
+        Me.mnuTransferenciaIntervenciones.Size = New System.Drawing.Size(250, 22)
+        Me.mnuTransferenciaIntervenciones.Tag = "frmTransferenciaIntervenciones"
+        Me.mnuTransferenciaIntervenciones.Text = "Transferencia de Intervenciones..."
         '
         'frmMain
         '
@@ -1798,6 +1806,7 @@ Partial Class frmMain
     Friend WithEvents frmTazaCierre As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuIngresosPlanta As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem29 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuTransferenciaIntervenciones As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

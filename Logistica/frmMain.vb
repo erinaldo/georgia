@@ -1205,4 +1205,9 @@ Public Class frmMain
         f.Show()
     End Sub
 
+    Private Sub mnuTransferenciaIntervenciones_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuTransferenciaIntervenciones.Click
+        Dim f As New frmTransferenciaIntervencion
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class
