@@ -1101,10 +1101,10 @@ Public Class frmSeguimiento
                     ElseIf dr("PARA_0").ToString = "ACH" Then
                         itn.Estado = 5
 
-                        If xsg.Abrir(dr("itn_0").ToString) Then
-                            xsg.FechaEntregado = Date.Today
-                            xsg.Grabar()
-                        End If
+                        'If xsg.Abrir(dr("itn_0").ToString) Then
+                        '    xsg.FechaEntregado = Date.Today
+                        '    xsg.Grabar()
+                        'End If
 
                     ElseIf dr("PARA_0").ToString = "SRV" Then
 
