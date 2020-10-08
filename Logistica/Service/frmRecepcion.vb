@@ -190,12 +190,11 @@ Public Class frmRecepcion
             'Imprimir etiqueta de codigo de barras
             If Not itn.Reclamo Then
 
-                If DB_USR = "GEOPROD" Then
-                    If Not mac.Rechazado Then mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
-                Else
-                    If Not mac.Rechazado AndAlso MessageBox.Show("¿Imprimir etiqueta?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
+                If chkEtiqueta.Checked OrElse mac.FechaCreacion = Today Then
+                    If Not mac.Rechazado Then
                         mac.ImprimirEtiqueta(txtItn.Text, Application.StartupPath, PuertoImpresora, txtPuesto.Text)
                     End If
+
                 End If
 
             End If
@@ -694,6 +693,8 @@ Public Class frmRecepcion
                 MessageBox.Show("No se encontró la intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Else
+                chkEtiqueta.Checked = False
+
                 mnuAlta.Enabled = True
                 mnuCilindro.Enabled = True
 

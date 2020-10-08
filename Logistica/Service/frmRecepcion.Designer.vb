@@ -54,32 +54,6 @@ Partial Class frmRecepcion
         Me.txtDireccion = New System.Windows.Forms.TextBox
         Me.txtCodigo = New System.Windows.Forms.TextBox
         Me.dgv = New System.Windows.Forms.DataGridView
-        Me.ContextMenuGrilla = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuBaja = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuAnularBaja = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuImprimir = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuRecargador = New System.Windows.Forms.ToolStripMenuItem
-        Me.mnuPallet = New System.Windows.Forms.ToolStripMenuItem
-        Me.txtBuscar = New System.Windows.Forms.TextBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.txtSuc = New System.Windows.Forms.TextBox
-        Me.Tab = New System.Windows.Forms.TabControl
-        Me.TabIntervencion = New System.Windows.Forms.TabPage
-        Me.tabMangueras = New System.Windows.Forms.TabPage
-        Me.dgvMangas = New System.Windows.Forms.DataGridView
-        Me.cmnMangas = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuAddToIntervencion = New System.Windows.Forms.ToolStripMenuItem
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.cboRecargador = New System.Windows.Forms.ComboBox
-        Me.lblPallet = New System.Windows.Forms.Label
-        Me.lblPatente = New System.Windows.Forms.Label
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.txtPuesto = New System.Windows.Forms.TextBox
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
         Me.srenum_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.itngru_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.macnum_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -110,6 +84,33 @@ Partial Class frmRecepcion
         Me.presion_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.obs_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.usuario_0 = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.ContextMenuGrilla = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem4 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuBaja = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuAnularBaja = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuImprimir = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuRecargador = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuPallet = New System.Windows.Forms.ToolStripMenuItem
+        Me.txtBuscar = New System.Windows.Forms.TextBox
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.txtSuc = New System.Windows.Forms.TextBox
+        Me.Tab = New System.Windows.Forms.TabControl
+        Me.TabIntervencion = New System.Windows.Forms.TabPage
+        Me.tabMangueras = New System.Windows.Forms.TabPage
+        Me.dgvMangas = New System.Windows.Forms.DataGridView
+        Me.cmnMangas = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuAddToIntervencion = New System.Windows.Forms.ToolStripMenuItem
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox
+        Me.cboRecargador = New System.Windows.Forms.ComboBox
+        Me.lblPallet = New System.Windows.Forms.Label
+        Me.lblPatente = New System.Windows.Forms.Label
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox
+        Me.txtPuesto = New System.Windows.Forms.TextBox
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox
+        Me.chkEtiqueta = New System.Windows.Forms.CheckBox
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -366,233 +367,6 @@ Partial Class frmRecepcion
         Me.dgv.StandardTab = True
         Me.dgv.TabIndex = 11
         '
-        'ContextMenuGrilla
-        '
-        Me.ContextMenuGrilla.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditar, Me.ToolStripMenuItem4, Me.mnuBaja, Me.mnuAnularBaja, Me.ToolStripMenuItem5, Me.mnuImprimir, Me.ToolStripMenuItem6, Me.mnuRecargador, Me.mnuPallet})
-        Me.ContextMenuGrilla.Name = "ContextMenuGrilla"
-        Me.ContextMenuGrilla.Size = New System.Drawing.Size(239, 154)
-        '
-        'mnuEditar
-        '
-        Me.mnuEditar.Name = "mnuEditar"
-        Me.mnuEditar.ShortcutKeys = System.Windows.Forms.Keys.F12
-        Me.mnuEditar.Size = New System.Drawing.Size(238, 22)
-        Me.mnuEditar.Text = "Editar..."
-        '
-        'ToolStripMenuItem4
-        '
-        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
-        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(235, 6)
-        '
-        'mnuBaja
-        '
-        Me.mnuBaja.Name = "mnuBaja"
-        Me.mnuBaja.ShortcutKeys = System.Windows.Forms.Keys.F8
-        Me.mnuBaja.Size = New System.Drawing.Size(238, 22)
-        Me.mnuBaja.Text = "Baja..."
-        '
-        'mnuAnularBaja
-        '
-        Me.mnuAnularBaja.Name = "mnuAnularBaja"
-        Me.mnuAnularBaja.ShortcutKeys = System.Windows.Forms.Keys.F9
-        Me.mnuAnularBaja.Size = New System.Drawing.Size(238, 22)
-        Me.mnuAnularBaja.Text = "Anular Baja"
-        '
-        'ToolStripMenuItem5
-        '
-        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
-        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(235, 6)
-        '
-        'mnuImprimir
-        '
-        Me.mnuImprimir.Name = "mnuImprimir"
-        Me.mnuImprimir.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
-        Me.mnuImprimir.Size = New System.Drawing.Size(238, 22)
-        Me.mnuImprimir.Text = "Imprimir etiqueta"
-        '
-        'ToolStripMenuItem6
-        '
-        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
-        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(235, 6)
-        '
-        'mnuRecargador
-        '
-        Me.mnuRecargador.Name = "mnuRecargador"
-        Me.mnuRecargador.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.mnuRecargador.Size = New System.Drawing.Size(238, 22)
-        Me.mnuRecargador.Text = "Modificar Recargador..."
-        '
-        'mnuPallet
-        '
-        Me.mnuPallet.Name = "mnuPallet"
-        Me.mnuPallet.Size = New System.Drawing.Size(238, 22)
-        Me.mnuPallet.Text = "Modificar Pallet..."
-        '
-        'txtBuscar
-        '
-        Me.txtBuscar.Enabled = False
-        Me.txtBuscar.Location = New System.Drawing.Point(9, 16)
-        Me.txtBuscar.Name = "txtBuscar"
-        Me.txtBuscar.Size = New System.Drawing.Size(254, 20)
-        Me.txtBuscar.TabIndex = 0
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.txtBuscar)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 74)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(269, 42)
-        Me.GroupBox2.TabIndex = 9
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Buscar serie"
-        '
-        'txtSuc
-        '
-        Me.txtSuc.Location = New System.Drawing.Point(352, 14)
-        Me.txtSuc.Name = "txtSuc"
-        Me.txtSuc.ReadOnly = True
-        Me.txtSuc.Size = New System.Drawing.Size(35, 20)
-        Me.txtSuc.TabIndex = 12
-        Me.txtSuc.TabStop = False
-        '
-        'Tab
-        '
-        Me.Tab.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Tab.Controls.Add(Me.TabIntervencion)
-        Me.Tab.Controls.Add(Me.tabMangueras)
-        Me.Tab.Location = New System.Drawing.Point(3, 141)
-        Me.Tab.Name = "Tab"
-        Me.Tab.SelectedIndex = 0
-        Me.Tab.Size = New System.Drawing.Size(924, 429)
-        Me.Tab.TabIndex = 13
-        Me.Tab.TabStop = False
-        '
-        'TabIntervencion
-        '
-        Me.TabIntervencion.Controls.Add(Me.dgv)
-        Me.TabIntervencion.Location = New System.Drawing.Point(4, 22)
-        Me.TabIntervencion.Name = "TabIntervencion"
-        Me.TabIntervencion.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabIntervencion.Size = New System.Drawing.Size(916, 403)
-        Me.TabIntervencion.TabIndex = 0
-        Me.TabIntervencion.Text = "Intervención"
-        Me.TabIntervencion.UseVisualStyleBackColor = True
-        '
-        'tabMangueras
-        '
-        Me.tabMangueras.Controls.Add(Me.dgvMangas)
-        Me.tabMangueras.Location = New System.Drawing.Point(4, 22)
-        Me.tabMangueras.Name = "tabMangueras"
-        Me.tabMangueras.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabMangueras.Size = New System.Drawing.Size(916, 403)
-        Me.tabMangueras.TabIndex = 1
-        Me.tabMangueras.Text = "Parque Mangueras"
-        Me.tabMangueras.UseVisualStyleBackColor = True
-        '
-        'dgvMangas
-        '
-        Me.dgvMangas.AllowUserToAddRows = False
-        Me.dgvMangas.AllowUserToDeleteRows = False
-        Me.dgvMangas.AllowUserToResizeRows = False
-        Me.dgvMangas.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvMangas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMangas.ContextMenuStrip = Me.cmnMangas
-        Me.dgvMangas.Location = New System.Drawing.Point(3, 6)
-        Me.dgvMangas.Name = "dgvMangas"
-        Me.dgvMangas.ReadOnly = True
-        Me.dgvMangas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvMangas.Size = New System.Drawing.Size(645, 394)
-        Me.dgvMangas.TabIndex = 0
-        '
-        'cmnMangas
-        '
-        Me.cmnMangas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAddToIntervencion})
-        Me.cmnMangas.Name = "cmnMangas"
-        Me.cmnMangas.Size = New System.Drawing.Size(195, 26)
-        '
-        'mnuAddToIntervencion
-        '
-        Me.mnuAddToIntervencion.Name = "mnuAddToIntervencion"
-        Me.mnuAddToIntervencion.Size = New System.Drawing.Size(194, 22)
-        Me.mnuAddToIntervencion.Text = "Agregar a intervencion"
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.cboRecargador)
-        Me.GroupBox1.Location = New System.Drawing.Point(296, 74)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(269, 42)
-        Me.GroupBox1.TabIndex = 10
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Último Recargador (F11)"
-        '
-        'cboRecargador
-        '
-        Me.cboRecargador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboRecargador.Enabled = False
-        Me.cboRecargador.FormattingEnabled = True
-        Me.cboRecargador.Location = New System.Drawing.Point(6, 16)
-        Me.cboRecargador.Name = "cboRecargador"
-        Me.cboRecargador.Size = New System.Drawing.Size(257, 21)
-        Me.cboRecargador.TabIndex = 0
-        '
-        'lblPallet
-        '
-        Me.lblPallet.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPallet.Location = New System.Drawing.Point(9, 16)
-        Me.lblPallet.Name = "lblPallet"
-        Me.lblPallet.Size = New System.Drawing.Size(150, 33)
-        Me.lblPallet.TabIndex = 16
-        Me.lblPallet.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        '
-        'lblPatente
-        '
-        Me.lblPatente.AutoSize = True
-        Me.lblPatente.BackColor = System.Drawing.Color.Lime
-        Me.lblPatente.Location = New System.Drawing.Point(302, 123)
-        Me.lblPatente.Name = "lblPatente"
-        Me.lblPatente.Size = New System.Drawing.Size(57, 13)
-        Me.lblPatente.TabIndex = 17
-        Me.lblPatente.Text = "PATENTE"
-        Me.lblPatente.Visible = False
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.txtPuesto)
-        Me.GroupBox3.Location = New System.Drawing.Point(571, 74)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(58, 42)
-        Me.GroupBox3.TabIndex = 18
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Puesto"
-        '
-        'txtPuesto
-        '
-        Me.txtPuesto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPuesto.Location = New System.Drawing.Point(9, 16)
-        Me.txtPuesto.MaxLength = 1
-        Me.txtPuesto.Name = "txtPuesto"
-        Me.txtPuesto.Size = New System.Drawing.Size(42, 20)
-        Me.txtPuesto.TabIndex = 0
-        Me.txtPuesto.TabStop = False
-        Me.txtPuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.lblPallet)
-        Me.GroupBox4.Location = New System.Drawing.Point(571, 4)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(165, 58)
-        Me.GroupBox4.TabIndex = 19
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Palet"
-        '
         'srenum_0
         '
         Me.srenum_0.HeaderText = "srenum"
@@ -837,11 +611,249 @@ Partial Class frmRecepcion
         Me.usuario_0.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         Me.usuario_0.Visible = False
         '
+        'ContextMenuGrilla
+        '
+        Me.ContextMenuGrilla.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditar, Me.ToolStripMenuItem4, Me.mnuBaja, Me.mnuAnularBaja, Me.ToolStripMenuItem5, Me.mnuImprimir, Me.ToolStripMenuItem6, Me.mnuRecargador, Me.mnuPallet})
+        Me.ContextMenuGrilla.Name = "ContextMenuGrilla"
+        Me.ContextMenuGrilla.Size = New System.Drawing.Size(239, 154)
+        '
+        'mnuEditar
+        '
+        Me.mnuEditar.Name = "mnuEditar"
+        Me.mnuEditar.ShortcutKeys = System.Windows.Forms.Keys.F12
+        Me.mnuEditar.Size = New System.Drawing.Size(238, 22)
+        Me.mnuEditar.Text = "Editar..."
+        '
+        'ToolStripMenuItem4
+        '
+        Me.ToolStripMenuItem4.Name = "ToolStripMenuItem4"
+        Me.ToolStripMenuItem4.Size = New System.Drawing.Size(235, 6)
+        '
+        'mnuBaja
+        '
+        Me.mnuBaja.Name = "mnuBaja"
+        Me.mnuBaja.ShortcutKeys = System.Windows.Forms.Keys.F8
+        Me.mnuBaja.Size = New System.Drawing.Size(238, 22)
+        Me.mnuBaja.Text = "Baja..."
+        '
+        'mnuAnularBaja
+        '
+        Me.mnuAnularBaja.Name = "mnuAnularBaja"
+        Me.mnuAnularBaja.ShortcutKeys = System.Windows.Forms.Keys.F9
+        Me.mnuAnularBaja.Size = New System.Drawing.Size(238, 22)
+        Me.mnuAnularBaja.Text = "Anular Baja"
+        '
+        'ToolStripMenuItem5
+        '
+        Me.ToolStripMenuItem5.Name = "ToolStripMenuItem5"
+        Me.ToolStripMenuItem5.Size = New System.Drawing.Size(235, 6)
+        '
+        'mnuImprimir
+        '
+        Me.mnuImprimir.Name = "mnuImprimir"
+        Me.mnuImprimir.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P), System.Windows.Forms.Keys)
+        Me.mnuImprimir.Size = New System.Drawing.Size(238, 22)
+        Me.mnuImprimir.Text = "Imprimir etiqueta"
+        '
+        'ToolStripMenuItem6
+        '
+        Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
+        Me.ToolStripMenuItem6.Size = New System.Drawing.Size(235, 6)
+        '
+        'mnuRecargador
+        '
+        Me.mnuRecargador.Name = "mnuRecargador"
+        Me.mnuRecargador.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
+        Me.mnuRecargador.Size = New System.Drawing.Size(238, 22)
+        Me.mnuRecargador.Text = "Modificar Recargador..."
+        '
+        'mnuPallet
+        '
+        Me.mnuPallet.Name = "mnuPallet"
+        Me.mnuPallet.Size = New System.Drawing.Size(238, 22)
+        Me.mnuPallet.Text = "Modificar Pallet..."
+        '
+        'txtBuscar
+        '
+        Me.txtBuscar.Enabled = False
+        Me.txtBuscar.Location = New System.Drawing.Point(9, 16)
+        Me.txtBuscar.Name = "txtBuscar"
+        Me.txtBuscar.Size = New System.Drawing.Size(254, 20)
+        Me.txtBuscar.TabIndex = 0
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.txtBuscar)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 74)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(269, 42)
+        Me.GroupBox2.TabIndex = 9
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Buscar serie"
+        '
+        'txtSuc
+        '
+        Me.txtSuc.Location = New System.Drawing.Point(352, 14)
+        Me.txtSuc.Name = "txtSuc"
+        Me.txtSuc.ReadOnly = True
+        Me.txtSuc.Size = New System.Drawing.Size(35, 20)
+        Me.txtSuc.TabIndex = 12
+        Me.txtSuc.TabStop = False
+        '
+        'Tab
+        '
+        Me.Tab.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Tab.Controls.Add(Me.TabIntervencion)
+        Me.Tab.Controls.Add(Me.tabMangueras)
+        Me.Tab.Location = New System.Drawing.Point(3, 141)
+        Me.Tab.Name = "Tab"
+        Me.Tab.SelectedIndex = 0
+        Me.Tab.Size = New System.Drawing.Size(924, 429)
+        Me.Tab.TabIndex = 13
+        Me.Tab.TabStop = False
+        '
+        'TabIntervencion
+        '
+        Me.TabIntervencion.Controls.Add(Me.dgv)
+        Me.TabIntervencion.Location = New System.Drawing.Point(4, 22)
+        Me.TabIntervencion.Name = "TabIntervencion"
+        Me.TabIntervencion.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabIntervencion.Size = New System.Drawing.Size(916, 403)
+        Me.TabIntervencion.TabIndex = 0
+        Me.TabIntervencion.Text = "Intervención"
+        Me.TabIntervencion.UseVisualStyleBackColor = True
+        '
+        'tabMangueras
+        '
+        Me.tabMangueras.Controls.Add(Me.dgvMangas)
+        Me.tabMangueras.Location = New System.Drawing.Point(4, 22)
+        Me.tabMangueras.Name = "tabMangueras"
+        Me.tabMangueras.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabMangueras.Size = New System.Drawing.Size(916, 403)
+        Me.tabMangueras.TabIndex = 1
+        Me.tabMangueras.Text = "Parque Mangueras"
+        Me.tabMangueras.UseVisualStyleBackColor = True
+        '
+        'dgvMangas
+        '
+        Me.dgvMangas.AllowUserToAddRows = False
+        Me.dgvMangas.AllowUserToDeleteRows = False
+        Me.dgvMangas.AllowUserToResizeRows = False
+        Me.dgvMangas.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.dgvMangas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMangas.ContextMenuStrip = Me.cmnMangas
+        Me.dgvMangas.Location = New System.Drawing.Point(3, 6)
+        Me.dgvMangas.Name = "dgvMangas"
+        Me.dgvMangas.ReadOnly = True
+        Me.dgvMangas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvMangas.Size = New System.Drawing.Size(645, 394)
+        Me.dgvMangas.TabIndex = 0
+        '
+        'cmnMangas
+        '
+        Me.cmnMangas.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuAddToIntervencion})
+        Me.cmnMangas.Name = "cmnMangas"
+        Me.cmnMangas.Size = New System.Drawing.Size(195, 26)
+        '
+        'mnuAddToIntervencion
+        '
+        Me.mnuAddToIntervencion.Name = "mnuAddToIntervencion"
+        Me.mnuAddToIntervencion.Size = New System.Drawing.Size(194, 22)
+        Me.mnuAddToIntervencion.Text = "Agregar a intervencion"
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.cboRecargador)
+        Me.GroupBox1.Location = New System.Drawing.Point(296, 74)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(269, 42)
+        Me.GroupBox1.TabIndex = 10
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Último Recargador (F11)"
+        '
+        'cboRecargador
+        '
+        Me.cboRecargador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboRecargador.Enabled = False
+        Me.cboRecargador.FormattingEnabled = True
+        Me.cboRecargador.Location = New System.Drawing.Point(6, 16)
+        Me.cboRecargador.Name = "cboRecargador"
+        Me.cboRecargador.Size = New System.Drawing.Size(257, 21)
+        Me.cboRecargador.TabIndex = 0
+        '
+        'lblPallet
+        '
+        Me.lblPallet.Font = New System.Drawing.Font("Microsoft Sans Serif", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPallet.Location = New System.Drawing.Point(9, 16)
+        Me.lblPallet.Name = "lblPallet"
+        Me.lblPallet.Size = New System.Drawing.Size(150, 33)
+        Me.lblPallet.TabIndex = 16
+        Me.lblPallet.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'lblPatente
+        '
+        Me.lblPatente.AutoSize = True
+        Me.lblPatente.BackColor = System.Drawing.Color.Lime
+        Me.lblPatente.Location = New System.Drawing.Point(302, 123)
+        Me.lblPatente.Name = "lblPatente"
+        Me.lblPatente.Size = New System.Drawing.Size(57, 13)
+        Me.lblPatente.TabIndex = 17
+        Me.lblPatente.Text = "PATENTE"
+        Me.lblPatente.Visible = False
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.txtPuesto)
+        Me.GroupBox3.Location = New System.Drawing.Point(571, 74)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(58, 42)
+        Me.GroupBox3.TabIndex = 18
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Puesto"
+        '
+        'txtPuesto
+        '
+        Me.txtPuesto.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+                    Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPuesto.Location = New System.Drawing.Point(9, 16)
+        Me.txtPuesto.MaxLength = 1
+        Me.txtPuesto.Name = "txtPuesto"
+        Me.txtPuesto.Size = New System.Drawing.Size(42, 20)
+        Me.txtPuesto.TabIndex = 0
+        Me.txtPuesto.TabStop = False
+        Me.txtPuesto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.lblPallet)
+        Me.GroupBox4.Location = New System.Drawing.Point(571, 4)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(165, 58)
+        Me.GroupBox4.TabIndex = 19
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Palet"
+        '
+        'chkEtiqueta
+        '
+        Me.chkEtiqueta.AutoSize = True
+        Me.chkEtiqueta.Location = New System.Drawing.Point(21, 118)
+        Me.chkEtiqueta.Name = "chkEtiqueta"
+        Me.chkEtiqueta.Size = New System.Drawing.Size(102, 17)
+        Me.chkEtiqueta.TabIndex = 20
+        Me.chkEtiqueta.Text = "Imprimir etiqueta"
+        Me.chkEtiqueta.UseVisualStyleBackColor = True
+        '
         'frmRecepcion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(928, 572)
+        Me.Controls.Add(Me.chkEtiqueta)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.lblPatente)
@@ -966,4 +978,5 @@ Partial Class frmRecepcion
     Friend WithEvents presion_0 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents obs_0 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents usuario_0 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents chkEtiqueta As System.Windows.Forms.CheckBox
 End Class

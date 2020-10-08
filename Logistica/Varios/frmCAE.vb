@@ -6,7 +6,7 @@ Imports WSAFIP.wsfe
 Imports System.IO
 
 Public Class frmCAE
-    Const PRINTER_FACT As String = "\\SRV\RICOH SP 4510DN PCL 6 (ADM)"
+    Const PRINTER_FACT As String = "\\SRV\RICOH SP 3710DN PCL 6 (Administracion)"
 
     Private da As OracleDataAdapter
     Private dt As New DataTable

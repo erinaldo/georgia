@@ -205,7 +205,7 @@ Public Class frmCliente
             Case "10"
                 Tipo = "102022"
             Case "11"
-                Tipo = "118879"
+                Tipo = "119730"
             Case "20"
                 Tipo = "201238"
             Case "40"
@@ -213,7 +213,7 @@ Public Class frmCliente
             Case "50"
                 Tipo = "501620"
             Case "60"
-                Tipo = "617351"
+                Tipo = "618265"
             Case "80"
                 Tipo = "803896"
         End Select

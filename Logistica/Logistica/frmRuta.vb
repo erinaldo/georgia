@@ -324,7 +324,7 @@ Class frmRuta
     End Sub
     Private Sub AgregarIntervencion(ByVal num As String)
         'Dim itn As New Intervencion(cn)
-
+        
         'Consulto datos del documento a tratar
         num = num.Trim.ToUpper
 
@@ -364,7 +364,6 @@ Class frmRuta
                                 PonerEnRuta = True
                                 RutaAnterior = True
                                 dr.Delete()
-
 
                             Case Windows.Forms.DialogResult.No
                                 'Es un nuevo viaje a causa de un rebote. Se graba la no conformidad
@@ -504,6 +503,7 @@ Class frmRuta
         dt.Dispose() : dt = Nothing
         da.Dispose() : da = Nothing
         dr = Nothing
+
     End Sub
     Private Sub ValoresIniciales()
         Select Case Modo
