@@ -286,16 +286,16 @@ Public Class frmParteCobranza
         btnMarcar.Enabled = True
     End Sub
     Private Sub btnImprimir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnImprimir.Click
-        Dim primero As Integer = 0
-        For i As Integer = 0 To dgv2.Rows.Count - 1
-            'dgv2.CurrentCell = dgv2.Rows(i).Cells(1)
-            If primero = 0 Then
-                primero = CInt(dgv2.Rows(i).Cells(1).Value)
-            ElseIf CInt(dgv2.Rows(i).Cells(1).Value) > 0 And Not primero = CInt(dgv2.Rows(i).Cells(1).Value) Then
-                MsgBox("No se puede elegir diferente direccion de cobranza")
-                Exit Sub
-            End If
-        Next
+        'Dim primero As Integer = 0
+        'For i As Integer = 0 To dgv2.Rows.Count - 1
+        '    'dgv2.CurrentCell = dgv2.Rows(i).Cells(1)
+        '    If primero = 0 Then
+        '        primero = CInt(dgv2.Rows(i).Cells(1).Value)
+        '    ElseIf CInt(dgv2.Rows(i).Cells(1).Value) > 0 And Not primero = CInt(dgv2.Rows(i).Cells(1).Value) Then
+        '        MsgBox("No se puede elegir diferente direccion de cobranza")
+        '        Exit Sub
+        '    End If
+        'Next
 
         btnImprimir.Enabled = False
 
