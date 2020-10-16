@@ -5,17 +5,11 @@ Class frmRuta
     Private ds As New DataSet
 
     Private Const MOSTRADOR As String = "TR029"
-    Private itn As New Intervencion(cn)
-    Private rto As New Remito(cn)
-
     Private daRutac As OracleDataAdapter
     Private WithEvents daRutad As OracleDataAdapter
-
     Private WithEvents dtRutac As New DataTable("Rutac")
     Private WithEvents dtRutad As New DataTable("Rutad")
     Private dtRutax As New DataTable("Rutax")   'Usada para cambios de rutas
-
-    Private WithEvents Doc As New Documento(cn)
     Private Modo As ModoRuta
     Private BloqueoModificacion As Boolean = False
 
@@ -64,6 +58,35 @@ Class frmRuta
     End Sub
 
     'SUB
+    Private Function AbrirRemito(ByVal id As String) As IRuteable
+        Dim rto As New Remito(cn)
+
+        If rto.Abrir(id) Then
+            Return rto
+        Else
+            Return Nothing
+        End If
+
+    End Function
+    Private Function AbrirPedidoCompra(ByVal id As String) As IRuteable
+        Dim pod As New PedidoCompra(cn)
+
+        If pod.Abrir(id) Then
+            Return pod
+        Else
+            Return Nothing
+        End If
+    End Function
+    Private Function AbrirIntervencion(ByVal id As String) As IRuteable
+        Dim itn As New Intervencion(cn)
+
+        If itn.Abrir(id) Then
+            Return itn
+        Else
+            Return Nothing
+        End If
+
+    End Function
     Private Sub ActualizarControles()
 
         'Deshabilito todos los controles
@@ -288,19 +311,19 @@ Class frmRuta
         Next
 
     End Sub
-    Private Sub RutaAgregarDocumento()
+    Private Sub RutaAgregarDocumento(ByVal Doc As IRuteable)
         Dim dr As DataRow
 
         dr = dtRutad.NewRow
         dr("ruta_0") = dtRutac.Rows(0).Item("ruta_0")
         dr("orden_0") = ProximoOrden()
-        dr("tipo_0") = Doc.Tipo
-        dr("vcrnum_0") = Doc.Documento
-        dr("suc_0") = Doc.Sucursal
+        dr("tipo_0") = Doc.TipoTarea
+        dr("vcrnum_0") = Doc.Numero
+        dr("suc_0") = Doc.SucursalCodigo
         dr("direccion_0") = Doc.Domicilio
         dr("localidad_0") = Doc.Localidad
-        dr("cliente_0") = Doc.Tercero
-        dr("nombre_0") = Doc.Nombre
+        dr("cliente_0") = Doc.CodigoTercero
+        dr("nombre_0") = Doc.NombreTercero
         dr("equipos_0") = Doc.Equipos
         dr("equipos_2") = Doc.Mangueras
         dr("prestamos_0") = Doc.PrestamosExtintores
@@ -310,9 +333,9 @@ Class frmRuta
         dr("install_0") = Doc.Instalaciones
         dr("rechazos_0") = Doc.RechazosExtintor
         dr("rechazos_1") = Doc.RechazosManguera
-        dr("cobranza_0") = Doc.Cobranza
-        dr("varios_0") = Doc.Varios
-        dr("prioridad_0") = False
+        dr("cobranza_0") = IIf(Doc.Cobranza, 1, 0)
+        dr("varios_0") = IIf(Doc.Varios, 1, 0)
+        dr("prioridad_0") = 0
         dr("hora_0") = Doc.Hora
         dr("kilos_0") = Doc.Peso
         dr("estado_0") = 0
@@ -322,189 +345,188 @@ Class frmRuta
         ActualizarControles()
 
     End Sub
-    Private Sub AgregarIntervencion(ByVal num As String)
-        'Dim itn As New Intervencion(cn)
-        
-        'Consulto datos del documento a tratar
-        num = num.Trim.ToUpper
-
-        Dim PonerEnRuta As Boolean = False
+    Private Function VerificacionDocumentoEnRuta(ByVal Doc As IRuteable, ByRef dr As DataRow) As Boolean
+        Dim Sql As String
+        Dim dt As DataTable 'Tabla con todas las rutas donde se encontro el documento
+        Dim da As OracleDataAdapter
         Dim RutaAnterior As Boolean = False
+        Dim PonerEnRuta As Boolean = True
 
-        Dim dr As DataRow = Nothing 'Fila que contiene documento en ruta anterior
-        Dim dt As New DataTable 'Tabla con todas las rutas donde se encontro el documento
-        Dim da As New OracleDataAdapter("SELECT xd.*, xc.valid_0 FROM xrutad xd INNER JOIN xrutac xc ON (xd.ruta_0 = xc.ruta_0) WHERE vcrnum_0 = :p1 ORDER BY xd.ruta_0 DESC", cn)
+        Sql = "SELECT xd.*, xc.valid_0 "
+        Sql &= "FROM xrutad xd INNER JOIN "
+        Sql &= "     xrutac xc ON (xd.ruta_0 = xc.ruta_0) "
+        Sql &= "WHERE vcrnum_0 = :p1 "
+        Sql &= "ORDER BY xd.ruta_0 DESC"
 
-        If Not EnGrilla(num) Then 'Busco si el comprobante está en la grilla
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("p1", OracleType.VarChar).Value = Doc.Numero
 
-            'Consulto el documento. Documento con datos actuales
-            If Not Doc.Buscar(num) Then
-                txtBuscar.Clear()
-                Exit Sub
-            End If
+        dt = New DataTable
+        da.Fill(dt)
 
-            'Consulta si el documento se encuentra en otra ruta
-            da.SelectCommand.Parameters.Add("p1", OracleType.VarChar).Value = num
-            da.Fill(dt)
+        'Se encontro el documento en otra ruta
+        If dt.Rows.Count > 0 Then
+            dr = dt.Rows(0)
 
-            'Se encontro el documento en otra ruta
-            If dt.Rows.Count > 0 Then
-                dr = dt.Rows(0)
+            Select Case CType(dr("estado_0"), Integer)
+                'El documento no tiene cargada novedad en la otra ruta. Se abre formulario
+                'para preguntar si se cambia de ruta o es un rebote
+                Case 0
+                    Dim f As New frmDocEnRuta(Doc.Numero, dr("ruta_0").ToString)
+                    f.ShowDialog(Me)
 
-                Select Case CType(dr("estado_0"), Integer)
-                    'El documento no tiene cargada novedad en la otra ruta. Se abre formulario
-                    'para preguntar si se cambia de ruta o es un rebote
-                    Case 0
-                        Dim f As New frmDocEnRuta(num, dr("ruta_0").ToString)
-                        f.ShowDialog(Me)
-
-                        Select Case f.DialogResult
-                            Case Windows.Forms.DialogResult.Yes
-                                'El documento se saca de la ruta vieja y se pone en la nueva
-                                PonerEnRuta = True
-                                RutaAnterior = True
-                                dr.Delete()
-
-                            Case Windows.Forms.DialogResult.No
-                                'Es un nuevo viaje a causa de un rebote. Se graba la no conformidad
-                                'y se vuelve a poner el documento en ruta
-                                PonerEnRuta = True
-                                RutaAnterior = True
-
-                                dr.BeginEdit()
-                                dr("estado_0") = 4
-                                dr("noconform_0") = f.Motivo
-                                dr.EndEdit()
-
-                        End Select
-
-                        f.Dispose() : f = Nothing
-
-                    Case 1, 2
-                        PonerEnRuta = False
-
-                    Case 3
-                        'El documento está cumplido. Se deja poner en ruta solo si la ruta anterior es
-                        'de retiro y el documento tiene remito para ser entregado
-                        If dr("tipo_0").ToString = "RET" AndAlso Doc.TieneRemito Then
+                    Select Case f.DialogResult
+                        Case Windows.Forms.DialogResult.Yes
+                            'El documento se saca de la ruta vieja y se pone en la nueva
                             PonerEnRuta = True
-                        Else
-                            MessageBox.Show("Documento cerrado. No se puede volver a poner en ruta", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                        End If
+                            RutaAnterior = True
+                            dr.Delete()
 
+                        Case Windows.Forms.DialogResult.No
+                            'Es un nuevo viaje a causa de un rebote. Se graba la no conformidad
+                            'y se vuelve a poner el documento en ruta
+                            PonerEnRuta = True
+                            RutaAnterior = True
 
-                    Case 4  'Documento con rebote
-                        PonerEnRuta = True
+                            dr.BeginEdit()
+                            dr("estado_0") = 4
+                            dr("noconform_0") = f.Motivo
+                            dr.EndEdit()
 
-                    Case Else
-                        PonerEnRuta = False
-
-                End Select
-
-            Else 'No se encontró el documento en otra ruta
-
-                'Consulto el documento. Documento con datos actuales
-                If Not Doc.Buscar(num) Then
-                    txtBuscar.Clear()
-                    Exit Sub
-                End If
-
-                PonerEnRuta = True
-
-            End If
-
-            'Se valida si el documento es para entregar por lógistica y si la fecha de entrega
-            'no es futura y si el cliente recibe entregas el dia que se programa la ruta
-            If PonerEnRuta Then PonerEnRuta = ValidarEntrega()
-            If PonerEnRuta = True Then
-                PonerEnRuta = DocumentosPendientes(num)
-            End If
-            'Borra o actualiza documento en la ruta anterior
-            If RutaAnterior AndAlso PonerEnRuta Then dtRutax.ImportRow(dr)
-
-           
-            If Doc.EsIntervencion Then
-                itn = Doc.Intervencion
-
-                'CANJE
-                'Debe tener parte para poder poner en ruta
-                If itn.Tipo = "B2" Then
-                    'Abro la factura de la SS
-                    Dim sih As New Factura(cn)
-
-                    If sih.AbrirPorSolicitud(itn.SolicitudAsociada.Numero) Then
-
-                        Dim par As New ParteCobranza(cn)
-                        par.Abrir(sih.Numero)
-
-                        If par.Cobrador.Trim = "" Then
-                            MessageBox.Show("Falta parte de cobranza para esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                        Case Else
                             PonerEnRuta = False
-                        End If
 
-                    Else
-                        MessageBox.Show("Falta facturar esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                        PonerEnRuta = False
+                    End Select
 
-                    End If
+                    f.Dispose() : f = Nothing
 
-                End If
-
-                Dim sre As Solicitud
-
-                sre = itn.SolicitudAsociada
-
-                'No se permite poner en ruta retiros con solicitudes de servicio cerrada
-                If Doc.Tipo = "RET" AndAlso sre.Estado = Solicitud.EstadoSolicitud.Cerrada Then
-                    MessageBox.Show("No se puede poner en ruta porque la Solicitud de Servicio fue cerrada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Case 1, 2
                     PonerEnRuta = False
-                End If
 
-            End If
-
-            'Si es intervencion de retiro con fecha de coordinacion, se verifica que no se
-            'este intenta retirar antes de la fecha de coordinacion
-            'If PonerEnRuta AndAlso Doc.EsIntervencion AndAlso Doc.Tipo = "RET" AndAlso itn.CarritoTipo > 0 AndAlso itn.CarritoFecha > dtpFecha.Value Then
-            '    Dim txt As String
-            '    txt = "Intervencion {itn}" & vbCrLf & vbCrLf
-            '    txt &= "Esta intentando retirar antes de la fecha de coordinacion {fecha}"
-
-            '    txt = txt.Replace("{itn}", itn.Numero)
-            '    txt = txt.Replace("{fecha}", itn.CarritoFecha.ToString("dd/MM/yyyy")) & vbCrLf & vbCrLf
-            '    txt &= "¿Confirma ponerla en ruta?"
-
-            '    If MessageBox.Show(txt, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.No Then
-            '        PonerEnRuta = False
-            '    End If
-
-            'End If
-
-
-            'Flag que indica que el documento se debe poner en ruta
-            If PonerEnRuta Then
-                RutaAgregarDocumento()
-
-                If Doc.EsIntervencion Then
-
-                    If itn.Tanda Then
-                        Dim txt As String
-                        txt = "Esta intervencion debe ir acompañada con otra para retiro del saldo anterior"
-                        MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Case 3
+                    'El documento está cumplido. Se deja poner en ruta solo si la ruta anterior es
+                    'de retiro y el documento tiene remito para ser entregado
+                    If dr("tipo_0").ToString = "RET" AndAlso Doc.Remito <> "" Then
+                        PonerEnRuta = True
+                    Else
+                        PonerEnRuta = False
+                        MessageBox.Show("Documento cerrado. No se puede volver a poner en ruta", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     End If
-                End If
 
-            End If
+
+                Case 4  'Documento con rebote
+                    PonerEnRuta = True
+
+                Case Else
+                    PonerEnRuta = False
+
+            End Select
+
+            If Not RutaAnterior Then dr = Nothing
 
         End If
 
-        CalcularPesoPrestamos()
-        txtBuscar.Clear()
+        Return PonerEnRuta
 
-        dt.Dispose() : dt = Nothing
-        da.Dispose() : da = Nothing
-        dr = Nothing
+    End Function
+    Private Sub AgregarDocumento(ByVal num As String)
+        Dim Doc As IRuteable
+        Dim DocumentoEnRutaAnterior As DataRow = Nothing
+
+        'Consulto datos del documento a tratar
+        num = num.Trim.ToUpper
+
+        'Salgo si ya esta en la grilla
+        If EnGrilla(num) Then Exit Sub
+
+        If num.Substring(3, 3) = "RMR" Then
+            Doc = AbrirRemito(num)
+
+        ElseIf num.StartsWith("POD") Then
+            Doc = AbrirPedidoCompra(num)
+
+        Else
+            Doc = AbrirIntervencion(num)
+
+        End If
+
+        If Doc Is Nothing Then
+            MessageBox.Show("No se encontró el documento", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+
+        'Consulta si el documento se encuentra en otra ruta
+        If Not VerificacionDocumentoEnRuta(Doc, DocumentoEnRutaAnterior) Then Exit Sub
+
+        'Se valida si el documento es para entregar por lógistica y si la fecha de entrega
+        'no es futura y si el cliente recibe entregas el dia que se programa la ruta
+        'If PonerEnRuta Then PonerEnRuta = ValidarEntrega()
+        If Not ValidarEntrega(Doc) Then Exit Sub
+
+        'DocumentosPendientes(num) /// desactivado hasta entender que es lo que hace realmente
+
+        If Not VerificarSiHayParte(Doc) Then Exit Sub
+
+        'Borra o actualiza documento en la ruta anterior
+        If DocumentoEnRutaAnterior IsNot Nothing Then
+            dtRutax.ImportRow(DocumentoEnRutaAnterior)
+        End If
+
+        If TypeOf Doc Is Intervencion Then
+            Dim itn As Intervencion = CType(Doc, Intervencion)
+
+            If itn.Tanda Then
+                Dim txt As String
+                txt = "Esta intervencion debe ir acompañada con otra para retiro del saldo anterior"
+                MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End If
+
+        RutaAgregarDocumento(Doc)
+
+        CalcularPesoPrestamos()
 
     End Sub
+    Private Function VerificarSiHayParte(ByVal Doc As IRuteable) As Boolean
+        If Not TypeOf Doc Is Intervencion Then Return True
+
+        Dim itn As Intervencion = CType(Doc, Intervencion)
+        Dim sre As Solicitud
+        Dim par As New ParteCobranza(cn)
+
+        'CANJE
+        'Debe tener parte para poder poner en ruta
+        If itn.Tipo <> "B2" Then Return True
+
+        'Abro la factura de la SS
+        Dim sih As New Factura(cn)
+
+        If sih.AbrirPorSolicitud(itn.SolicitudAsociada.Numero) Then
+
+            par.Abrir(sih.Numero)
+
+            If par.Cobrador.Trim = "" Then
+                MessageBox.Show("Falta parte de cobranza para esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Return False
+            End If
+
+        Else
+            MessageBox.Show("Falta facturar esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Return False
+
+        End If
+
+        sre = itn.SolicitudAsociada
+
+        'No se permite poner en ruta retiros con solicitudes de servicio cerrada
+        If Doc.Tipo = "RET" AndAlso sre.Estado = Solicitud.EstadoSolicitud.Cerrada Then
+            MessageBox.Show("No se puede poner en ruta porque la Solicitud de Servicio fue cerrada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Return False
+        End If
+
+        Return True
+
+    End Function
     Private Sub ValoresIniciales()
         Select Case Modo
             Case ModoRuta.Cerrada, ModoRuta.Nueva
@@ -824,7 +846,7 @@ Class frmRuta
     End Sub
 
     'FUNCIONES
-    Private Function ValidarEntrega() As Boolean
+    Private Function ValidarEntrega(ByVal Doc As IRuteable) As Boolean
         Dim msg As String = ""
         Dim btn As DialogResult = Nothing
 
@@ -881,16 +903,16 @@ Class frmRuta
         End If
 
         'valido que el cliente reciba
-        If Not Doc.ValidarDiaEntrega(dtpFecha.Value) Then
-            msg = "El cliente no recibe entregas el " & dtpFecha.Value.ToShortDateString
-            msg &= vbCrLf
-            msg &= "¿Confirma la puesta en ruta?"
+        'If Not Doc.ValidarDiaEntrega(dtpFecha.Value) Then
+        '    msg = "El cliente no recibe entregas el " & dtpFecha.Value.ToShortDateString
+        '    msg &= vbCrLf
+        '    msg &= "¿Confirma la puesta en ruta?"
 
-            btn = MessageBox.Show(msg, "Fecha de Entrega", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        '    btn = MessageBox.Show(msg, "Fecha de Entrega", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
-            If btn = Windows.Forms.DialogResult.No Then Return False
+        '    If btn = Windows.Forms.DialogResult.No Then Return False
 
-        End If
+        'End If
 
         'Todo OK
         Return True
@@ -989,108 +1011,120 @@ Class frmRuta
         Return Valor
 
     End Function
-    Private Function DocumentosPendientes(ByVal documento As String) As Boolean
-        Dim sql As String
-        Dim cliente As String
-        Dim sucursal As String
-        Dim numero As String = ""
-        Dim sector As String = ""
-        Dim da As OracleDataAdapter
-        Dim dt As New DataTable
-        Dim dt2 As New DataTable
-        Dim dr As DataRow
-        Dim result As DialogResult
+    'Private Function DocumentosPendientes(ByVal Doc As IRuteable) As Boolean
+    '
+    '
+    ' SE DESHABLITA TEMPORALMENTE HASTA ENTENDER COMO FUNCIONA ESTA FUNCION
+    '
+    '    Dim sql As String
+    '    Dim cliente As String
+    '    Dim sucursal As String
+    '    Dim numero As String = ""
+    '    Dim sector As String = ""
+    '    Dim da As OracleDataAdapter
+    '    Dim dt As New DataTable
+    '    Dim dt2 As New DataTable
+    '    Dim dr As DataRow
+    '    Dim result As DialogResult
 
-        If itn.Abrir(documento) Then
-            cliente = itn.Cliente.Codigo
-            sucursal = itn.SucursalCodigo
-            sql = "select num_0 from interven where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
-            sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
-            da = New OracleDataAdapter(sql, cn)
-            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-            da.Fill(dt)
-            If dt.Rows.Count > 0 Then
-                dr = dt.Rows(0)
-                numero = dr("num_0").ToString
-            Else
-                dt.Clear()
-                sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
-                sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
-                da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-                da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-                da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-                da.Fill(dt)
+    '    If TypeOf Doc Is Intervencion Then
+    '        Dim itn As Intervencion = CType(Doc, Intervencion)
 
-                If dt.Rows.Count > 0 Then
-                    dr = dt.Rows(0)
-                    numero = dr("sdhnum_0").ToString
-                End If
-            End If
-        Else
-            rto.Abrir(documento)
-            cliente = rto.Cliente.Codigo
-            sucursal = rto.SucursalCodigo
-            sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
-            sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
-            da = New OracleDataAdapter(sql, cn)
-            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-            da.Fill(dt)
+    '    End If
 
-            If dt.Rows.Count > 0 Then
-                dr = dt.Rows(0)
-                numero = dr("sdhnum_0").ToString
-            Else
-                dt.Clear()
-                sql = "select num_0 from interven where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
-                sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
-                da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-                da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-                da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-                da.Fill(dt)
-                If dt.Rows.Count > 0 Then
-                    dr = dt.Rows(0)
-                    numero = dr("num_0").ToString
-                End If
-            End If
-        End If
+    '    If itn.Abrir(documento) Then
+    '        cliente = itn.Cliente.Codigo
+    '        sucursal = itn.SucursalCodigo
+    '        sql = "select num_0 "
+    '        sql &= "from interven "
+    '        sql &= "where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
+    '        sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
+    '        da = New OracleDataAdapter(sql, cn)
+    '        da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = Doc.CodigoTercero
+    '        da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = Doc.SucursalCodigo
+    '        da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = Doc.Numero
+    '        da.Fill(dt)
 
-        If dt.Rows.Count > 0 Then
-            If itn.Abrir(numero) Then
-                sql = "select para_0 from xsegto where itn_0 = :numero order by fecha_0 desc"
-                da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
-            ElseIf rto.Abrir(numero) Then
-                sql = "select para_0 from xsegto where rto_0 = :numero order by fecha_0 desc"
-                da = New OracleDataAdapter(sql, cn)
-                da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
-            End If
-        End If
-        da.Fill(dt2)
-        If dt2.Rows.Count > 0 Then
-            dr = dt2.Rows(0)
-            sector = dr("para_0").ToString
-        Else
-            sector = "(Sin Pistolear)"
-        End If
-        If dt.Rows.Count > 0 Then
+    '        If dt.Rows.Count > 0 Then
+    '            dr = dt.Rows(0)
+    '            numero = dr("num_0").ToString
+    '        Else
+    '            dt.Clear()
+    '            sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
+    '            sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
+    '            da = New OracleDataAdapter(sql, cn)
+    '            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
+    '            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
+    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
+    '            da.Fill(dt)
 
-            result = MessageBox.Show("Para este mismo cliente (" & cliente & "), sucursal (" & sucursal & ") existe el nro de ped/int pendiente nro: " & numero & " en el sector: " & sector & " , quiere igualmente agregar este documento?", "Atencion", MessageBoxButtons.YesNo)
-            If result = DialogResult.Yes Then
-                Return True
-            ElseIf result = DialogResult.No Then
-                Return False
-            End If
-        Else
-            Return True
-        End If
+    '            If dt.Rows.Count > 0 Then
+    '                dr = dt.Rows(0)
+    '                numero = dr("sdhnum_0").ToString
+    '            End If
+    '        End If
+    '    Else
+    '        rto.Abrir(documento)
+    '        cliente = rto.Cliente.Codigo
+    '        sucursal = rto.SucursalCodigo
+    '        sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
+    '        sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
+    '        da = New OracleDataAdapter(sql, cn)
+    '        da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
+    '        da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
+    '        da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
+    '        da.Fill(dt)
 
-    End Function
+    '        If dt.Rows.Count > 0 Then
+    '            dr = dt.Rows(0)
+    '            numero = dr("sdhnum_0").ToString
+    '        Else
+    '            dt.Clear()
+    '            sql = "select num_0 from interven where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
+    '            sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
+    '            da = New OracleDataAdapter(sql, cn)
+    '            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
+    '            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
+    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
+    '            da.Fill(dt)
+    '            If dt.Rows.Count > 0 Then
+    '                dr = dt.Rows(0)
+    '                numero = dr("num_0").ToString
+    '            End If
+    '        End If
+    '    End If
+
+    '    If dt.Rows.Count > 0 Then
+    '        If itn.Abrir(numero) Then
+    '            sql = "select para_0 from xsegto where itn_0 = :numero order by fecha_0 desc"
+    '            da = New OracleDataAdapter(sql, cn)
+    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
+    '        ElseIf rto.Abrir(numero) Then
+    '            sql = "select para_0 from xsegto where rto_0 = :numero order by fecha_0 desc"
+    '            da = New OracleDataAdapter(sql, cn)
+    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
+    '        End If
+    '    End If
+    '    da.Fill(dt2)
+    '    If dt2.Rows.Count > 0 Then
+    '        dr = dt2.Rows(0)
+    '        sector = dr("para_0").ToString
+    '    Else
+    '        sector = "(Sin Pistolear)"
+    '    End If
+    '    If dt.Rows.Count > 0 Then
+
+    '        result = MessageBox.Show("Para este mismo cliente (" & cliente & "), sucursal (" & sucursal & ") existe el nro de ped/int pendiente nro: " & numero & " en el sector: " & sector & " , quiere igualmente agregar este documento?", "Atencion", MessageBoxButtons.YesNo)
+    '        If result = DialogResult.Yes Then
+    '            Return True
+    '        ElseIf result = DialogResult.No Then
+    '            Return False
+    '        End If
+    '    Else
+    '        Return True
+    '    End If
+
+    'End Function
     Private Function CantidadMovimientos() As Integer
         Dim c As Integer = 0
 
@@ -1353,7 +1387,8 @@ Class frmRuta
     Private Sub txtBuscar_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtBuscar.KeyUp
 
         If e.KeyCode = Keys.Enter AndAlso txtBuscar.Text.Trim <> "" Then
-            AgregarIntervencion(txtBuscar.Text)
+            AgregarDocumento(txtBuscar.Text)
+            txtBuscar.Clear()
         End If
 
     End Sub
@@ -1374,6 +1409,8 @@ Class frmRuta
 
             Select Case e.Row("tipo_0").ToString
                 Case "RET", "CTL"
+                    Dim itn As New Intervencion(cn)
+
                     If itn.Abrir(e.Row("vcrnum_0").ToString) Then
                         itn.Estado = 1
                         itn.Ruta = dtRutac.Rows(0).Item("ruta_0").ToString
@@ -1381,6 +1418,8 @@ Class frmRuta
                     End If
 
                 Case "ENT"
+                    Dim itn As New Intervencion(cn)
+
                     If itn.Abrir(e.Row("vcrnum_0").ToString) Then
                         itn.Estado = 4
                         itn.Ruta = dtRutac.Rows(0).Item("ruta_0").ToString
@@ -1388,6 +1427,8 @@ Class frmRuta
                     End If
 
                 Case "NCI", "INS", "NUE"
+                    Dim rto As New Remito(cn)
+
                     If rto.Abrir(e.Row("vcrnum_0").ToString) Then
                         rto.Estado = 2 'En ruta
                         rto.Ruta = dtRutac.Rows(0).Item("ruta_0").ToString
@@ -1400,6 +1441,8 @@ Class frmRuta
 
             Select Case e.Row("tipo_0", DataRowVersion.Original).ToString
                 Case "RET", "CTL"
+                    Dim itn As New Intervencion(cn)
+
                     If itn.Abrir(e.Row("vcrnum_0", DataRowVersion.Original).ToString) Then
                         itn.Estado = 1
                         itn.Ruta = " "
@@ -1407,6 +1450,8 @@ Class frmRuta
                     End If
 
                 Case "ENT"
+                    Dim itn As New Intervencion(cn)
+
                     If itn.Abrir(e.Row("vcrnum_0", DataRowVersion.Original).ToString) Then
                         itn.Estado = 4
                         itn.Ruta = " "
@@ -1414,6 +1459,8 @@ Class frmRuta
                     End If
 
                 Case "NCI", "INS", "NUE"
+                    Dim rto As New Remito(cn)
+
                     If rto.Abrir(e.Row("vcrnum_0", DataRowVersion.Original).ToString) Then
                         rto.Estado = 1 'Pendiente
                         rto.Ruta = " "
@@ -1424,9 +1471,6 @@ Class frmRuta
 
         End If
 
-    End Sub
-    Private Sub Doc_ErrorDocumento(ByVal sender As Object, ByVal e As ErrDocumentoEvenArgs) Handles Doc.ErrorDocumento
-        MessageBox.Show(e.Mensaje, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
     End Sub
 
     'EVENTOS DE MENU CONTEXTUAL
@@ -1443,6 +1487,8 @@ Class frmRuta
 
                 Case "RET", "ENT"
                     mnuVerDocumento.Enabled = True
+
+                    Dim itn As New Intervencion(cn)
 
                     If itn.Abrir(Grilla.CurrentRow.Cells("colDocumento").Value.ToString) AndAlso itn.Tipo = "C1" Then
                         mnuRelevamiento.Enabled = True
@@ -1783,7 +1829,7 @@ Class frmRuta
         For i = 0 To dgvZonas.SelectedRows.Count - 1
             dr = CType(dgvZonas.SelectedRows(i).DataBoundItem, DataRowView).Row
             txt = dr("num_0").ToString
-            AgregarIntervencion(txt)
+            AgregarDocumento(txt)
         Next
 
     End Sub
