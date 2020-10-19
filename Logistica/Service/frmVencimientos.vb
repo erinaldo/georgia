@@ -1265,6 +1265,7 @@ Public Class frmVencimientos '2034
         Dim dt As New DataTable
         Dim dr As DataRow
         Dim i As Integer = 0
+        Dim FechaFabricacion As New Date(Today.Year - 14, 1, 1)
 
         lblCanje.Visible = False
 
@@ -1280,6 +1281,8 @@ Public Class frmVencimientos '2034
         Sql &= "     bpcustomer bpc on (mac.bpcnum_0 = bpc.bpcnum_0) "
         Sql &= "where mac.bpcnum_0 = :p1 and fcyitn_0 = :p2 and "
         Sql &= "      tsicod_3 = '301' and "
+        Sql &= "      tsicod_2 = '201' and "
+        Sql &= "      tsicod_1 = '108' and "
         Sql &= "	  datnext_0 >= :p3 and "
         Sql &= "	  bpc.pte_0 between '001' and '023' "
 
@@ -1290,20 +1293,11 @@ Public Class frmVencimientos '2034
         da.Fill(dt)
 
         For Each dr In dt.Rows
-            'Si no es extintor se pasa al siguiente registro
-            'If dr("tsicod_3").ToString <> "301" Then Continue For
-            'Salgo si no es polvo
-            If dr("tsicod_2").ToString <> "201" Then Exit Sub
-            'Salgo si no es 5kg
-            If dr("tsicod_1").ToString <> "108" Then Exit Sub
-            'Tiene mas de 9 año
-            Dim f As New Date(Today.Year - 9, 1, 1)
-            If CDate(dr("yfabdat_0")) <= f Then Exit Sub
-
+            If Not CDate(dr("yfabdat_0")) >= FechaFabricacion Then Exit Sub
             i += 1
         Next
 
-        lblCanje.Visible = i > 0 And i <= 5
+        lblCanje.Visible = i > 0 And i <= 20
 
     End Sub
     Private Sub Aviso639()
