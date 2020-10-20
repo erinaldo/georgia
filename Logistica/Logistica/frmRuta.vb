@@ -462,15 +462,11 @@ Class frmRuta
         'no es futura y si el cliente recibe entregas el dia que se programa la ruta
         'If PonerEnRuta Then PonerEnRuta = ValidarEntrega()
         If Not ValidarEntrega(Doc) Then Exit Sub
-
-        'DocumentosPendientes(num) /// desactivado hasta entender que es lo que hace realmente
-
+        If Not DocumentosPendientes(Doc) Then Exit Sub
         If Not VerificarSiHayParte(Doc) Then Exit Sub
 
         'Borra o actualiza documento en la ruta anterior
-        If DocumentoEnRutaAnterior IsNot Nothing Then
-            dtRutax.ImportRow(DocumentoEnRutaAnterior)
-        End If
+        If DocumentoEnRutaAnterior IsNot Nothing Then dtRutax.ImportRow(DocumentoEnRutaAnterior)
 
         If TypeOf Doc Is Intervencion Then
             Dim itn As Intervencion = CType(Doc, Intervencion)
@@ -1011,120 +1007,54 @@ Class frmRuta
         Return Valor
 
     End Function
-    'Private Function DocumentosPendientes(ByVal Doc As IRuteable) As Boolean
-    '
-    '
-    ' SE DESHABLITA TEMPORALMENTE HASTA ENTENDER COMO FUNCIONA ESTA FUNCION
-    '
-    '    Dim sql As String
-    '    Dim cliente As String
-    '    Dim sucursal As String
-    '    Dim numero As String = ""
-    '    Dim sector As String = ""
-    '    Dim da As OracleDataAdapter
-    '    Dim dt As New DataTable
-    '    Dim dt2 As New DataTable
-    '    Dim dr As DataRow
-    '    Dim result As DialogResult
+    Private Function DocumentosPendientes(ByVal Doc As IRuteable) As Boolean
+        Dim Sql As String
+        Dim da As OracleDataAdapter
+        Dim dt As New DataTable
+        Dim Ok As Boolean = True
 
-    '    If TypeOf Doc Is Intervencion Then
-    '        Dim itn As Intervencion = CType(Doc, Intervencion)
+        'No aplica para pedidos de compras. Se fuerza a True
+        If TypeOf Doc Is PedidoCompra Then Return True
 
-    '    End If
+        'Consulto si existen otras intervenciones y/o remitos para poner en ruta
+        Sql = "select num_0 "
+        Sql &= "from interven "
+        Sql &= "where zflgtrip_0 in (1,2,3,4,6) and "
+        Sql &= "      bpc_0 = :bpc and "
+        Sql &= "      bpaadd_0 = :bpa and "
+        Sql &= "      num_0 <> :num "
+        Sql &= "UNION "
+        Sql &= "select sdhnum_0 "
+        Sql &= "from sdelivery "
+        Sql &= "where xflgrto_0 in (1,2,3,4) and "
+        Sql &= "      bpcord_0 = :bpc and "
+        Sql &= "      bpaadd_0 = :bpa and "
+        Sql &= "      sdhnum_0 <> :num"
 
-    '    If itn.Abrir(documento) Then
-    '        cliente = itn.Cliente.Codigo
-    '        sucursal = itn.SucursalCodigo
-    '        sql = "select num_0 "
-    '        sql &= "from interven "
-    '        sql &= "where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
-    '        sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
-    '        da = New OracleDataAdapter(sql, cn)
-    '        da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = Doc.CodigoTercero
-    '        da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = Doc.SucursalCodigo
-    '        da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = Doc.Numero
-    '        da.Fill(dt)
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("bpc", OracleType.VarChar).Value = Doc.CodigoTercero
+        da.SelectCommand.Parameters.Add("bpa", OracleType.VarChar).Value = Doc.SucursalCodigo
+        da.SelectCommand.Parameters.Add("num", OracleType.VarChar).Value = Doc.Numero
+        da.Fill(dt)
 
-    '        If dt.Rows.Count > 0 Then
-    '            dr = dt.Rows(0)
-    '            numero = dr("num_0").ToString
-    '        Else
-    '            dt.Clear()
-    '            sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
-    '            sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
-    '            da = New OracleDataAdapter(sql, cn)
-    '            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-    '            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-    '            da.Fill(dt)
+        If dt.Rows.Count > 0 Then
+            Sql = "Se encontraron los siguientes documentos pendientes para la misma dirección"
+            Sql &= vbCrLf & vbCrLf
 
-    '            If dt.Rows.Count > 0 Then
-    '                dr = dt.Rows(0)
-    '                numero = dr("sdhnum_0").ToString
-    '            End If
-    '        End If
-    '    Else
-    '        rto.Abrir(documento)
-    '        cliente = rto.Cliente.Codigo
-    '        sucursal = rto.SucursalCodigo
-    '        sql = "select sdhnum_0 from sdelivery where (xflgrto_0 >= '1' and xflgrto_0 <= '4') and "
-    '        sql &= " bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and sdhnum_0 <> :numero"
-    '        da = New OracleDataAdapter(sql, cn)
-    '        da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-    '        da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-    '        da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-    '        da.Fill(dt)
+            For Each dr As DataRow In dt.Rows
+                Sql &= dr(0).ToString & vbCrLf
+            Next
 
-    '        If dt.Rows.Count > 0 Then
-    '            dr = dt.Rows(0)
-    '            numero = dr("sdhnum_0").ToString
-    '        Else
-    '            dt.Clear()
-    '            sql = "select num_0 from interven where (zflgtrip_0 >= '1' and zflgtrip_0 <= '4' or zflgtrip_0 = '6') "
-    '            sql &= " and bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 and num_0 <> :numero"
-    '            da = New OracleDataAdapter(sql, cn)
-    '            da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
-    '            da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
-    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = documento
-    '            da.Fill(dt)
-    '            If dt.Rows.Count > 0 Then
-    '                dr = dt.Rows(0)
-    '                numero = dr("num_0").ToString
-    '            End If
-    '        End If
-    '    End If
+            Sql &= vbCrLf
+            Sql &= "¿Poner el documento en ruta?"
 
-    '    If dt.Rows.Count > 0 Then
-    '        If itn.Abrir(numero) Then
-    '            sql = "select para_0 from xsegto where itn_0 = :numero order by fecha_0 desc"
-    '            da = New OracleDataAdapter(sql, cn)
-    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
-    '        ElseIf rto.Abrir(numero) Then
-    '            sql = "select para_0 from xsegto where rto_0 = :numero order by fecha_0 desc"
-    '            da = New OracleDataAdapter(sql, cn)
-    '            da.SelectCommand.Parameters.Add("numero", OracleType.VarChar).Value = numero
-    '        End If
-    '    End If
-    '    da.Fill(dt2)
-    '    If dt2.Rows.Count > 0 Then
-    '        dr = dt2.Rows(0)
-    '        sector = dr("para_0").ToString
-    '    Else
-    '        sector = "(Sin Pistolear)"
-    '    End If
-    '    If dt.Rows.Count > 0 Then
+            Ok = MessageBox.Show(Sql, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes
 
-    '        result = MessageBox.Show("Para este mismo cliente (" & cliente & "), sucursal (" & sucursal & ") existe el nro de ped/int pendiente nro: " & numero & " en el sector: " & sector & " , quiere igualmente agregar este documento?", "Atencion", MessageBoxButtons.YesNo)
-    '        If result = DialogResult.Yes Then
-    '            Return True
-    '        ElseIf result = DialogResult.No Then
-    '            Return False
-    '        End If
-    '    Else
-    '        Return True
-    '    End If
+        End If
 
-    'End Function
+        Return Ok
+
+    End Function
     Private Function CantidadMovimientos() As Integer
         Dim c As Integer = 0
 
