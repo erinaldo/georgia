@@ -128,7 +128,7 @@ Public Class frmExportarControles
     End Sub
     Private Sub GrabarLineaDocumento(ByVal Doc As IRuteable)
         Dim bpa As Sucursal = Doc.Sucursal
-        Dim bpc As Cliente = Doc.Cliente
+        Dim bpc As Cliente = CType(Doc.Tercero, Cliente)
         Dim p As Integer = 0
         Dim itn As Intervencion
 

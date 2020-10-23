@@ -28,8 +28,8 @@ Public Class frmDetalleRemitos
     Private Sub frmDetalleRemitos_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         txtnro.Text = Doc.Numero
-        txtbcliente.Text = Doc.Cliente.Codigo
-        txtbsuc.Text = Doc.Sucursal.Sucursal
+        txtbcliente.Text = Doc.CodigoTercero
+        txtbsuc.Text = Doc.SucursalCodigo
 
         Cargar()
 

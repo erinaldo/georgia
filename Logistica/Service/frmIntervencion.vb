@@ -1044,7 +1044,7 @@ Public Class frmIntervencion
         itn.FechaInicio = dtpTarea.Value
         itn.Observaciones = txtObj.Text
         itn.AgregarDetalle(dtRetiros)
-        itn.ModoEntrega = CInt(cboModoEntrega.SelectedValue)
+        itn.ModoEntrega = cboModoEntrega.SelectedValue.ToString
         itn.Reclamo = chkReclamo.Checked
 
         If txtOT.Text.Trim <> "" Then itn.OTR = CInt(txtOT.Text)

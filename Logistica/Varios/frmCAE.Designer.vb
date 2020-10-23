@@ -266,6 +266,7 @@ Partial Class frmCAE
         '
         'gbBtn1
         '
+        Me.gbBtn1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.gbBtn1.Controls.Add(Me.btnFCA)
         Me.gbBtn1.Controls.Add(Me.btnNDB)
         Me.gbBtn1.Controls.Add(Me.btnNCA)
@@ -281,6 +282,7 @@ Partial Class frmCAE
         '
         'gbBtn2
         '
+        Me.gbBtn2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.gbBtn2.Controls.Add(Me.btnFCAc)
         Me.gbBtn2.Controls.Add(Me.btnNDBc)
         Me.gbBtn2.Controls.Add(Me.btnNCAc)
