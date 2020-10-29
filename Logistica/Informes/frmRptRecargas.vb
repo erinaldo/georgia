@@ -47,37 +47,33 @@ Public Class frmRptRecargas '948 - 880
         'Armo la grilla con los nuevos resultados
         Fecha = dtpDesde.Value
         Do
+            tmp.Nuevo()
+            tmp.Fecha(0) = Fecha.Date
 
-            If EsDiaHabil(Fecha) Then
-                tmp.Nuevo()
-                tmp.Fecha(0) = Fecha.Date
+            rr.BuscarRetirados(Fecha.Date)
+            tmp.Numero(0) = rr.Extintores
+            tmp.Numero(1) = rr.Mangueras
 
-                rr.BuscarRetirados(Fecha.Date)
-                tmp.Numero(0) = rr.Extintores
-                tmp.Numero(1) = rr.Mangueras
+            rr.BuscarRecepcionados(Fecha.Date)
+            tmp.Numero(2) = rr.Extintores
+            tmp.Numero(3) = rr.ExtintoresRechazados
+            tmp.Numero(4) = rr.ExtintoresSustitutos
 
-                rr.BuscarRecepcionados(Fecha.Date)
-                tmp.Numero(2) = rr.Extintores
-                tmp.Numero(3) = rr.ExtintoresRechazados
-                tmp.Numero(4) = rr.ExtintoresSustitutos
+            tmp.Numero(5) = rr.Mangueras
+            tmp.Numero(6) = rr.ManguerasRechazadas
+            tmp.Numero(7) = rr.ManguerasSustitutas
 
-                tmp.Numero(5) = rr.Mangueras
-                tmp.Numero(6) = rr.ManguerasRechazadas
-                tmp.Numero(7) = rr.ManguerasSustitutas
+            rr.BuscarAPrefacturacion(Fecha.Date)
+            tmp.Numero(8) = rr.Extintores + rr.ExtintoresRechazados
+            tmp.Numero(9) = rr.Mangueras + rr.ManguerasRechazadas
 
-                rr.BuscarAPrefacturacion(Fecha.Date)
-                tmp.Numero(8) = rr.Extintores + rr.ExtintoresRechazados
-                tmp.Numero(9) = rr.Mangueras + rr.ManguerasRechazadas
+            rr.BuscarALogistica(Fecha.Date)
+            tmp.Numero(10) = rr.TotalExtintores
+            tmp.Numero(11) = rr.TotalMangueras
 
-                rr.BuscarALogistica(Fecha.Date)
-                tmp.Numero(10) = rr.TotalExtintores
-                tmp.Numero(11) = rr.TotalMangueras
-
-                rr.BuscarEntregados(Fecha.Date)
-                tmp.Numero(12) = rr.TotalExtintores
-                tmp.Numero(13) = rr.TotalMangueras
-
-            End If
+            rr.BuscarEntregados(Fecha.Date)
+            tmp.Numero(12) = rr.TotalExtintores
+            tmp.Numero(13) = rr.TotalMangueras
 
             Fecha = Fecha.AddDays(1)
         Loop Until Fecha > dtpHasta.Value Or Fecha > Date.Today
