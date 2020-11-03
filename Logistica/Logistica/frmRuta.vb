@@ -1317,6 +1317,7 @@ Class frmRuta
     Private Sub txtBuscar_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtBuscar.KeyUp
 
         If e.KeyCode = Keys.Enter AndAlso txtBuscar.Text.Trim <> "" Then
+            txtBuscar.Text = txtBuscar.Text.Replace("'", "-")
             AgregarDocumento(txtBuscar.Text)
             txtBuscar.Clear()
         End If
