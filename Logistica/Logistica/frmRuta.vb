@@ -406,7 +406,7 @@ Class frmRuta
                 Case 3
                     'El documento está cumplido. Se deja poner en ruta solo si la ruta anterior es
                     'de retiro y el documento tiene remito para ser entregado
-                    If dr("tipo_0").ToString = "RET" AndAlso Doc.Remito <> "" Then
+                    If dr("tipo_0").ToString = "RET" AndAlso Doc.Remito.Trim <> "" Then
                         PonerEnRuta = True
                     Else
                         PonerEnRuta = False
@@ -455,6 +455,23 @@ Class frmRuta
             Exit Sub
         End If
 
+        'Validaciones si el documento es Intervencion
+        If TypeOf Doc Is Intervencion Then
+            Dim itn As Intervencion = CType(Doc, Intervencion)
+
+            'La intervencion no debe estar cerrada
+            If itn.Estado = 8 Then
+                MessageBox.Show("No se puede poner en ruta una intervencion cerrada", Me.Text, MessageBoxButtons.OK)
+                Exit Sub
+            End If
+
+            If itn.Tanda Then
+                Dim txt As String
+                txt = "Esta intervencion debe ir acompañada con otra para retiro del saldo anterior"
+                MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        End If
+
         'Consulta si el documento se encuentra en otra ruta
         If Not VerificacionDocumentoEnRuta(Doc, DocumentoEnRutaAnterior) Then Exit Sub
 
@@ -467,16 +484,6 @@ Class frmRuta
 
         'Borra o actualiza documento en la ruta anterior
         If DocumentoEnRutaAnterior IsNot Nothing Then dtRutax.ImportRow(DocumentoEnRutaAnterior)
-
-        If TypeOf Doc Is Intervencion Then
-            Dim itn As Intervencion = CType(Doc, Intervencion)
-
-            If itn.Tanda Then
-                Dim txt As String
-                txt = "Esta intervencion debe ir acompañada con otra para retiro del saldo anterior"
-                MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-        End If
 
         RutaAgregarDocumento(Doc)
 
@@ -1343,7 +1350,8 @@ Class frmRuta
                     Dim itn As New Intervencion(cn)
 
                     If itn.Abrir(e.Row("vcrnum_0").ToString) Then
-                        itn.Estado = 1
+                        'Si intervencion NO esta cerrada se pone Pendiente
+                        If itn.Estado <> 8 Then itn.Estado = 1
                         itn.Ruta = dtRutac.Rows(0).Item("ruta_0").ToString
                         itn.Grabar()
                     End If
