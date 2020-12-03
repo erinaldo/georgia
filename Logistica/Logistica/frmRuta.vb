@@ -1350,8 +1350,7 @@ Class frmRuta
                     Dim itn As New Intervencion(cn)
 
                     If itn.Abrir(e.Row("vcrnum_0").ToString) Then
-                        'Si intervencion NO esta cerrada se pone Pendiente
-                        If itn.Estado <> 8 Then itn.Estado = 1
+                        itn.Estado = 1
                         itn.Ruta = dtRutac.Rows(0).Item("ruta_0").ToString
                         itn.Grabar()
                     End If
@@ -1383,7 +1382,8 @@ Class frmRuta
                     Dim itn As New Intervencion(cn)
 
                     If itn.Abrir(e.Row("vcrnum_0", DataRowVersion.Original).ToString) Then
-                        itn.Estado = 1
+                        'Si intervencion NO esta cerrada se pone Pendiente
+                        If itn.Estado <> 8 Then itn.Estado = 1
                         itn.Ruta = " "
                         itn.Grabar()
                     End If
