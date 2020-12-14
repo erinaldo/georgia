@@ -2232,4 +2232,10 @@ Public Class frmIntervencion
         End Get
     End Property
 
+    Private Sub cboTipo_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboTipo.SelectedValueChanged
+        If cboTipo.SelectedValue.ToString = "D1" Then
+            cboModoEntrega.SelectedValue = 2
+        End If
+    End Sub
+
 End Class
