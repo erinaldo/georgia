@@ -1087,10 +1087,12 @@ Public Class frmCAE
         Return Tipo = "FC"
     End Function
     Private Function Copias(ByVal Tipo As String, ByVal cpy As String) As Integer
+
         Select Case Tipo
             Case "FC", "XF"
-                If cpy = "DNY" Then
-                    Return 1
+
+                If usr.Codigo = "RECE" Then
+                    Return 2
                 Else
                     Return 1
                 End If
@@ -1152,7 +1154,6 @@ Public Class frmCAE
         Next
 
     End Sub
-
     Private Function ObtenerTicket(ByVal Sociedad As String) As Ticket
         Dim wsas As ServidorAutorizacion
         Dim ta As Ticket = Nothing
