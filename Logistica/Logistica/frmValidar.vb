@@ -1138,28 +1138,19 @@ Public Class frmValidar
                                             itn.SolicitudAsociada.CerrarSolicitud()
                                         End If
 
-                                        'If itn.ExisteRetira("551003") OrElse itn.ExisteRetira("551015") OrElse itn.ExisteRetira("991003") OrElse itn.ExisteRetira("991015") OrElse itn.ExisteRetira("401114") OrElse itn.ExisteRetira("551003") Then
-                                        '    Dim f As New frmDetalleRemitos(itn, CInt(txtRuta.Text))
-                                        '    f.ShowDialog(Me)
-                                        '    f.Dispose()
-
-                                        '    Dim f2 As New frmCertificadoMantenimiento(itn)
-                                        '    f2.ShowDialog(Me)
-                                        '    f2.Dispose()
-
-                                        'End If
                                         'Registro del estado del mantenimiento
-                                        If itn.ExisteRetira("551003") OrElse itn.ExisteRetira("991003") OrElse itn.ExisteRetira("551015") OrElse itn.ExisteRetira("991015") OrElse itn.ExisteRetira("551068") OrElse itn.ExisteRetira("991068") OrElse itn.ExisteRetira("551017") Then
+                                        '551003 MANT COCINA SEMESTRAL 
+                                        '551015 MANT ANUAL ACETATO V/SEM
+                                        '551017 REFORMA Y REPARACION 
+                                        '551068 MANT UNICO COCINAS
+                                        If itn.ExisteRetira("551003") OrElse _
+                                           itn.ExisteRetira("551015") OrElse _
+                                           itn.ExisteRetira("551017") OrElse _
+                                           itn.ExisteRetira("551068") Then
 
                                             Dim f2 As New frmCertificadoMantenimiento(itn)
                                             f2.ShowDialog(Me)
                                             f2.Dispose()
-
-                                        End If
-                                        If itn.ExisteRetira("401114") Then
-                                            Dim f As New frmDetalleRemitos(itn, CInt(txtRuta.Text))
-                                            f.ShowDialog(Me)
-                                            f.Dispose()
 
                                         End If
 
@@ -1218,6 +1209,7 @@ Public Class frmValidar
                             Case 0  'Pendiente
                                 rto.Estado = 1  'Estado pendiente
                                 rto.Ruta = " "
+
                             Case 3  'Cumplido
                                 rto.Estado = 5  'Estado entregado
                                 rto.Ruta = " "
@@ -1226,11 +1218,17 @@ Public Class frmValidar
                                     Dim f As New frmDetalleRemitos(rto, CInt(txtRuta.Text))
                                     f.ShowDialog(Me)
                                 End If
-                                If rto.ExisteArticulo("401103") OrElse rto.ExisteArticulo("401104") OrElse rto.ExisteArticulo("401115") OrElse rto.ExisteArticulo("551016") Then
+
+                                If rto.ExisteArticulo("401103") OrElse _
+                                   rto.ExisteArticulo("401104") OrElse _
+                                   rto.ExisteArticulo("401115") OrElse _
+                                   rto.ExisteArticulo("551016") Then
+
                                     Dim f2 As New frmCertificadoMantenimiento(rto)
                                     f2.ShowDialog(Me)
                                     f2.Dispose()
                                 End If
+
                             Case 4  'No Conforme
                                 If CInt(dr("sube_0")) = 2 Then
                                     rto.Estado = 3 'En transito a resolver por administracion
