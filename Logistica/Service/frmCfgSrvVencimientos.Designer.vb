@@ -22,7 +22,6 @@ Partial Class frmCfgSrvVencimientos
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim Label1 As System.Windows.Forms.Label
         Dim Label2 As System.Windows.Forms.Label
         Me.dgvVendedores = New System.Windows.Forms.DataGridView
         Me.colUsr = New System.Windows.Forms.DataGridViewTextBoxColumn
@@ -33,28 +32,18 @@ Partial Class frmCfgSrvVencimientos
         Me.btnRegistrar = New System.Windows.Forms.Button
         Me.btnSalir = New System.Windows.Forms.Button
         Me.lstUsuarios = New System.Windows.Forms.ListBox
-        Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         CType(Me.dgvVendedores, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label1
-        '
-        Label1.AutoSize = True
-        Label1.Location = New System.Drawing.Point(12, 9)
-        Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(239, 13)
-        Label1.TabIndex = 6
-        Label1.Text = "Usuarios con acceso al sistema de vencimientos:"
         '
         'Label2
         '
         Label2.AutoSize = True
         Label2.Location = New System.Drawing.Point(296, 9)
         Label2.Name = "Label2"
-        Label2.Size = New System.Drawing.Size(299, 13)
+        Label2.Size = New System.Drawing.Size(241, 13)
         Label2.TabIndex = 10
-        Label2.Text = "Marcar de que vendedores puede el usuario ver vencimientos"
+        Label2.Text = "Marcar a que vendedores el usuario tiene acceso"
         '
         'dgvVendedores
         '
@@ -147,13 +136,12 @@ Partial Class frmCfgSrvVencimientos
         Me.Controls.Add(Me.btnSalir)
         Me.Controls.Add(Me.btnRegistrar)
         Me.Controls.Add(Me.dgvVendedores)
-        Me.Controls.Add(Label1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmCfgSrvVencimientos"
         Me.Tag = ""
-        Me.Text = "Configuración Vencimientos"
+        Me.Text = "Configuraccion de accesos"
         CType(Me.dgvVendedores, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

@@ -1200,4 +1200,18 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
+    Private Sub mnuClientesBloqueados_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuClientesBloqueados.Click
+        Dim f As frmCrystal
+        Dim rpt As New ReportDocument
+
+        rpt.Load(RPTX3 & "xbloqueados.rpt")
+        rpt.SetParameterValue("usr", usr.Codigo)
+        rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+
+        f = New frmCrystal(rpt, False)
+        f.MdiParent = Me
+        f.Show()
+
+    End Sub
 End Class

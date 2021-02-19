@@ -11,9 +11,9 @@ Public Class frmCfgSrvVencimientos
     Private Sub Adaptadores()
         Dim Sql As String
 
-        Sql = "SELECT net.usr_0, UPPER(nomusr_0) as nomusr_0 "
-        Sql &= "FROM xnetper net INNER JOIN autilis aut ON (net.usr_0 = aut.usr_0) "
-        Sql &= "WHERE fncid_0 = 8 "
+        Sql = "SELECT usr_0, UPPER(nomusr_0) as nomusr_0 "
+        Sql &= "FROM autilis "
+        Sql &= "WHERE enaflg_0 = 2 "
         Sql &= "ORDER BY nomusr_0"
 
         daUsuarios = New OracleDataAdapter(Sql, cn)

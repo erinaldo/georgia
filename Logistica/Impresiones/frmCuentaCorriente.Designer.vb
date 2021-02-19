@@ -23,14 +23,14 @@ Partial Class frmCuentaCorriente
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.CrystalReportViewer1 = New CrystalDecisions.Windows.Forms.CrystalReportViewer
-        Me.txtbox_ctacte = New System.Windows.Forms.TextBox
+        Me.txtDesde = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
-        Me.btn_acuse = New System.Windows.Forms.Button
+        Me.btnBuscar = New System.Windows.Forms.Button
         Me.Label2 = New System.Windows.Forms.Label
-        Me.txtbox_ctacte2 = New System.Windows.Forms.TextBox
-        Me.cbox_sociedad = New System.Windows.Forms.ComboBox
+        Me.txtHasta = New System.Windows.Forms.TextBox
+        Me.cboSociedad = New System.Windows.Forms.ComboBox
         Me.Label3 = New System.Windows.Forms.Label
-        Me.chkfac = New System.Windows.Forms.CheckBox
+        Me.chkSaldadas = New System.Windows.Forms.CheckBox
         Me.SuspendLayout()
         '
         'CrystalReportViewer1
@@ -51,12 +51,12 @@ Partial Class frmCuentaCorriente
         Me.CrystalReportViewer1.TabIndex = 9
         Me.CrystalReportViewer1.ViewTimeSelectionFormula = ""
         '
-        'txtbox_ctacte
+        'txtDesde
         '
-        Me.txtbox_ctacte.Location = New System.Drawing.Point(338, 11)
-        Me.txtbox_ctacte.Name = "txtbox_ctacte"
-        Me.txtbox_ctacte.Size = New System.Drawing.Size(100, 20)
-        Me.txtbox_ctacte.TabIndex = 8
+        Me.txtDesde.Location = New System.Drawing.Point(338, 11)
+        Me.txtDesde.Name = "txtDesde"
+        Me.txtDesde.Size = New System.Drawing.Size(100, 20)
+        Me.txtDesde.TabIndex = 8
         '
         'Label1
         '
@@ -67,14 +67,14 @@ Partial Class frmCuentaCorriente
         Me.Label1.TabIndex = 7
         Me.Label1.Text = "Numero"
         '
-        'btn_acuse
+        'btnBuscar
         '
-        Me.btn_acuse.Location = New System.Drawing.Point(458, 35)
-        Me.btn_acuse.Name = "btn_acuse"
-        Me.btn_acuse.Size = New System.Drawing.Size(75, 23)
-        Me.btn_acuse.TabIndex = 6
-        Me.btn_acuse.Text = "Buscar"
-        Me.btn_acuse.UseVisualStyleBackColor = True
+        Me.btnBuscar.Location = New System.Drawing.Point(586, 36)
+        Me.btnBuscar.Name = "btnBuscar"
+        Me.btnBuscar.Size = New System.Drawing.Size(75, 23)
+        Me.btnBuscar.TabIndex = 6
+        Me.btnBuscar.Text = "Buscar"
+        Me.btnBuscar.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -85,20 +85,20 @@ Partial Class frmCuentaCorriente
         Me.Label2.TabIndex = 10
         Me.Label2.Text = "Sociedad"
         '
-        'txtbox_ctacte2
+        'txtHasta
         '
-        Me.txtbox_ctacte2.Location = New System.Drawing.Point(458, 11)
-        Me.txtbox_ctacte2.Name = "txtbox_ctacte2"
-        Me.txtbox_ctacte2.Size = New System.Drawing.Size(100, 20)
-        Me.txtbox_ctacte2.TabIndex = 12
+        Me.txtHasta.Location = New System.Drawing.Point(458, 11)
+        Me.txtHasta.Name = "txtHasta"
+        Me.txtHasta.Size = New System.Drawing.Size(100, 20)
+        Me.txtHasta.TabIndex = 12
         '
-        'cbox_sociedad
+        'cboSociedad
         '
-        Me.cbox_sociedad.FormattingEnabled = True
-        Me.cbox_sociedad.Location = New System.Drawing.Point(338, 37)
-        Me.cbox_sociedad.Name = "cbox_sociedad"
-        Me.cbox_sociedad.Size = New System.Drawing.Size(100, 21)
-        Me.cbox_sociedad.TabIndex = 13
+        Me.cboSociedad.FormattingEnabled = True
+        Me.cboSociedad.Location = New System.Drawing.Point(338, 37)
+        Me.cboSociedad.Name = "cboSociedad"
+        Me.cboSociedad.Size = New System.Drawing.Size(220, 21)
+        Me.cboSociedad.TabIndex = 13
         '
         'Label3
         '
@@ -109,30 +109,30 @@ Partial Class frmCuentaCorriente
         Me.Label3.TabIndex = 14
         Me.Label3.Text = "a"
         '
-        'chkfac
+        'chkSaldadas
         '
-        Me.chkfac.AutoSize = True
-        Me.chkfac.Location = New System.Drawing.Point(550, 40)
-        Me.chkfac.Name = "chkfac"
-        Me.chkfac.Size = New System.Drawing.Size(112, 17)
-        Me.chkfac.TabIndex = 17
-        Me.chkfac.Text = "Facturas saldadas"
-        Me.chkfac.UseVisualStyleBackColor = True
+        Me.chkSaldadas.AutoSize = True
+        Me.chkSaldadas.Location = New System.Drawing.Point(678, 41)
+        Me.chkSaldadas.Name = "chkSaldadas"
+        Me.chkSaldadas.Size = New System.Drawing.Size(112, 17)
+        Me.chkSaldadas.TabIndex = 17
+        Me.chkSaldadas.Text = "Facturas saldadas"
+        Me.chkSaldadas.UseVisualStyleBackColor = True
         '
         'frmCuentaCorriente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(898, 488)
-        Me.Controls.Add(Me.chkfac)
+        Me.Controls.Add(Me.chkSaldadas)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.cbox_sociedad)
-        Me.Controls.Add(Me.txtbox_ctacte2)
+        Me.Controls.Add(Me.cboSociedad)
+        Me.Controls.Add(Me.txtHasta)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.CrystalReportViewer1)
-        Me.Controls.Add(Me.txtbox_ctacte)
+        Me.Controls.Add(Me.txtDesde)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.btn_acuse)
+        Me.Controls.Add(Me.btnBuscar)
         Me.Name = "frmCuentaCorriente"
         Me.Text = "Consulta Cuenta Corriente"
         Me.ResumeLayout(False)
@@ -140,12 +140,12 @@ Partial Class frmCuentaCorriente
 
     End Sub
     Friend WithEvents CrystalReportViewer1 As CrystalDecisions.Windows.Forms.CrystalReportViewer
-    Friend WithEvents txtbox_ctacte As System.Windows.Forms.TextBox
+    Friend WithEvents txtDesde As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents btn_acuse As System.Windows.Forms.Button
+    Friend WithEvents btnBuscar As System.Windows.Forms.Button
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents txtbox_ctacte2 As System.Windows.Forms.TextBox
-    Friend WithEvents cbox_sociedad As System.Windows.Forms.ComboBox
+    Friend WithEvents txtHasta As System.Windows.Forms.TextBox
+    Friend WithEvents cboSociedad As System.Windows.Forms.ComboBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents chkfac As System.Windows.Forms.CheckBox
+    Friend WithEvents chkSaldadas As System.Windows.Forms.CheckBox
 End Class
