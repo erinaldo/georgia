@@ -1091,8 +1091,8 @@ Public Class frmIntervencion
             MessageBox.Show("Falta cargar código de cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return False
         End If
-        If bpc.Activo = False Or bpc.Bloqueado = True Then
-            MessageBox.Show("Cliente Bloqueado o no Activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        If bpc.Activo = False Then
+            MessageBox.Show("Cliente inactivo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
             Return False
         End If
         '--------------------------------------------------------------------------------

@@ -292,13 +292,9 @@ Public Class frmCotizadorV2
                 e.Cancel = True
                 MessageBox.Show("No tiene acceso a este cliente", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
-            ElseIf Not bpc.Activo OrElse bpc.Bloqueado Then
+            ElseIf bpc.Activo = False Then
                 e.Cancel = True
-                MessageBox.Show("Cliente bloqueado o no está activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-
-            ElseIf bpc.Activo = False OrElse bpc.Bloqueado = True Then
-                e.Cancel = True
-                MessageBox.Show("Cliente Bloqueado o no Activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                MessageBox.Show("Cliente inactivo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
             End If
 
@@ -701,6 +697,7 @@ Public Class frmCotizadorV2
     Private Sub btnPedido_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPedido.Click
         Dim Alertas As ArrayList
         Dim Errores As ArrayList
+        Dim bpc As Cliente
 
         'Dim sqh As New Presupuesto(cn)
         Dim ok As Boolean = True
@@ -708,6 +705,18 @@ Public Class frmCotizadorV2
         Dim msg2 As String = "" 'Mensajes de Errores
 
         Dim txt As String = ""
+
+        bpc = ctz.Cliente
+
+        If bpc.Activo = False Then
+            MessageBox.Show("Este cliente no esta activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+        If bpc.bloqueado Then
+            MessageBox.Show("Cliente bloqueado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+
 
         If EsPresupuestoAgua() And ctz.PresupuestoAdonix = "" Then
             MessageBox.Show("Para pedidos de agua primero se debe generar presupuesto", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -833,6 +842,14 @@ Public Class frmCotizadorV2
         Dim txt As String = ""
         Dim ok As Boolean = True
 
+
+        Dim bpc As Cliente = ctz.Cliente
+
+        If bpc.Activo = False Then
+            MessageBox.Show("Este cliente no esta activo", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Exit Sub
+        End If
+
         Alertas = ctz.Alertas
 
         If CInt(cboTipo.SelectedValue) <> 2 And Alertas.Count = 0 Then
@@ -891,9 +908,9 @@ Public Class frmCotizadorV2
 
                 Dim lic As New Licitacion(cn)
 
-                sqh.Abrir(ctz.PresupuestoAdonix)
+                Sqh.Abrir(ctz.PresupuestoAdonix)
 
-                sqh.CrearLicitacion(sqh.TipoLicitacion, sqh.NumeroLicitacion)
+                Sqh.CrearLicitacion(Sqh.TipoLicitacion, Sqh.NumeroLicitacion)
 
             End If
 
