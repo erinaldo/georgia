@@ -87,6 +87,16 @@ Class frmRuta
         End If
 
     End Function
+    Public Function AbrirFactura(ByVal id As String) As IRuteable
+        Dim sih As New Factura(cn)
+
+        If sih.Abrir(id) Then
+            Return sih
+        Else
+            Return Nothing
+        End If
+
+    End Function
     Private Sub ActualizarControles()
 
         'Deshabilito todos los controles
@@ -444,6 +454,9 @@ Class frmRuta
 
         ElseIf num.StartsWith("POD") Then
             Doc = AbrirPedidoCompra(num)
+
+        ElseIf num.Length = 18 Then
+            Doc = AbrirFactura(num)
 
         Else
             Doc = AbrirIntervencion(num)
