@@ -227,6 +227,8 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuPruebas = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -1365,7 +1367,7 @@ Partial Class frmMain
         '
         Me.ReporteRecargasToolStripMenuItem.Name = "ReporteRecargasToolStripMenuItem"
         Me.ReporteRecargasToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
-        Me.ReporteRecargasToolStripMenuItem.Text = "reporte recargas"
+        Me.ReporteRecargasToolStripMenuItem.Text = "Reporte de Recargas"
         '
         'ImpresionesToolStripMenuItem
         '
@@ -1496,7 +1498,7 @@ Partial Class frmMain
         '
         'mnuVentana
         '
-        Me.mnuVentana.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCascada, Me.mnuMosaicoH, Me.mnuMosaicoV, Me.mnuCerrar})
+        Me.mnuVentana.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuCascada, Me.mnuMosaicoH, Me.mnuMosaicoV, Me.mnuCerrar, Me.ToolStripMenuItem30, Me.mnuPruebas})
         Me.mnuVentana.Name = "mnuVentana"
         Me.mnuVentana.Size = New System.Drawing.Size(61, 20)
         Me.mnuVentana.Text = "&Ventana"
@@ -1560,6 +1562,17 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
+        '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(174, 6)
+        '
+        'mnuPruebas
+        '
+        Me.mnuPruebas.Name = "mnuPruebas"
+        Me.mnuPruebas.Size = New System.Drawing.Size(177, 22)
+        Me.mnuPruebas.Text = "Pruebas"
         '
         'frmMain
         '
@@ -1788,6 +1801,8 @@ Partial Class frmMain
     Friend WithEvents ToolStripMenuItem29 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuTransferenciaIntervenciones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuClientesBloqueados As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripMenuItem30 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents mnuPruebas As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

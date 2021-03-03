@@ -210,6 +210,12 @@
     <Compile Include="Consultas\frmRemitoslist.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmPruebas.Designer.vb">
+      <DependentUpon>frmPruebas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPruebas.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Informes\frmReporteServicios.Designer.vb">
       <DependentUpon>frmReporteServicios.vb</DependentUpon>
     </Compile>
@@ -744,10 +750,10 @@
     <Compile Include="Impresiones\frmCuentaCorriente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Impresiones\frmListadoPedidos.Designer.vb">
-      <DependentUpon>frmListadoPedidos.vb</DependentUpon>
+    <Compile Include="Impresiones\frmListadoRecibos.Designer.vb">
+      <DependentUpon>frmListadoRecibos.vb</DependentUpon>
     </Compile>
-    <Compile Include="Impresiones\frmListadoPedidos.vb">
+    <Compile Include="Impresiones\frmListadoRecibos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Varios\frmMostrador.Designer.vb">
@@ -1205,6 +1211,9 @@
       <DependentUpon>frmRemitoslist.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPruebas.resx">
+      <DependentUpon>frmPruebas.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Informes\frmReporteServicios.resx">
       <DependentUpon>frmReporteServicios.vb</DependentUpon>
     </EmbeddedResource>
@@ -1496,8 +1505,8 @@
       <DependentUpon>frmCuentaCorriente.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Impresiones\frmListadoPedidos.resx">
-      <DependentUpon>frmListadoPedidos.vb</DependentUpon>
+    <EmbeddedResource Include="Impresiones\frmListadoRecibos.resx">
+      <DependentUpon>frmListadoRecibos.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Varios\frmMostrador.resx">
@@ -1806,6 +1815,7 @@
   <ItemGroup>
     <Content Include="GEORGIA RED.ico" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="Resources\iram.jpg" />
     <None Include="app.config" />
   </ItemGroup>
