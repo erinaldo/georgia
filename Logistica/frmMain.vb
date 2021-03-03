@@ -734,7 +734,7 @@ Public Class frmMain
         f.Show()
     End Sub
     Private Sub ListadoDeRecibosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ListadoDeRecibosToolStripMenuItem.Click
-        Dim f As New frmListadoPedidos
+        Dim f As New frmListadoRecibos
         f.MdiParent = Me
         f.Show()
     End Sub
@@ -1210,6 +1210,14 @@ Public Class frmMain
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
 
         f = New frmCrystal(rpt, False)
+        f.MdiParent = Me
+        f.Show()
+
+    End Sub
+
+    Private Sub mnuPruebas_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuPruebas.Click
+        Dim f As New frmPruebas
+
         f.MdiParent = Me
         f.Show()
 
