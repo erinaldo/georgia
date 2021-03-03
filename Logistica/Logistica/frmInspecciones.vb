@@ -383,6 +383,7 @@ Public Class frmInspecciones
             ia.MedioRuptura = ii.MedioRuptura
             ia.MangueraRota = ii.MangueraRota
             ia.Otro = ii.Otro
+            ia.HaySustituto = ii.HaySustituto
 
             'Actualizacion de equipos
             es = ii.Equipo
