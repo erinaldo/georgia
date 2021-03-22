@@ -63,14 +63,8 @@ Public Class frmLogin
     End Sub
 
     Private Sub frmLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        If DB_USR <> "GEOPROD" Then
-            txtUser.Text = "mmino"
-            txtPass.Text = "hola"
-        Else
-            'Obtengo el ultimo usuario logeado
-            txtUser.Text = Registro.getDato("login")
-        End If
-
+        'Obtengo el ultimo usuario logeado
+        txtUser.Text = Registro.getDato("login")
     End Sub
     
 End Class
