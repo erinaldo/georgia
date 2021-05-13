@@ -1222,4 +1222,40 @@ Public Class frmMain
         f.Show()
 
     End Sub
+
+    Private Sub mnuControlDiarioComercial_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuControlDiarioComercial.Click
+        Dim f As New frmControlDiarioComercial
+
+        f.MdiParent = Me
+        f.Show()
+
+    End Sub
+
+    Private Sub mnuPremiosAbonos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuPremiosAbonos.Click
+        Dim f As New frmPremiosAbonos
+
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
+    Private Sub mnuIntervencionesEntregar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuIntervencionesEntregar.Click
+        Dim f As New frmIntervencionesEntregar
+
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
+    Private Sub mnuIndicadoresOperacionales_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuIndicadoresOperacionales.Click
+        Dim f As New frmIndicadoresOperacionales
+
+        f.MdiParent = Me
+        f.Show()
+    End Sub
+
+    Private Sub mnuDiasCalle_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuDiasCalle.Click
+        Dim f As New frmDiasCalle
+        f.MdiParent = Me
+        f.Show()
+
+    End Sub
 End Class

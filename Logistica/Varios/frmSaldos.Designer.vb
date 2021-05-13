@@ -23,23 +23,17 @@ Partial Class frmSaldos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar
         Me.btnEnviar = New System.Windows.Forms.Button
         Me.cboTipos = New System.Windows.Forms.ComboBox
         Me.btnSaldos = New System.Windows.Forms.Button
         Me.dgvSaldos = New System.Windows.Forms.DataGridView
-        Me.colCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colAdministracion = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colSaldo = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colRep = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colMail = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.colMail2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuSaldos = New System.Windows.Forms.ToolStripMenuItem
         Me.dgvDetalle = New System.Windows.Forms.DataGridView
@@ -51,6 +45,12 @@ Partial Class frmSaldos
         Me.colMonto = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colAplicado = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colDeuda = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colCodigo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colAdministracion = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colSaldo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colRep = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colMail = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colMail2 = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -143,66 +143,16 @@ Partial Class frmSaldos
         Me.dgvSaldos.Size = New System.Drawing.Size(395, 506)
         Me.dgvSaldos.TabIndex = 0
         '
-        'colCodigo
-        '
-        Me.colCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.colCodigo.HeaderText = "Codigo"
-        Me.colCodigo.Name = "colCodigo"
-        Me.colCodigo.ReadOnly = True
-        Me.colCodigo.Width = 65
-        '
-        'colAdministracion
-        '
-        Me.colAdministracion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.colAdministracion.HeaderText = "Pagador"
-        Me.colAdministracion.Name = "colAdministracion"
-        Me.colAdministracion.ReadOnly = True
-        '
-        'colSaldo
-        '
-        Me.colSaldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle1.Format = "N2"
-        Me.colSaldo.DefaultCellStyle = DataGridViewCellStyle1
-        Me.colSaldo.HeaderText = "Saldo"
-        Me.colSaldo.Name = "colSaldo"
-        Me.colSaldo.ReadOnly = True
-        Me.colSaldo.Width = 59
-        '
-        'colRep
-        '
-        Me.colRep.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        Me.colRep.DefaultCellStyle = DataGridViewCellStyle2
-        Me.colRep.HeaderText = "Vend"
-        Me.colRep.Name = "colRep"
-        Me.colRep.ReadOnly = True
-        Me.colRep.Width = 57
-        '
-        'colMail
-        '
-        Me.colMail.HeaderText = "Mail"
-        Me.colMail.Name = "colMail"
-        Me.colMail.ReadOnly = True
-        Me.colMail.Visible = False
-        '
-        'colMail2
-        '
-        Me.colMail2.HeaderText = "Mail2"
-        Me.colMail2.Name = "colMail2"
-        Me.colMail2.ReadOnly = True
-        Me.colMail2.Visible = False
-        '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSaldos})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(147, 26)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(136, 26)
         '
         'mnuSaldos
         '
         Me.mnuSaldos.Name = "mnuSaldos"
-        Me.mnuSaldos.Size = New System.Drawing.Size(146, 22)
+        Me.mnuSaldos.Size = New System.Drawing.Size(135, 22)
         Me.mnuSaldos.Text = "Ver saldos..."
         '
         'dgvDetalle
@@ -290,6 +240,56 @@ Partial Class frmSaldos
         Me.colDeuda.Name = "colDeuda"
         Me.colDeuda.ReadOnly = True
         Me.colDeuda.Width = 59
+        '
+        'colCodigo
+        '
+        Me.colCodigo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.colCodigo.HeaderText = "Codigo"
+        Me.colCodigo.Name = "colCodigo"
+        Me.colCodigo.ReadOnly = True
+        Me.colCodigo.Width = 65
+        '
+        'colAdministracion
+        '
+        Me.colAdministracion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.colAdministracion.HeaderText = "Pagador"
+        Me.colAdministracion.Name = "colAdministracion"
+        Me.colAdministracion.ReadOnly = True
+        '
+        'colSaldo
+        '
+        Me.colSaldo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N2"
+        Me.colSaldo.DefaultCellStyle = DataGridViewCellStyle1
+        Me.colSaldo.HeaderText = "Saldo"
+        Me.colSaldo.Name = "colSaldo"
+        Me.colSaldo.ReadOnly = True
+        Me.colSaldo.Width = 59
+        '
+        'colRep
+        '
+        Me.colRep.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        Me.colRep.DefaultCellStyle = DataGridViewCellStyle2
+        Me.colRep.HeaderText = "Vend"
+        Me.colRep.Name = "colRep"
+        Me.colRep.ReadOnly = True
+        Me.colRep.Width = 57
+        '
+        'colMail
+        '
+        Me.colMail.HeaderText = "Mail"
+        Me.colMail.Name = "colMail"
+        Me.colMail.ReadOnly = True
+        Me.colMail.Visible = False
+        '
+        'colMail2
+        '
+        Me.colMail2.HeaderText = "Mail2"
+        Me.colMail2.Name = "colMail2"
+        Me.colMail2.ReadOnly = True
+        Me.colMail2.Visible = False
         '
         'frmSaldos
         '

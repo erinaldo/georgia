@@ -1040,6 +1040,8 @@ Public Class frmValidar
         Dim itn As New Intervencion(cn)
         Dim rto As New Remito(cn)
 
+        Dim tbMotivo As New TablaVaria(cn, 5000)
+
         For Each dr In dtRutad.Rows
 
             dt = New DataTable
@@ -1110,6 +1112,9 @@ Public Class frmValidar
                                         If CInt(dr("sube_0")) = 2 Then
                                             itn.Estado = 7 'Pongo estado A Resolver
                                             itn.Efectuado = True
+
+                                            'Se envia mail con informacion sobre el rebote
+                                            itn.EnvioMailAviso(CLng(txtRuta.Text), tbMotivo.Texto(dr("noconform_0").ToString), dr("obs_0").ToString)
 
                                         Else
                                             itn.Estado = 6 'Pongo estado No Conforme
@@ -1186,6 +1191,9 @@ Public Class frmValidar
                                         If CInt(dr("sube_0")) = 2 Then
                                             itn.Estado = 7 'Pongo estado A Resolver
 
+                                            'Se envia mail con informacion sobre el rebote
+                                            itn.EnvioMailAviso(CLng(txtRuta.Text), tbMotivo.Texto(dr("noconform_0").ToString), dr("obs_0").ToString)
+
                                         Else
                                             itn.Estado = 6 'Pongo estado No Conforme
 
@@ -1232,6 +1240,7 @@ Public Class frmValidar
                             Case 4  'No Conforme
                                 If CInt(dr("sube_0")) = 2 Then
                                     rto.Estado = 3 'En transito a resolver por administracion
+
                                 Else
                                     rto.Estado = 4 'En transito por falla logistica
                                 End If

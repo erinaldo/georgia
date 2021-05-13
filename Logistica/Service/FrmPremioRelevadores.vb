@@ -19,7 +19,7 @@ Public Class frmPremioRelevadores
     Private ControlesDomicilios As Double
     Private Excedentes As Double
     Private Premio As Double
-    Private tmp As New Temporal(cn, usr.Codigo, "premios")
+    Private tmp As New Temporal(cn, usr, "premios")
 
     Private Sub frmPremioRelevadores_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Dim mnu = New MenuLocal(cn, 2408, False, False)

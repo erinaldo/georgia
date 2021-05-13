@@ -4,13 +4,14 @@ Imports CrystalDecisions.CrystalReports.Engine
 
 Public Class frmSaldos
 
-    'Private Smtp As New SmtpClient(MAIL_SERVER)
-
     Private Sub frmAdministraciones_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         AddHandler dgvSaldos.RowPostPaint, AddressOf NumeracionGrillas
         AddHandler dgvDetalle.RowPostPaint, AddressOf NumeracionGrillas
 
         LlenarComboTiposClientes()
+
+        'Oculto el boton de envio de mails a los vendedores
+        btnEnviar.Visible = (usr.Codigo.Length <> 2)
 
     End Sub
 
@@ -31,7 +32,6 @@ Public Class frmSaldos
         End With
 
     End Sub
-
     Private Sub MarcarMails()
         Dim drv As DataGridViewRow
 
@@ -42,7 +42,6 @@ Public Class frmSaldos
         Next
 
     End Sub
-
     Private Sub dgvSaldos_ColumnHeaderMouseClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvSaldos.ColumnHeaderMouseClick
         MarcarMails()
     End Sub
@@ -54,8 +53,12 @@ Public Class frmSaldos
         If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Exit Sub
 
         Sql = "SELECT typ_0, num_0, duddat_0, bpr_0, bpcnam_0, amtloc_0 * sns_0 AS monto, payloc_0 * sns_0 AS aplicado, (amtloc_0 - payloc_0) * sns_0 AS saldo "
-        Sql &= "FROM gaccdudate gac INNER JOIN bpcustomer bpc ON (bpr_0 = bpcnum_0) "
-        Sql &= "WHERE bpc.bpcpyr_0 = :bprpay_0 AND flgcle_0 = 1 AND sac_0 = 'DVL' AND typ_0 NOT IN ('CLO', 'APG') "
+        Sql &= "FROM gaccdudate gac INNER JOIN "
+        Sql &= "     bpcustomer bpc ON (gac.bpr_0 = bpc.bpcnum_0) "
+        Sql &= "WHERE bpc.bpcpyr_0 = :bprpay_0 AND "
+        Sql &= "      gac.flgcle_0 = 1 AND "
+        Sql &= "      gac.sac_0 = 'DVL' AND  "
+        Sql &= "      gac.typ_0 NOT IN ('CLO', 'APG') "
         Sql &= "ORDER BY duddat_0, num_0, lig_0"
 
         da = New OracleDataAdapter(Sql, cn)
@@ -84,7 +87,6 @@ Public Class frmSaldos
         da.Dispose()
 
     End Sub
-
     Private Sub btnSaldos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaldos.Click
         Dim Sql As String
         Dim dt As DataTable
@@ -96,29 +98,47 @@ Public Class frmSaldos
         Application.DoEvents()
 
         If cboTipos.SelectedValue.ToString = "10" Then
-            Sql = "SELECT bpc1.bpcnum_0, bpc1.bpcnam_0, SUM((amtloc_0 - payloc_0) * sns_0) AS saldo, bpc2.rep_0, bpc1.xmailfc_0, "
-            Sql &= "	 (SELECT web_0 "
-            Sql &= "	  FROM bpartner bpr INNER JOIN bpaddress bpa ON (bpanum_0 = bprnum_0 AND bpr.bpaadd_0 = bpa.bpaadd_0) "
-            Sql &= "	  WHERE bprnum_0 = bpc1.bpcnum_0) AS maildire_0  "
-            Sql &= "FROM (bpcustomer bpc1 INNER JOIN bpcustomer bpc2 ON (bpc1.bpcnum_0 = bpc2.bpcpyr_0)) INNER JOIN  gaccdudate gac ON (bpc2.bpcnum_0 = gac.bpr_0) "
-            Sql &= "WHERE (bpc1.tsccod_1 = '10' OR (bpc1.tsccod_1 = '11' AND bpc1.bpcnum_0 = bpc1.bpcpyr_0)) AND bpc2.bpctyp_0 = 1 AND gac.flgcle_0 = 1 AND gac.sac_0 = 'DVL' AND typ_0 NOT IN ('CLO', 'APG') "
-            Sql &= "GROUP BY bpc1.bpcnum_0, bpc1.bpcnam_0, bpc2.rep_0, bpc1.xmailfc_0 "
+            Sql = "SELECT pyr.bpcnum_0, pyr.bpcnam_0, SUM((amtloc_0 - payloc_0) * sns_0) AS saldo, pyr.rep_0, pyr.xmailfc_0, bpa.web_0 "
+            Sql &= "FROM bpcustomer pyr INNER JOIN "
+            Sql &= "     bpcustomer bpc ON (pyr.bpcnum_0 = bpc.bpcpyr_0) INNER JOIN "
+            Sql &= "     bpartner bpr on (pyr.bpcnum_0 = bpr.bprnum_0) inner join "
+            Sql &= "     bpaddress bpa on (bpr.bprnum_0 = bpa.bpanum_0 and bpr.bpaadd_0 = bpa.bpaadd_0) inner join "
+            Sql &= "     gaccdudate gac ON (bpc.bpcnum_0 = gac.bpr_0)  "
+            Sql &= "WHERE (pyr.tsccod_1 = '10' OR (pyr.tsccod_1 = '11' AND pyr.bpcnum_0 = pyr.bpcpyr_0)) AND "
+            Sql &= "      bpc.bpctyp_0 = 1 AND "
+            Sql &= "      gac.flgcle_0 = 1 AND "
+            Sql &= "      gac.sac_0 = 'DVL' AND "
+            Sql &= "      typ_0 NOT IN ('CLO', 'APG') "
+            Sql &= "{FILTRO-VENDEDOR} "
+            Sql &= "GROUP BY pyr.bpcnum_0, pyr.bpcnam_0, pyr.rep_0, pyr.xmailfc_0, bpa.web_0 "
             Sql &= "HAVING SUM((amtloc_0 - payloc_0) * sns_0) > 0 "
             Sql &= "ORDER BY saldo DESC"
 
         Else
-            Sql = "SELECT bpc1.bpcnum_0, bpc1.bpcnam_0, SUM((amtloc_0 - payloc_0) * sns_0) AS saldo, bpc2.rep_0, bpc1.xmailfc_0, "
-            Sql &= "	 (SELECT web_0 "
-            Sql &= "	  FROM bpartner bpr INNER JOIN bpaddress bpa ON (bpanum_0 = bprnum_0 AND bpr.bpaadd_0 = bpa.bpaadd_0) "
-            Sql &= "	  WHERE bprnum_0 = bpc1.bpcnum_0) AS maildire_0  "
-            Sql &= "FROM (bpcustomer bpc1 INNER JOIN bpcustomer bpc2 ON (bpc1.bpcnum_0 = bpc2.bpcpyr_0)) INNER JOIN  gaccdudate gac ON (bpc2.bpcnum_0 = gac.bpr_0) "
-            Sql &= "WHERE bpc1.tsccod_1 = '{TIPO}' AND bpc2.bpctyp_0 = 1 AND gac.flgcle_0 = 1 AND gac.sac_0 = 'DVL' AND typ_0 NOT IN ('CLO', 'APG') "
-            Sql &= "GROUP BY bpc1.bpcnum_0, bpc1.bpcnam_0, bpc2.rep_0, bpc1.xmailfc_0 "
+            Sql = "SELECT pyr.bpcnum_0, pyr.bpcnam_0, SUM((amtloc_0 - payloc_0) * sns_0) AS saldo, pyr.rep_0, pyr.xmailfc_0, bpa.web_0 "
+            Sql &= "FROM bpcustomer pyr INNER JOIN "
+            Sql &= "     bpcustomer bpc ON (pyr.bpcnum_0 = bpc.bpcpyr_0) INNER JOIN "
+            Sql &= "     bpartner bpr on (pyr.bpcnum_0 = bpr.bprnum_0) inner join "
+            Sql &= "     bpaddress bpa on (bpr.bprnum_0 = bpa.bpanum_0 and bpr.bpaadd_0 = bpa.bpaadd_0) inner join "
+            Sql &= "     gaccdudate gac ON (bpc.bpcnum_0 = gac.bpr_0) "
+            Sql &= "WHERE pyr.tsccod_1 = '{TIPO}' AND "
+            Sql &= "      bpc.bpctyp_0 = 1 AND "
+            Sql &= "      gac.flgcle_0 = 1 AND "
+            Sql &= "      gac.sac_0 = 'DVL' AND "
+            Sql &= "      typ_0 NOT IN ('CLO', 'APG') "
+            Sql &= "{FILTRO-VENDEDOR} "
+            Sql &= "GROUP BY pyr.bpcnum_0, pyr.bpcnam_0, pyr.rep_0, pyr.xmailfc_0, bpa.web_0 "
             Sql &= "HAVING SUM((amtloc_0 - payloc_0) * sns_0) > 0 "
             Sql &= "ORDER BY saldo DESC"
 
             Sql = Sql.Replace("{TIPO}", cboTipos.SelectedValue.ToString)
 
+        End If
+
+        If usr.Codigo.Length = 2 Then
+            Sql = Sql.Replace("{FILTRO-VENDEDOR}", "AND pyr.rep_0 = '" & usr.Codigo & "'")
+        Else
+            Sql = Sql.Replace("{FILTRO-VENDEDOR}", "")
         End If
 
         da = New OracleDataAdapter(Sql, cn)
@@ -130,7 +150,7 @@ Public Class frmSaldos
             colSaldo.DataPropertyName = "saldo"
             colRep.DataPropertyName = "rep_0"
             colMail.DataPropertyName = "xmailfc_0"
-            colMail2.DataPropertyName = "maildire_0"
+            colMail2.DataPropertyName = "web_0"
             dgvSaldos.DataSource = dt
 
         Else
@@ -303,7 +323,6 @@ Public Class frmSaldos
         End Try
 
     End Sub
-
     Private Function ValidarMailAdmin(ByVal drv As DataGridViewRow, Optional ByRef Mail As String = "") As Boolean
 
         If drv.Cells("colMail").Value.ToString.Trim = "" Then
@@ -339,7 +358,6 @@ Public Class frmSaldos
         Return True
 
     End Function
-
     Private Sub cboTipos_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboTipos.SelectedIndexChanged
         Dim dt As DataTable
 

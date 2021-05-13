@@ -5,7 +5,7 @@ Imports CrystalDecisions.CrystalReports.Engine
 Public Class Form1
     Dim bpc As New Cliente(cn)
     Dim suc As New Sucursal(cn)
-    Dim tmp As New Temporal(cn, usr.Codigo, "vencimientos")
+    Dim tmp As New Temporal(cn, usr, "vencimientos")
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         tmp.Abrir()
         tmp.LimpiarTabla()

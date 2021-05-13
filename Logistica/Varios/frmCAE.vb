@@ -575,13 +575,16 @@ Public Class frmCAE
                                 Dim ban As Banco = sih.Banco
 
                                 If ban IsNot Nothing Then
-                                    ReDim Opcionales(1)
+                                    ReDim Opcionales(2)
 
                                     Opcionales(0) = New Opcional
                                     Opcionales(1) = New Opcional
+                                    Opcionales(2) = New Opcional
 
                                     Opcionales(0).Id = "2101" : Opcionales(0).Valor = ban.CBU
                                     Opcionales(1).Id = "2102" : Opcionales(1).Valor = ban.AAlias
+                                    Opcionales(2).Id = "27" : Opcionales(2).Valor = "SCA"
+
                                     .Opcionales = Opcionales
                                 End If
 
@@ -615,6 +618,11 @@ Public Class frmCAE
                                 Opcionales(0).Valor = IIf(sih.FCEAnula, "S", "N").ToString
                                 .Opcionales = Opcionales
 
+                        End Select
+
+                        'COMPROBANTE ASOCIADOS
+                        Select Case TipoCbte
+                            Case 2, 3, 7, 8, 203, 209
                                 Dim CbteAsoc(0) As CbteAsoc
                                 Dim f As Factura = sih.CbteOrigen
 
@@ -928,8 +936,7 @@ Public Class frmCAE
         Dim Usuario As String = ""
         Dim dt As DataTable = CType(dgv.DataSource, DataTable)
         Dim dr As DataRow
-        Dim Cbte As New Factura(cn)
-        Dim Cliente As New ArrayList
+        'Dim Cbte As New Factura(cn)
         Dim NroDocumentoDesde As String = ""
         Dim NroDocumentoHasta As String = ""
         Dim TipoDocumento As String = ""
@@ -940,17 +947,6 @@ Public Class frmCAE
 
         For i As Integer = 0 To dt.Rows.Count - 1
             dr = dt.Rows(i)
-
-            'Imprimir Acuse de recibo
-            If Cbte.Abrir(dr("num_0").ToString) Then
-                'Miro si el cliente ya fue impreso
-                If Not Cliente.Contains(Cbte.Cliente.Codigo) Then
-                    If Cbte.Cliente.RequiereFacturaFisica Then
-                        ImprimirAcuse(Cbte)
-                        Cliente.Add(Cbte.Cliente.Codigo.ToString)
-                    End If
-                End If
-            End If
 
             If TipoDocumento = "" Then
                 'Guardo el tipo de documento DNYFCA0009 / DNYFCB0009 / GRUFCB0003 , etc...
@@ -999,15 +995,15 @@ Public Class frmCAE
         Label1.Text = ""
 
     End Sub
-    Private Sub ImprimirFacturas(ByVal Desde As String, ByVal Hasta As String, ByVal Usuario As String, Optional ByVal AnulaFiltroRequiere As Boolean = False)
+    Private Sub ImprimirFacturas(ByVal Desde As String, ByVal Hasta As String, ByVal Usuario As String) ', Optional ByVal AnulaFiltroRequiere As Boolean = False)
         Dim Rpt As New ReportDocument
         Dim TipoDocumento As String = Desde.Substring(3, 2)
         Dim SociedadDocumento As String = Desde.Substring(0, 3)
         Dim FiltrarRequiereFacturaFisica As Boolean
 
         'Para facturas de DNY solo se imprimen donde el cliente tiene tildada la opción
-        'requiere factura fisica = SI. Salvo que se anule este filtro con el parametro AnulaFiltroRequiere
-        FiltrarRequiereFacturaFisica = (TipoDocumento = "FC" And SociedadDocumento = "DNY" And Not AnulaFiltroRequiere)
+        'requiere factura fisica = SI. Salvo que se anule este filtro con el parametro Anul-aFiltroRequiere
+        FiltrarRequiereFacturaFisica = (TipoDocumento = "FC" And SociedadDocumento = "DNY")
 
         With Rpt
             .Load(RPTX3 & "xfact_elec.rpt")
@@ -1027,60 +1023,6 @@ Public Class frmCAE
         Rpt.PrintToPrinter(Copias(TipoDocumento, SociedadDocumento), Ordenamiento(TipoDocumento), 1, 99999)
 
         Rpt.Dispose()
-
-    End Sub
-    Private Sub ImprimirAcuse(ByVal Cbte As Factura)
-
-        Dim dr As DataRow
-        Dim dt As New DataTable
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim flg As Boolean
-        Dim rpt As ReportDocument
-
-        Sql = "SELECT bpaadd_0 "
-        Sql &= "FROM bpaddress "
-        Sql &= "WHERE xentfac_0 = 2 AND bpanum_0 = :bpanum_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("bpanum_0", OracleType.VarChar).Value = Cbte.Cliente.Codigo
-
-        da.Fill(dt)
-        da.Dispose()
-
-        Select Case dt.Rows.Count
-            Case 0
-                flg = False
-
-            Case 1
-                dr = dt.Rows(0)
-
-                flg = (dr(0).ToString <> Cbte.Cliente.SucursalLegal.Sucursal)
-
-            Case Else
-                flg = True
-
-        End Select
-
-        If flg Then
-            rpt = New ReportDocument
-            With rpt
-                .Load(RPTX3 & "XACUREC2.rpt")
-                .SetDatabaseLogon(DB_USR, DB_PWD)
-                .SetParameterValue("X3DOS", X3DOS)
-                .SetParameterValue("num", Cbte.Numero)
-            End With
-
-            If usr.Codigo <> Cbte.UsuarioCreacion Then
-                rpt.PrintOptions.PrinterName = PRINTER_FACT
-            End If
-            If rpt.Rows.Count > 0 Then
-                rpt.PrintToPrinter(1, False, 1, 99999)
-            End If
-
-            rpt.Dispose()
-
-        End If
 
     End Sub
     Private Function Ordenamiento(ByVal Tipo As String) As Boolean
@@ -1141,6 +1083,10 @@ Public Class frmCAE
                         cbo.DataSource = fe.PuntosVentas.ResultGet
                         cbo.DisplayMember = "Nro"
                         cbo.ValueMember = "Nro"
+
+                        If cpy.Codigo = "DNY" And usr.Codigo = "RECE" Then
+                            cbo.SelectedValue = 11
+                        End If
 
                     Catch ex As Exception
                         MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)

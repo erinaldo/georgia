@@ -1,5 +1,6 @@
 ﻿Imports System.Collections
 Imports System.IO
+Imports System.Data.OracleClient
 
 Public Class frmMailsMasivos
 

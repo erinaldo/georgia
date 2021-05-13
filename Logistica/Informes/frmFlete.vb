@@ -4,8 +4,8 @@ Imports Clases
 
 Public Class frmFlete
 
-    Private tmp1 As New Temporal(cn, usr.Codigo, "FLETES")
-    Private tmp2 As New Temporal(cn, usr.Codigo, "ACOMP")
+    Private tmp1 As New Temporal(cn, usr, "FLETES")
+    Private tmp2 As New Temporal(cn, usr, "ACOMP")
     Private dtTarifas As DataTable
     Private CantBaseCFE As Integer
     Private CantBaseGBA As Integer

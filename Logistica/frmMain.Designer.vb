@@ -50,6 +50,9 @@ Partial Class frmMain
         Me.ToolStripMenuItem20 = New System.Windows.Forms.ToolStripSeparator
         Me.UnigisToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuUnigisExportar = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuLogisticaInformes = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuIntervencionesEntregar = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuIndicadoresOperacionales = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuService = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuVencimientos = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuIntervenciones = New System.Windows.Forms.ToolStripMenuItem
@@ -159,6 +162,7 @@ Partial Class frmMain
         Me.ReporteDeVentasPorFliaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ReporteDeVentasPorFliaAnualToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuDistribuidoresInactivos = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuControlDiarioComercial = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripMenuItem6 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuRptRecargas = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuRptServicios = New System.Windows.Forms.ToolStripMenuItem
@@ -170,6 +174,7 @@ Partial Class frmMain
         Me.LogisticaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuFletes = New System.Windows.Forms.ToolStripMenuItem
         Me.CalculoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuPremiosAbonos = New System.Windows.Forms.ToolStripMenuItem
         Me.Informes639ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator
         Me.ReporteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -223,12 +228,13 @@ Partial Class frmMain
         Me.mnuMosaicoH = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMosaicoV = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuCerrar = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripSeparator
+        Me.mnuPruebas = New System.Windows.Forms.ToolStripMenuItem
         Me.Status = New System.Windows.Forms.StatusStrip
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripSeparator
-        Me.mnuPruebas = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuDiasCalle = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -310,7 +316,7 @@ Partial Class frmMain
         '
         'mnuLogistica
         '
-        Me.mnuLogistica.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaHojaRuta, Me.mnuValidarRuta, Me.RelevamientosToolStripMenuItem, Me.CantidadExtiToolStripMenuItem, Me.mnuIntervencionesPendientes, Me.ToolStripMenuItem8, Me.mnuResolver, Me.mnuPrestamos, Me.ToolStripMenuItem20, Me.UnigisToolStripMenuItem})
+        Me.mnuLogistica.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuNuevaHojaRuta, Me.mnuValidarRuta, Me.RelevamientosToolStripMenuItem, Me.CantidadExtiToolStripMenuItem, Me.mnuIntervencionesPendientes, Me.ToolStripMenuItem8, Me.mnuResolver, Me.mnuPrestamos, Me.ToolStripMenuItem20, Me.UnigisToolStripMenuItem, Me.mnuLogisticaInformes})
         Me.mnuLogistica.Name = "mnuLogistica"
         Me.mnuLogistica.Size = New System.Drawing.Size(66, 20)
         Me.mnuLogistica.Text = "Logística"
@@ -410,6 +416,25 @@ Partial Class frmMain
         Me.mnuUnigisExportar.Size = New System.Drawing.Size(127, 22)
         Me.mnuUnigisExportar.Tag = "frmUnigisExportar"
         Me.mnuUnigisExportar.Text = "Exportar..."
+        '
+        'mnuLogisticaInformes
+        '
+        Me.mnuLogisticaInformes.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuIntervencionesEntregar, Me.mnuIndicadoresOperacionales})
+        Me.mnuLogisticaInformes.Name = "mnuLogisticaInformes"
+        Me.mnuLogisticaInformes.Size = New System.Drawing.Size(221, 22)
+        Me.mnuLogisticaInformes.Text = "Informes"
+        '
+        'mnuIntervencionesEntregar
+        '
+        Me.mnuIntervencionesEntregar.Name = "mnuIntervencionesEntregar"
+        Me.mnuIntervencionesEntregar.Size = New System.Drawing.Size(222, 22)
+        Me.mnuIntervencionesEntregar.Text = "Intervenciones a Entregar..."
+        '
+        'mnuIndicadoresOperacionales
+        '
+        Me.mnuIndicadoresOperacionales.Name = "mnuIndicadoresOperacionales"
+        Me.mnuIndicadoresOperacionales.Size = New System.Drawing.Size(222, 22)
+        Me.mnuIndicadoresOperacionales.Text = "Indicadores Operacionales..."
         '
         'mnuService
         '
@@ -845,7 +870,7 @@ Partial Class frmMain
         '
         'mnuContabilidad
         '
-        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuBuscadorCheques, Me.PresupuestoToolStripMenuItem1, Me.PToolStripMenuItem, Me.DetalleToolStripMenuItem, Me.ToolStripMenuItem13, Me.mnuArcibaNc, Me.mnuComisiones})
+        Me.mnuContabilidad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuBuscadorCheques, Me.PresupuestoToolStripMenuItem1, Me.PToolStripMenuItem, Me.DetalleToolStripMenuItem, Me.ToolStripMenuItem13, Me.mnuArcibaNc, Me.mnuComisiones, Me.mnuDiasCalle})
         Me.mnuContabilidad.Name = "mnuContabilidad"
         Me.mnuContabilidad.Size = New System.Drawing.Size(87, 20)
         Me.mnuContabilidad.Text = "Contabilidad"
@@ -1041,7 +1066,7 @@ Partial Class frmMain
         '
         'InformesToolStripMenuItem
         '
-        Me.InformesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContabilidadToolStripMenuItem, Me.mnuRptVtas, Me.mnuRptVtasA, Me.mnuRptSat1, Me.ReporteDeVentasPorProvinciasAnualToolStripMenuItem, Me.mnuRptTipo, Me.ReporteDeVentasPorTipoClientesAnualToolStripMenuItem, Me.ReporteDeVentasPorFliaToolStripMenuItem, Me.ReporteDeVentasPorFliaAnualToolStripMenuItem, Me.mnuDistribuidoresInactivos, Me.ToolStripMenuItem6, Me.mnuRptRecargas, Me.mnuRptServicios, Me.ToolStripSeparator4, Me.mnuHoras, Me.ToolStripMenuItem11, Me.RemitosSinDespacharToolStripMenuItem, Me.ToolStripMenuItem18, Me.LogisticaToolStripMenuItem, Me.Informes639ToolStripMenuItem, Me.ToolStripSeparator5, Me.ReporteToolStripMenuItem})
+        Me.InformesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContabilidadToolStripMenuItem, Me.mnuRptVtas, Me.mnuRptVtasA, Me.mnuRptSat1, Me.ReporteDeVentasPorProvinciasAnualToolStripMenuItem, Me.mnuRptTipo, Me.ReporteDeVentasPorTipoClientesAnualToolStripMenuItem, Me.ReporteDeVentasPorFliaToolStripMenuItem, Me.ReporteDeVentasPorFliaAnualToolStripMenuItem, Me.mnuDistribuidoresInactivos, Me.mnuControlDiarioComercial, Me.ToolStripMenuItem6, Me.mnuRptRecargas, Me.mnuRptServicios, Me.ToolStripSeparator4, Me.mnuHoras, Me.ToolStripMenuItem11, Me.RemitosSinDespacharToolStripMenuItem, Me.ToolStripMenuItem18, Me.LogisticaToolStripMenuItem, Me.Informes639ToolStripMenuItem, Me.ToolStripSeparator5, Me.ReporteToolStripMenuItem})
         Me.InformesToolStripMenuItem.Name = "InformesToolStripMenuItem"
         Me.InformesToolStripMenuItem.Size = New System.Drawing.Size(66, 20)
         Me.InformesToolStripMenuItem.Text = "Informes"
@@ -1121,6 +1146,13 @@ Partial Class frmMain
         Me.mnuDistribuidoresInactivos.Tag = "frmDistribuidoresInactivos"
         Me.mnuDistribuidoresInactivos.Text = "Reporte Distribuidores inactivos"
         '
+        'mnuControlDiarioComercial
+        '
+        Me.mnuControlDiarioComercial.Name = "mnuControlDiarioComercial"
+        Me.mnuControlDiarioComercial.Size = New System.Drawing.Size(280, 22)
+        Me.mnuControlDiarioComercial.Tag = "mnuControlDiarioComercial"
+        Me.mnuControlDiarioComercial.Text = "Control Diario Comercial..."
+        '
         'ToolStripMenuItem6
         '
         Me.ToolStripMenuItem6.Name = "ToolStripMenuItem6"
@@ -1170,7 +1202,7 @@ Partial Class frmMain
         '
         'LogisticaToolStripMenuItem
         '
-        Me.LogisticaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFletes, Me.CalculoToolStripMenuItem})
+        Me.LogisticaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuFletes, Me.CalculoToolStripMenuItem, Me.mnuPremiosAbonos})
         Me.LogisticaToolStripMenuItem.Name = "LogisticaToolStripMenuItem"
         Me.LogisticaToolStripMenuItem.Size = New System.Drawing.Size(280, 22)
         Me.LogisticaToolStripMenuItem.Text = "Logistica"
@@ -1178,16 +1210,22 @@ Partial Class frmMain
         'mnuFletes
         '
         Me.mnuFletes.Name = "mnuFletes"
-        Me.mnuFletes.Size = New System.Drawing.Size(140, 22)
+        Me.mnuFletes.Size = New System.Drawing.Size(170, 22)
         Me.mnuFletes.Tag = "frmTarifasFletes"
         Me.mnuFletes.Text = "Tarifas Fletes"
         '
         'CalculoToolStripMenuItem
         '
         Me.CalculoToolStripMenuItem.Name = "CalculoToolStripMenuItem"
-        Me.CalculoToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.CalculoToolStripMenuItem.Size = New System.Drawing.Size(170, 22)
         Me.CalculoToolStripMenuItem.Tag = "frmCalculoLogistica"
         Me.CalculoToolStripMenuItem.Text = "Calculo"
+        '
+        'mnuPremiosAbonos
+        '
+        Me.mnuPremiosAbonos.Name = "mnuPremiosAbonos"
+        Me.mnuPremiosAbonos.Size = New System.Drawing.Size(170, 22)
+        Me.mnuPremiosAbonos.Text = "Premios Abonos..."
         '
         'Informes639ToolStripMenuItem
         '
@@ -1527,6 +1565,17 @@ Partial Class frmMain
         Me.mnuCerrar.Size = New System.Drawing.Size(177, 22)
         Me.mnuCerrar.Text = "C&errar todas"
         '
+        'ToolStripMenuItem30
+        '
+        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(174, 6)
+        '
+        'mnuPruebas
+        '
+        Me.mnuPruebas.Name = "mnuPruebas"
+        Me.mnuPruebas.Size = New System.Drawing.Size(177, 22)
+        Me.mnuPruebas.Text = "Pruebas"
+        '
         'Status
         '
         Me.Status.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.sbUser, Me.sbNombre, Me.sbDosier})
@@ -1563,16 +1612,11 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'ToolStripMenuItem30
+        'mnuDiasCalle
         '
-        Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(174, 6)
-        '
-        'mnuPruebas
-        '
-        Me.mnuPruebas.Name = "mnuPruebas"
-        Me.mnuPruebas.Size = New System.Drawing.Size(177, 22)
-        Me.mnuPruebas.Text = "Pruebas"
+        Me.mnuDiasCalle.Name = "mnuDiasCalle"
+        Me.mnuDiasCalle.Size = New System.Drawing.Size(226, 22)
+        Me.mnuDiasCalle.Text = "Dias en la calle.."
         '
         'frmMain
         '
@@ -1803,6 +1847,12 @@ Partial Class frmMain
     Friend WithEvents mnuClientesBloqueados As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripMenuItem30 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuPruebas As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuControlDiarioComercial As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuPremiosAbonos As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuLogisticaInformes As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIntervencionesEntregar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuIndicadoresOperacionales As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuDiasCalle As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class

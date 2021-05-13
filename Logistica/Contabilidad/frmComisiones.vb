@@ -22,7 +22,7 @@ Public Class frmComisiones
         Application.DoEvents()
 
         'Inicio objeto de tabla temporal
-        Tmp = New Temporal(cn, usr.Codigo, "COMI")
+        Tmp = New Temporal(cn, usr, "COMI")
         Tmp.Abrir()
         Tmp.LimpiarTabla()
         Tmp.Grabar()

@@ -82,7 +82,6 @@ Public Class frmCfgSrvVencimientos
         'Agrego registros
         da2.Update(dt2)
 
-
         'Cargo usuarios y vendedores
         daUsuarios.Fill(dtUsuarios)
         daVendedores.FillSchema(dtVendedores, SchemaType.Source)

@@ -721,15 +721,6 @@ Public Class frmSeguimiento
 
                     End If
 
-                ElseIf cboPara.SelectedValue.ToString = "ADM" And itn.Estado = 7 Then
-                    Dim R = New Ruta(cn)
-                    Dim ru As Integer = ExtraerRuta(itn.Numero.ToString)
-
-                    If ru <> 0 Then
-                        R.Abrir(ru)
-                        itn.EnvioMailAviso(ExtraerRuta(itn.Numero.ToString), R.MotivoRebote(itn.Numero), R.Observacion(itn.Numero))
-                    End If
-
                 End If
 
             End If
@@ -876,21 +867,6 @@ Public Class frmSeguimiento
             End If
         Else
             Return False
-        End If
-    End Function
-    Private Function ExtraerRuta(ByVal intervencion As String) As Integer
-        Dim dt As New DataTable
-        Dim da As OracleDataAdapter
-        Dim sql As String = " "
-
-        sql = "select max(ruta_0) as ruta_0 from xrutad where vcrnum_0 = :intervencion"
-        da = New OracleDataAdapter(sql, cn)
-        da.SelectCommand.Parameters.Add("intervencion", OracleType.VarChar).Value = intervencion
-        da.Fill(dt)
-        If dt.Rows(0).Item("ruta_0").ToString = "" Then
-            Return 0
-        Else
-            Return CInt(dt.Rows(0).Item("ruta_0").ToString)
         End If
     End Function
     Private Function MarcarComoRecibido(ByVal Nro As String) As Boolean

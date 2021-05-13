@@ -210,10 +210,28 @@
     <Compile Include="Consultas\frmRemitoslist.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Contabilidad\frmDiasCalle.Designer.vb">
+      <DependentUpon>frmDiasCalle.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Contabilidad\frmDiasCalle.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmPruebas.Designer.vb">
       <DependentUpon>frmPruebas.vb</DependentUpon>
     </Compile>
     <Compile Include="frmPruebas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Informes\frmControlDiarioComercial.Designer.vb">
+      <DependentUpon>frmControlDiarioComercial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\frmControlDiarioComercial.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Informes\frmPremiosAbonos.Designer.vb">
+      <DependentUpon>frmPremiosAbonos.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Informes\frmPremiosAbonos.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Informes\frmReporteServicios.Designer.vb">
@@ -348,10 +366,22 @@
     <Compile Include="Logistica\frmExportarUnigis.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Logistica\frmIndicadoresOperacionales.Designer.vb">
+      <DependentUpon>frmIndicadoresOperacionales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmIndicadoresOperacionales.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Logistica\frmInspeccion.Designer.vb">
       <DependentUpon>frmInspeccion.vb</DependentUpon>
     </Compile>
     <Compile Include="Logistica\frmInspeccion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Logistica\frmIntervencionesEntregar.Designer.vb">
+      <DependentUpon>frmIntervencionesEntregar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Logistica\frmIntervencionesEntregar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Logistica\frmIntervencionesPendientes.Designer.vb">
@@ -1211,8 +1241,17 @@
       <DependentUpon>frmRemitoslist.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Contabilidad\frmDiasCalle.resx">
+      <DependentUpon>frmDiasCalle.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPruebas.resx">
       <DependentUpon>frmPruebas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\frmControlDiarioComercial.resx">
+      <DependentUpon>frmControlDiarioComercial.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Informes\frmPremiosAbonos.resx">
+      <DependentUpon>frmPremiosAbonos.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Informes\frmReporteServicios.resx">
       <DependentUpon>frmReporteServicios.vb</DependentUpon>
@@ -1283,8 +1322,14 @@
     <EmbeddedResource Include="Logistica\frmExportarUnigis.resx">
       <DependentUpon>frmExportarUnigis.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmIndicadoresOperacionales.resx">
+      <DependentUpon>frmIndicadoresOperacionales.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmInspeccion.resx">
       <DependentUpon>frmInspeccion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Logistica\frmIntervencionesEntregar.resx">
+      <DependentUpon>frmIntervencionesEntregar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Logistica\frmIntervencionesPendientes.resx">
       <DependentUpon>frmIntervencionesPendientes.vb</DependentUpon>

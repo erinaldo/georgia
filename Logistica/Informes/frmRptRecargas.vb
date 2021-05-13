@@ -40,7 +40,7 @@ Public Class frmRptRecargas '948 - 880
         btnConsultar.Enabled = False
         Application.DoEvents()
 
-        tmp = New Temporal(cn, usr.Codigo, "SRV")
+        tmp = New Temporal(cn, usr, "SRV")
         tmp.Abrir()
         tmp.LimpiarTabla()
 
@@ -92,8 +92,6 @@ Public Class frmRptRecargas '948 - 880
     Private Sub btnSalir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSalir.Click
         Me.Close()
     End Sub
-
-    'CALENDARIOS
     Private Sub dtpDesde_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dtpDesde.ValueChanged
         'La fecha del segundo no puede ser menor a la fecha del primero
         dtpHasta.Value = dtpDesde.Value
@@ -189,24 +187,6 @@ Public Class frmRptRecargas '948 - 880
         End With
 
     End Sub
-
-    'FUNCTION
-    Private Function EsDiaHabil(ByVal Fecha As Date) As Boolean
-
-        If Fecha.DayOfWeek = DayOfWeek.Sunday OrElse Fecha.DayOfWeek = DayOfWeek.Saturday Then
-            Return False
-
-        Else
-            Dim dt As New DataTable
-            Dim da As New OracleDataAdapter("SELECT dat_0 FROM xferiados WHERE dat_0 = :dat_0", cn)
-            da.SelectCommand.Parameters.Add("dat_0", OracleType.DateTime).Value = Fecha.Date
-            da.Fill(dt)
-            da.Dispose()
-
-            Return (dt.Rows.Count = 0)
-        End If
-
-    End Function
     Private Sub ObtenerSectorEntrega(ByVal dr As DataRow)
         Dim dt As New DataTable
         Dim da As New OracleDataAdapter("SELECT * FROM xsegto WHERE itn_0 = :itn_0 ORDER BY fecha_0 DESC, hora_0 DESC", cn)
@@ -223,31 +203,6 @@ Public Class frmRptRecargas '948 - 880
         End If
 
     End Sub
-    Private Function ObtenerRetirados(ByVal Fecha As Date) As Integer
-        Dim Sql As String
-        Dim dt As New DataTable
-        Dim da As OracleDataAdapter
-
-        Sql = "SELECT SUM(equipos_0) "
-        Sql &= "FROM xsegto2 xsg inner join "
-        Sql &= "     interven itn on (xsg.itn_0 = itn.num_0) "
-        Sql &= "WHERE xsg.dat_0 = :dat and "
-        Sql &= "      itn.bpc_0 <> '402000'"
-
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
-        da.Fill(dt)
-        da.Dispose()
-
-        If IsDBNull(dt.Rows(0).Item(0)) Then
-            Return 0
-
-        Else
-            Return CInt(dt.Rows(0).Item(0))
-
-        End If
-
-    End Function
     Private Sub txtBuscarItn_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txtBuscarItn.KeyUp
         If e.KeyCode = Keys.Enter Then
             Dim Sql As String
@@ -522,83 +477,6 @@ Public Class frmRptRecargas '948 - 880
         End Try
 
     End Sub
-    Private Function SectorSeleccionado(ByVal Sector As String) As Boolean
-        Dim dgvr As DataGridViewRow
-        Dim dr As DataRowView
-        Dim Flg As Boolean = False
-
-        For Each dgvr In dgvSectores.SelectedRows
-            dr = CType(dgvr.DataBoundItem, DataRowView)
-
-            If dr("xsector_0").ToString = Sector Then
-                Flg = True
-                Exit For
-            End If
-
-        Next
-
-        Return Flg
-
-    End Function
-    Private Function FiltrarAbonado() As String
-        Dim flg As Boolean = False
-        Dim drv As DataRowView
-        Dim txt As String = ""
-
-        For i As Integer = 0 To clbAbonado.CheckedItems.Count - 1
-            drv = CType(clbAbonado.CheckedItems(i), DataRowView)
-
-            If flg Then txt &= ", " 'Pongo coma de separacion de valores
-
-            txt &= drv(0).ToString 'Agrego el valor
-
-            flg = True
-
-        Next
-
-        Return txt
-
-    End Function
-    Private Function FiltrarEstado() As String
-        Dim flg As Boolean = False
-        Dim j As Integer
-        Dim drv As DataRowView
-        Dim txt As String = ""
-
-        For j = 0 To clbEstados.CheckedItems.Count - 1
-            drv = CType(clbEstados.CheckedItems(j), DataRowView)
-
-            If flg Then txt &= ", " 'Pongo coma de separacion de valores
-
-            txt &= drv(0).ToString
-
-            flg = True
-
-        Next
-
-        Return txt
-
-    End Function
-    Private Function FiltrarTipo() As String
-        Dim flg As Boolean = False
-        Dim drv As DataRowView
-        Dim txt As String = ""
-
-        For j As Integer = 0 To clbTipo.CheckedItems.Count - 1
-            drv = CType(clbTipo.CheckedItems(j), DataRowView)
-
-            If flg Then txt &= ", " 'Pongo coma de separacion de valores
-
-            txt &= "'" & drv(0).ToString & "'"
-
-            flg = True
-
-        Next
-
-        Return txt
-
-    End Function
-
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         Dim i As Integer = 0
 
@@ -757,269 +635,6 @@ Public Class frmRptRecargas '948 - 880
         End With
 
     End Sub
-
-    Private Function Calculo1(ByVal sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As New DataTable
-        Dim i As Integer = 0
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, equipos_1 + equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from interven itn  inner join "
-        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where tipo_0 = 'RET' and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      estado_0 = 3 and "
-        Sql &= "      zflgtrip_0 = 2 and "
-        Sql &= "      xsector_0 = :xsector and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "order by num_0"
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
-        da.Fill(dt)
-        da.Dispose()
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-        Sql &= "from interven itn inner join "
-        Sql &= "     yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where zflgtrip_0 = 1 and "
-        Sql &= "      typ_0 = 'D1' and "
-        'Sql &= "      yotr_0 <> 0 and "
-        Sql &= "      xsector_0 = :xsector and "
-        Sql &= "      itn.bpc_0 <> '402000'"
-        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
-        Sql &= "order by num_0"
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
-        da.Fill(dt)
-        da.Dispose()
-
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-        Next
-
-        If xdt IsNot Nothing Then
-            xdt = dt
-        End If
-
-        Return i
-
-    End Function
-    Private Function Calculo2(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As DataTable
-        Dim i As Integer = 0
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, xrd.equipos_1 + xrd.equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from interven itn inner join "
-        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
-        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where xsector_0 = '" & Sector & "' and "
-        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
-        Sql &= "	  estado_0 = 3 and "
-        Sql &= "	  valid_0 = 1 and "
-        Sql &= "	  itn.tripnum_0 = ' ' and "
-        Sql &= "	  tipo_0 = 'RET' and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "order by num_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        dt = New DataTable
-        da.Fill(dt)
-
-        '2016.08.31 se quita para que no aparezca duplicado
-        '--------------------------------------------------
-        If Sector <> "LOG" And Sector <> "ING" And Sector <> "ABO" Then
-            Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-            Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
-            Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-            Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
-            Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
-            Sql &= "order by num_0"
-            da = New OracleDataAdapter(Sql, cn)
-            da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
-            da.Fill(dt)
-            da.Dispose()
-        End If
-
-        'Eliminacion de documentos duplicados
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-
-        Next
-
-        da.Dispose()
-        dt.Dispose()
-
-        If xdt IsNot Nothing Then xdt = dt
-        Return i
-
-    End Function
-    Private Function CalculoLogistica(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As DataTable
-        Dim i As Integer = 0
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, xrd.equipos_1 + xrd.equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from interven itn inner join "
-        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
-        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where xsector_0 = '" & Sector & "' and "
-        Sql &= "	  (zflgtrip_0 IN (3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
-        Sql &= "	  estado_0 = 3 and "
-        Sql &= "	  valid_0 = 1 and "
-        Sql &= "	  itn.tripnum_0 = ' ' and "
-        Sql &= "	  tipo_0 = 'RET' and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "order by num_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        dt = New DataTable
-        da.Fill(dt)
-
-        '2016.08.31 se quita para que no aparezca duplicado
-        '--------------------------------------------------
-        If Sector <> "LOG" And Sector <> "ING" And Sector <> "ABO" Then
-            Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-            Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
-            Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-            Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
-            Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
-            Sql &= "order by num_0"
-            da = New OracleDataAdapter(Sql, cn)
-            da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
-            da.Fill(dt)
-            da.Dispose()
-        End If
-
-        'Eliminacion de documentos duplicados
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-
-        Next
-
-        da.Dispose()
-        dt.Dispose()
-
-        If xdt IsNot Nothing Then xdt = dt
-        Return i
-
-    End Function
-    Private Function Calculo3(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As DataTable
-        Dim i As Integer = 0
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, xrd.equipos_1 + xrd.equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from ((interven itn  inner join xrutad xrd on (itn.num_0 = xrd.vcrnum_0)) "
-        Sql &= "	 inner join xrutac xrc on (xrd.ruta_0 = xrc.ruta_0)) "
-        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where xsector_0 = '" & Sector & "' and "
-        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
-        Sql &= "	  estado_0 = 3 and "
-        Sql &= "	  valid_0 = 1 and "
-        Sql &= "	  itn.tripnum_0 <> ' ' and "
-        Sql &= "	  tipo_0 = 'RET' and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "order by num_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        dt = New DataTable
-        da.Fill(dt)
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-        Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
-        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
-        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
-        Sql &= "order by num_0"
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
-        da.Fill(dt)
-        da.Dispose()
-
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-        Next
-
-        da.Dispose()
-
-        If xdt IsNot Nothing Then xdt = dt
-        Return i
-
-    End Function
-    Private Function Calculo4(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As DataTable
-        Dim i As Integer = 0
-
-        Sql = "select dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, sum(tqty_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from (interven itn  inner join yitndet yit on (itn.num_0 = yit.num_0)) "
-        Sql &= "	 inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where xsector_0 = '" & Sector & "' and "
-        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
-        Sql &= "	  yit.typlig_0 = 1 and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "group by dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
-        Sql &= "order by dat_0, num_0"
-
-        da = New OracleDataAdapter(Sql, cn)
-        dt = New DataTable
-        da.Fill(dt)
-
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-        Next
-
-        da.Dispose()
-        dt.Dispose()
-
-        If xdt IsNot Nothing Then xdt = dt
-        Return i
-
-    End Function
     Private Sub FechasRetiros(ByVal dt1 As DataTable)
         Dim da As OracleDataAdapter
         Dim sql As String
@@ -1091,7 +706,6 @@ Public Class frmRptRecargas '948 - 880
         Next
 
     End Sub
-
     Private Sub cms_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles cms.Opening
         If dgv5.SelectedCells Is Nothing Then e.Cancel = True
         e.Cancel = dgv5.SelectedCells.Count = 0
@@ -1164,7 +778,6 @@ Public Class frmRptRecargas '948 - 880
         itn.Dispose()
 
     End Sub
-
     Private Sub dgv5_CellFormatting(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgv5.CellFormatting
 
         If e.ColumnIndex = 1 Then
@@ -1178,7 +791,6 @@ Public Class frmRptRecargas '948 - 880
         End If
 
     End Sub
-
     Private Sub mnuPallet_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuPallet.Click
         Dim num As String = CType(dgv5.SelectedRows(0).DataBoundItem, DataRowView).Row("num_0").ToString
         Dim da As OracleDataAdapter
@@ -1207,7 +819,6 @@ Public Class frmRptRecargas '948 - 880
         MessageBox.Show(sql, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
-
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Dim dt As DataTable
         Dim dtx As New DataTable
@@ -1312,5 +923,394 @@ Public Class frmRptRecargas '948 - 880
         End With
 
     End Sub
+    Private Function EsDiaHabil(ByVal Fecha As Date) As Boolean
+
+        If Fecha.DayOfWeek = DayOfWeek.Sunday OrElse Fecha.DayOfWeek = DayOfWeek.Saturday Then
+            Return False
+
+        Else
+            Dim dt As New DataTable
+            Dim da As New OracleDataAdapter("SELECT dat_0 FROM xferiados WHERE dat_0 = :dat_0", cn)
+            da.SelectCommand.Parameters.Add("dat_0", OracleType.DateTime).Value = Fecha.Date
+            da.Fill(dt)
+            da.Dispose()
+
+            Return (dt.Rows.Count = 0)
+        End If
+
+    End Function
+    Private Function ObtenerRetirados(ByVal Fecha As Date) As Integer
+        Dim Sql As String
+        Dim dt As New DataTable
+        Dim da As OracleDataAdapter
+
+        Sql = "SELECT SUM(equipos_0) "
+        Sql &= "FROM xsegto2 xsg inner join "
+        Sql &= "     interven itn on (xsg.itn_0 = itn.num_0) "
+        Sql &= "WHERE xsg.dat_0 = :dat and "
+        Sql &= "      itn.bpc_0 <> '402000'"
+
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("dat", OracleType.DateTime).Value = Fecha
+        da.Fill(dt)
+        da.Dispose()
+
+        If IsDBNull(dt.Rows(0).Item(0)) Then
+            Return 0
+
+        Else
+            Return CInt(dt.Rows(0).Item(0))
+
+        End If
+
+    End Function
+    Private Function SectorSeleccionado(ByVal Sector As String) As Boolean
+        Dim dgvr As DataGridViewRow
+        Dim dr As DataRowView
+        Dim Flg As Boolean = False
+
+        For Each dgvr In dgvSectores.SelectedRows
+            dr = CType(dgvr.DataBoundItem, DataRowView)
+
+            If dr("xsector_0").ToString = Sector Then
+                Flg = True
+                Exit For
+            End If
+
+        Next
+
+        Return Flg
+
+    End Function
+    Private Function FiltrarAbonado() As String
+        Dim flg As Boolean = False
+        Dim drv As DataRowView
+        Dim txt As String = ""
+
+        For i As Integer = 0 To clbAbonado.CheckedItems.Count - 1
+            drv = CType(clbAbonado.CheckedItems(i), DataRowView)
+
+            If flg Then txt &= ", " 'Pongo coma de separacion de valores
+
+            txt &= drv(0).ToString 'Agrego el valor
+
+            flg = True
+
+        Next
+
+        Return txt
+
+    End Function
+    Private Function FiltrarEstado() As String
+        Dim flg As Boolean = False
+        Dim j As Integer
+        Dim drv As DataRowView
+        Dim txt As String = ""
+
+        For j = 0 To clbEstados.CheckedItems.Count - 1
+            drv = CType(clbEstados.CheckedItems(j), DataRowView)
+
+            If flg Then txt &= ", " 'Pongo coma de separacion de valores
+
+            txt &= drv(0).ToString
+
+            flg = True
+
+        Next
+
+        Return txt
+
+    End Function
+    Private Function FiltrarTipo() As String
+        Dim flg As Boolean = False
+        Dim drv As DataRowView
+        Dim txt As String = ""
+
+        For j As Integer = 0 To clbTipo.CheckedItems.Count - 1
+            drv = CType(clbTipo.CheckedItems(j), DataRowView)
+
+            If flg Then txt &= ", " 'Pongo coma de separacion de valores
+
+            txt &= "'" & drv(0).ToString & "'"
+
+            flg = True
+
+        Next
+
+        Return txt
+
+    End Function
+    Private Function Calculo1(ByVal sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As New DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, equipos_1 + equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn  inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      estado_0 = 3 and "
+        Sql &= "      zflgtrip_0 = 2 and "
+        Sql &= "      xsector_0 = :xsector and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "order by num_0"
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
+        da.Fill(dt)
+        da.Dispose()
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
+        Sql &= "from interven itn inner join "
+        Sql &= "     yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where zflgtrip_0 = 1 and "
+        Sql &= "      typ_0 = 'D1' and "
+        'Sql &= "      yotr_0 <> 0 and "
+        Sql &= "      xsector_0 = :xsector and "
+        Sql &= "      itn.bpc_0 <> '402000'"
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
+        Sql &= "order by num_0"
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
+        da.Fill(dt)
+        da.Dispose()
+
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+        Next
+
+        If xdt IsNot Nothing Then
+            xdt = dt
+        End If
+
+        Return i
+
+    End Function
+    Private Function Calculo2(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, count(sre.macnum_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) inner join "
+        Sql &= "     sremac sre on (itn.num_0 = sre.yitnnum_0) "
+        Sql &= "where xsector_0 = '" & Sector & "' and "
+        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
+        Sql &= "	  estado_0 = 3 and "
+        Sql &= "	  valid_0 = 1 and "
+        Sql &= "	  itn.tripnum_0 = ' ' and "
+        Sql &= "	  tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
+        Sql &= "order by num_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        dt = New DataTable
+        da.Fill(dt)
+
+        '2016.08.31 se quita para que no aparezca duplicado
+        '--------------------------------------------------
+        If Sector <> "LOG" And Sector <> "ING" And Sector <> "ABO" Then
+            Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
+            Sql &= "from interven itn inner join "
+            Sql &= "     yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1) inner join "
+            Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+            Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
+            Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
+            Sql &= "order by num_0"
+            da = New OracleDataAdapter(Sql, cn)
+            da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
+            da.Fill(dt)
+            da.Dispose()
+        End If
+
+        'Eliminacion de documentos duplicados
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+
+        Next
+
+        da.Dispose()
+        dt.Dispose()
+
+        If xdt IsNot Nothing Then xdt = dt
+        Return i
+
+    End Function
+    Private Function CalculoLogistica(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, count(sre.macnum_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) inner join "
+        Sql &= "     sremac sre on (itn.num_0 = sre.yitnnum_0) "
+        Sql &= "where xsector_0 = '" & Sector & "' and "
+        Sql &= "	  (zflgtrip_0 IN (3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
+        Sql &= "	  estado_0 = 3 and "
+        Sql &= "	  valid_0 = 1 and "
+        Sql &= "	  itn.tripnum_0 = ' ' and "
+        Sql &= "	  tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
+        Sql &= "order by num_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        dt = New DataTable
+        da.Fill(dt)
+
+        '2016.08.31 se quita para que no aparezca duplicado
+        '--------------------------------------------------
+        If Sector <> "LOG" And Sector <> "ING" And Sector <> "ABO" Then
+            Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
+            Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
+            Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+            Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
+            Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
+            Sql &= "order by num_0"
+            da = New OracleDataAdapter(Sql, cn)
+            da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
+            da.Fill(dt)
+            da.Dispose()
+        End If
+
+        'Eliminacion de documentos duplicados
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+
+        Next
+
+        da.Dispose()
+        dt.Dispose()
+
+        If xdt IsNot Nothing Then xdt = dt
+        Return i
+
+    End Function
+    Private Function Calculo3(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, count(sre.macnum_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn  inner join "
+        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
+        Sql &= "	 xrutac xrc on (xrd.ruta_0 = xrc.ruta_0) inner join  "
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) inner join "
+        Sql &= "     sremac sre on (itn.num_0 = sre.yitnnum_0) "
+        Sql &= "where xsector_0 = '" & Sector & "' and "
+        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
+        Sql &= "	  estado_0 = 3 and "
+        Sql &= "	  valid_0 = 1 and "
+        Sql &= "	  itn.tripnum_0 <> ' ' and "
+        Sql &= "	  tipo_0 = 'RET' and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
+        Sql &= "order by num_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        dt = New DataTable
+        da.Fill(dt)
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
+        Sql &= "from (interven itn inner join yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1)) "
+        Sql &= "     inner join bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where zflgtrip_0 IN (2,3,4,6) and typ_0 = 'D1' and xsector_0 = :xsector "
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0  "
+        Sql &= "order by num_0"
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = Sector
+        da.Fill(dt)
+        da.Dispose()
+
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+        Next
+
+        da.Dispose()
+
+        If xdt IsNot Nothing Then xdt = dt
+        Return i
+
+    End Function
+    Private Function Calculo4(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As DataTable
+        Dim i As Integer = 0
+
+        Sql = "select dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, count(sre.macnum_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn inner join "
+        Sql &= "     yitndet yit on (itn.num_0 = yit.num_0) inner join"
+        Sql &= "	 bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) inner join "
+        Sql &= "     sremac sre on (itn.num_0 = sre.yitnnum_0) "
+        Sql &= "where xsector_0 = '" & Sector & "' and "
+        Sql &= "	  (zflgtrip_0 IN (2,3,4,6) or ((ysdhdeb_0) <> ' ' and zflgtrip_0 = 7)) and "
+        Sql &= "	  yit.typlig_0 = 1 and "
+        Sql &= "      typ_0 <> 'G1' and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "group by dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
+        Sql &= "order by dat_0, num_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        dt = New DataTable
+        da.Fill(dt)
+
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
+
+            If txt <> "" Then
+                dr.BeginEdit()
+                dr("sector") = txt
+                dr.EndEdit()
+            End If
+        Next
+
+        da.Dispose()
+        dt.Dispose()
+
+        If xdt IsNot Nothing Then xdt = dt
+        Return i
+
+    End Function
 
 End Class
