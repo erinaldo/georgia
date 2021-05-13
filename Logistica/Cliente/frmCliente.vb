@@ -154,8 +154,6 @@ Public Class frmCliente
         cboVendedor.SelectedValue = bpc.Vendedor.Codigo
         txtObservaciones.Text = bpc.Observaciones.Trim
 
-        chkRequiereFactura.Checked = bpc.RequiereFacturaFisica
-
         cboSociedad.SelectedValue = bpc.EmpresaFacturacionObligatoria
 
         cboABC.SelectedValue = bpc.TipoAbc
@@ -306,11 +304,6 @@ Public Class frmCliente
                 flg = False
                 msg = "Condición de pago no permitida"
             End If
-            If flg AndAlso chkRequiereFactura.Checked = False AndAlso txtMailFc.Text = "" Then
-                flg = False
-                msg = "Mail obligatorio si Requiere Factura Fisica está desactivado"
-                txtMailFc.Focus()
-            End If
 
             If flg AndAlso txtCodigoCliente.Text <> txtCodigoPagador.Text Then
                 Dim pyr As New Cliente(cn)
@@ -393,7 +386,6 @@ Public Class frmCliente
                 .Vendedor3Codigo = "11"
                 .CategoriaComision = CategoriaComsion()
                 .Observaciones = txtObservaciones.Text
-                .RequiereFacturaFisica = chkRequiereFactura.Checked
                 .EmpresaFacturacionObligatoria = cboSociedad.SelectedValue.ToString
                 .TipoAbc = CInt(cboABC.SelectedValue)
 
@@ -843,7 +835,6 @@ Public Class frmCliente
         c.Add(txtFantasia)
         c.Add(txtMailFc)
         c.Add(btnAgregarSucursal)
-        c.Add(chkRequiereFactura)
         c.Add(dgv)
 
         For Each o As Object In Me.Controls
@@ -868,7 +859,6 @@ Public Class frmCliente
         txtIIBB.Enabled = bpc IsNot Nothing AndAlso bpc.Tipo = 1
         cboCondicionPago.Enabled = bpc IsNot Nothing AndAlso bpc.Tipo = 1
         txtMailFc.Enabled = bpc IsNot Nothing AndAlso bpc.Tipo = 1
-        chkRequiereFactura.Enabled = bpc IsNot Nothing AndAlso bpc.Tipo = 1
         cboSociedad.Enabled = bpc IsNot Nothing AndAlso bpc.Tipo = 1
 
         btnNuevoCliente.Enabled = NUEVO_CLIENTE

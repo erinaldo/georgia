@@ -52,10 +52,10 @@ Partial Class frmCliente
         Me.cboVendedor = New System.Windows.Forms.ComboBox
         Me.gbFinancieras = New System.Windows.Forms.GroupBox
         Me.cboSociedad = New System.Windows.Forms.ComboBox
-        Me.chkRequiereFactura = New System.Windows.Forms.CheckBox
         Me.txtMailFc = New System.Windows.Forms.TextBox
         Me.cboIva = New System.Windows.Forms.ComboBox
         Me.gbIdentidad = New System.Windows.Forms.GroupBox
+        Me.chkActivo = New System.Windows.Forms.CheckBox
         Me.cboABC = New System.Windows.Forms.ComboBox
         Me.txtNombrePagador = New System.Windows.Forms.TextBox
         Me.cboCondicionIb = New System.Windows.Forms.ComboBox
@@ -73,7 +73,6 @@ Partial Class frmCliente
         Me.btnNuevoProspecto = New System.Windows.Forms.Button
         Me.btnBuscar = New System.Windows.Forms.Button
         Me.btnConvertir = New System.Windows.Forms.Button
-        Me.chkActivo = New System.Windows.Forms.CheckBox
         Label3 = New System.Windows.Forms.Label
         Label4 = New System.Windows.Forms.Label
         Label5 = New System.Windows.Forms.Label
@@ -359,7 +358,6 @@ Partial Class frmCliente
         '
         Me.gbFinancieras.Controls.Add(Me.cboSociedad)
         Me.gbFinancieras.Controls.Add(Label2)
-        Me.gbFinancieras.Controls.Add(Me.chkRequiereFactura)
         Me.gbFinancieras.Controls.Add(Me.txtMailFc)
         Me.gbFinancieras.Controls.Add(Label1)
         Me.gbFinancieras.Controls.Add(Me.cboIva)
@@ -381,16 +379,6 @@ Partial Class frmCliente
         Me.cboSociedad.Name = "cboSociedad"
         Me.cboSociedad.Size = New System.Drawing.Size(204, 21)
         Me.cboSociedad.TabIndex = 8
-        '
-        'chkRequiereFactura
-        '
-        Me.chkRequiereFactura.AutoSize = True
-        Me.chkRequiereFactura.Location = New System.Drawing.Point(123, 103)
-        Me.chkRequiereFactura.Name = "chkRequiereFactura"
-        Me.chkRequiereFactura.Size = New System.Drawing.Size(140, 17)
-        Me.chkRequiereFactura.TabIndex = 6
-        Me.chkRequiereFactura.Text = "Requiere Factura Física"
-        Me.chkRequiereFactura.UseVisualStyleBackColor = True
         '
         'txtMailFc
         '
@@ -428,6 +416,16 @@ Partial Class frmCliente
         Me.gbIdentidad.TabIndex = 2
         Me.gbIdentidad.TabStop = False
         Me.gbIdentidad.Text = "Identidad"
+        '
+        'chkActivo
+        '
+        Me.chkActivo.AutoSize = True
+        Me.chkActivo.Location = New System.Drawing.Point(120, 129)
+        Me.chkActivo.Name = "chkActivo"
+        Me.chkActivo.Size = New System.Drawing.Size(56, 17)
+        Me.chkActivo.TabIndex = 10
+        Me.chkActivo.Text = "Activo"
+        Me.chkActivo.UseVisualStyleBackColor = True
         '
         'cboABC
         '
@@ -608,16 +606,6 @@ Partial Class frmCliente
         Me.btnConvertir.Text = "Convertir"
         Me.btnConvertir.UseVisualStyleBackColor = True
         '
-        'chkActivo
-        '
-        Me.chkActivo.AutoSize = True
-        Me.chkActivo.Location = New System.Drawing.Point(120, 129)
-        Me.chkActivo.Name = "chkActivo"
-        Me.chkActivo.Size = New System.Drawing.Size(56, 17)
-        Me.chkActivo.TabIndex = 10
-        Me.chkActivo.Text = "Activo"
-        Me.chkActivo.UseVisualStyleBackColor = True
-        '
         'frmCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -685,7 +673,6 @@ Partial Class frmCliente
     Friend WithEvents gbFiscal As System.Windows.Forms.GroupBox
     Friend WithEvents txtNombrePagador As System.Windows.Forms.TextBox
     Friend WithEvents txtMailFc As System.Windows.Forms.TextBox
-    Friend WithEvents chkRequiereFactura As System.Windows.Forms.CheckBox
     Friend WithEvents lblEspere As System.Windows.Forms.Label
     Friend WithEvents btnNuevoCliente As System.Windows.Forms.Button
     Friend WithEvents btnNuevoProspecto As System.Windows.Forms.Button
