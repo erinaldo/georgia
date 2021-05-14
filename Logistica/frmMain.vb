@@ -1258,4 +1258,10 @@ Public Class frmMain
         f.Show()
 
     End Sub
+
+    Private Sub mnuAsociarFcANd_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuAsociarFcANd.Click
+        Dim f As New frmNd
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class

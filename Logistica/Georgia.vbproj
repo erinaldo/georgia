@@ -822,6 +822,12 @@
     <Compile Include="Ventas\frmMotors.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Ventas\frmNd.Designer.vb">
+      <DependentUpon>frmNd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Ventas\frmNd.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Ventas\FrmPacto.Designer.vb">
       <DependentUpon>FrmPacto.vb</DependentUpon>
     </Compile>
@@ -1573,6 +1579,9 @@
     <EmbeddedResource Include="Ventas\frmMotors.resx">
       <DependentUpon>frmMotors.vb</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventas\frmNd.resx">
+      <DependentUpon>frmNd.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas\FrmPacto.resx">
       <DependentUpon>FrmPacto.vb</DependentUpon>

@@ -127,6 +127,7 @@ Partial Class frmMain
         Me.ToolStripMenuItem13 = New System.Windows.Forms.ToolStripSeparator
         Me.mnuArcibaNc = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuComisiones = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuDiasCalle = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuVarios = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuMostrador = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuAdministraciones = New System.Windows.Forms.ToolStripMenuItem
@@ -234,7 +235,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuDiasCalle = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuAsociarFcANd = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -709,7 +710,7 @@ Partial Class frmMain
         '
         'mnuVentas
         '
-        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.CotizadorInternoToolStripMenuItem, Me.mnuFCE})
+        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.CotizadorInternoToolStripMenuItem, Me.mnuFCE, Me.mnuAsociarFcANd})
         Me.mnuVentas.Name = "mnuVentas"
         Me.mnuVentas.Size = New System.Drawing.Size(53, 20)
         Me.mnuVentas.Text = "Ventas"
@@ -919,6 +920,12 @@ Partial Class frmMain
         Me.mnuComisiones.Size = New System.Drawing.Size(226, 22)
         Me.mnuComisiones.Tag = "mnuComisionesSF"
         Me.mnuComisiones.Text = "Comisiones SF..."
+        '
+        'mnuDiasCalle
+        '
+        Me.mnuDiasCalle.Name = "mnuDiasCalle"
+        Me.mnuDiasCalle.Size = New System.Drawing.Size(226, 22)
+        Me.mnuDiasCalle.Text = "Dias en la calle.."
         '
         'mnuVarios
         '
@@ -1612,11 +1619,12 @@ Partial Class frmMain
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
         '
-        'mnuDiasCalle
+        'mnuAsociarFcANd
         '
-        Me.mnuDiasCalle.Name = "mnuDiasCalle"
-        Me.mnuDiasCalle.Size = New System.Drawing.Size(226, 22)
-        Me.mnuDiasCalle.Text = "Dias en la calle.."
+        Me.mnuAsociarFcANd.Name = "mnuAsociarFcANd"
+        Me.mnuAsociarFcANd.Size = New System.Drawing.Size(299, 22)
+        Me.mnuAsociarFcANd.Tag = "mnuAsociarFCaND"
+        Me.mnuAsociarFcANd.Text = "Asociar FC a ND..."
         '
         'frmMain
         '
@@ -1853,6 +1861,7 @@ Partial Class frmMain
     Friend WithEvents mnuIntervencionesEntregar As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuIndicadoresOperacionales As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuDiasCalle As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuAsociarFcANd As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class
