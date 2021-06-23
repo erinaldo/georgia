@@ -332,17 +332,15 @@ Public Class frmIRAM
             linea &= CDate(dr("yfabdat_0")).Year.ToString & SEP 'Campo 15 - 
             linea &= mac.VtoPH.ToString("MM/yyyy") & SEP 'Campo 16
 
-            If dr("tsicod_1").ToString <> "101" And dr("tsicod_1").ToString <> "102" Then
+            If dr("patente_0").ToString.Trim.Length > 0 Then
+                'Extintor automotor
+                linea &= dr("patente_0").ToString.Trim 'Campo 17
+
+            Else
                 'El extintor es industrial
                 linea &= bpa.CallejeroGCBA & SEP 'Campo 17
                 linea &= bpa.AlturaGCBA & SEP 'Campo 18
                 linea &= SEP 'Campo 19
-            Else
-                'Extintor automotor
-                'Salto si la patente no es valida
-                If dr("patente_0").ToString.Trim.Length <> 6 Then Continue For
-
-                linea &= dr("patente_0").ToString.Trim 'Campo 17
 
             End If
 
