@@ -1461,6 +1461,8 @@ Public Class frmIntervencion
 
             Case "H1"
 
+            Case "T1"
+
             Case Else
                 MessageBox.Show("Tipo de intervención desconocida", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 cboTipo.Focus()
@@ -1862,6 +1864,9 @@ Public Class frmIntervencion
                 If Articulo.StartsWith("459") Then
                     flg = True
                 End If
+
+            Case "T1"
+                Return Articulo = "992014"
 
         End Select
 

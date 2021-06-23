@@ -22,7 +22,7 @@ Public Class frmPremiosAbonos
         Sql &= "     interven itn on (d.vcrnum_0 = itn.num_0) inner join "
         Sql &= "     zunitrans zut on (zut.bptnum_0 = c.transporte_0 and zut.patnum_0 = c.patente_0) left join "
         Sql &= "     atabdiv adi on (adi.numtab_0 = 5006 and adi.code_0 = bpc.xcomplej_0) "
-        Sql &= "where itn.typ_0 in ('A1', 'C1') and "
+        Sql &= "where itn.typ_0 in ('A1', 'C1', 'T1') and "
         Sql &= "      c.valid_0 = 1 and "
         Sql &= "      d.estado_0 = 3 and "
         Sql &= "      c.fecha_0 between :desde and :hasta "
