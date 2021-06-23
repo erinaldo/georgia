@@ -1040,7 +1040,7 @@ Public Class frmCAE
                 End If
 
             Case "ND", "XD"
-                Return 2
+                Return 1
 
             Case "NC", "XC"
                 Return 1
