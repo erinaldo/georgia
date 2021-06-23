@@ -119,6 +119,7 @@ Partial Class frmMain
         Me.PactoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CotizadorInternoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuFCE = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuAsociarFcANd = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuContabilidad = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuBuscadorCheques = New System.Windows.Forms.ToolStripMenuItem
         Me.PresupuestoToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem
@@ -235,7 +236,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuAsociarFcANd = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -868,6 +868,13 @@ Partial Class frmMain
         Me.mnuFCE.Name = "mnuFCE"
         Me.mnuFCE.Size = New System.Drawing.Size(299, 22)
         Me.mnuFCE.Text = "Registro Factura de Crédito..."
+        '
+        'mnuAsociarFcANd
+        '
+        Me.mnuAsociarFcANd.Name = "mnuAsociarFcANd"
+        Me.mnuAsociarFcANd.Size = New System.Drawing.Size(299, 22)
+        Me.mnuAsociarFcANd.Tag = "mnuAsociarFCaND"
+        Me.mnuAsociarFcANd.Text = "Asociar FC a ND..."
         '
         'mnuContabilidad
         '
@@ -1618,13 +1625,6 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
-        '
-        'mnuAsociarFcANd
-        '
-        Me.mnuAsociarFcANd.Name = "mnuAsociarFcANd"
-        Me.mnuAsociarFcANd.Size = New System.Drawing.Size(299, 22)
-        Me.mnuAsociarFcANd.Tag = "mnuAsociarFCaND"
-        Me.mnuAsociarFcANd.Text = "Asociar FC a ND..."
         '
         'frmMain
         '

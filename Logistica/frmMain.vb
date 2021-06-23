@@ -1264,4 +1264,5 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
+
 End Class
