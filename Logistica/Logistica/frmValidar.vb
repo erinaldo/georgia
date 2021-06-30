@@ -1445,23 +1445,29 @@ Public Class frmValidar
                     End If
 
                     'Listado de codigos que no deben ser reagendados.
-                    If Art = "993011" Or _
-                    Art = "993001" Or _
-                    Art = "991003" Or _
-                    Art = "991016" Or _
-                    Art = "991021" Or _
-                    Art = "991034" Or _
-                    Art = "991035" Or _
-                    Art = "991036" Or _
-                    Art = "991037" Or _
-                    Art = "991056" Or _
-                    Art = "991058" Or _
-                    Art = "991060" Or _
-                    Art = "991063" Or _
-                    Art = "991070" Or _
-                    Art = "991073" Or _
-                    Art = "991075" Or _
-                    Art = "991087" Then
+                    If Art = "991003" Or _
+                        Art = "991016" Or _
+                        Art = "991021" Or _
+                        Art = "991034" Or _
+                        Art = "991035" Or _
+                        Art = "991036" Or _
+                        Art = "991037" Or _
+                        Art = "991056" Or _
+                        Art = "991058" Or _
+                        Art = "991060" Or _
+                        Art = "991063" Or _
+                        Art = "991070" Or _
+                        Art = "991073" Or _
+                        Art = "991075" Or _
+                        Art = "991085" Or _
+                        Art = "991087" Or _
+                        Art = "991089" Or _
+                        Art = "991090" Or _
+                        Art = "991091" Or _
+                        Art = "991092" Or _
+                        Art = "991094" Or _
+                        Art = "993001" Or _
+                        Art = "993011" Then
                         Continue For
                     End If
 
