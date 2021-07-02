@@ -31,6 +31,7 @@ Partial Class frmEntregas
         Me.colEntregado = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.colFecha = New System.Windows.Forms.DataGridViewTextBoxColumn
         Me.colUsuario = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.colEstado = New System.Windows.Forms.DataGridViewTextBoxColumn
         CType(Me.dgv, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -50,7 +51,7 @@ Partial Class frmEntregas
                     Or System.Windows.Forms.AnchorStyles.Left) _
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colRemtio, Me.colCodigo, Me.colCliente, Me.colDireccion, Me.colEntregado, Me.colFecha, Me.colUsuario})
+        Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colRemtio, Me.colCodigo, Me.colCliente, Me.colDireccion, Me.colEntregado, Me.colFecha, Me.colUsuario, Me.colEstado})
         Me.dgv.Location = New System.Drawing.Point(0, 38)
         Me.dgv.Name = "dgv"
         Me.dgv.ReadOnly = True
@@ -110,6 +111,13 @@ Partial Class frmEntregas
         Me.colUsuario.ReadOnly = True
         Me.colUsuario.Visible = False
         '
+        'colEstado
+        '
+        Me.colEstado.HeaderText = "Estado"
+        Me.colEstado.Name = "colEstado"
+        Me.colEstado.ReadOnly = True
+        Me.colEstado.Visible = False
+        '
         'frmEntregas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -134,4 +142,5 @@ Partial Class frmEntregas
     Friend WithEvents colEntregado As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents colFecha As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colUsuario As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colEstado As System.Windows.Forms.DataGridViewTextBoxColumn
 End Class

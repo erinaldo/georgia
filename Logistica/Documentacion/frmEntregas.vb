@@ -4,13 +4,15 @@ Public Class frmEntregas
     Private da As OracleDataAdapter
     Private Rto As New Remito(cn)
 
-    Private Sub frmDeposito_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub frmEntregas_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim Sql As String
         Dim dt As New DataTable
 
         AddHandler dgv.RowPostPaint, AddressOf NumeracionGrillas
 
-        Sql = "SELECT sdhnum_0, bpcord_0, bpdnam_0, bpdaddlig_0, xsalio_0, xsaliousr_0, xsaliodat_0 FROM sdelivery WHERE lnd_0 = 1 AND sdhnum_0 = :sdhnum_0"
+        Sql = "SELECT sdhnum_0, bpcord_0, bpdnam_0, bpdaddlig_0, xsalio_0, xsaliousr_0, xsaliodat_0, xflgrto_0 "
+        Sql &= "FROM sdelivery "
+        Sql &= "WHERE lnd_0 = 1 AND sdhnum_0 = :sdhnum_0"
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("sdhnum_0", OracleType.VarChar)
         da.UpdateCommand = New OracleCommandBuilder(da).GetUpdateCommand
@@ -25,6 +27,7 @@ Public Class frmEntregas
         colEntregado.DataPropertyName = "xsalio_0"
         colFecha.DataPropertyName = "xsaliodat_0"
         colUsuario.DataPropertyName = "xsaliousr_0"
+        colEstado.DataPropertyName = "xflgrto_0"
         dgv.DataSource = dt
 
     End Sub
@@ -39,7 +42,7 @@ Public Class frmEntregas
 
                 'Miro si es remito suelto o numero de ruta
                 If txtRemito.Text.Contains("RMR") Then
-                    ProcesarRemito(txtRemito.Text)
+                    ProcesarRemito(txtRemito.Text, True)
 
                 Else
                     If MessageBox.Show("¿Confirma el procesamiento de la HOJA DE RUTA nro. " & txtRemito.Text & "?", Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
@@ -68,7 +71,7 @@ Public Class frmEntregas
         Next
 
     End Sub
-    Private Sub ProcesarRemito(ByVal Nro As String)
+    Private Sub ProcesarRemito(ByVal Nro As String, ByVal PonerEntregado As Boolean)
         Dim txt As String
         Dim dr As DataRow
         Dim dt As New DataTable
@@ -93,7 +96,7 @@ Public Class frmEntregas
 
             ElseIf CInt(dr("xsalio_0")) = 2 Then 'Miro si el usuario tiene permiso para desmarcar remitos
 
-                If PermisoSecundario(cn, Usr.Codigo, Me.Tag.ToString, "0"c) Then
+                If PermisoSecundario(cn, usr.Codigo, Me.Tag.ToString, "0"c) Then
                     txt = "El remito {?rto} ya fue marcado como entregado el dia {?dia} por {?usr}" & vbCrLf & vbCrLf
                     txt &= "¿Desea quitar la marca?"
                     txt = txt.Replace("{?rto}", dr("sdhnum_0").ToString)
@@ -103,7 +106,7 @@ Public Class frmEntregas
                     If MessageBox.Show(txt, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
                         dr.BeginEdit()
                         dr("xsalio_0") = 1
-                        dr("xsaliousr_0") = Usr.Codigo
+                        dr("xsaliousr_0") = usr.Codigo
                         dr("xsaliodat_0") = Date.Today
                         dr.EndEdit()
                     End If
@@ -124,7 +127,8 @@ Public Class frmEntregas
             Else
                 dr.BeginEdit()
                 dr("xsalio_0") = 2
-                dr("xsaliousr_0") = Usr.Codigo
+                If PonerEntregado Then dr("xflgrto_0") = 5
+                dr("xsaliousr_0") = usr.Codigo
                 dr("xsaliodat_0") = Date.Today
                 dr.EndEdit()
 
@@ -156,7 +160,7 @@ Public Class frmEntregas
         da.Fill(dt)
 
         For Each dr In dt.Rows
-            ProcesarRemito(dr("vcrnum_0").ToString)
+            ProcesarRemito(dr("vcrnum_0").ToString, False)
         Next
         da.Dispose()
         dt.Dispose()
