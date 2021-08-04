@@ -117,7 +117,6 @@ Partial Class frmMain
         Me.frmCAE = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuLicitaciones = New System.Windows.Forms.ToolStripMenuItem
         Me.PactoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CotizadorInternoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuFCE = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuAsociarFcANd = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuContabilidad = New System.Windows.Forms.ToolStripMenuItem
@@ -710,7 +709,7 @@ Partial Class frmMain
         '
         'mnuVentas
         '
-        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.CotizadorInternoToolStripMenuItem, Me.mnuFCE, Me.mnuAsociarFcANd})
+        Me.mnuVentas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CotizadorToolStripMenuItem, Me.mnuPresupuestos639, Me.frmContratos, Me.mnuEstadoClientes, Me.ToolStripMenuItem14, Me.mnuTarjetasNuevos, Me.mnuMotors, Me.ToolStripMenuItem15, Me.mnuConsultaPedidos, Me.ToolStripMenuItem16, Me.mnuFiscal, Me.frmCAE, Me.mnuLicitaciones, Me.PactoToolStripMenuItem, Me.mnuFCE, Me.mnuAsociarFcANd})
         Me.mnuVentas.Name = "mnuVentas"
         Me.mnuVentas.Size = New System.Drawing.Size(53, 20)
         Me.mnuVentas.Text = "Ventas"
@@ -855,13 +854,6 @@ Partial Class frmMain
         Me.PactoToolStripMenuItem.Name = "PactoToolStripMenuItem"
         Me.PactoToolStripMenuItem.Size = New System.Drawing.Size(299, 22)
         Me.PactoToolStripMenuItem.Text = "Pacto"
-        '
-        'CotizadorInternoToolStripMenuItem
-        '
-        Me.CotizadorInternoToolStripMenuItem.Name = "CotizadorInternoToolStripMenuItem"
-        Me.CotizadorInternoToolStripMenuItem.Size = New System.Drawing.Size(299, 22)
-        Me.CotizadorInternoToolStripMenuItem.Tag = "frmCotizadorInterno"
-        Me.CotizadorInternoToolStripMenuItem.Text = "Cotizador Interno"
         '
         'mnuFCE
         '
@@ -1816,7 +1808,6 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator5 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ReporteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents AtencionAlClienteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CotizadorInternoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuExportarControles As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuComisiones As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TableroCAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

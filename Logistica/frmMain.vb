@@ -1124,12 +1124,6 @@ Public Class frmMain
         End With
     End Sub
 
-    Private Sub CotizadorInternoToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CotizadorInternoToolStripMenuItem.Click
-        Dim f As New frmCotizadorInterno
-        f.MdiParent = Me
-        f.Show()
-    End Sub
-
     Private Sub mnuExportarControles_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuExportarControles.Click
         Dim f As New frmExportarControles
         f.MdiParent = Me
