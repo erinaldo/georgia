@@ -487,7 +487,7 @@ Public Class frmRptRecargas '948 - 880
         i += CInt(txt1a.Text)
         Application.DoEvents()
 
-        txt1b.Text = Calculo1("SRV").ToString
+        txt1b.Text = CalculoEnProceso().ToString
         i += CInt(txt1b.Text)
         Application.DoEvents()
 
@@ -571,7 +571,7 @@ Public Class frmRptRecargas '948 - 880
             lblTitulo.Text = "ESPERA DE PROCESO"
 
         ElseIf txt Is txt1b Then
-            Calculo1("SRV", dt)
+            CalculoEnProceso(dt)
             FechasRetiros(dt)
             lblTitulo.Text = "EN PROCESO"
 
@@ -860,7 +860,7 @@ Public Class frmRptRecargas '948 - 880
         dt.Merge(dtx)
 
         txt = "EN PROCESO"
-        Calculo1("SRV", dtx, txt)
+        CalculoEnProceso(dtx)
         FechasRetiros(dtx)
         dt.Merge(dtx)
 
@@ -1086,6 +1086,38 @@ Public Class frmRptRecargas '948 - 880
                 dr("sector") = txt
                 dr.EndEdit()
             End If
+        Next
+
+        If xdt IsNot Nothing Then
+            xdt = dt
+        End If
+
+        Return i
+
+    End Function
+    Private Function CalculoEnProceso(Optional ByRef xdt As DataTable = Nothing) As Integer
+        Dim da As OracleDataAdapter
+        Dim Sql As String
+        Dim dt As New DataTable
+        Dim i As Integer = 0
+
+        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, count(sre.macnum_0) as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
+        Sql &= "from interven itn  inner join"
+        Sql &= "     sremac sre on (itn.num_0 = sre.yitnnum_0) inner join"
+        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
+        Sql &= "where typ_0 <> 'G1' and "
+        Sql &= "      zflgtrip_0 = 2 and "
+        Sql &= "      xsector_0 = :xsector and "
+        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0"
+
+        da = New OracleDataAdapter(Sql, cn)
+        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = "SRV"
+        da.Fill(dt)
+        da.Dispose()
+
+        For Each dr As DataRow In dt.Rows
+            i += CInt(dr("cant"))
         Next
 
         If xdt IsNot Nothing Then

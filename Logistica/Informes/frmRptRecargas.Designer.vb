@@ -971,6 +971,7 @@ Partial Class frmRptRecargas
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(357, 491)
         Me.Label6.Name = "Label6"
