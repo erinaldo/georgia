@@ -27,7 +27,6 @@ Partial Class frmCotizadorV2
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Dim Label14 As System.Windows.Forms.Label
         Dim Label9 As System.Windows.Forms.Label
         Dim Label8 As System.Windows.Forms.Label
@@ -52,6 +51,7 @@ Partial Class frmCotizadorV2
         Dim Label11 As System.Windows.Forms.Label
         Dim Label20 As System.Windows.Forms.Label
         Dim Label1 As System.Windows.Forms.Label
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.grTipo = New System.Windows.Forms.GroupBox
         Me.rbVendedores = New System.Windows.Forms.RadioButton
         Me.rbCaa = New System.Windows.Forms.RadioButton
@@ -62,13 +62,6 @@ Partial Class frmCotizadorV2
         Me.btnBuscar = New System.Windows.Forms.Button
         Me.txtBuscar = New System.Windows.Forms.TextBox
         Me.dgv2 = New System.Windows.Forms.DataGridView
-        Me.col2Nro = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col2Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col2Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.suc = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col2Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.col2Vend = New System.Windows.Forms.DataGridViewTextBoxColumn
-        Me.cboTipo2 = New System.Windows.Forms.DataGridViewComboBoxColumn
         Me.lblReferencia = New System.Windows.Forms.Label
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.txtIntervencionRechazo = New System.Windows.Forms.TextBox
@@ -140,6 +133,14 @@ Partial Class frmCotizadorV2
         Me.txtNro = New System.Windows.Forms.TextBox
         Me.mnu2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuSeleccionArticulo = New System.Windows.Forms.ToolStripMenuItem
+        Me.col2Tipo = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Nro = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Fecha = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Cliente = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.suc = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Nombre = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.col2Vend = New System.Windows.Forms.DataGridViewTextBoxColumn
+        Me.cboTipo2 = New System.Windows.Forms.DataGridViewComboBoxColumn
         SplitContainer1 = New System.Windows.Forms.SplitContainer
         Label14 = New System.Windows.Forms.Label
         Label9 = New System.Windows.Forms.Label
@@ -348,7 +349,7 @@ Partial Class frmCotizadorV2
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgv2.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgv2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col2Nro, Me.col2Fecha, Me.col2Cliente, Me.suc, Me.col2Nombre, Me.col2Vend, Me.cboTipo2})
+        Me.dgv2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col2Tipo, Me.col2Nro, Me.col2Fecha, Me.col2Cliente, Me.suc, Me.col2Nombre, Me.col2Vend, Me.cboTipo2})
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window
         DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -371,63 +372,6 @@ Partial Class frmCotizadorV2
         Me.dgv2.Size = New System.Drawing.Size(321, 448)
         Me.dgv2.TabIndex = 0
         Me.dgv2.TabStop = False
-        '
-        'col2Nro
-        '
-        Me.col2Nro.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        Me.col2Nro.DefaultCellStyle = DataGridViewCellStyle2
-        Me.col2Nro.HeaderText = "Nro"
-        Me.col2Nro.Name = "col2Nro"
-        Me.col2Nro.ReadOnly = True
-        Me.col2Nro.Width = 49
-        '
-        'col2Fecha
-        '
-        Me.col2Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.col2Fecha.HeaderText = "Fecha"
-        Me.col2Fecha.Name = "col2Fecha"
-        Me.col2Fecha.ReadOnly = True
-        Me.col2Fecha.Width = 62
-        '
-        'col2Cliente
-        '
-        Me.col2Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.col2Cliente.HeaderText = "Cliente"
-        Me.col2Cliente.Name = "col2Cliente"
-        Me.col2Cliente.ReadOnly = True
-        Me.col2Cliente.Width = 64
-        '
-        'suc
-        '
-        Me.suc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.suc.HeaderText = "Suc"
-        Me.suc.Name = "suc"
-        Me.suc.ReadOnly = True
-        Me.suc.Width = 51
-        '
-        'col2Nombre
-        '
-        Me.col2Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.col2Nombre.HeaderText = "Nombre"
-        Me.col2Nombre.Name = "col2Nombre"
-        Me.col2Nombre.ReadOnly = True
-        Me.col2Nombre.Width = 69
-        '
-        'col2Vend
-        '
-        Me.col2Vend.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        Me.col2Vend.HeaderText = "Vend"
-        Me.col2Vend.Name = "col2Vend"
-        Me.col2Vend.ReadOnly = True
-        Me.col2Vend.Width = 57
-        '
-        'cboTipo2
-        '
-        Me.cboTipo2.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
-        Me.cboTipo2.HeaderText = "Tipo"
-        Me.cboTipo2.Name = "cboTipo2"
-        Me.cboTipo2.ReadOnly = True
         '
         'Label14
         '
@@ -1297,6 +1241,71 @@ Partial Class frmCotizadorV2
         Me.mnuSeleccionArticulo.Size = New System.Drawing.Size(124, 22)
         Me.mnuSeleccionArticulo.Text = "Selección"
         '
+        'col2Tipo
+        '
+        Me.col2Tipo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Tipo.HeaderText = "T"
+        Me.col2Tipo.Name = "col2Tipo"
+        Me.col2Tipo.ReadOnly = True
+        Me.col2Tipo.Width = 39
+        '
+        'col2Nro
+        '
+        Me.col2Nro.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.col2Nro.DefaultCellStyle = DataGridViewCellStyle2
+        Me.col2Nro.HeaderText = "Nro"
+        Me.col2Nro.Name = "col2Nro"
+        Me.col2Nro.ReadOnly = True
+        Me.col2Nro.Width = 49
+        '
+        'col2Fecha
+        '
+        Me.col2Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Fecha.HeaderText = "Fecha"
+        Me.col2Fecha.Name = "col2Fecha"
+        Me.col2Fecha.ReadOnly = True
+        Me.col2Fecha.Width = 62
+        '
+        'col2Cliente
+        '
+        Me.col2Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Cliente.HeaderText = "Cliente"
+        Me.col2Cliente.Name = "col2Cliente"
+        Me.col2Cliente.ReadOnly = True
+        Me.col2Cliente.Width = 64
+        '
+        'suc
+        '
+        Me.suc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.suc.HeaderText = "Suc"
+        Me.suc.Name = "suc"
+        Me.suc.ReadOnly = True
+        Me.suc.Width = 51
+        '
+        'col2Nombre
+        '
+        Me.col2Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Nombre.HeaderText = "Nombre"
+        Me.col2Nombre.Name = "col2Nombre"
+        Me.col2Nombre.ReadOnly = True
+        Me.col2Nombre.Width = 69
+        '
+        'col2Vend
+        '
+        Me.col2Vend.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
+        Me.col2Vend.HeaderText = "Vend"
+        Me.col2Vend.Name = "col2Vend"
+        Me.col2Vend.ReadOnly = True
+        Me.col2Vend.Width = 57
+        '
+        'cboTipo2
+        '
+        Me.cboTipo2.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.cboTipo2.HeaderText = "Tipo"
+        Me.cboTipo2.Name = "cboTipo2"
+        Me.cboTipo2.ReadOnly = True
+        '
         'frmCotizadorV2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1392,13 +1401,6 @@ Partial Class frmCotizadorV2
     Friend WithEvents colPrecio As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colSugerido As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colTotal As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col2Nro As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col2Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col2Cliente As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents suc As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col2Nombre As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents col2Vend As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents cboTipo2 As System.Windows.Forms.DataGridViewComboBoxColumn
     Friend WithEvents chkPendiente As System.Windows.Forms.CheckBox
     Friend WithEvents chkRecargas As System.Windows.Forms.CheckBox
     Friend WithEvents chkPedidos As System.Windows.Forms.CheckBox
@@ -1420,4 +1422,12 @@ Partial Class frmCotizadorV2
     Friend WithEvents rbCaa As System.Windows.Forms.RadioButton
     Friend WithEvents txtClase As System.Windows.Forms.TextBox
     Friend WithEvents chkMunro As System.Windows.Forms.CheckBox
+    Friend WithEvents col2Tipo As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Nro As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Fecha As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Cliente As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents suc As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Nombre As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents col2Vend As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents cboTipo2 As System.Windows.Forms.DataGridViewComboBoxColumn
 End Class
