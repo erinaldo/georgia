@@ -71,8 +71,6 @@ Public Class frmIntervencionesAutomaticas
 
         btn.Enabled = True
 
-        MessageBox.Show("Proceso finalizado", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-
     End Sub
     Private Sub EstablecerFechas()
         'Calculo fecha Desde/Hasta
@@ -685,6 +683,8 @@ Public Class frmIntervencionesAutomaticas
         End If
 
         bpa = bpc.Sucursal(Suc)
+        'Salgo si la sucursal no esta activa
+        If Not bpa.SucursalEntregaActiva Then Exit Sub
 
         'Creo la nueva Solicitud de Servicio
         sre.Nueva(bpc, cpy)
