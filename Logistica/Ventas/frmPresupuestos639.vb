@@ -188,7 +188,7 @@ Public Class frmPresupuestos639
         sqh.Grabar()
         EstadoControles()
 
-        EnviarMail()
+        If DB_USR = "GEOPROD" Then EnviarMail()
 
     End Sub
 
@@ -344,11 +344,9 @@ Public Class frmPresupuestos639
             .EsHtml = True
             .Remitente(usr.Mail, usr.Nombre)
 
-            .AgregarDestinatarioArchivo("mails\639.txt", 0)
+            .AgregarDestinatario(rep.Analista.Mail)
+            .AgregarDestinatarioCopia(rep.Mail)
 
-            If DB_USR = "GEOPROD" Then
-                .AgregarDestinatarioCopia(rep.Mail)
-            End If
             .Asunto = "Presupuesto 639 aprobado - " & sqh.Numero
             .CuerpoDesdeArchivo("mails\639.htm")
 
