@@ -197,11 +197,7 @@ Public Class frmCotizadorV2
         'Programar para que aparezca  en el cuadro de autorizaciones en primer lugar si es DB o LB con esta lógica:
         '10/11/40/50/60/70 Servicios (S)|
         '20/30/80/90 Distribuciones (D)
-        Dim jj As Integer = 0
-
         For Each dr As DataRow In dt.Rows
-            jj += 1
-
             dr.BeginEdit()
             If "10/11/40/50/60/70".IndexOf(dr("tsccod_1").ToString) >= 0 Then
                 dr("tsccod_1") = "S"
