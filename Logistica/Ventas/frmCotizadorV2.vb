@@ -146,10 +146,11 @@ Public Class frmCotizadorV2
         Sql &= "FROM xcotiza xco INNER JOIN "
         Sql &= "     bpcustomer bpc ON (xco.bpcnum_0 = bpc.bpcnum_0) INNER JOIN "
         Sql &= "     xnetvenc xnet ON (bpc.rep_0 = xnet.rep_0 AND (abo_0 = 1 OR noabo_0 = 1)) "
-        Sql &= "WHERE usr_0 = '" & usr.Codigo & "' "
+        Sql &= "WHERE usr_0 = '" & usr.Codigo & "' AND "
+        Sql &= "      dat_0 > trunc(sysdate-180) "
 
         If chkPedidos.Checked Or chkRecargas.Checked Then
-            Sql &= "AND soh_0 = ' ' AND sqh_0 <> ' ' AND typ_0 = 2 AND dat_0 > trunc(sysdate-30) AND xduplica_0 <> 2 "
+            Sql &= "AND soh_0 = ' ' AND sqh_0 <> ' ' AND typ_0 = 2  AND xduplica_0 <> 2 "
 
         Else
 
@@ -194,9 +195,13 @@ Public Class frmCotizadorV2
         da.Dispose()
 
         'Programar para que aparezca  en el cuadro de autorizaciones en primer lugar si es DB o LB con esta lógica:
-        '10/11/40/50/60/70 Servicios (S)
+        '10/11/40/50/60/70 Servicios (S)|
         '20/30/80/90 Distribuciones (D)
+        Dim jj As Integer = 0
+
         For Each dr As DataRow In dt.Rows
+            jj += 1
+
             dr.BeginEdit()
             If "10/11/40/50/60/70".IndexOf(dr("tsccod_1").ToString) >= 0 Then
                 dr("tsccod_1") = "S"
