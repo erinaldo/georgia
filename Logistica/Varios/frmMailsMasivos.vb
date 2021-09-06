@@ -111,7 +111,7 @@ Public Class frmMailsMasivos
 
             With oMail
                 .Nuevo()
-                .Remitente(txtDe.Text, "Georgia Seguridad contra Incendios")
+                .Remitente(txtDe.Text)
                 .AgregarDestinatario(Mail, False)
                 If txtResponder.Text.Trim.Length > 0 Then
                     If .ValidarMail(txtResponder.Text) Then
