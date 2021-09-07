@@ -265,8 +265,6 @@ Public Class frmItnAbo
                 drVtos = dtVtos.Rows(0)
                 AgregarRetiro(drVtos("itmref_0").ToString, CInt(drVtos("cant")))
             Else
-                'ElseIf Not Vencimientos(con, bpa.Sucursal, dIni.AddMonths(-2), dFin.AddYears(+5), Cod, True).Rows.Count > 0 Then
-
                 'Alerta(con, ss, bpa.Sucursal, "No se encontro parque " & Cod)
                 AlertasAbo.Add("El contrato " & con.Numero & " cubre el servicio " & Cod & " pero no se encontró el parque en el cliente " & con.Cliente & "-" & bpa.Sucursal)
             End If
@@ -371,34 +369,6 @@ Public Class frmItnAbo
 
         dtRetiros.Clear()
 
-        '27.08.2019 Se desactiva unificacion y se recarga mes actual y dos meses hacia atras
-        '
-        'If con.Unificacion > 0 Then
-        '    dIni = dIni.AddMonths(-1 * (con.Unificacion - 1))
-        '    dFin = dFin.AddMonths(con.Unificacion - 1)
-        'End If
-        '
-        '27.08.2019 Busco dos meses hacia atras
-        dIni = dIni.AddMonths(-2)
-
-        'Si la fecha fin sobrepasa la fecha cobertura del contrato
-        'If dFin > con.FechaHasta.AddDays(1) Then
-        '    dFin = con.FechaHasta
-        '    dFin = New Date(dFin.Year, dFin.Month, 1)
-        '    dFin = dFin.AddMonths(1)
-        'End If
-
-        '******
-        ' Si no hay vto en el mes actual, no se genera intervención
-        Dim dtx As DataTable
-        dtx = Vencimientos(con, bpa.Sucursal, dtp.Value, dtp.Value.AddMonths(1))
-
-        If dtx.Rows.Count = 0 Then Exit Function
-
-        dtx.Dispose()
-        dtx = Nothing
-        '******
-
         'Obtengo los vencimientos de la sucursal
         dtVtos = Vencimientos(con, bpa.Sucursal, dIni, dFin)
 
@@ -411,16 +381,6 @@ Public Class frmItnAbo
             AlertasAbo.Add("Se encontró vencimiento pero aún existe pendiente de retiro la intervencion " & a & " en el cliente " & con.Cliente & "-" & bpa.Sucursal)
             Exit Function
         End If
-
-        'Busco la fecha de la ultima intervencion
-        'Dim FechaItn As Date
-        'FechaItn = FechaUltimaIntervencion(con.Cliente, bpa.Sucursal)
-
-        'Salto si aun falta para el proximo retiro segun la unificacion
-        'If FechaItn > dIni Then
-        '    AlertasAbo.Add("Se encontró en el cliente " & con.Cliente & "-" & bpa.Sucursal & " vencimiento que debía retirarse por unificación en " & FechaItn.ToString("MMMM/yyyy") & " según contrato " & con.Numero & " (cada " & con.Unificacion & " meses)")
-        '    Exit Function
-        'End If
 
         For Each drVtos As DataRow In dtVtos.Rows
             'Agrego si está cubierto por el contrato
