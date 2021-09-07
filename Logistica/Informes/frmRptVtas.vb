@@ -152,8 +152,13 @@ Public Class frmRptVtas
         Sql &= "       {amtatilin_0} * sns_0 * ratcur_0 AS impii,"
         Sql &= "       itm.tsicod_1, itm.tsicod_2, itm.tsicod_3, itm.tsicod_4, accdat_0, rep1_0, "
         Sql &= "       qty_0 * sns_0 * pfm_0 * ratcur_0 AS margen, sid.itmref_0 "
-        Sql &= "FROM (sinvoice siv INNER JOIN sinvoiced sid ON (siv.num_0 = sid.num_0)) INNER JOIN itmmaster itm ON (sid.itmref_0 = itm.itmref_0) "
-        Sql &= "WHERE accdat_0 >= to_date(:datdeb1, 'dd/mm/yyyy') AND accdat_0 <= to_date(:datfin1, 'dd/mm/yyyy') AND sivtyp_0 <> 'PRF'"
+        Sql &= "FROM sinvoice siv INNER JOIN "
+        Sql &= "     sinvoiced sid ON (siv.num_0 = sid.num_0) INNER JOIN "
+        Sql &= "     itmmaster itm ON (sid.itmref_0 = itm.itmref_0) "
+        Sql &= "WHERE accdat_0 >= to_date(:datdeb1, 'dd/mm/yyyy') AND "
+        Sql &= "      accdat_0 <= to_date(:datfin1, 'dd/mm/yyyy') AND "
+        Sql &= "      sivtyp_0 <> 'PRF' AND "
+        Sql &= "      sid.linacc_0 = '411106'"
 
         If Not chkMargen.Checked Then
             Sql &= "UNION ALL "
@@ -162,8 +167,13 @@ Public Class frmRptVtas
             Sql &= "       {amtatilin_0} * sns_0 * ratcur_0 AS impii, "
             Sql &= "       itm.tsicod_1, itm.tsicod_2, itm.tsicod_3, itm.tsicod_4, accdat_0, rep1_0, "
             Sql &= "       qty_0 * sns_0 * pfm_0 * ratcur_0 AS margen, sid.itmref_0 "
-            Sql &= "FROM (sinvoice siv INNER JOIN sinvoiced sid ON (siv.num_0 = sid.num_0)) INNER JOIN itmmaster itm ON (sid.itmref_0 = itm.itmref_0) "
-            Sql &= "WHERE accdat_0 >=  to_date(:datdeb2, 'dd/mm/yyyy') AND accdat_0 <= to_date(:datfin2, 'dd/mm/yyyy') AND sivtyp_0 <> 'PRF'"
+            Sql &= "FROM sinvoice siv INNER JOIN "
+            Sql &= "     sinvoiced sid ON (siv.num_0 = sid.num_0) INNER JOIN "
+            Sql &= "     itmmaster itm ON (sid.itmref_0 = itm.itmref_0) "
+            Sql &= "WHERE accdat_0 >=  to_date(:datdeb2, 'dd/mm/yyyy') AND "
+            Sql &= "      accdat_0 <= to_date(:datfin2, 'dd/mm/yyyy') AND "
+            Sql &= "      sivtyp_0 <> 'PRF' AND "
+            Sql &= "      sid.linacc_0 = '411106'"
         End If
 
         If chkIVA.Checked Then
