@@ -89,21 +89,6 @@ Public Class frmMain
     End Sub
 
     'FUNCTION
-    Private Function Resolucion() As Boolean
-        Dim w As Integer = Screen.PrimaryScreen.Bounds.Width
-        Dim h As Integer = Screen.PrimaryScreen.Bounds.Height
-        Dim t As String = ""
-
-        If w < 1024 Or h < 768 Then
-            t = "Esta aplicación necesita una resolución de pantalla mínima de 1024x768" & vbCrLf & vbCrLf
-            t &= "La resolución actual es " & w.ToString & "x" & h.ToString
-
-            MessageBox.Show(t, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            End
-        End If
-
-    End Function
-
     Private Sub frmMain_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
         If cn.State = ConnectionState.Open Then cn.Close()
     End Sub
@@ -113,8 +98,6 @@ Public Class frmMain
 
         Try
             cn.Open()
-
-            Resolucion()
 
             Dim ci As CultureInfo = CType(Application.CurrentCulture.Clone, CultureInfo)
 
