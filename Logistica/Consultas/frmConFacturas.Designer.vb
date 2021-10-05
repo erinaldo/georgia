@@ -22,117 +22,97 @@ Partial Class frmConFacturas
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnconsulta = New System.Windows.Forms.Button
-        Me.txtfechaini = New System.Windows.Forms.TextBox
-        Me.txtcliente = New System.Windows.Forms.TextBox
-        Me.txtfechafin = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtsocie = New System.Windows.Forms.TextBox
+        Dim Label1 As System.Windows.Forms.Label
+        Dim Label2 As System.Windows.Forms.Label
+        Dim Label3 As System.Windows.Forms.Label
+        Me.btnConsulta = New System.Windows.Forms.Button
+        Me.txtCliente = New System.Windows.Forms.TextBox
+        Me.dtpDesde = New System.Windows.Forms.DateTimePicker
+        Me.dtpHasta = New System.Windows.Forms.DateTimePicker
+        Label1 = New System.Windows.Forms.Label
+        Label2 = New System.Windows.Forms.Label
+        Label3 = New System.Windows.Forms.Label
         Me.SuspendLayout()
         '
-        'btnconsulta
+        'btnConsulta
         '
-        Me.btnconsulta.Location = New System.Drawing.Point(449, 7)
-        Me.btnconsulta.Name = "btnconsulta"
-        Me.btnconsulta.Size = New System.Drawing.Size(75, 23)
-        Me.btnconsulta.TabIndex = 0
-        Me.btnconsulta.Text = "Consulta"
-        Me.btnconsulta.UseVisualStyleBackColor = True
+        Me.btnConsulta.Location = New System.Drawing.Point(242, 74)
+        Me.btnConsulta.Name = "btnConsulta"
+        Me.btnConsulta.Size = New System.Drawing.Size(75, 23)
+        Me.btnConsulta.TabIndex = 6
+        Me.btnConsulta.Text = "Consulta"
+        Me.btnConsulta.UseVisualStyleBackColor = True
         '
-        'txtfechaini
+        'txtCliente
         '
-        Me.txtfechaini.Location = New System.Drawing.Point(129, 10)
-        Me.txtfechaini.Name = "txtfechaini"
-        Me.txtfechaini.Size = New System.Drawing.Size(100, 20)
-        Me.txtfechaini.TabIndex = 1
-        '
-        'txtcliente
-        '
-        Me.txtcliente.Location = New System.Drawing.Point(129, 36)
-        Me.txtcliente.Name = "txtcliente"
-        Me.txtcliente.Size = New System.Drawing.Size(100, 20)
-        Me.txtcliente.TabIndex = 2
-        '
-        'txtfechafin
-        '
-        Me.txtfechafin.Location = New System.Drawing.Point(302, 10)
-        Me.txtfechafin.Name = "txtfechafin"
-        Me.txtfechafin.Size = New System.Drawing.Size(100, 20)
-        Me.txtfechafin.TabIndex = 3
+        Me.txtCliente.Location = New System.Drawing.Point(116, 76)
+        Me.txtCliente.Name = "txtCliente"
+        Me.txtCliente.Size = New System.Drawing.Size(100, 20)
+        Me.txtCliente.TabIndex = 5
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(33, 13)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(65, 13)
-        Me.Label1.TabIndex = 7
-        Me.Label1.Text = "Fecha Inicio"
+        Label1.AutoSize = True
+        Label1.Location = New System.Drawing.Point(33, 9)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(65, 13)
+        Label1.TabIndex = 0
+        Label1.Text = "Fecha Inicio"
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(33, 39)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(39, 13)
-        Me.Label2.TabIndex = 8
-        Me.Label2.Text = "Cliente"
+        Label2.AutoSize = True
+        Label2.Location = New System.Drawing.Point(33, 79)
+        Label2.Name = "Label2"
+        Label2.Size = New System.Drawing.Size(39, 13)
+        Label2.TabIndex = 4
+        Label2.Text = "Cliente"
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(243, 13)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(54, 13)
-        Me.Label3.TabIndex = 9
-        Me.Label3.Text = "Fecha Fin"
+        Label3.AutoSize = True
+        Label3.Location = New System.Drawing.Point(33, 46)
+        Label3.Name = "Label3"
+        Label3.Size = New System.Drawing.Size(54, 13)
+        Label3.TabIndex = 2
+        Label3.Text = "Fecha Fin"
         '
-        'Label4
+        'dtpDesde
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(243, 39)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(37, 13)
-        Me.Label4.TabIndex = 10
-        Me.Label4.Text = "Planta" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.dtpDesde.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpDesde.Location = New System.Drawing.Point(116, 7)
+        Me.dtpDesde.Name = "dtpDesde"
+        Me.dtpDesde.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDesde.TabIndex = 1
         '
-        'txtsocie
+        'dtpHasta
         '
-        Me.txtsocie.Location = New System.Drawing.Point(302, 36)
-        Me.txtsocie.Name = "txtsocie"
-        Me.txtsocie.Size = New System.Drawing.Size(100, 20)
-        Me.txtsocie.TabIndex = 11
+        Me.dtpHasta.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpHasta.Location = New System.Drawing.Point(116, 40)
+        Me.dtpHasta.Name = "dtpHasta"
+        Me.dtpHasta.Size = New System.Drawing.Size(100, 20)
+        Me.dtpHasta.TabIndex = 3
         '
         'frmConFacturas
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(546, 71)
-        Me.Controls.Add(Me.txtsocie)
-        Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.txtfechafin)
-        Me.Controls.Add(Me.txtcliente)
-        Me.Controls.Add(Me.txtfechaini)
-        Me.Controls.Add(Me.btnconsulta)
+        Me.ClientSize = New System.Drawing.Size(358, 120)
+        Me.Controls.Add(Me.dtpHasta)
+        Me.Controls.Add(Me.dtpDesde)
+        Me.Controls.Add(Label3)
+        Me.Controls.Add(Label2)
+        Me.Controls.Add(Label1)
+        Me.Controls.Add(Me.txtCliente)
+        Me.Controls.Add(Me.btnConsulta)
         Me.Name = "frmConFacturas"
         Me.Text = "Consultas de listado de Facturas"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents btnconsulta As System.Windows.Forms.Button
-    Friend WithEvents txtfechaini As System.Windows.Forms.TextBox
-    Friend WithEvents txtcliente As System.Windows.Forms.TextBox
-    Friend WithEvents txtfechafin As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtsocie As System.Windows.Forms.TextBox
+    Friend WithEvents btnConsulta As System.Windows.Forms.Button
+    Friend WithEvents txtCliente As System.Windows.Forms.TextBox
+    Friend WithEvents dtpDesde As System.Windows.Forms.DateTimePicker
+    Friend WithEvents dtpHasta As System.Windows.Forms.DateTimePicker
 End Class
