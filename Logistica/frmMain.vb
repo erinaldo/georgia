@@ -789,10 +789,13 @@ Public Class frmMain
     'End Sub
     Private Sub ZetiToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ZetiToolStripMenuItem.Click
         Dim txt As String = " "
-        txt = InputBox("ingrese el codigo de pedid", Me.Text)
         Dim rpt As New ReportDocument
         Dim numero As String = txt
         Dim crystal As frmCrystal
+
+        txt = InputBox("Ingrese el codigo de pedido", Me.Text)
+        If txt.Trim = "" Then Exit Sub
+
         rpt.Load(RPTX3 & "ZETI.rpt")
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
         rpt.SetParameterValue("sohnum", numero)
