@@ -41,6 +41,8 @@ Public Class frmFiscal
             CerrarPuertoFiscal()
         End If
 
+        Button1.Visible = usr.Codigo = "MMIN"
+
     End Sub
     '-----------------------------------------------------------------------------------------
     ' VALIDACIONES DE PUERTO FISCAL
@@ -593,5 +595,11 @@ Public Class frmFiscal
         Return TipoDocumento
 
     End Function
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        AbrirPuertoFiscal()
+        CancelarComprobanteFiscal()
+        CerrarPuertoFiscal()
+    End Sub
 
 End Class
