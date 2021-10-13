@@ -111,74 +111,201 @@ Public Class frmBuscaClientes
             If txt.Text = "" Then Exit Sub 'Salgo si el campo está vacio
 
             If txt Is txtCodigo Then 'Armo consulta para buscar por codigo
-                Sql = "SELECT bpcnum_0 AS codigo, bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS nombre, bpaadd_0 AS suc, bpaaddlig_0 AS domicilio, cty_0 AS ciudad, rep_0 AS codrep, repnam_0 AS vendedor, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpcnum_0 = :bpcnum_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 AS codigo, "
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS nombre, "
+                Sql &= "      bpaadd_0 AS suc, "
+                Sql &= "      bpaaddlig_0 AS domicilio, "
+                Sql &= "      cty_0 AS ciudad, "
+                Sql &= "      rep_0 AS codrep, "
+                Sql &= "      repnam_0 AS vendedor, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpcnum_0 = :bpcnum_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("bpcnum_0", OracleType.VarChar).Value = txt.Text
 
             ElseIf txt Is txtNombre Then 'Armo consulta para buscar por nombre
-                Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpcnam_0 LIKE :bpcnam_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpcnam_0 LIKE :bpcnam_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("bpcnam_0", OracleType.VarChar).Value = "%" & txt.Text.ToUpper & "%"
 
             ElseIf txt Is txtDireccion Then 'Armo consulta para buscar por direccion
-                Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpaaddlig_0 LIKE :bpaaddlig_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpaaddlig_0 LIKE :bpaaddlig_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("bpaaddlig_0", OracleType.VarChar).Value = "%" & txt.Text.ToUpper & "%"
 
             ElseIf txt Is txtCUIT Then 'Armo consulta para buscar por cuit
-                Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpc.docnum_0 = :docnum_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpc.docnum_0 = :docnum_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("docnum_0", OracleType.VarChar).Value = txt.Text
 
             ElseIf txt Is txtPresupuesto Then
-                Sql = "SELECT bpcord_0 as CODIGO,bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpcaddlig_0 AS DOMICILIO, bpccty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno "
-                Sql &= "FROM squote squ LEFT JOIN salesrep ON (rep_0 = repnum_0) "
-                Sql &= "WHERE sqhnum_0 LIKE :sqhnum_0 AND squ.credat_0 >= to_date(:fecha, 'dd/mm/yyyy') "
+                Sql = "SELECT bpcord_0 as CODIGO,"
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpcaddlig_0 AS DOMICILIO, "
+                Sql &= "      bpccty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno "
+                Sql &= "FROM squote squ LEFT JOIN "
+                Sql &= "     salesrep ON (rep_0 = repnum_0) "
+                Sql &= "WHERE sqhnum_0 LIKE :sqhnum_0 AND "
+                Sql &= "      squ.credat_0 >= to_date(:fecha, 'dd/mm/yyyy') "
                 Sql &= "ORDER BY squ.credat_0 DESC "
+
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("sqhnum_0", OracleType.VarChar).Value = "%" & txt.Text
                 da.SelectCommand.Parameters.Add("fecha", OracleType.VarChar).Value = Date.Today.AddMonths(-12).ToString("dd/MM/yyyy")
 
             ElseIf txt Is txtfantasia Then 'Armo consulta para buscar por nombre de fantasia
-                Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpclon_0 LIKE :bpclon_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpclon_0 LIKE :bpclon_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("bpclon_0", OracleType.VarChar).Value = "%" & txt.Text.ToUpper & "%"
 
             ElseIf txt Is txtLoc Then 'Armo consulta para buscar por localidad
-                Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-                      ", bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-                      "WHERE  bpa.cty_0 LIKE :cty_0 " & _
-                      "ORDER BY bpcnam_0, bpaaddlig_0"
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpa.cty_0 LIKE :cty_0 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
+                Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
                 da.SelectCommand.Parameters.Add("cty_0", OracleType.VarChar).Value = "%" & txt.Text.ToUpper & "%"
 
             ElseIf txt Is txtMail Then
-                Sql = "SELECT bpcnum_0 as CODIGO, bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno, bpc.tsccod_1 as tipo_cliente,(case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,(case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
-                Sql &= "FROM ((bpartner bpr INNER JOIN bpcustomer bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN "
-                Sql &= "    bpaddress bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN "
-                Sql &= "    salesrep ON (rep_0 = repnum_0) "
-                Sql &= "WHERE  bpa.web_0 LIKE :p1 or bpa.xmailfc_0 LIKE :p1 or bpc.xmailfc_0 LIKE :p1 "
+                Sql = "SELECT bpcnum_0 as CODIGO,"
+                Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+                Sql &= "      bpcnam_0 AS NOMBRE, "
+                Sql &= "      bpaadd_0 AS SUC, "
+                Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+                Sql &= "      cty_0 AS CIUDAD, "
+                Sql &= "      rep_0 AS CODREP, "
+                Sql &= "      repnam_0 AS VENDEDOR, "
+                Sql &= "      xinterno_0 AS interno, "
+                Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+                Sql &= "      (case when (bpc.xabo_0 = 2) then 'Si' else 'No' end) as abonado,"
+                Sql &= "      (case when (bpcsta_0 = 2) then 'Activo' else 'No Activo' end) as Estado "
+                Sql &= "FROM BPARTNER bpr INNER JOIN "
+                Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+                Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+                Sql &= "     SALESREP ON (rep_0 = repnum_0) "
+                Sql &= "WHERE bpa.web_0 LIKE :p1 or bpa.xmailfc_0 LIKE :p1 or bpc.xmailfc_0 LIKE :p1 "
+                If usr.Codigo.Length = 2 Then
+                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
+                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0 "
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -213,17 +340,7 @@ Public Class frmBuscaClientes
 
             End Try
         End If
-        'If dt.Rows.Count = 0 Then
-        'Else
-        '    Dim codigo As String = dgv.CurrentRow.Cells("codrep").Value.ToString
-        '    If usr.Permiso.AccesoSecundario(7, "V") Then
-        '        ContextMenuStrip1.Enabled = True
-        '    Else
-        '        If usr.Codigo = codigo Then
-        '            ContextMenuStrip1.Enabled = True
-        '        End If
-        '    End If
-        'End If
+
     End Sub
     Private Sub DatosClienteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DatosClienteToolStripMenuItem.Click
         Dim rpt As New ReportDocument
@@ -243,13 +360,30 @@ Public Class frmBuscaClientes
         Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
 
-        'Sql = "select num_0 as codigo, bpc_0 as cliente, bpaadd_0 as sucursal, typ_0 as tipo, dat_0 as fecha, xsector_0 as Sector from interven "
-        'Sql &= "where bpc_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 order by dat_0 desc"
-        Sql = "select num_0 as codigo, bpc_0 as cliente, bpaadd_0 as sucursal, typ_0 as tipo, dat_0 as fecha,"
-        Sql &= "(select max(ruta_0) from xrutad where vcrnum_0 = num_0 ) as ruta ,xsector_0 as Sector, ysdhdeb_0 as remito, "
-        Sql &= "yref_0 as OC,xcardat_0 as fecha_Carrito from interven "
-        Sql &= "where bpc_0 = :bpcord_0  and bpaadd_0 = :bpaadd_0 "
-        Sql &= " group by num_0,bpc_0,bpaadd_0,typ_0,dat_0,xsector_0,ysdhdeb_0,yref_0,xcardat_0 order by dat_0 desc"
+        Sql = "SELECT num_0 AS codigo, "
+        Sql &= "      bpc_0 AS cliente, "
+        Sql &= "      bpaadd_0 AS sucursal, "
+        Sql &= "      typ_0 AS tipo, "
+        Sql &= "      dat_0 AS fecha, "
+        Sql &= "      (SELECT MAX(ruta_0) FROM xrutad WHERE vcrnum_0 = num_0 ) AS ruta , "
+        Sql &= "      xsector_0 AS Sector, "
+        Sql &= "      ysdhdeb_0 AS remito, "
+        Sql &= "      yref_0 AS OC, "
+        Sql &= "      xcardat_0 AS fecha_Carrito "
+        Sql &= "FROM interven "
+        Sql &= "WHERE bpc_0 = :bpcord_0 and "
+        Sql &= "      bpaadd_0 = :bpaadd_0 "
+        Sql &= "GROUP BY num_0, "
+        Sql &= "         bpc_0, "
+        Sql &= "         bpaadd_0, "
+        Sql &= "         typ_0, "
+        Sql &= "         dat_0, "
+        Sql &= "         xsector_0, "
+        Sql &= "         ysdhdeb_0, "
+        Sql &= "         yref_0, "
+        Sql &= "         xcardat_0 "
+        Sql &= "ORDER BY dat_0 DESC"
+
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
         da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = Sucursal
@@ -274,11 +408,18 @@ Public Class frmBuscaClientes
         Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
 
-        Sql = "select sohnum_0 as codigo, cusordref_0 as OC , salfcy_0 as planta, "
-        Sql &= " bpcord_0 as codigo_cliente,bpcnam_0 as cliente, "
-        Sql &= " bpaadd_0 as sucursal, rep_0 as vendedor,orddat_0 as fecha "
-        Sql &= "from sorder where bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 "
-        Sql &= "order by orddat_0 desc  "
+        Sql = "SELECT sohnum_0 as codigo, "
+        Sql &= "      cusordref_0 as OC , "
+        Sql &= "      salfcy_0 as planta, "
+        Sql &= "      bpcord_0 as codigo_cliente,"
+        Sql &= "      bpcnam_0 as cliente, "
+        Sql &= "      bpaadd_0 as sucursal, "
+        Sql &= "      rep_0 as vendedor,"
+        Sql &= "      orddat_0 as fecha "
+        Sql &= "FROM sorder "
+        Sql &= "WHERE bpcord_0 = :bpcord_0 and "
+        Sql &= "      bpaadd_0 = :bpaadd_0 "
+        Sql &= "ORDER BY orddat_0 DESC  "
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
         da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
@@ -295,18 +436,6 @@ Public Class frmBuscaClientes
 
         End If
 
-        'Dim rpt As New ReportDocument
-        'Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
-        'Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
-        'Dim crystal As frmCrystal
-        'rpt.Load(RPTX3 & "xpedidos2B2.rpt")
-        'rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        'rpt.SetParameterValue("sucursal", sucursal)
-        'rpt.SetParameterValue("cliente", cliente)
-        'crystal = New frmCrystal(rpt)
-        'crystal.MdiParent = Me.ParentForm
-        'crystal.Show()
-
     End Sub
 
     Private Sub FacturasDeLaSucursalToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FacturasDeLaSucursalToolStripMenuItem.Click
@@ -316,9 +445,20 @@ Public Class frmBuscaClientes
         Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
 
-        Sql = "select fv.num_0 as codigo, fv.credat_0 as fecha, fv.bpcord_0 as cliente,fv.bpdnam_0 as nombre_cliente, "
-        Sql &= "fv.bpdaddlig_0 as direccion, fv.vatnet_0 as importeAI, fv.vatamt_0 as impuestos, f.xfacte_0 as fac_elec "
-        Sql &= "from sinvoicev fv join sinvoice f on (fv.NUM_0 = f.num_0) where bpcord_0 = :bpcord_0 and bpaadd_0 = :bpaadd_0 order by fv.credat_0 desc"
+        Sql = "SELECT fv.num_0 AS codigo,"
+        Sql &= "      fv.credat_0 AS fecha,"
+        Sql &= "      fv.bpcord_0 AS cliente,"
+        Sql &= "      fv.bpdnam_0 AS nombre_cliente, "
+        Sql &= "      fv.bpdaddlig_0 AS direccion, "
+        Sql &= "      fv.vatnet_0 AS importeAI, "
+        Sql &= "      fv.vatamt_0 AS impuestos, "
+        Sql &= "      f.xfacte_0 AS fac_elec "
+        Sql &= "FROM sinvoicev fv JOIN "
+        Sql &= "     sinvoice f ON (fv.NUM_0 = f.num_0) "
+        Sql &= "WHERE bpcord_0 = :bpcord_0 AND "
+        Sql &= "      bpaadd_0 = :bpaadd_0 "
+        Sql &= "ORDER BY fv.credat_0 DESC"
+
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
         da.SelectCommand.Parameters.Add("bpaadd_0", OracleType.VarChar).Value = sucursal
@@ -343,9 +483,19 @@ Public Class frmBuscaClientes
         Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim sucursal As String = dgv.CurrentRow.Cells("suc").Value.ToString
 
-        Sql = "select fv.num_0 as codigo, fv.credat_0 as fecha, fv.bpcord_0 as cliente,fv.bpdnam_0 as nombre_cliente, "
-        Sql &= "fv.bpdaddlig_0 as direccion, fv.vatnet_0 as importeAI, fv.vatamt_0 as impuestos, f.xfacte_0 as fac_elec "
-        Sql &= "from sinvoicev fv join sinvoice f on (fv.NUM_0 = f.num_0) where bpcord_0 = :bpcord_0 order by fv.credat_0 desc"
+        Sql = "SELECT fv.num_0 AS codigo, "
+        Sql &= "      fv.credat_0 AS fecha, "
+        Sql &= "      fv.bpcord_0 AS cliente,"
+        Sql &= "      fv.bpdnam_0 AS nombre_cliente, "
+        Sql &= "      fv.bpdaddlig_0 AS direccion, "
+        Sql &= "      fv.vatnet_0 AS importeAI, "
+        Sql &= "      fv.vatamt_0 AS impuestos, "
+        Sql &= "      f.xfacte_0 AS fac_elec "
+        Sql &= "FROM sinvoicev fv JOIN "
+        Sql &= "     sinvoice f ON (fv.NUM_0 = f.num_0) "
+        Sql &= "WHERE bpcord_0 = :bpcord_0 "
+        Sql &= "ORDER BY fv.credat_0 DESC"
+
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("bpcord_0", OracleType.VarChar).Value = cliente
 
@@ -368,8 +518,20 @@ Public Class frmBuscaClientes
         Dim dt2 As New DataTable
         Dim tipo As String = dgv.CurrentRow.Cells("codigo").Value.ToString
 
-        Sql = "SELECT bpcnum_0 AS codigo, bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS nombre, bpaadd_0 AS suc, bpaaddlig_0 AS domicilio, cty_0 AS ciudad, rep_0 AS codrep, repnam_0 AS vendedor, xinterno_0 AS interno "
-        Sql &= ", bpc.tsccod_1 as tipo_cliente FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) "
+        Sql = "SELECT bpcnum_0 AS codigo, "
+        Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+        Sql &= "      bpcnam_0 AS nombre, "
+        Sql &= "      bpaadd_0 AS suc, "
+        Sql &= "      bpaaddlig_0 AS domicilio, "
+        Sql &= "      cty_0 AS ciudad, "
+        Sql &= "      rep_0 AS codrep, "
+        Sql &= "      repnam_0 AS vendedor, "
+        Sql &= "      xinterno_0 AS interno, "
+        Sql &= "      bpc.tsccod_1 as tipo_cliente "
+        Sql &= "FROM BPARTNER bpr INNER JOIN "
+        Sql &= "     BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+        Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+        Sql &= "     SALESREP ON (rep_0 = repnum_0) "
         Sql &= "WHERE  bpcpyr_0 = :bpcpyr_0 "
         Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
         da = New OracleDataAdapter(Sql, cn)
@@ -431,13 +593,7 @@ Public Class frmBuscaClientes
         Dim cliente As String = dgv.CurrentRow.Cells("codigo").Value.ToString
         Dim crystal As frmCrystal
 
-        '12.04.2018 //Isa pide que solo salga el reporte de parque normal
-        'If abonado = "2" Then
-        '    rpt.Load(RPTX3 & "xparquen3.rpt")
-        '    rpt.SetParameterValue("OFF_HIDRA", False)
-        'Else
         rpt.Load(RPTX3 & "xparquen.rpt")
-        'End If
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
         Dim sucursal As String = "000"
         Dim sucursal2 As String = "999"
@@ -445,13 +601,8 @@ Public Class frmBuscaClientes
         rpt.SetParameterValue("SUCFIN", sucursal2)
         rpt.SetParameterValue("bpc", cliente)
         rpt.SetParameterValue("fecvenc", Today)
+        rpt.SetParameterValue("x3usr", usr.Codigo)
 
-        If usr.Codigo = "LVER" Or usr.Codigo = "DBAT" Or usr.Codigo = "MBARC" Then
-            'txt = InputBox("Ingrese el vendedor que quiere ver en el reporte", txt)
-            rpt.SetParameterValue("x3usr", txt)
-        Else
-            rpt.SetParameterValue("x3usr", usr.Codigo)
-        End If
         crystal = New frmCrystal(rpt)
         crystal.MdiParent = Me.ParentForm
         crystal.Show()
@@ -469,10 +620,25 @@ Public Class frmBuscaClientes
         Dim Sql As String
         Dim da As OracleDataAdapter
         Dim dt2 As New DataTable
-        Sql = "SELECT bpcnum_0 as CODIGO,bpclon_0 as NOMBRE_FANTASIA, bpcnam_0 AS NOMBRE, bpaadd_0 AS SUC, bpaaddlig_0 AS DOMICILIO, cty_0 AS CIUDAD, rep_0 AS CODREP, repnam_0 AS VENDEDOR, xinterno_0 AS interno " & _
-              ", bpc.tsccod_1 as tipo_cliente,bpc.xabo_0 as abonado,bpa.sat_0 as Provincia  FROM ((BPARTNER bpr INNER JOIN BPCUSTOMER bpc ON (bprnum_0 = bpcnum_0)) INNER JOIN BPADDRESS bpa ON (bpcnum_0 = bpanum_0)) LEFT JOIN SALESREP ON (rep_0 = repnum_0) " & _
-              "WHERE  bpa.sat_0 LIKE :sat_0 " & _
-              "ORDER BY bpcnam_0, bpaaddlig_0"
+        Sql = "SELECT bpcnum_0 as CODIGO,"
+        Sql &= "      bpclon_0 as NOMBRE_FANTASIA, "
+        Sql &= "      bpcnam_0 AS NOMBRE, "
+        Sql &= "      bpaadd_0 AS SUC, "
+        Sql &= "      bpaaddlig_0 AS DOMICILIO, "
+        Sql &= "      cty_0 AS CIUDAD, "
+        Sql &= "      rep_0 AS CODREP, "
+        Sql &= "      repnam_0 AS VENDEDOR, "
+        Sql &= "      xinterno_0 AS interno, "
+        Sql &= "      bpc.tsccod_1 as tipo_cliente,"
+        Sql &= "      bpc.xabo_0 as abonado,"
+        Sql &= "      bpa.sat_0 as Provincia  "
+        Sql &= "FROM bpartner bpr INNER JOIN "
+        Sql &= "     bpcustomer bpc ON (bprnum_0 = bpcnum_0) INNER JOIN "
+        Sql &= "     bpaddress bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
+        Sql &= "     salesrep ON (rep_0 = repnum_0) "
+        Sql &= "WHERE bpa.sat_0 = :sat_0 "
+        Sql &= "ORDER BY bpcnam_0, "
+        Sql &= "         bpaaddlig_0"
 
         da = New OracleDataAdapter(Sql, cn)
         da.SelectCommand.Parameters.Add("sat_0", OracleType.VarChar).Value = cboprov.SelectedValue
