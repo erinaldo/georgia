@@ -380,23 +380,6 @@ Public Class frmSeguimiento
                             Return False
                         End If
 
-
-                        ' CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE
-                        ' 
-                        ' No se puede enviar si no tiene factura
-                        ' 
-                        If itn.Tipo = "B2" Then
-                            'Abro la factura de la SS
-                            Dim sih As New Factura(cn)
-
-                            If Not sih.AbrirPorSolicitud(itn.SolicitudAsociada.Numero) Then
-
-                                MessageBox.Show("Falta facturar esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                                Return False
-
-                            End If
-
-                        End If
                 End Select
 
         End Select
@@ -687,39 +670,6 @@ Public Class frmSeguimiento
                 ElseIf cboDe.SelectedValue.ToString = "ADM" And cboPara.SelectedValue.ToString = "LOG" Then
 
                     ProcesarTanda()
-
-                    ' CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE CANJE
-                    ' 
-                    ' Se crea parte de cobranza
-                    ' 
-                    If itn.Tipo = "B2" Then
-                        Dim par As New ParteCobranza(cn)
-                        Dim sih As New Factura(cn)
-
-                        If sih.AbrirPorSolicitud(itn.SolicitudAsociada.Numero) Then
-                            par.Abrir(sih.Numero)
-                            par.Marcar(itn.CarritoFecha, "C008")
-                            par.Grabar()
-
-                            'Imprimo el parte
-                            Dim rpt As New ReportDocument
-
-                            rpt.Load(RPTX3 & "XCOBROS.rpt")
-                            rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-                            rpt.SetParameterValue("FACTURA", sih.Numero)
-                            rpt.PrintToPrinter(1, False, 1, 100)
-
-                            With NotifyIcon1
-                                .Visible = True
-                                .BalloonTipIcon = ToolTipIcon.Info
-                                .BalloonTipTitle = "Parte de cobranza "
-                                .BalloonTipText = "Se envió a la impresora parte de cobranza para intervención " & itn.Numero
-                                .ShowBalloonTip(8000)
-                            End With
-
-                        End If
-
-                    End If
 
                 End If
 
@@ -1127,7 +1077,7 @@ Public Class frmSeguimiento
             Else
                 sre = New Solicitud(cn)
                 sre.Nueva(itn.Cliente, itn.Planta.SociedadPlanta)
-                TipoIntervencion = "D1"
+                TipoIntervencion = "B2"
             End If
 
             'Creo la nueva ITN

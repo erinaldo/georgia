@@ -459,13 +459,6 @@ Public Class frmIntervencion
                             e.Cancel = True
                         End If
 
-                        'Salto si se cambio cantidad en intervencion B2
-                        If c.Value.ToString <> e.FormattedValue.ToString And cboTipo.SelectedValue.ToString = "B2" Then
-                            e.Cancel = True
-                            MessageBox.Show("No se permite cambiar cantidad", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                            Exit Sub
-                        End If
-
                     Case "colAmt"
                         'Salto si el nuevo valor es igual al anterior
                         If c.Value.ToString = e.FormattedValue.ToString Then Exit Sub
@@ -656,40 +649,6 @@ Public Class frmIntervencion
             TraspasoDeParque()
 
             Me.DialogResult = Windows.Forms.DialogResult.OK
-
-
-            If itn.Tipo = "B2" Then
-                Dim m As New CorreoElectronico
-
-                With m
-                    m.Remitente("no-responder@georgia.com.ar")
-                    If DB_USR = "GEOPROD" Then
-                        m.AgregarDestinatario("wsimonetti@georgia.com.ar")
-                        m.AgregarDestinatario("mlucas@georgia.com.ar")
-                        m.AgregarDestinatario("yyubro@georgia.com.ar")
-                        m.AgregarDestinatario("adjibilian@georgia.com.ar")
-                        m.AgregarDestinatario("dbattauz@georgia.com.ar")
-                        m.AgregarDestinatario("jrodriguez@georgia.com.ar")
-                    Else
-                        m.AgregarDestinatario("mmino@georgia.com.ar")
-                    End If
-                    
-                    .Asunto = "Nueva Intervención B2"
-                    .Cuerpo = "Se creó la intervención de canje " & itn.Numero & " para el día " & itn.CarritoFecha.ToString("dd/MM/yy")
-                    .EsHtml = False
-
-                    Try
-                        m.Enviar()
-
-                    Catch ex As Exception
-                        MessageBox.Show("No se pudo enviar aviso de B2", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    End Try
-
-                    m = Nothing
-
-                End With
-
-            End If
 
             If DesdeVencimiento Then Me.Close()
         End If
@@ -1251,27 +1210,7 @@ Public Class frmIntervencion
                     End If
                 End If
 
-            Case "B1", "B2"
-                'No se permite B2 desde fuera de la ventana de vencimientos
-                If cboTipo.SelectedValue.ToString = "B2" And Not DesdeVencimiento Then
-                    MessageBox.Show("Solo se permite B2 desde Vencimientos", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Return False
-                End If
-                'Carrito obligatorio para B2
-                If cboTipo.SelectedValue.ToString = "B2" And txtCarrito.Text = "" Then
-                    MessageBox.Show("Carrito obligatorio para intervenciones B2.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Return False
-                End If
-                'Tilde reclamo no permitido para B2
-                If cboTipo.SelectedValue.ToString = "B2" AndAlso chkReclamo.Checked Then
-                    MessageBox.Show("Reclamo no permitido en B2.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Return False
-                End If
-                If cboTipo.SelectedValue.ToString = "B2" AndAlso txtOT.Text.Trim <> "" Then
-                    MessageBox.Show("OT no permitida en B2.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                    Return False
-                End If
-
+            Case "B1"
                 If txtPortero.Text.Trim = "" Then
                     MessageBox.Show("El nombre del contacto es obligatorio", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                     If txtPorteroCelu.Text.Trim = "" Then txtPorteroCelu.Focus()
@@ -1291,8 +1230,6 @@ Public Class frmIntervencion
                     Return False
 
                 End If
-
-                If cboTipo.SelectedValue.ToString <> "B2" AndAlso Not Sustitutos() Then Return False
 
             Case "C1", "C2"
                 If bpc.EsAbonado Or tiene_articulo("451021") Then
@@ -1621,7 +1558,7 @@ Public Class frmIntervencion
                 txt = txt.Replace("{dias}", dias.ToString)
 
                 Select Case cboTipo.SelectedValue.ToString
-                    Case "A1", "B1", "B2", "E1", "H1"
+                    Case "A1", "B1", "E1", "H1"
                         txt &= "No es posible crear la intervención"
                         MessageBox.Show(txt, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
                         Exit Function
@@ -1708,12 +1645,6 @@ Public Class frmIntervencion
             Case "A1"
 
                 If Articulo.StartsWith("65") Then
-                    flg = True
-                End If
-
-            Case "B2"
-
-                If Articulo = "451199" Then
                     flg = True
                 End If
 

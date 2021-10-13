@@ -388,16 +388,6 @@ Public Class frmVencimientos '2034
                     End If
                 Next
 
-            Case "B2"
-                For Each dr In dtVencimientos.Rows
-                    If dr("tsicod_2").ToString = "201" AndAlso _
-                       dr("tsicod_1").ToString = "108" Then
-
-                    Else
-                        dr.Delete()
-                    End If
-                Next
-
             Case "D1"
                 For Each dr In dtVencimientos.Rows
                     If dr("cpnitmref_0").ToString.StartsWith("45") OrElse _
@@ -1115,12 +1105,6 @@ Public Class frmVencimientos '2034
         End If
         '---
 
-        'No se puede usar B2 para cliente NO APTO para canje
-        If (lstTipos.SelectedValue.ToString = "B2" AndAlso lblCanje.Visible = False) AndAlso usr.Codigo <> "MMIN" Then
-            MessageBox.Show("Cliente no apto para canje. Intervención B2 no permitida.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Exit Sub
-        End If
-
         CrearIntervencion()
 
     End Sub
@@ -1146,27 +1130,12 @@ Public Class frmVencimientos '2034
         f.cboTipo.Enabled = False
         'Detalle de retiros
 
-        If lstTipos.SelectedValue.ToString = "B2" Then
-            Dim CantidadCanjes As Integer = 0
+        For Each dr As DataRow In dtVencimientos.Rows
+            If dr.RowState = DataRowState.Deleted Then Continue For
 
-            For Each dr As DataRow In dtVencimientos.Rows
-                If dr.RowState = DataRowState.Deleted Then Continue For
-                CantidadCanjes += CInt(dr("cant"))
-            Next
-
-            f.AgregarRetiro("451199", CantidadCanjes, 1)
-            f.dgvRetiros.AllowUserToDeleteRows = False
-            f.dgvRetiros.AllowUserToAddRows = False
-
-        Else
-            For Each dr As DataRow In dtVencimientos.Rows
-                If dr.RowState = DataRowState.Deleted Then Continue For
-
-                f.AgregarRetiro(dr("cpnitmref_0").ToString, CInt(dr("cant")), 1)
-            Next
-            f.AgregarSustitutos()
-        End If
-
+            f.AgregarRetiro(dr("cpnitmref_0").ToString, CInt(dr("cant")), 1)
+        Next
+        f.AgregarSustitutos()
 
         'Pongo fecha minima si el mes no es el actual
         If dtp.Value.Month <> Date.Today.Month Then
@@ -1179,20 +1148,8 @@ Public Class frmVencimientos '2034
         f.ShowDialog(Me)
 
         If f.DialogResult = Windows.Forms.DialogResult.OK Then
-            If f.itn.Tipo = "B2" Then
-                Dim Articulos As New ArrayList
 
-                For Each dr As DataRow In dtVencimientos.Rows
-                    If dr.RowState = DataRowState.Deleted Then Continue For
-                    Articulos.Add(dr("cpnitmref_0").ToString)
-                Next
-
-                f.itn.MarcarEquipos(Articulos, dMin)
-
-            Else
-                f.itn.MarcarEquipos(dMin)
-            End If
-
+            f.itn.MarcarEquipos(dMin)
 
             MessageBox.Show("Se creo la intervención " & f.itn.Numero, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 

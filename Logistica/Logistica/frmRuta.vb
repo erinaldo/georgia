@@ -510,10 +510,6 @@ Class frmRuta
         Dim sre As Solicitud
         Dim par As New ParteCobranza(cn)
 
-        'CANJE
-        'Debe tener parte para poder poner en ruta
-        If itn.Tipo <> "B2" Then Return True
-
         'Abro la factura de la SS
         Dim sih As New Factura(cn)
 

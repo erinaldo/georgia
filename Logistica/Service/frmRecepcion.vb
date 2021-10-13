@@ -218,24 +218,18 @@ Public Class frmRecepcion
         'Valido cliente
         If mac.ClienteNumero <> txtCodigo.Text Then
 
-            If itn.Tipo = "B2" Then
-                'Cambio automático de cliente para CANJES
+
+            Dim bpa As New Sucursal(cn, mac.ClienteNumero, mac.SucursalNumero)
+
+            txt = "Este equipo pertenece a otro cliente{0}{0}{1} {2}{0}{3}{0}{0}¿Confirma pasar el equipo de cliente?"
+            txt = String.Format(txt, vbCrLf, bpa.Tercero, mac.Cliente.Nombre, bpa.Direccion)
+
+            If MessageBox.Show(txt, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
                 mac.ClienteNumero = txtCodigo.Text
 
             Else
-                Dim bpa As New Sucursal(cn, mac.ClienteNumero, mac.SucursalNumero)
-
-                txt = "Este equipo pertenece a otro cliente{0}{0}{1} {2}{0}{3}{0}{0}¿Confirma pasar el equipo de cliente?"
-                txt = String.Format(txt, vbCrLf, bpa.Tercero, mac.Cliente.Nombre, bpa.Direccion)
-
-                If MessageBox.Show(txt, Me.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = Windows.Forms.DialogResult.Yes Then
-                    mac.ClienteNumero = txtCodigo.Text
-
-                Else
-                    mac.Deshacer()
-                    Exit Sub
-
-                End If
+                mac.Deshacer()
+                Exit Sub
 
             End If
 
@@ -607,70 +601,6 @@ Public Class frmRecepcion
         mnuCilindro.Enabled = False
 
     End Sub
-    'Private Sub GuardarResumen()
-    '    'Salgo si no hay intervencion abierta
-    '    If txtItn.Text = "" Then Exit Sub
-
-    '    'Guarda en la tabla XSEGTO2 la cantidad de equipos y mangas
-    '    'que entraron a fabrica con la intervención
-    '    Dim xsg As New Segto2(cn)
-    '    Dim Cant(1) As Integer
-    '    Dim Rech(1) As Integer
-    '    Dim dr As DataRow
-    '    Dim i As Integer = 0
-
-    '    'Inicio variable a cero
-    '    For i = 0 To 1
-    '        Cant(i) = 0
-    '        Rech(i) = 0
-    '    Next
-
-    '    'Hago recuento de extintores y mangas
-    '    For i = 0 To dv.Count - 1
-    '        dr = dv.Item(i).Row
-
-    '        If dr("macdes_0").ToString.StartsWith("EXT") Then
-    '            If CInt(dr("macitntyp_0")) = 1 Then
-    '                Cant(0) += 1
-
-    '            ElseIf CInt(dr("macitntyp_0")) = 5 Then
-    '                Rech(0) += 1
-
-    '            End If
-
-    '        ElseIf dr("macdes_0").ToString.StartsWith("MANG") Then
-    '            If CInt(dr("macitntyp_0")) = 1 Then
-    '                Cant(1) += 1
-
-    '            ElseIf CInt(dr("macitntyp_0")) = 5 Then
-    '                Rech(1) += 1
-
-    '            End If
-
-    '        End If
-
-    '    Next
-
-    '    If xsg.Abrir(txtItn.Text) Then 'Intento abrir la intervencion
-
-    '        If xsg.FechaIngresoService = #12/31/1599# Then xsg.FechaIngresoService = Date.Today
-
-    '    Else
-    '        xsg.Nuevo(txtItn.Text)
-    '        xsg.FechaIngresoPlanta = Date.Today
-    '        xsg.FechaIngresoService = Date.Today
-    '        xsg.Equipos = Cant(0) + Cant(1)
-    '    End If
-
-    '    xsg.EquiposLeidos = Cant(0)
-    '    xsg.EquiposRechazados = Rech(0)
-    '    xsg.MangasLeidas = Cant(1)
-    '    xsg.MangasRechazadas = Rech(1)
-    '    xsg.Grabar()
-
-    'End Sub
-
-    'MENU
     Private Sub mnuAbrir_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuAbrir.Click
 
         If lblPallet.Text = "" Then
@@ -697,11 +627,6 @@ Public Class frmRecepcion
 
                 mnuAlta.Enabled = True
                 mnuCilindro.Enabled = True
-
-                '***********************************************************
-                ' 14.09.2017 B2 Paso equipos del cliente al parque de Donny
-                '***********************************************************
-                If itn.Tipo = "B2" Then PasarADonny()
 
             End If
 
@@ -1222,25 +1147,6 @@ Public Class frmRecepcion
             MessageBox.Show(ex.Message, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
-
-    End Sub
-    Private Sub PasarADonny()
-        'Pasa los equipos marcados con esta intervención al parque de Matafuegos Donny 402000/001
-        Dim sql As String
-        Dim dt As New DataTable
-        Dim cm As OracleCommand
-        Dim I As Integer
-
-        'Cambio numero de cliente en la tabla YMACITM
-        sql = "UPDATE ymacitm SET bpcnum_0 = '402000' WHERE macnum_0 in (SELECT macnum_0 FROM machines WHERE xitn_0 = :xitn)"
-        cm = New OracleCommand(sql, cn)
-        cm.Parameters.Add("xitn", OracleType.VarChar).Value = itn.Numero
-        I = cm.ExecuteNonQuery()
-
-        sql = "UPDATE machines SET bpcnum_0 = '402000', maccutbpc_0 = '402000', fcyitn_0 = '001' WHERE xitn_0 = :xitn"
-        cm = New OracleCommand(sql, cn)
-        cm.Parameters.Add("xitn", OracleType.VarChar).Value = itn.Numero
-        I = cm.ExecuteNonQuery()
 
     End Sub
 

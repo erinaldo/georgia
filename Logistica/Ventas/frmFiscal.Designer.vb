@@ -42,6 +42,7 @@ Partial Class frmFiscal
         Me.txtPuerto = New System.Windows.Forms.TextBox
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog
+        Me.Button1 = New System.Windows.Forms.Button
         Label1 = New System.Windows.Forms.Label
         Label2 = New System.Windows.Forms.Label
         Label3 = New System.Windows.Forms.Label
@@ -160,6 +161,7 @@ Partial Class frmFiscal
         '
         'grpImprimir
         '
+        Me.grpImprimir.Controls.Add(Me.Button1)
         Me.grpImprimir.Controls.Add(Me.btnNdB)
         Me.grpImprimir.Controls.Add(Me.btnNdA)
         Me.grpImprimir.Controls.Add(Me.btnNcB)
@@ -241,6 +243,15 @@ Partial Class frmFiscal
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Puerto COM"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(285, 23)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 52)
+        Me.Button1.TabIndex = 7
+        Me.Button1.Text = "Cierre Z"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frmFiscal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -276,4 +287,5 @@ Partial Class frmFiscal
     Friend WithEvents txtPuerto As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 End Class
