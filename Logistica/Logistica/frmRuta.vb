@@ -493,7 +493,6 @@ Class frmRuta
         'If PonerEnRuta Then PonerEnRuta = ValidarEntrega()
         If Not ValidarEntrega(Doc) Then Exit Sub
         If Not DocumentosPendientes(Doc) Then Exit Sub
-        If Not VerificarSiHayParte(Doc) Then Exit Sub
 
         'Borra o actualiza documento en la ruta anterior
         If DocumentoEnRutaAnterior IsNot Nothing Then dtRutax.ImportRow(DocumentoEnRutaAnterior)
@@ -503,42 +502,6 @@ Class frmRuta
         CalcularPesoPrestamos()
 
     End Sub
-    Private Function VerificarSiHayParte(ByVal Doc As IRuteable) As Boolean
-        If Not TypeOf Doc Is Intervencion Then Return True
-
-        Dim itn As Intervencion = CType(Doc, Intervencion)
-        Dim sre As Solicitud
-        Dim par As New ParteCobranza(cn)
-
-        'Abro la factura de la SS
-        Dim sih As New Factura(cn)
-
-        If sih.AbrirPorSolicitud(itn.SolicitudAsociada.Numero) Then
-
-            par.Abrir(sih.Numero)
-
-            If par.Cobrador.Trim = "" Then
-                MessageBox.Show("Falta parte de cobranza para esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-                Return False
-            End If
-
-        Else
-            MessageBox.Show("Falta facturar esta intervención", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Return False
-
-        End If
-
-        sre = itn.SolicitudAsociada
-
-        'No se permite poner en ruta retiros con solicitudes de servicio cerrada
-        If Doc.Tipo = "RET" AndAlso sre.Estado = Solicitud.EstadoSolicitud.Cerrada Then
-            MessageBox.Show("No se puede poner en ruta porque la Solicitud de Servicio fue cerrada", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Return False
-        End If
-
-        Return True
-
-    End Function
     Private Sub ValoresIniciales()
         Select Case Modo
             Case ModoRuta.Cerrada, ModoRuta.Nueva
