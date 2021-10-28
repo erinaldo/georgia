@@ -128,9 +128,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpcnum_0 = :bpcnum_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -154,9 +151,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpcnam_0 LIKE :bpcnam_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -180,9 +174,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpaaddlig_0 LIKE :bpaaddlig_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -206,9 +197,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpc.docnum_0 = :docnum_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -251,9 +239,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpclon_0 LIKE :bpclon_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -277,9 +262,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpa.cty_0 LIKE :cty_0 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0"
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -303,9 +285,6 @@ Public Class frmBuscaClientes
                 Sql &= "     BPADDRESS bpa ON (bpcnum_0 = bpanum_0) LEFT JOIN "
                 Sql &= "     SALESREP ON (rep_0 = repnum_0) "
                 Sql &= "WHERE bpa.web_0 LIKE :p1 or bpa.xmailfc_0 LIKE :p1 or bpc.xmailfc_0 LIKE :p1 "
-                If usr.Codigo.Length = 2 Then
-                    Sql &= " AND rep_0 = '" & usr.Codigo & "' "
-                End If
                 Sql &= "ORDER BY bpcnam_0, bpaaddlig_0 "
 
                 da = New OracleDataAdapter(Sql, cn)
@@ -549,13 +528,12 @@ Public Class frmBuscaClientes
         End If
     End Sub
     Private Sub ContextMenuStrip1_Opening(ByVal sender As System.Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening
-        Dim tipo As String = dgv.CurrentRow.Cells("tipo_cliente").Value.ToString
+        Dim rep As String = dgv.CurrentRow.Cells("codrep").Value.ToString
 
-        If tipo = "10" Then
-            ConsorciosToolStripMenuItem.Enabled = True
-        Else
-            ConsorciosToolStripMenuItem.Enabled = False
+        If usr.Codigo.Length = 2 Then
+            e.Cancel = (usr.Codigo <> rep)
         End If
+
     End Sub
     Private Sub ParqueDeLaSucursalToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ParqueDeLaSucursalToolStripMenuItem.Click
         Dim abonado As String = dgv.CurrentRow.Cells("abonado").Value.ToString
@@ -575,13 +553,8 @@ Public Class frmBuscaClientes
         rpt.SetParameterValue("SUCFIN", sucursal)
         rpt.SetParameterValue("bpc", cliente)
         rpt.SetParameterValue("fecvenc", Today)
+        rpt.SetParameterValue("x3usr", usr.Codigo)
 
-        If usr.Codigo = "LVER" Or usr.Codigo = "DBAT" Or usr.Codigo = "MBARC" Then
-            'txt = InputBox("Ingrese el vendedor que quiere ver en el reporte", txt)
-            rpt.SetParameterValue("x3usr", txt)
-        Else
-            rpt.SetParameterValue("x3usr", usr.Codigo)
-        End If
         crystal = New frmCrystal(rpt)
         crystal.MdiParent = Me.ParentForm
         crystal.Show()
@@ -775,9 +748,6 @@ Public Class frmBuscaClientes
         End If
     End Sub
 
-    'Private Sub cboprov_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboprov.LostFocus
-    '    btnProv.Enabled = False
-    'End Sub
     Private Sub cboprov_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboprov.GotFocus
         btnProv.Enabled = True
     End Sub
