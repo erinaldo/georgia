@@ -780,29 +780,29 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-    'Private Sub MenuStrip1_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-    '    If usr.Codigo = "IOEY" Or usr.Codigo = "JRODR" Or usr.Codigo = "LVER" Or usr.Codigo = "MBARC" Or usr.Codigo = "MMIN" Then
-    '        SolicitudDeServicioToolStripMenuItem.Enabled = True
-    '    Else
-    '        SolicitudDeServicioToolStripMenuItem.Enabled = False
-    '    End If
-    'End Sub
+    Private Sub MenuStrip1_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
+        If usr.Codigo = "IOEY" Or usr.Codigo = "JRODR" Or usr.Codigo = "LVER" Or usr.Codigo = "MBARC" Or usr.Codigo = "MMIN" Then
+            SolicitudDeServicioToolStripMenuItem.Enabled = True
+        Else
+            SolicitudDeServicioToolStripMenuItem.Enabled = False
+        End If
+    End Sub
     Private Sub ZetiToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ZetiToolStripMenuItem.Click
-        Dim txt As String = " "
         Dim rpt As New ReportDocument
-        Dim numero As String = txt
+        Dim Nro As String
         Dim crystal As frmCrystal
 
-        txt = InputBox("Ingrese el codigo de pedido", Me.Text)
-        If txt.Trim = "" Then Exit Sub
+        Nro = InputBox("Ingrese el codigo de pedido", Me.Text)
+        If Nro.Trim = "" Then Exit Sub
 
         rpt.Load(RPTX3 & "ZETI.rpt")
         rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        rpt.SetParameterValue("sohnum", numero)
+        rpt.SetParameterValue("sohnum", Nro)
         rpt.SetParameterValue("x3dos", X3DOS)
         crystal = New frmCrystal(rpt)
         crystal.MdiParent = Me.ParentForm
         crystal.Show()
+
     End Sub
     Private Sub EstadoDePedidosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EstadoDePedidosToolStripMenuItem.Click
         Dim rpt As New ReportDocument
