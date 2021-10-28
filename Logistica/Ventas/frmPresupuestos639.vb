@@ -346,6 +346,7 @@ Public Class frmPresupuestos639
 
             .AgregarDestinatario(rep.Analista.Mail)
             .AgregarDestinatarioCopia(rep.Mail)
+            .AgregarDestinatarioArchivo("639.txt")
 
             .Asunto = "Presupuesto 639 aprobado - " & sqh.Numero
             .CuerpoDesdeArchivo("mails\639.htm")
