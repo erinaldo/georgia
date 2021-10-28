@@ -1245,4 +1245,20 @@ Public Class frmMain
         f.Show()
     End Sub
 
+    Private Sub VencimientosPendientesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVencimientosPendientes.Click
+        Dim f As frmCrystal
+        Dim rpt As New ReportDocument
+
+        rpt.Load(RPTX3 & "xvenc_v.rpt")
+        rpt.SetParameterValue("x3usr", usr.Codigo)
+        rpt.SetParameterValue("rep", usr.Codigo)
+        rpt.SetParameterValue("datdeb", Date.Today.AddYears(-1))
+        rpt.SetParameterValue("datfin", Date.Today)
+        rpt.SetParameterValue("x3tit", "Vencimientos pendientes")
+        rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+
+        f = New frmCrystal(rpt, False)
+        f.MdiParent = Me
+        f.Show()
+    End Sub
 End Class

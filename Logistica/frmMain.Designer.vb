@@ -235,6 +235,7 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
+        Me.mnuVencimientosPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -1416,7 +1417,7 @@ Partial Class frmMain
         '
         'ImpresionesToolStripMenuItem
         '
-        Me.ImpresionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AcuseDeReciboToolStripMenuItem, Me.CuentaCorrienteToolStripMenuItem, Me.ControlPeriodicoToolStripMenuItem, Me.ListadoDeRecibosToolStripMenuItem, Me.mnuClientesBloqueados})
+        Me.ImpresionesToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AcuseDeReciboToolStripMenuItem, Me.CuentaCorrienteToolStripMenuItem, Me.ControlPeriodicoToolStripMenuItem, Me.ListadoDeRecibosToolStripMenuItem, Me.mnuClientesBloqueados, Me.mnuVencimientosPendientes})
         Me.ImpresionesToolStripMenuItem.Name = "ImpresionesToolStripMenuItem"
         Me.ImpresionesToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
         Me.ImpresionesToolStripMenuItem.Text = "Impresiones"
@@ -1424,31 +1425,31 @@ Partial Class frmMain
         'AcuseDeReciboToolStripMenuItem
         '
         Me.AcuseDeReciboToolStripMenuItem.Name = "AcuseDeReciboToolStripMenuItem"
-        Me.AcuseDeReciboToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
+        Me.AcuseDeReciboToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.AcuseDeReciboToolStripMenuItem.Text = "Acuse de recibo"
         '
         'CuentaCorrienteToolStripMenuItem
         '
         Me.CuentaCorrienteToolStripMenuItem.Name = "CuentaCorrienteToolStripMenuItem"
-        Me.CuentaCorrienteToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
+        Me.CuentaCorrienteToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.CuentaCorrienteToolStripMenuItem.Text = "Cuenta corriente"
         '
         'ControlPeriodicoToolStripMenuItem
         '
         Me.ControlPeriodicoToolStripMenuItem.Name = "ControlPeriodicoToolStripMenuItem"
-        Me.ControlPeriodicoToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
+        Me.ControlPeriodicoToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.ControlPeriodicoToolStripMenuItem.Text = "Control Periodico"
         '
         'ListadoDeRecibosToolStripMenuItem
         '
         Me.ListadoDeRecibosToolStripMenuItem.Name = "ListadoDeRecibosToolStripMenuItem"
-        Me.ListadoDeRecibosToolStripMenuItem.Size = New System.Drawing.Size(181, 22)
+        Me.ListadoDeRecibosToolStripMenuItem.Size = New System.Drawing.Size(215, 22)
         Me.ListadoDeRecibosToolStripMenuItem.Text = "Listado de recibos"
         '
         'mnuClientesBloqueados
         '
         Me.mnuClientesBloqueados.Name = "mnuClientesBloqueados"
-        Me.mnuClientesBloqueados.Size = New System.Drawing.Size(181, 22)
+        Me.mnuClientesBloqueados.Size = New System.Drawing.Size(215, 22)
         Me.mnuClientesBloqueados.Text = "Clientes bloqueados"
         '
         'ArticulosToolStripMenuItem
@@ -1618,6 +1619,12 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
+        '
+        'mnuVencimientosPendientes
+        '
+        Me.mnuVencimientosPendientes.Name = "mnuVencimientosPendientes"
+        Me.mnuVencimientosPendientes.Size = New System.Drawing.Size(215, 22)
+        Me.mnuVencimientosPendientes.Text = "Vencimientos pendientes..."
         '
         'frmMain
         '
@@ -1854,6 +1861,7 @@ Partial Class frmMain
     Friend WithEvents mnuIndicadoresOperacionales As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuDiasCalle As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuAsociarFcANd As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuVencimientosPendientes As System.Windows.Forms.ToolStripMenuItem
 
 
 End Class
