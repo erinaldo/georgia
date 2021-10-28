@@ -1107,7 +1107,8 @@ Public Class frmRptRecargas '948 - 880
         Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
         Sql &= "where typ_0 <> 'G1' and "
         Sql &= "      xsector_0 = 'SRV' and "
-        Sql &= "      itn.bpc_0 <> '402000' "
+        Sql &= "      itn.bpc_0 <> '402000' and "
+        Sql &= "      itn.zflgtrip_0 <= 2 "
         Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0"
 
         da = New OracleDataAdapter(Sql, cn)
