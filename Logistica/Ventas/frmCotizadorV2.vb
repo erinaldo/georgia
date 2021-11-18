@@ -833,7 +833,7 @@ Public Class frmCotizadorV2
                     With mail
                         .Nuevo()
                         .Remitente("no-responder@georgia.com.ar", "Georgia Seguridad contra Incendios")
-                        .AgregarDestinatario("jrodriguez@georgia.com.ar", False)
+                        .AgregarDestinatarioArchivo("mails\cotizador.txt")
                         .Asunto = "Pedido creado sin OC"
                         .Cuerpo = "El cliente: " & ctz.Cliente.Codigo & "-" & ctz.Cliente.Nombre & ", con el pedido: " & ctz.PedidoAdonix & " fue creado sin OC "
                         If DB_USR = "GEOPROD" Then .Enviar()
@@ -1294,7 +1294,7 @@ Public Class frmCotizadorV2
             eml.Cuerpo = eml.Cuerpo.Replace("{presupuesto}", ctz.PresupuestoAdonix)
             eml.Cuerpo = eml.Cuerpo.Replace("{codigo_cliente}", ctz.ClienteCodigo)
 
-            eml.AgregarDestinatario(ctz.UsuarioCreacion.Mail)
+            eml.AgregarDestinatarioArchivo(ctz.UsuarioCreacion.Mail)
 
             eml.Enviar()
 
