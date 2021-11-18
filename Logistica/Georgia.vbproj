@@ -222,6 +222,12 @@
     <Compile Include="frmPruebas.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Herramientas\frmSelectorFechaDesdeHasta.Designer.vb">
+      <DependentUpon>frmSelectorFechaDesdeHasta.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Herramientas\frmSelectorFechaDesdeHasta.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Informes\frmControlDiarioComercial.Designer.vb">
       <DependentUpon>frmControlDiarioComercial.vb</DependentUpon>
     </Compile>
@@ -1246,6 +1252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPruebas.resx">
       <DependentUpon>frmPruebas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Herramientas\frmSelectorFechaDesdeHasta.resx">
+      <DependentUpon>frmSelectorFechaDesdeHasta.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Informes\frmControlDiarioComercial.resx">
       <DependentUpon>frmControlDiarioComercial.vb</DependentUpon>
