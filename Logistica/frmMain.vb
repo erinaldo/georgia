@@ -780,13 +780,6 @@ Public Class frmMain
         f.MdiParent = Me
         f.Show()
     End Sub
-    Private Sub MenuStrip1_ItemClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-        If usr.Codigo = "IOEY" Or usr.Codigo = "JRODR" Or usr.Codigo = "LVER" Or usr.Codigo = "MBARC" Or usr.Codigo = "MMIN" Then
-            SolicitudDeServicioToolStripMenuItem.Enabled = True
-        Else
-            SolicitudDeServicioToolStripMenuItem.Enabled = False
-        End If
-    End Sub
     Private Sub ZetiToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ZetiToolStripMenuItem.Click
         Dim rpt As New ReportDocument
         Dim Nro As String
@@ -1246,19 +1239,29 @@ Public Class frmMain
     End Sub
 
     Private Sub VencimientosPendientesToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuVencimientosPendientes.Click
-        Dim f As frmCrystal
-        Dim rpt As New ReportDocument
+        Dim Fechas As New frmSelectorFechaDesdeHasta
 
-        rpt.Load(RPTX3 & "xvenc_v.rpt")
-        rpt.SetParameterValue("x3usr", usr.Codigo)
-        rpt.SetParameterValue("rep", usr.Codigo)
-        rpt.SetParameterValue("datdeb", Date.Today.AddYears(-1))
-        rpt.SetParameterValue("datfin", Date.Today)
-        rpt.SetParameterValue("x3tit", "Vencimientos pendientes")
-        rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+        Fechas.Desde = Today.AddYears(-1)
+        Fechas.Hasta = Today
+        Fechas.ShowDialog(Me)
 
-        f = New frmCrystal(rpt, False)
-        f.MdiParent = Me
-        f.Show()
+        If Fechas.DialogResult = Windows.Forms.DialogResult.OK Then
+            Dim f As frmCrystal
+            Dim rpt As New ReportDocument
+
+            rpt.Load(RPTX3 & "xvenc_v.rpt")
+            rpt.SetParameterValue("x3usr", usr.Codigo)
+            rpt.SetParameterValue("rep", usr.Codigo)
+            rpt.SetParameterValue("datdeb", Fechas.Desde)
+            rpt.SetParameterValue("datfin", Fechas.Hasta)
+            rpt.SetParameterValue("x3tit", "Vencimientos pendientes")
+            rpt.SetDatabaseLogon(DB_USR, DB_PWD)
+
+            f = New frmCrystal(rpt, False)
+            f.MdiParent = Me
+            f.Show()
+        End If
+
     End Sub
+
 End Class

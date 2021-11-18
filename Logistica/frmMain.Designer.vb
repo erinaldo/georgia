@@ -209,6 +209,7 @@ Partial Class frmMain
         Me.ControlPeriodicoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ListadoDeRecibosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.mnuClientesBloqueados = New System.Windows.Forms.ToolStripMenuItem
+        Me.mnuVencimientosPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.ArticulosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.ListadoFacturasDeVentaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.IntervencionesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
@@ -235,7 +236,6 @@ Partial Class frmMain
         Me.sbUser = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbNombre = New System.Windows.Forms.ToolStripStatusLabel
         Me.sbDosier = New System.Windows.Forms.ToolStripStatusLabel
-        Me.mnuVencimientosPendientes = New System.Windows.Forms.ToolStripMenuItem
         Me.MenuStrip1.SuspendLayout()
         Me.Status.SuspendLayout()
         Me.SuspendLayout()
@@ -1263,7 +1263,7 @@ Partial Class frmMain
         '
         Me.mnuSeguimiento.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSeguimientoSrv, Me.mnuSeguimientoAdm, Me.mnuSeguimientoLog, Me.mnuSeguimientoCtd, Me.mnuSeguimientoIng, Me.mnuSeguimientoAch, Me.mnuSeguimientoMos, Me.mnuSeguimientoDep, Me.mnuSeguimientoCal, Me.AbonosToolStripMenuItem, Me.VentasToolStripMenuItem, Me.AtencionAlClienteToolStripMenuItem})
         Me.mnuSeguimiento.Name = "mnuSeguimiento"
-        Me.mnuSeguimiento.Size = New System.Drawing.Size(152, 22)
+        Me.mnuSeguimiento.Size = New System.Drawing.Size(141, 22)
         Me.mnuSeguimiento.Text = "Seguimiento"
         '
         'mnuSeguimientoSrv
@@ -1353,13 +1353,13 @@ Partial Class frmMain
         'ToolStripMenuItem9
         '
         Me.ToolStripMenuItem9.Name = "ToolStripMenuItem9"
-        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripMenuItem9.Size = New System.Drawing.Size(138, 6)
         '
         'DepositoToolStripMenuItem
         '
         Me.DepositoToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEntregas, Me.mnuSinDespachar})
         Me.DepositoToolStripMenuItem.Name = "DepositoToolStripMenuItem"
-        Me.DepositoToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DepositoToolStripMenuItem.Size = New System.Drawing.Size(141, 22)
         Me.DepositoToolStripMenuItem.Text = "Deposito"
         '
         'mnuEntregas
@@ -1451,6 +1451,12 @@ Partial Class frmMain
         Me.mnuClientesBloqueados.Name = "mnuClientesBloqueados"
         Me.mnuClientesBloqueados.Size = New System.Drawing.Size(215, 22)
         Me.mnuClientesBloqueados.Text = "Clientes bloqueados"
+        '
+        'mnuVencimientosPendientes
+        '
+        Me.mnuVencimientosPendientes.Name = "mnuVencimientosPendientes"
+        Me.mnuVencimientosPendientes.Size = New System.Drawing.Size(215, 22)
+        Me.mnuVencimientosPendientes.Text = "Vencimientos pendientes..."
         '
         'ArticulosToolStripMenuItem
         '
@@ -1619,12 +1625,6 @@ Partial Class frmMain
         Me.sbDosier.BorderStyle = System.Windows.Forms.Border3DStyle.Etched
         Me.sbDosier.Name = "sbDosier"
         Me.sbDosier.Size = New System.Drawing.Size(4, 17)
-        '
-        'mnuVencimientosPendientes
-        '
-        Me.mnuVencimientosPendientes.Name = "mnuVencimientosPendientes"
-        Me.mnuVencimientosPendientes.Size = New System.Drawing.Size(215, 22)
-        Me.mnuVencimientosPendientes.Text = "Vencimientos pendientes..."
         '
         'frmMain
         '
