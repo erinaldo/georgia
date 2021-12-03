@@ -483,48 +483,48 @@ Public Class frmRptRecargas '948 - 880
         Button1.Enabled = False
         Me.UseWaitCursor = True
 
-        txt1a.Text = Calculo1(" ").ToString
-        i += CInt(txt1a.Text)
+        'txt1a.Text = Calculo1(" ").ToString
+        'i += CInt(txt1a.Text)
+        'Application.DoEvents()
+
+        txtSrv.Text = CalculoEnProceso().ToString
+        i += CInt(txtSrv.Text)
         Application.DoEvents()
 
-        txt1b.Text = CalculoEnProceso().ToString
-        i += CInt(txt1b.Text)
+        txtAdm.Text = Calculo2("ADM").ToString
+        i += CInt(txtAdm.Text)
         Application.DoEvents()
 
-        txt2.Text = Calculo2("ADM").ToString
-        i += CInt(txt2.Text)
+        txtVta.Text = Calculo2("VEN").ToString
+        i += CInt(txtVta.Text)
         Application.DoEvents()
 
-        txt2b.Text = Calculo2("VEN").ToString
-        i += CInt(txt2b.Text)
+        txtCtd.Text = Calculo2("CTD").ToString
+        i += CInt(txtCtd.Text)
+        Application.DoEvents()
+        txtLog.Text = CalculoLogistica("LOG").ToString
+        i += CInt(txtLog.Text)
         Application.DoEvents()
 
-        txt3.Text = Calculo2("CTD").ToString
-        i += CInt(txt3.Text)
-        Application.DoEvents()
-        txt4a.Text = CalculoLogistica("LOG").ToString
-        i += CInt(txt4a.Text)
+        txtAbo.Text = CalculoLogistica("ABO").ToString
+        i += CInt(txtAbo.Text)
         Application.DoEvents()
 
-        txt4b.Text = CalculoLogistica("ABO").ToString
-        i += CInt(txt4b.Text)
+        txtIng.Text = Calculo2("ING").ToString
+        i += CInt(txtIng.Text)
         Application.DoEvents()
 
-        txt4c.Text = Calculo2("ING").ToString
-        i += CInt(txt4c.Text)
-        Application.DoEvents()
+        txtLogRuta.Text = Calculo3("LOG").ToString
+        i += CInt(txtLogRuta.Text)
+        txtAboRuta.Text = Calculo3("ABO").ToString
+        i += CInt(txtAboRuta.Text)
+        txtIngRuta.Text = Calculo3("ING").ToString
+        i += CInt(txtIngRuta.Text)
 
-        txt5a.Text = Calculo3("LOG").ToString
-        i += CInt(txt5a.Text)
-        txt5b.Text = Calculo3("ABO").ToString
-        i += CInt(txt5b.Text)
-        txt5c.Text = Calculo3("ING").ToString
-        i += CInt(txt5c.Text)
+        txtMos.Text = Calculo4("MOS").ToString
+        i += CInt(txtMos.Text)
 
-        txt6.Text = Calculo4("MOS").ToString
-        i += CInt(txt6.Text)
-
-        txtTot.Text = i.ToString
+        txtTotal.Text = i.ToString
 
         Application.DoEvents()
 
@@ -532,7 +532,7 @@ Public Class frmRptRecargas '948 - 880
         Me.UseWaitCursor = False
 
     End Sub
-    Private Sub txt1_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles txt1a.DoubleClick, txt1b.DoubleClick, txt2.DoubleClick, txt2b.DoubleClick, txt3.DoubleClick, txt4a.DoubleClick, txt4b.DoubleClick, txt4c.DoubleClick, txt5a.DoubleClick, txt5b.DoubleClick, txt5c.DoubleClick, txt6.DoubleClick
+    Private Sub txt1_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtSrv.DoubleClick, txtAdm.DoubleClick, txtVta.DoubleClick, txtCtd.DoubleClick, txtLog.DoubleClick, txtAbo.DoubleClick, txtIng.DoubleClick, txtLogRuta.DoubleClick, txtAboRuta.DoubleClick, txtIngRuta.DoubleClick, txtMos.DoubleClick
         Dim txt As TextBox = CType(sender, TextBox)
         Dim dt As DataTable
         Dim flg As Boolean = False
@@ -565,62 +565,62 @@ Public Class frmRptRecargas '948 - 880
             Application.DoEvents()
         End With
 
-        If txt Is txt1a Then
-            Calculo1(" ", dt)
-            FechasRetiros(dt)
-            lblTitulo.Text = "ESPERA DE PROCESO"
+        'If txt Is txt1a Then
+        '    Calculo1(" ", dt)
+        '    FechasRetiros(dt)
+        '    lblTitulo.Text = "ESPERA DE PROCESO"
 
-        ElseIf txt Is txt1b Then
+        If txt Is txtSrv Then
             CalculoEnProceso(dt)
             FechasRetiros(dt)
             lblTitulo.Text = "EN PROCESO"
 
-        ElseIf txt Is txt2 Then
+        ElseIf txt Is txtAdm Then
             Calculo2("ADM", dt)
             FechaPistoleo(dt, "ADM")
             lblTitulo.Text = "ADMINISTRACION DE VENTA"
 
-        ElseIf txt Is txt2b Then
+        ElseIf txt Is txtVta Then
             Calculo2("VEN", dt)
             FechaPistoleo(dt, "VEN")
             lblTitulo.Text = "VENTAS"
 
-        ElseIf txt Is txt3 Then
+        ElseIf txt Is txtCtd Then
             Calculo2("CTD", dt)
             FechaPistoleo(dt, "CTD")
             lblTitulo.Text = "CONTADOS"
 
-        ElseIf txt Is txt4a Then
+        ElseIf txt Is txtLog Then
             Calculo2("LOG", dt)
             FechaPistoleo(dt, "LOG")
             lblTitulo.Text = "PENDIENTE - LOGISTICA"
 
-        ElseIf txt Is txt4b Then
+        ElseIf txt Is txtAbo Then
             Calculo2("ABO", dt)
             FechaPistoleo(dt, "ABO")
             lblTitulo.Text = "PENDIENTE - ABONOS"
 
-        ElseIf txt Is txt4c Then
+        ElseIf txt Is txtIng Then
             Calculo2("ING", dt)
             FechaPistoleo(dt, "ING")
             lblTitulo.Text = "PENDIENTE - SISTEMAS FIJO"
 
-        ElseIf txt Is txt5a Then
+        ElseIf txt Is txtLogRuta Then
             Calculo3("LOG", dt)
             FechaPistoleo(dt, "LOG")
             lblTitulo.Text = "PENDIENTE CON RUTA - LOGISTICA"
 
-        ElseIf txt Is txt5b Then
+        ElseIf txt Is txtAboRuta Then
             Calculo3("ABO", dt)
             FechaPistoleo(dt, "ABO")
             lblTitulo.Text = "PENDIENTE CON RUTA - ABONOS"
 
-        ElseIf txt Is txt5c Then
+        ElseIf txt Is txtIngRuta Then
             Calculo3("ING", dt)
             FechaPistoleo(dt, "ING")
             lblTitulo.Text = "PENDIENTE CON RUTA - SISTEMAS FIJO"
 
-        ElseIf txt Is txt6 Then
+        ElseIf txt Is txtMos Then
             Calculo4("MOS", dt)
             FechaPistoleo(dt, "MOS")
             lblTitulo.Text = "MOSTRADOR"
