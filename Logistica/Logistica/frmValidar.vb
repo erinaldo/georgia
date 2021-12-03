@@ -627,8 +627,7 @@ Public Class frmValidar
                 eMail.Asunto = "Validación de ruta " & txtRuta.Text
                 eMail.EsHtml = False
                 eMail.Cuerpo = txt
-                'eMail.AgregarDestinatario("mmino@matafuegosgeorgia.com")
-                eMail.AgregarDestinatarioArchivo("mails\Validar.txt")
+                eMail.AgregarDestinatarioArchivo("mails\validar.txt")
                 eMail.Enviar()
             End If
         End If
@@ -747,12 +746,12 @@ Public Class frmValidar
             With eMail
                 'Agrego mail del vendedor
                 With itn.SolicitudAsociada.Vendedor
-                    If .Mail.Trim <> "" Then eMail.AgregarDestinatarioArchivo(.Mail)
+                    If .Mail.Trim <> "" Then eMail.AgregarDestinatario(.Mail)
                 End With
                 'Agrego mail del analista
                 With itn.SolicitudAsociada.Vendedor.Analista
                     If .TieneDatos Then
-                        If .Mail.Trim <> "" Then eMail.AgregarDestinatarioArchivo(.Mail)
+                        If .Mail.Trim <> "" Then eMail.AgregarDestinatario(.Mail)
                     End If
                 End With
 
@@ -804,7 +803,7 @@ Public Class frmValidar
         da.Fill(dt)
 
         For Each dr In dt.Rows
-            eMail.AgregarDestinatarioArchivo(dr("addeml_0").ToString, True)
+            eMail.AgregarDestinatario(dr("addeml_0").ToString, True)
         Next
 
         dt.Dispose()
