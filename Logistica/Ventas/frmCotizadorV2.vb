@@ -1294,7 +1294,7 @@ Public Class frmCotizadorV2
             eml.Cuerpo = eml.Cuerpo.Replace("{presupuesto}", ctz.PresupuestoAdonix)
             eml.Cuerpo = eml.Cuerpo.Replace("{codigo_cliente}", ctz.ClienteCodigo)
 
-            eml.AgregarDestinatarioArchivo(ctz.UsuarioCreacion.Mail)
+            eml.AgregarDestinatario(ctz.UsuarioCreacion.Mail)
 
             eml.Enviar()
 
