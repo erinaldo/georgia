@@ -1497,6 +1497,7 @@ Partial Class frmMain
         '
         Me.EstadoDePedidosToolStripMenuItem.Name = "EstadoDePedidosToolStripMenuItem"
         Me.EstadoDePedidosToolStripMenuItem.Size = New System.Drawing.Size(217, 22)
+        Me.EstadoDePedidosToolStripMenuItem.Tag = "frmEstadodePedidos"
         Me.EstadoDePedidosToolStripMenuItem.Text = "Estado de Pedidos"
         '
         'PedidosToolStripMenuItem

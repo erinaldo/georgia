@@ -798,28 +798,9 @@ Public Class frmMain
 
     End Sub
     Private Sub EstadoDePedidosToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EstadoDePedidosToolStripMenuItem.Click
-        Dim rpt As New ReportDocument
-        Dim crystal As frmCrystal
-        Dim txt As String = ""
-        rpt.Load(RPTX3 & "XSTAPED.rpt")
-        rpt.SetDatabaseLogon(DB_USR, DB_PWD)
-        If usr.Codigo = "IOEY" Or usr.Codigo = "JRODR" Or usr.Codigo = "LVER" Or usr.Codigo = "MBARC" Or usr.Codigo = "MMIN" Then
-            txt = InputBox("Ingrese Vendedor", txt)
-            txt = txt.Trim
-            rpt.SetParameterValue("REPDEB", txt)
-            rpt.SetParameterValue("REPFIN", txt)
-        Else
-            rpt.SetParameterValue("REPDEB", usr.Codigo)
-            rpt.SetParameterValue("REPFIN", usr.Codigo)
-        End If
-        rpt.SetParameterValue("x3dos", X3DOS)
-        rpt.SetParameterValue("X3TIT", "ESTADO DE PEDIDOS")
-        rpt.SetParameterValue("X3USR", usr.Codigo)
-        rpt.SetParameterValue("BPCDEB", "000000")
-        rpt.SetParameterValue("BPCFIN", "999999")
-        crystal = New frmCrystal(rpt)
-        crystal.MdiParent = Me.ParentForm
-        crystal.Show()
+        Dim f As New frmEstadodePedidos
+        f.MdiParent = Me
+        f.Show()
     End Sub
     Private Sub mnuSS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnuSS.Click
         With frmSumasSaldos
