@@ -158,6 +158,7 @@ Public Class frmContrato
             cboEstado.SelectedValue = .Estado
 
             nudFrecuenciaFacturacion.Value = .FrecuenciaFacturacion
+            chkRenovacion.Checked = .Renovacion
         End With
 
         txtNombreCliente.Text = bpc.Nombre.ToString
@@ -258,6 +259,7 @@ Public Class frmContrato
         txtImporteMensual.Text = "0.00"
 
         cboModoFacturacion.SelectedValue = 2
+        chkRenovacion.Checked = False
 
     End Sub
     Private Sub Registrar()
@@ -295,6 +297,7 @@ Public Class frmContrato
             .MantIntegralRedHidrantesDetalle = txtMantIntRedHdri.Text.Trim
             .M639 = chk639.Checked
             .M639Detalle = txtDetalle639.Text.Trim
+            .Renovacion = chkRenovacion.Checked
 
             'Solapa Varios
             .CantidadMatafuegos = CInt(nudCantidadMatafuegos.Value)
@@ -498,6 +501,7 @@ Public Class frmContrato
             .Duracion = Contrato.Duracion
             .FrecuenciaFacturacion = Contrato.FrecuenciaFacturacion
             .ModoFacturacion = Contrato.ModoFacturacion
+            .Renovacion = Contrato.Renovacion
 
             If .ModoFacturacion = 2 Then 'Post-Facturacion
                 .FechaProximaFactua = .FechaInicio.AddMonths(.FrecuenciaFacturacion)

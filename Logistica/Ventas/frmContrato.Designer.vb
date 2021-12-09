@@ -128,6 +128,8 @@ Partial Class frmContrato
         Me.Label48 = New System.Windows.Forms.Label
         Me.txtId = New System.Windows.Forms.TextBox
         Me.txtCodigoCliente = New System.Windows.Forms.TextBox
+        Me.cms = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
         Me.txtNombreCliente = New System.Windows.Forms.TextBox
         Me.btnNuevo = New System.Windows.Forms.Button
         Me.btnAutorizar = New System.Windows.Forms.Button
@@ -148,8 +150,7 @@ Partial Class frmContrato
         Me.BtnImprimir = New System.Windows.Forms.Button
         Me.cboEstado = New System.Windows.Forms.ComboBox
         Me.btnRegistrar = New System.Windows.Forms.Button
-        Me.cms = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuEditar = New System.Windows.Forms.ToolStripMenuItem
+        Me.chkRenovacion = New System.Windows.Forms.CheckBox
         Label5 = New System.Windows.Forms.Label
         EstadoContrato = New System.Windows.Forms.Label
         Label15 = New System.Windows.Forms.Label
@@ -195,6 +196,7 @@ Partial Class frmContrato
         CType(Me.nudFrecuenciaFacturacion, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
+        Me.cms.SuspendLayout()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -203,7 +205,6 @@ Partial Class frmContrato
         Me.SplitContainer2.SuspendLayout()
         CType(Me.dgvPrincipal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvRenovar, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.cms.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label5
@@ -445,6 +446,7 @@ Partial Class frmContrato
         '
         'TabGeneral
         '
+        Me.TabGeneral.Controls.Add(Me.chkRenovacion)
         Me.TabGeneral.Controls.Add(Me.nudDuracion)
         Me.TabGeneral.Controls.Add(Label14)
         Me.TabGeneral.Controls.Add(Me.txtObs)
@@ -1255,6 +1257,18 @@ Partial Class frmContrato
         Me.txtCodigoCliente.Size = New System.Drawing.Size(75, 20)
         Me.txtCodigoCliente.TabIndex = 2
         '
+        'cms
+        '
+        Me.cms.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditar})
+        Me.cms.Name = "cms"
+        Me.cms.Size = New System.Drawing.Size(105, 26)
+        '
+        'mnuEditar
+        '
+        Me.mnuEditar.Name = "mnuEditar"
+        Me.mnuEditar.Size = New System.Drawing.Size(104, 22)
+        Me.mnuEditar.Text = "Editar"
+        '
         'txtNombreCliente
         '
         Me.txtNombreCliente.Location = New System.Drawing.Point(262, 30)
@@ -1473,17 +1487,15 @@ Partial Class frmContrato
         Me.btnRegistrar.Text = "Registrar"
         Me.btnRegistrar.UseVisualStyleBackColor = True
         '
-        'cms
+        'chkRenovacion
         '
-        Me.cms.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuEditar})
-        Me.cms.Name = "cms"
-        Me.cms.Size = New System.Drawing.Size(153, 48)
-        '
-        'mnuEditar
-        '
-        Me.mnuEditar.Name = "mnuEditar"
-        Me.mnuEditar.Size = New System.Drawing.Size(152, 22)
-        Me.mnuEditar.Text = "Editar"
+        Me.chkRenovacion.AutoSize = True
+        Me.chkRenovacion.Location = New System.Drawing.Point(147, 37)
+        Me.chkRenovacion.Name = "chkRenovacion"
+        Me.chkRenovacion.Size = New System.Drawing.Size(84, 17)
+        Me.chkRenovacion.TabIndex = 8
+        Me.chkRenovacion.Text = "Renovación"
+        Me.chkRenovacion.UseVisualStyleBackColor = True
         '
         'frmContrato
         '
@@ -1524,6 +1536,7 @@ Partial Class frmContrato
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
+        Me.cms.ResumeLayout(False)
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
@@ -1533,7 +1546,6 @@ Partial Class frmContrato
         Me.SplitContainer2.ResumeLayout(False)
         CType(Me.dgvPrincipal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvRenovar, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.cms.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1639,4 +1651,5 @@ Partial Class frmContrato
     Friend WithEvents cboSucursal As System.Windows.Forms.ComboBox
     Friend WithEvents cms As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnuEditar As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents chkRenovacion As System.Windows.Forms.CheckBox
 End Class
