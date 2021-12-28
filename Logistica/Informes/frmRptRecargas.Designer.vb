@@ -45,8 +45,8 @@ Partial Class frmRptRecargas
         Dim Label3 As System.Windows.Forms.Label
         Dim Label32 As System.Windows.Forms.Label
         Dim Label4 As System.Windows.Forms.Label
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
         Me.TabControl1 = New System.Windows.Forms.TabControl
         Me.TabPage1 = New System.Windows.Forms.TabPage
         Me.GroupBox3 = New System.Windows.Forms.GroupBox
@@ -103,7 +103,7 @@ Partial Class frmRptRecargas
         Me.Label10 = New System.Windows.Forms.Label
         Me.TabPage5 = New System.Windows.Forms.TabPage
         Me.Label6 = New System.Windows.Forms.Label
-        Me.Button2 = New System.Windows.Forms.Button
+        Me.btnTodo = New System.Windows.Forms.Button
         Me.lblTitulo = New System.Windows.Forms.Label
         Me.txtVta = New System.Windows.Forms.TextBox
         Me.lblBuscando = New System.Windows.Forms.Label
@@ -649,9 +649,9 @@ Partial Class frmRptRecargas
         'colTab4Intervenciones
         '
         Me.colTab4Intervenciones.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle4.Format = "N0"
-        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle1.Format = "N0"
+        Me.colTab4Intervenciones.DefaultCellStyle = DataGridViewCellStyle1
         Me.colTab4Intervenciones.HeaderText = "Intervenciones"
         Me.colTab4Intervenciones.Name = "colTab4Intervenciones"
         Me.colTab4Intervenciones.ReadOnly = True
@@ -916,7 +916,7 @@ Partial Class frmRptRecargas
         'TabPage5
         '
         Me.TabPage5.Controls.Add(Me.Label6)
-        Me.TabPage5.Controls.Add(Me.Button2)
+        Me.TabPage5.Controls.Add(Me.btnTodo)
         Me.TabPage5.Controls.Add(Me.lblTitulo)
         Me.TabPage5.Controls.Add(Me.txtVta)
         Me.TabPage5.Controls.Add(Label4)
@@ -965,14 +965,14 @@ Partial Class frmRptRecargas
         Me.Label6.TabIndex = 82
         Me.Label6.Text = "Se excluye el cliente 402000 MATAFUEGOS DONNY"
         '
-        'Button2
+        'btnTodo
         '
-        Me.Button2.Location = New System.Drawing.Point(22, 481)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 80
-        Me.Button2.Text = "Todo"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnTodo.Location = New System.Drawing.Point(22, 481)
+        Me.btnTodo.Name = "btnTodo"
+        Me.btnTodo.Size = New System.Drawing.Size(75, 23)
+        Me.btnTodo.TabIndex = 80
+        Me.btnTodo.Text = "Todo"
+        Me.btnTodo.UseVisualStyleBackColor = True
         '
         'lblTitulo
         '
@@ -1075,9 +1075,9 @@ Partial Class frmRptRecargas
         'col7Cantidad
         '
         Me.col7Cantidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
-        DataGridViewCellStyle3.Format = "N0"
-        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle2.Format = "N0"
+        Me.col7Cantidad.DefaultCellStyle = DataGridViewCellStyle2
         Me.col7Cantidad.HeaderText = "Cantidad"
         Me.col7Cantidad.Name = "col7Cantidad"
         Me.col7Cantidad.ReadOnly = True
@@ -1388,7 +1388,7 @@ Partial Class frmRptRecargas
     Friend WithEvents col7Rep As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuPallet As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnTodo As System.Windows.Forms.Button
     Friend WithEvents crv As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents Label6 As System.Windows.Forms.Label
 End Class
