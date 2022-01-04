@@ -183,15 +183,15 @@ Public Class frmIRAM
             'Creacion de Cabecera del archivo para impresion IRAM AUTOMOTOR
             sw2 = New StreamWriter(Archivo2, False)
             sw2.WriteLine("I8,A,001")
-            sw2.WriteLine("Q464,024")
-            sw2.WriteLine("q831")
+            sw2.WriteLine("Q400,024")
+            sw2.WriteLine("q863")
             sw2.WriteLine("rN")
-            sw2.WriteLine("S2")
-            sw2.WriteLine("D13")
+            sw2.WriteLine("S3")
+            sw2.WriteLine("D15")
             sw2.WriteLine("ZT")
             sw2.WriteLine("JF")
             sw2.WriteLine("O")
-            sw2.WriteLine("R80,0")
+            sw2.WriteLine("R132,0")
             sw2.WriteLine("f100")
 
             For Each dr In dtTarjetas.Rows
@@ -355,4 +355,8 @@ Public Class frmIRAM
         Return i
 
     End Function
+
+    Private Sub dgv_CellContentClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgv.CellContentClick
+
+    End Sub
 End Class
