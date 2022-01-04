@@ -491,15 +491,15 @@ Public Class frmRptRecargas '948 - 880
         i += CInt(txtSrv.Text)
         Application.DoEvents()
 
-        txtAdm.Text = Calculo2("ADM").ToString
+        txtAdm.Text = CalculoEnSectores("ADM").ToString
         i += CInt(txtAdm.Text)
         Application.DoEvents()
 
-        txtVta.Text = Calculo2("VEN").ToString
+        txtVta.Text = CalculoEnSectores("VEN").ToString
         i += CInt(txtVta.Text)
         Application.DoEvents()
 
-        txtCtd.Text = Calculo2("CTD").ToString
+        txtCtd.Text = CalculoEnSectores("CTD").ToString
         i += CInt(txtCtd.Text)
         Application.DoEvents()
         txtLog.Text = CalculoLogistica("LOG").ToString
@@ -510,7 +510,7 @@ Public Class frmRptRecargas '948 - 880
         i += CInt(txtAbo.Text)
         Application.DoEvents()
 
-        txtIng.Text = Calculo2("ING").ToString
+        txtIng.Text = CalculoEnSectores("ING").ToString
         i += CInt(txtIng.Text)
         Application.DoEvents()
 
@@ -576,32 +576,32 @@ Public Class frmRptRecargas '948 - 880
             lblTitulo.Text = "EN PROCESO"
 
         ElseIf txt Is txtAdm Then
-            Calculo2("ADM", dt)
+            CalculoEnSectores("ADM", dt)
             FechaPistoleo(dt, "ADM")
             lblTitulo.Text = "ADMINISTRACION DE VENTA"
 
         ElseIf txt Is txtVta Then
-            Calculo2("VEN", dt)
+            CalculoEnSectores("VEN", dt)
             FechaPistoleo(dt, "VEN")
             lblTitulo.Text = "VENTAS"
 
         ElseIf txt Is txtCtd Then
-            Calculo2("CTD", dt)
+            CalculoEnSectores("CTD", dt)
             FechaPistoleo(dt, "CTD")
             lblTitulo.Text = "CONTADOS"
 
         ElseIf txt Is txtLog Then
-            Calculo2("LOG", dt)
+            CalculoEnSectores("LOG", dt)
             FechaPistoleo(dt, "LOG")
             lblTitulo.Text = "PENDIENTE - LOGISTICA"
 
         ElseIf txt Is txtAbo Then
-            Calculo2("ABO", dt)
+            CalculoEnSectores("ABO", dt)
             FechaPistoleo(dt, "ABO")
             lblTitulo.Text = "PENDIENTE - ABONOS"
 
         ElseIf txt Is txtIng Then
-            Calculo2("ING", dt)
+            CalculoEnSectores("ING", dt)
             FechaPistoleo(dt, "ING")
             lblTitulo.Text = "PENDIENTE - SISTEMAS FIJO"
 
@@ -819,7 +819,7 @@ Public Class frmRptRecargas '948 - 880
         MessageBox.Show(sql, Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub btnTodo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTodo.Click
         Dim dt As DataTable
         Dim dtx As New DataTable
         Dim txt As String
@@ -854,43 +854,38 @@ Public Class frmRptRecargas '948 - 880
             Application.DoEvents()
         End With
 
-        txt = "ESPERA DE PROCESO"
-        Calculo1(" ", dtx, txt)
-        FechasRetiros(dtx)
-        dt.Merge(dtx)
-
         txt = "EN PROCESO"
         CalculoEnProceso(dtx)
         FechasRetiros(dtx)
         dt.Merge(dtx)
 
         txt = "ADMINISTRACION DE VENTA"
-        Calculo2("ADM", dtx, txt)
+        CalculoEnSectores("ADM", dtx, txt)
         FechaPistoleo(dtx, "ADM")
         dt.Merge(dtx)
 
         txt = "VENTAS"
-        Calculo2("VEN", dtx, txt)
+        CalculoEnSectores("VEN", dtx, txt)
         FechaPistoleo(dtx, "VEN")
         dt.Merge(dtx)
 
         txt = "CONTADOS"
-        Calculo2("CTD", dtx, txt)
+        CalculoEnSectores("CTD", dtx, txt)
         FechaPistoleo(dtx, "CTD")
         dt.Merge(dtx)
 
         txt = "PENDIENTE - LOGISTICA"
-        Calculo2("LOG", dtx, txt)
+        CalculoEnSectores("LOG", dtx, txt)
         FechaPistoleo(dtx, "LOG")
         dt.Merge(dtx)
 
         txt = "PENDIENTE - ABONOS"
-        Calculo2("ABO", dtx, txt)
+        CalculoEnSectores("ABO", dtx, txt)
         FechaPistoleo(dtx, "ABO")
         dt.Merge(dtx)
 
         txt = "PENDIENTE - SISTEMAS FIJO"
-        Calculo2("ING", dtx, txt)
+        CalculoEnSectores("ING", dtx, txt)
         FechaPistoleo(dtx, "ING")
         dt.Merge(dtx)
 
@@ -1040,61 +1035,6 @@ Public Class frmRptRecargas '948 - 880
         Return txt
 
     End Function
-    Private Function Calculo1(ByVal sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
-        Dim da As OracleDataAdapter
-        Dim Sql As String
-        Dim dt As New DataTable
-        Dim i As Integer = 0
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, equipos_1 + equipos_3 as cant, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector "
-        Sql &= "from interven itn  inner join "
-        Sql &= "     xrutad xrd on (itn.num_0 = xrd.vcrnum_0) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where tipo_0 = 'RET' and "
-        Sql &= "      typ_0 <> 'G1' and "
-        Sql &= "      estado_0 = 3 and "
-        Sql &= "      zflgtrip_0 = 2 and "
-        Sql &= "      xsector_0 = :xsector and "
-        Sql &= "      itn.bpc_0 <> '402000' "
-        Sql &= "order by num_0"
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
-        da.Fill(dt)
-        da.Dispose()
-
-        Sql = "select itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0 as dire, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 as sector, sum(tqty_0) as cant "
-        Sql &= "from interven itn inner join "
-        Sql &= "     yitndet yit on (itn.num_0 = yit.num_0 and typlig_0 = 1) inner join "
-        Sql &= "     bpcustomer bpc on (itn.bpc_0 = bpc.bpcnum_0) "
-        Sql &= "where zflgtrip_0 = 1 and "
-        Sql &= "      typ_0 = 'D1' and "
-        'Sql &= "      yotr_0 <> 0 and "
-        Sql &= "      xsector_0 = :xsector and "
-        Sql &= "      itn.bpc_0 <> '402000'"
-        Sql &= "group by itn.dat_0, itn.num_0, itn.bpc_0, bpcnam_0, itn.bpaadd_0 || '-' || itn.add_0, itn.credat_0, yobsrec_0, bpc.rep_0, itn.add_0 "
-        Sql &= "order by num_0"
-        da = New OracleDataAdapter(Sql, cn)
-        da.SelectCommand.Parameters.Add("xsector", OracleType.VarChar).Value = sector
-        da.Fill(dt)
-        da.Dispose()
-
-        For Each dr As DataRow In dt.Rows
-            i += CInt(dr("cant"))
-
-            If txt <> "" Then
-                dr.BeginEdit()
-                dr("sector") = txt
-                dr.EndEdit()
-            End If
-        Next
-
-        If xdt IsNot Nothing Then
-            xdt = dt
-        End If
-
-        Return i
-
-    End Function
     Private Function CalculoEnProceso(Optional ByRef xdt As DataTable = Nothing) As Integer
         Dim da As OracleDataAdapter
         Dim Sql As String
@@ -1126,7 +1066,7 @@ Public Class frmRptRecargas '948 - 880
         Return i
 
     End Function
-    Private Function Calculo2(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
+    Private Function CalculoEnSectores(ByVal Sector As String, Optional ByRef xdt As DataTable = Nothing, Optional ByVal txt As String = "") As Integer
         Dim da As OracleDataAdapter
         Dim Sql As String
         Dim dt As DataTable
